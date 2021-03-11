@@ -6,6 +6,9 @@ JupyterLab:
 Regular Notebooks:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/albop/mie37.git/master)
 
+## Link to the slides:
+
+[convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
 
 ## Communication
 

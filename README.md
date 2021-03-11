@@ -23,7 +23,7 @@ Regular Notebooks:
 | Date  | Content                                   | Homework                                                            |
 | ----- | ----------------------------------------- | ------------------------------------------------------------------- |
 | 04/03 | Intro, Julia Basics Tutorial | Epidemiology Tutorial (1) |
-| 11/03 | <mark>Convergence of Sequences, Linear New Keynesian Model (1), Julia Basics Tutorial (2) </mark>                                         | <mark style="background-color: orange">Epidemiology Tutorial (2)</mark>                                                                    |
+| 11/03 | <mark>Convergence of Sequences, Julia Basics Tutorial (2) </mark>                                         | <mark style="background-color: orange">Epidemiology Tutorial (2)</mark>                                                                    |
 | 25/03 |                                           |                                                                     |
 | 01/04 |                                           |                                                                     |
 | 08/04 |                                           |                                                                     |

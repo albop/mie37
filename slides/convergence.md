@@ -15,9 +15,9 @@
 
 ---
 
-### Recursive series
+### Recursive sequence
 
-Consider a function $f: R\rightarrow R$ and a recursive series $(x_n)$ defined by $x_0$ and $x_n = f(x_{n-1})$.
+Consider a function $f: R\rightarrow R$ and a recursive sequence $(x_n)$ defined by $x_0$ and $x_n = f(x_{n-1})$.
 
 We want to compute a fixed point of $f$ and study its properties.
 
@@ -36,6 +36,7 @@ We want to compute a fixed point of $f$ and study its properties.
       $$y_t = k_t^\alpha$$
   - consumption:
       $$c_t = (1-{\color{red}s})y_t$$
+      $$i_t = s y_t$$
 
 <div class="r-stack">
 
@@ -167,13 +168,16 @@ $$g(x)=x-\frac{f(x)-x}{f^{\prime}(x)-1}$$
 
 ### Dynamics around a stable point
 
-- We can write:
+- We can write successive approximation errors:
 
 $$|x_t - x_{t-1}| =  | f(x_{t-1}) - f(x_{t-2})| $$
 
 $$|x_t - x_{t-1}| \sim |f^{\prime}(x_{t-1})| |x_{t-1} - x_{t-2}| $$
 
+- Ration of successive approximation errors
 $$\lambda_t =  \frac{ |x_{t} - x_{t-1}| } { |x_{t-1} - x_{t-2}|}$$
+
+- $\lambda_t \rightarrow f^{\prime}(\overline{x})$
 
 ---
 

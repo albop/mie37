@@ -8,7 +8,8 @@ Regular Notebooks:
 
 ## Link to the slides:
 
-[convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
+- [convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
+- [perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html)
 
 ## Communication
 

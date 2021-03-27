@@ -26,13 +26,16 @@ Study Neoclassical Model of Growth with Deterministic Productivity Shocks
 <div class="col">
 
 - Transition Equation
-$$k_t (1-\delta) k_{t-1} + i_{t-1}$$
+$$k_t = (1-\delta) k_{t-1} + i_{t-1}$$
 $$z_t = \rho z_{t-1}$$
 - Definition:
 $$c_t = \exp(z_t) k_t^\alpha - i_t$$
-- Control $i_t\in[0,k_t^\alpha[$
+
+- Control $i_t\in[-(1-\delta) k_t,k_t^\alpha[$
+  - or equivalently $c_t \in [0, k_t^{\alpha}]$
+
 - Objective:
-$$\max_{i_t} \sum_t \beta^t U(c_t)$$
+$$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 
 
 </div>
@@ -43,6 +46,7 @@ $$\max_{i_t} \sum_t \beta^t U(c_t)$$
   - $\delta = 0.1$
   - $\gamma = 4.0$
   - $\alpha = 0.3$
+  - $U(x)=\frac{x^{1-\gamma}}{1-\gamma}$
   
 </div>
 
@@ -55,23 +59,100 @@ $$\max_{i_t} \sum_t \beta^t U(c_t)$$
        1. Optimality Condition
        2. Enveloppe Condition
     2. Lagrangian:
-- We will use the lagrangian versoin
+- We will use the lagrangian version
 
 ----
 
 ### Lagrangian
 
-- Problem:
-  - Initial Conditions (predetermined states):
+- Initial Conditions (predetermined states):
     - $z_0$, $k_0$
-  - Find:
-$$V(z_0, k_0) = \max_{i_0, i_1, ..., c_0, c1, ...., k_1, k_2 } \sum_{t \geq 0} U(c_t)$$
-s.t. ($\forall t\geq 1$)
-$$\mu_t: i_t \leq \exp(z_t) k_t^{\alpha} $$
-$$\lambda_t: i_t = \exp(z_t) k_t^{\alpha} - c_t$$
-$$q_t: k_t = (1-\delta) k_{t-1} + i_{t-1}$$
+- Problem:
+$$V(z_0, k_0) = \max_{i_0, i_1, ..., c_0, c1, ...., k_1, k_2, ...  } \sum_{t \geq 0}\beta^t U(c_t)$$
+s.t. $\forall t\geq 0$
+$$\begin{eqnarray}
+\mu_t:\quad &  0 & \leq & i_t + (1-\delta) k_t \\\\
+\nu_t:\quad &  i_t & \leq & \exp(z_t) k_t^{\alpha} \\\\
+\lambda_t:\quad &  i_t & = & \exp(z_t) k_t^{\alpha} - c_t\\\\
+q_t:\quad &  k_{t+1} & = & (1-\delta) k_{t} + i_{t}
+\end{eqnarray}$$
 - Lagrangian:
-  $$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left( - i_t + \exp(z_t) k_t^{\alpha} - c_t\right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t - c_t  \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\\}$$
+$$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left( i (1-\delta) k_t + i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\\}$$
+
+----
+
+### Lagrangian
+
+<div class="container">
+<div class="col">
+
+- We maximize the lagrangian to get:
+
+$$\begin{eqnarray}
+\forall t\geq0 & \frac{\partial \mathcal{L}}{\partial i_t} & = & 0 \\\\
+& \frac{\partial \mathcal{L}}{\partial c_t} & = & 0 \\\\
+ & \frac{\partial \mathcal{L}}{\partial k_{t+1}} & = & 0 
+\end{eqnarray}$$
+
+- It is important to note that we don't differentiate with respect to a predetermined state
+  - check that you don't differentiate w.r.t. $k_0$
+- It looks like the first order condition added four new variables $\mu_t$,$\nu_t$, $\lambda_t$, $q_t$
+
+</div>
+
+<div class="col">
+
+- Luckily these variables are associated to slackness conditions.
+
+|                    |                                             |
+| ------------------ | ------------------------------------------- |
+| $\mu_t \geq 0$     | $(1-\delta)k_t + i_t \geq 0$                |
+| $\nu_t \geq 0$     | $\exp(z_t) k_t^{\alpha}-i_t \geq 0$         |
+| $q_t \geq 0$       | $(1-\delta) k_{t} + i_{t} - k_{t+1} \geq 0$ |
+| $\lambda_t \geq 0$ | $\exp(z_t) k_t^{\alpha}  - i_t -c_t = 0$    |
+
+- The Karush-Kuhn-Tucker states, that for each slackness condition, at any time, either
+  - the lagrangian is 0 and it disappears from the F.O.C.s
+  - or it is not 0 and the associated constraint adds another condition
+
+</div>
+</div>
+
+----
+
+### Eliminating constraints
+
+<div class="container">
+<div class="col">
+
+|                    |                                             |
+| ------------------ | ------------------------------------------- |
+| $\mu_t \geq 0$     | $(1-\delta)k_t + i_t \geq 0$                |
+| $\nu_t \geq 0$     | $\exp(z_t) k_t^{\alpha}-i_t \geq 0$         |
+| $q_t$       | $(1-\delta) k_{t} + i_{t} - k_{t+1} = 0$ |
+| $\lambda_t$ | $\exp(z_t) k_t^{\alpha}  - i_t -c_t = 0$    |
+
+- In general slackness conditions can be occasionally binding
+- For perturbation analysis, we need constraints to be always (or never binding)
+
+</div>
+<div class="col">
+
+Let's review them:
+- $\nu_t$: it is equivalent to $c_t\geq 0$
+  - we necessarily have $c_t>0$ since $U^{\prime}(0)=\infty$
+  - hence $\nu_t=0$
+- $\mu_t$: it states $k_{t+1}\geq 0$
+  - if $k_{t+1}=0$, then $c_{t+1}$. We can conclude $k_{t+1}>0$
+  - hence $\mu_t=0$
+- for multipliers associated to an equality constraint, we always keep the system
+  - multiplier can have any sign
+- but sometimes, there is an implicit inequality:
+  -  $c_t \leq \exp(z_t) k_t^{\alpha}  - i_t$ ( you can destroy production insead of eating or investing it)
+  - $k_{t+1} \leq (1-\delta) k_{t} + i_{t}$ (you can destroy capital instead of investing it)
+
+</div>
+
 
 ----
 
@@ -79,7 +160,7 @@ $$q_t: k_t = (1-\delta) k_{t-1} + i_{t-1}$$
 
 - Optimality Condition:
 $$\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}} \left( (1-\delta + \alpha k_t^{\alpha -1}) \right)\right] = 1$$
-  - Takes into account the fact that $\lambda_t>0$
+  - Takes into account the fact that $c_t>0$.
 - Definition:
 $$c_t = k_t^\alpha - i_t$$
 
@@ -123,7 +204,7 @@ $$c_{t}=\overline{c} + \Delta c_t$$
 <div class="col">
 
 - Replace in the system
-$$\beta  \left[ \frac{\left(\overline{c}+ \Delta c_{t+1}\right)^{-\gamma}}{\left(\overline{c} + \Delta c_t\right)^{-\gamma}} \left( (1-\delta + \alpha (\overline{k} + \Delta k_t)^{\alpha -1}) \right)\right] = 1$$
+$$\beta  \left[ \frac{\left(\overline{c}+ \Delta c_{t+1}\right)^{-\gamma}}{\left(\overline{c} + \Delta c_t\right)^{-\gamma}} \left( (1-\delta + \alpha (\overline{k} + \Delta k_{t+1})^{\alpha -1}) \right)\right] = 1$$
 $$\overline{c} + \Delta c_t = (\overline{k}+ \Delta k_t)^\alpha - \overline{i} - \Delta i_t$$
 $$\overline{k} + \Delta k_t = (1-\delta) (\overline{k}+ \Delta k_{t-1}) + \overline{i }+ \Delta i_{t-1}$$
 $$\overline{z }+ \Delta z_t = \overline{z}+ \Delta \rho z_{t-1}$$

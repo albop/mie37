@@ -77,3 +77,5 @@ Define two linear operators `L_S(S::Matrix, X_0::Matrix, m::PerturbedModel)::Mat
 Implement a function `spectral_radius(f::Function)::Float64` which implements the power iteration method to compute the biggest eigenvalues of the two previously defined operators. Check that Blamnchard-Kahn conditions are met.
 
 Write a function `simulate(s0::Vector, X::Matrix, p::Calibration, T::Int64)::Tuple{Matrix, Matrix}` to simulate the model over $T$ periods (by using the formula $\Delta s_t = (E + F X) s_{t-11}$. Return a matrix for the states (one line per date) and another matrix for the controls. Bonus: add a keyword option to compute variables levels or log-deviations. If possible, return a DataFrame object.
+
+Make some nice plots.

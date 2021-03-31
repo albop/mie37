@@ -1,5 +1,8 @@
-
 # Convergence of recursive series
+
+## Advanced Macro: Numerical Methods,  2021 (MIE37)
+
+Pablo Winant
 
 ---
 

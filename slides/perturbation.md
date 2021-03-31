@@ -1,5 +1,8 @@
-
 # Perturbation Analysis (1)
+
+## Advanced Macro: Numerical Methods,  2021 (MIE37)
+
+Pablo Winant
 
 ----
 
@@ -26,8 +29,11 @@ Study Neoclassical Model of Growth with Deterministic Productivity Shocks
 <div class="col">
 
 - Transition Equation
-$$k_t = (1-\delta) k_{t-1} + i_{t-1}$$
-$$z_t = \rho z_{t-1}$$
+$$\begin{eqnarray}
+k_t & = & (1-\delta) k_{t-1} + i_{t-1} \\\\
+z_t & = & \rho z_{t-1}
+\end{eqnarray}
+$$
 - Definition:
 $$c_t = \exp(z_t) k_t^\alpha - i_t$$
 
@@ -68,7 +74,7 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 - Initial Conditions (predetermined states):
     - $z_0$, $k_0$
 - Problem:
-$$V(z_0, k_0) = \max_{i_0, i_1, ..., c_0, c1, ...., k_1, k_2, ...  } \sum_{t \geq 0}\beta^t U(c_t)$$
+$$V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\\\c_0, c_1, c_2 \cdots \\\\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)$$
 s.t. $\forall t\geq 0$
 $$\begin{eqnarray}
 \mu_t:\quad &  0 & \leq & i_t + (1-\delta) k_t \\\\
@@ -93,6 +99,7 @@ $$\begin{eqnarray}
 & \frac{\partial \mathcal{L}}{\partial c_t} & = & 0 \\\\
  & \frac{\partial \mathcal{L}}{\partial k_{t+1}} & = & 0 
 \end{eqnarray}$$
+
 
 - It is important to note that we don't differentiate with respect to a predetermined state
   - check that you don't differentiate w.r.t. $k_0$
@@ -172,6 +179,11 @@ $$z_t = \rho z_{t-1}$$
 
 ### Steady-State
 
+
+<div class="container">
+
+<div class="col">
+
 - Steady-State: $\overline{i}, \overline{k}, \overline{z}$ such that:
   - $z_{t+1}=k_t=\overline{z}$
   - $k_{t+1}=k_t=\overline{k}$
@@ -181,9 +193,24 @@ $$z_t = \rho z_{t-1}$$
 $$\beta   \left( (1-\delta + \alpha {\overline{k}}^{\alpha -1}) \right) = 1$$
 $$\overline{k} (1-\delta) \overline{k} + \overline{i}$$
 $$\overline{z} = \rho \overline{z}$$
+
+</div>
+<div class="col">
+
 - Solution?
   - closed-form
   - numerical
+
+- Here we can get a closed form:
+
+$$\begin{eqnarray}
+\overline{k} & = & \left( \frac{\frac{1}{\beta}-(1-\delta)}{\alpha} \right)^{\frac{1}{\alpha - 1}} \\\\
+\overline{i} & = & \delta \overline{k} \\\\\
+\overline{z} & = & z
+\end{eqnarray}$$
+
+</div>
+</div>
 
 ----
 
@@ -484,28 +511,76 @@ exp(x) + log(y)
 
 <div class="col">
 
-$$ A s_t + B x_t + C s_{t+1} + D x_{t+1} = 0$$
-$$ s_{t+1} = E s_t + F x_t $$
-
+- General formulation of a *linearized* model:
+$$ \begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0_{n_x} \\\\
+s_{t+1} & = & E s_t + F x_t \end{eqnarray}$$
 where:
-
-$$s_t=(\Delta z_t, \Delta k_t)$$
-$$x_t = (\Delta i_t)$$
+  - $s_t \in \mathbb{R}^{n_s}$ is a vector of *states*
+  - $x_t \in \mathbb{R}^{n_x}$ is a vector of *controls*
+- Remark:
+  - first equation is *forward* looking
+  - second equation is *backward* looking
 
 </div>
 
 <div class="col">
 <div>
 
-- What is the solution of our problem?
-- At date $t$ what are the predetermined variables?
-  - $k_t$ and $z_t$: the states
-- The control $i_t$ must be a function of the states
-  - there is a decision rule $i_t$ such that $i_t = \varphi(z_t, k_t)$
-  - in the linearized model: $i_t = X \begin{bmatrix} z_t \\\\ k_t \end{bmatrix}$
+- In the neoclassical model:
+$$\begin{eqnarray}
+s_t & = & (\Delta z_t, \Delta k_t) \\\\
+x_t & = & (\Delta i_t)
+\end{eqnarray}$$
+
+- The linearized system is:
+$$\begin{eqnarray}
+A & = & ...\\\\
+B & = & ...\\\\
+C & = & ...\\\\
+D & = & ...\\\\
+E & = & ...\\\\
+F & = & 
+\end{eqnarray}$$
 
 </div>
 </div>
+
+----
+
+### Solution
+
+<div class="container">
+<div class="col">
+
+- What is the solution of our problem?
+- At date $t$ *controls* must be chosen as a function of (predetermined) *states*
+
+- Mathematically speaking, the solution is a function $\varphi$ such that:
+  $$\forall t, s_t = \varphi(x_t)$$
+- Since the model is linear we look for un unknown matrix $X \in \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}$ such that:
+
+$$\Delta x_t = X \Delta s_t$$
+
+
+</div>
+
+<div class="col">
+<div>
+  
+  In the neoclassical model
+- The control $i_t$ must be a function of the states
+-  there is a decision rule $i()$ such that 
+$$i_t = i(z_t, k_t)$$
+- In the linearized model:
+$$\Delta i_t =i_z \Delta z_t + i_k \Delta k_t$$
+
+
+- $k_t$ and $z_t$: the states
+
+
+</div>
+</div>
+
 
 ----
 
@@ -517,11 +592,13 @@ $$x_t = (\Delta i_t)$$
 <div class="col">
 
 - Replacing in the system:
-
-$$ x_t = X s_t $$
-$$ s_{t+1} = E s_t + F X s_t $$
-$$ x_{t+1} = X s_{t+1} $$
-$$ A s_t + B x_t + C s_{t+1} + D x_{t+1} = 0$$
+$$ \begin{eqnarray}
+\Delta x_t & = & X \Delta s_t \\\\
+\Delta s_{t+1} & = & E \Delta s_t + F X \Delta s_t \\\\
+\Delta x_{t+1} & = & X \Delta s_{t+1} \\\\
+A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} & = & 0
+\end{eqnarray}
+$$
 
 - If we make the full substitution:
 
@@ -532,11 +609,12 @@ $$( (A + B X) + ( D X + C) ( E  + F X ) ) s_t = 0$$
 
 - This must be true for all $s_t$. We get the special Ricatti equation:
 
-$$(A + B X) + ( D X + C) ( E  + F X ) ) = 0 $$
+$$(A + B \color{red}{X}) + ( D \color{red}{X} + C) ( E  + F \color{red}{X} ) = 0 $$
 
 - this is a __quadratic__, __matrix__ ( $X$ is 1 by 2 ) equation:
   - requires special solution method
   - there are multiple solutions: which should we choose?
+    - today: linear time iteration selects only one solution
     - next time: eigenvalues analysis
 
 </div>
@@ -549,26 +627,43 @@ $$(A + B X) + ( D X + C) ( E  + F X ) ) = 0 $$
 - Let's be more subtle: define
   - $X$: decision rule today and
   - $\tilde{X}$ is decision rule tomorrow.
-$$ x_t = X s_t$$
-$$ s_{t+1} = E s_t + F X s_t $$
-$$ x_{t+1} = \tilde{X} s_{t+1} $$
-$$ A s_t + B x_t + C s_{t+1} + D x_{t+1} = 0$$
-- We get the equation: 
-$$F(X, \tilde{X}) = (A + B X) + ( D \tilde{X} + C) ( E  + F X ) ) = 0 $$
+$$\begin{eqnarray}
+\Delta x_t & =&  X \Delta s_t \\\\
+\Delta s_{t+1} & = & E \Delta  s_t + F X \Delta s_t \\\\
+\Delta x_{t+1} & = & \tilde{X} \Delta s_{t+1} \\\\
+A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} & = & 0
+\end{eqnarray}$$
+- We get, $\forall s_t$:
+$$(A + B X) + (C + D \tilde{X}) ( E  + F X ) ) \Delta s_t = 0 $$
+- Again, this must be zero in all states $\Delta s_t$.
 
 ----
 
 ### Linear Time Iteration (2)
 
-- We get the equation: 
-$F(X, \tilde{X}) = (A + B X) + ( D \tilde{X} + C) ( E  + F X ) ) = 0 $
 
-- Now consider the following algorithm:
+<div class="container">
+
+<div class="col">
+
+- We get the equation: 
+$$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
+- Consider the *linear time iteration* algorithm
+- When the model is well-specified it is guaranteed to converge to the right solution.
+  - cf *linear time iteration* by Pontus Rendahl ([link](https://irihs.ihs.ac.at/id/eprint/4351/1/es-330.pdf))
+- There are simple criteria to check that the solution is right, and that the model is well specified
+- $T$ is the time iteration operator... for linear models
+  - it does *forward iteration* ($X_t$ as a function of $X_{t+1}$)
+
+</div>
+<div class="col">
+
+- algorithm:
   - choose stopping criteria: $\epsilon_0$ and $\eta_0$
   - choose random $X_0$
   - given $X_n$:
     - compute $X_{n+1}$ such that $F(X_{n+1}, X_{n}) = 0$
-      - $$X_{n+1} = (...)$$
+      <span class="r-stack"><span class="fragment current-visible">$$(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0$$</span><span class="fragment current-visible">$$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$</span><span class="fragment">$$X_{n+1} = T(X_n)$$</span></span>
     - compute:
       - $\eta_n = |X_{n+1} - X_n|$
       - $\epsilon_n = F(X_{n+1}, X_{n+1})$
@@ -576,8 +671,105 @@ $F(X, \tilde{X}) = (A + B X) + ( D \tilde{X} + C) ( E  + F X ) ) = 0 $
       - stop and return $X_{n+1}$
       - otherwise iterate with $X_{n+1}$
 
-- When the model is well-specified this is guaranteed to converge to the right solution.
+</div>
+</div>
+
+----
+
+### Simulating the model
+
+- Suppose we have found the solution $\Delta X_t  = \Delta s_t$
+- Recall the transition equation: $\Delta s_{t+1} = F \Delta s_t + G \Delta x_t$
+- We can now compute the model evolution following initial deviation in the state:
+$$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
+  - $P$ is the simulation operator
+  - it does *backward* iteration
+(TODO: example of a reaction to a shock)
+- The system is stable if the biggest eigenvalue of $P$ is smaller than one...
+- ... or if its spectral radius is smaller than 1:
+  $$\rho(P)<1$$
+- This condition is called *backward* stability
+  - it rules out *explosive solutions*
+  - if $\rho(P)>1$ one can always find $s_0$ such that the model simulation diverges
+
+----
+
+### Spectral radius
+
+<div class="container">
+<div class="col">
+
+- How do you compute the spectral radius of matrix P?
+  - naive approach: compute all eigenvalues, check the value of the biggest one...
+  - better approach: power iteration method
+- Power iteration method:
+  - take a linear operator $L$ over a Banach Space $\mathcal{B}$ (vector space with a norm)
+  - use the fact that *for most* $u_0\in \mathcal{B}$, $\frac{|L^{n+1} u_0|}{|L^n u_0|}\rightarrow \rho(L)$
+
+</div>
+<div class="col">
+
+- Algorithm:
+  - choose tolerance criterium: $\eta>0$
+  - choose random initial $x_0$ and define $u_0 = \frac{x_0}{|x_0|}$
+    - by construction: $|u_0|=1$
+  - given $u_n$, compute 
+    - $x_{n+1} = L.u_n$
+    - $u_{n+1} = \frac{x_{n+1}}{|x_{n+1}|}$
+    - compute $\eta_{n+1} = |u_{n+1} - u_n|$
+    - if $\eta_{n+1}<\eta$: 
+      - stop and return $|x_{n+1}|$
+      - else iterate with $u_{n+1}$
+
+</div>
+</div>
+
+----
+
+### Stability of the backward operator
 
 
+- To solve the model we use the backard operator: $$T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  & \rightarrow &  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\\\X_{t+1} & \mapsto & X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}$$
+- What about its stability?
+  - TODO: interpretation
+- Recall: fixed point $\overline{z}$ of recursive sequence $z_n=f(z_{n_1})$ is stable if $|f^{\prime}(\overline{z})|<1$
+- We need to study $T^{\prime}$ of ($X$).
+  - but $T$ maps a matrix to another matrix 🐉😓
+  - how do we differentiate it?
+  
+<img class="fragment" src="adele_bs.jpg">
 
+----
 
+### Differentials
+
+- Consider a Banach Space $\mathcal{B}$.
+- Consider an operator (i.e. a function): $\mathcal{T}: \mathcal{B} \rightarrow \mathcal{B}$.
+- Consider $\overline{x} \in \mathcal{B}$.
+- $\mathcal{T}$ is differentiable at $\overline(x)$ if there exists a bounded linear operator $L \in \mathcal{L}(\mathcal{B})$ such that:
+$$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
+- when it exists we denote this operator by $\mathcal{T}^{\prime}(\overline{x})$
+
+----
+
+### Examples of linear operators
+
+- $x$ vector, A a matrix, $T(x) = Ax$
+  - then $T(x+u) = Ax + A.u$
+  - $T^{\prime}(x) = A$ for all x
+- $A$ a matrix, B a matrix, X a matrix: $T(X) = A X B$
+  - then $T(X+u) = A X B + A u B$
+  - $T^{\prime}(X).u = A u B$
+- $A$ a matrix, X a matrix: $T(X) = A X B$
+  - then $T(X+u) = A X B + A u B$
+  - $T^{\prime}(X).u = A u B$
+
+----
+
+### Back to the time iteration operator
+
+- $T(X)$ is implicitly defined by $F(T(X), X)=0$
+- $F(X,Y) = (A + B X) + ( C+ D Y) ( E  + F X )$
+  - it is linear in $X$ and in $Y$
+- $F^{\prime}_X (X, Y).u = $
+- $F^{\prime}_Y (X, Y).u = $

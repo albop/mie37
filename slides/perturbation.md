@@ -746,19 +746,22 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
 - Consider a Banach Space $\mathcal{B}$.
 - Consider an operator (i.e. a function): $\mathcal{T}: \mathcal{B} \rightarrow \mathcal{B}$.
 - Consider $\overline{x} \in \mathcal{B}$.
-- $\mathcal{T}$ is differentiable at $\overline(x)$ if there exists a bounded linear operator $L \in \mathcal{L}(\mathcal{B})$ such that:
+- $\mathcal{T}$ is differentiable at $\overline{x}$ if there exists a bounded linear operator $L \in \mathcal{L}(\mathcal{B})$ such that:
 $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
 - when it exists we denote this operator by $\mathcal{T}^{\prime}(\overline{x})$
+- Remarks:
+  - Bounded operator means: $\sup_{|x|=1} |L.x|<+\infty$
+  - This definition of a derivative is usually referred to as Fréchet-derivative
 
 ----
 
 ### Examples of linear operators
 
 - $x$ vector, A a matrix, $T(x) = Ax$
-  - then $T(x+u) = Ax + A.u$
+  - then $T(x+u) = Ax + A.u + 0$
   - $T^{\prime}(x) = A$ for all x
 - $A$ a matrix, B a matrix, X a matrix: $T(X) = A X B$
-  - then $T(X+u) = A X B + A u B$
+  - then $T(X+u) = A X B + A u B + 0$
   - $T^{\prime}(X).u = A u B$
 - $A$ a matrix, X a matrix: $T(X) = A X B$
   - then $T(X+u) = A X B + A u B$
@@ -771,5 +774,45 @@ $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
 - $T(X)$ is implicitly defined by $F(T(X), X)=0$
 - $F(X,Y) = (A + B X) + ( C+ D Y) ( E  + F X )$
   - it is linear in $X$ and in $Y$
-- $F^{\prime}_X (X, Y).u = $
-- $F^{\prime}_Y (X, Y).u = $
+- $F^{\prime}_X (X, Y).u = (B + (C+DY)F) X$
+  - a regular matrix multiplication
+  - its inverse is: $F^{\prime}_X (X, Y) = (B + (C+DY)F)^{-1}$
+- $F^{\prime}_Y (X, Y).u = D u (E+FX)$
+  - a linear operation on matrices
+
+----
+
+### The derivative of the time-iteration operator
+
+- Implicit relation can be differentiated:
+$$F^{\prime}_X (T(X), X) T^{\prime} (X) + F_Y^{\prime}(T(X),X) = 0$$
+- $F^{\prime}_X (T(X), X)$ being a regular matrix, it is (conceptually) easy to invert:
+$$T^{\prime}(X) = -(F^{\prime}_X (T(X), X))^{-1}F_Y^{\prime}(T(X),X)$$
+- Finally, we get the explicit formula for the linear operator $T^{\prime}$ computed at the steady state:
+$$T^{\prime}(\overline{X}).u = ((B + (C+D \overline{X})F)^{-1})^{-1}D u (E+F \overline{X})$$
+- We can compute the spectral radius of $T^{\prime}(\overline{X})$ using the power iteration method
+
+----
+
+### Recap
+
+1. We compute the derivatives of the model
+2. Time iteration algorithm, starting from an initial guess $X_0$ and we repeat until convergence:
+$$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$
+3. We compute the spectral radius of two operators to ensure the model is well defined and that the solution is the right one.
+  1. backward stability: derivative of simulation operator
+$$\rho(F + H \overline{X} )$$
+  2. forward stability: derivative of time iteration operator
+$$\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})^{-1}D u (E+F \overline{X}) \right)$$
+
+This is equivalent to the so-called Blanchard-Kahn conditions.
+
+---
+
+## Schur Decomposition Method and Blanchard-Kahn conditions
+
+----
+
+[tbc]
+
+---

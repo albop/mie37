@@ -150,8 +150,8 @@ $$\mathcal{L} = \mathbb{E}\_0 \left[ \sum_t \beta^t \left\\{ \begin{matrix} U(c_
 
 ### RBC first order conditions:
 
-$$\begin{eqnarray} \beta 
-U^{\prime}(c_t) & = & \mathbb{E}\_t \left[  U^{\prime} (c_{t+1}) \left( 
+$$\begin{eqnarray} 
+U^{\prime}(c_t) & = & \beta \mathbb{E}\_t \left[  U^{\prime} (c_{t+1}) \left( 
          (1-\delta) + \alpha e^{z\_{t+1}} k\_{t+1}^{\alpha-1} n\_{t+1}^{1-\alpha} 
              \right) \right] \\\\
 \chi V^{\prime} (1-n_t) & = &  (1-\alpha) e^{z_t} k_t^{\alpha} (n_t)^{-\alpha} U^{\prime}(c_t)
@@ -161,9 +161,9 @@ U^{\prime}(c_t) & = & \mathbb{E}\_t \left[  U^{\prime} (c_{t+1}) \left(
 
 ### Exercise:
 
-- Set $U(x) = \frac{c_t^{1-\gamma}}{1-\gamma}$, $V(x) = \frac{(1-n_t)^{1-\eta}}{1-\eta}$
-
+- Set $U(x) = \frac{c_t^{1-\gamma}}{1-\gamma}$, $V(x) = \frac{(1-x)^{1-\eta}}{1-\eta}$
 - Try to find the steady state
+  - it is impossible to do so in closed-form
 - Set $\overline{n} = 0.33$ and adjust $\chi$ so that it is a steady-state
 
 ---
@@ -194,13 +194,13 @@ U^{\prime}(c_t) & = & \mathbb{E}\_t \left[  U^{\prime} (c_{t+1}) \left(
 - Cobb Douglas production: $y_i = f(k_i, n_i) = (k_i)^{\alpha} (n_i)^(1-\alpha)$
 - Since there is only one good, its price can be set to $1$
 - Firm takes wages $w$ and rental price of capital $r$ as given:
-$$max_{k_i, n_i} \pi(k_i, n_i) =  f(k_i, n_i) - w  k_i - r n_i$$
+$$max_{k_i, n_i} \pi(k_i, n_i) =  f(k_i, n_i) - r  k_i - w n_i$$
 - Optimally:
   - $f_k^{\prime}(k_i, n_i) = \alpha k_i^{\alpha-1} n_i^{1-\alpha}  = r$
   - $f_n^{\prime}(k_i, n_i) = (1-\alpha) k_i^{\alpha-1} n_i^{-\alpha}  = w$
 - Remark:
   - capital share: $\frac{r k_i}{y_i} = \alpha$
-  - labour share: $w n_i = 1- \alpha$
+  - labour share: $\frac{w n_i}{y_i} = 1- \alpha$
   - profits are zero
 
 ----
@@ -211,7 +211,7 @@ $$max_{k_i, n_i} \pi(k_i, n_i) =  f(k_i, n_i) - w  k_i - r n_i$$
 - Note that for each firm
 $$(1 - \alpha) \frac{k_i}{l_i} = \alpha \frac{w}{r}$$
 - We can sum over all firms to get:
-$$(1-\alpha) \frac{K}{L} = \alpha \frac{w}{r}$$
+$$(1-\alpha){K} = \alpha \frac{w}{r}L$$
 - we can write:
 $$y_i = (k_i)^{\alpha} (n_i)^{1-\alpha} = k_i \left( \frac{k_i}{n_i} \right)^{1-\alpha} = k_i (K/L)^{1-\alpha}$$
 - and sum over all firms: 
@@ -224,7 +224,7 @@ $$Y = K (K/L)^{1-\alpha} = K^\alpha L ^{1-\alpha}$$
 
 - Our representative agent takes $w_t$ and $r_t$ as given.
 - He supplies labour and capital, and decides how much to save so as to maximize:
-$$\max_{\begin{matrix} c_t, n_t \\\\ c_t \leq \pi_t + w_t k_t + r_t n_t - i_t \\\\ k_{t+1} = (1-\delta) k_t + i_t \\\\ c_t \geq 0 \end{matrix}} \sum_t \beta^t \left(U(c_t)  + V(n_t) \right)$$
+$$\max_{\begin{matrix} c_t, n_t \\\\ c_t \leq \pi_t + r_t k_t + w_t n_t - i_t \\\\ k_{t+1} = (1-\delta) k_t + i_t \\\\ c_t \geq 0 \end{matrix}} \sum_t \beta^t \left(U(c_t)  + V(n_t) \right)$$
 - <!-- .element class="fragment" --> Result:
 $$\begin{eqnarray} \beta 
 U^{\prime}(c_t) & = & \beta \mathbb{E}\_t \left[  U^{\prime} (c_{t+1}) \left( (1-\delta) + r_{t+1}\right) \right] \\\\
@@ -241,7 +241,7 @@ U^{\prime}(c_t) & = & \beta \mathbb{E}\_t \left[  U^{\prime} (c_{t+1}) \left( (1
 
 - Our representative agent takes $w_t$ and $r_t$ as given.
 - He supplies labour and capital, and decides how much to save so as to maximize:
-$$\max_{\begin{matrix} c_t, n_t \\\\ c_t \leq \pi_t + (1-\tau) w_t k_t + r_t n_t - i_t + g_t \\\\ k_{t+1} = (1-\delta) k_t + i_t \\\\ c_t \geq 0 \end{matrix}} \sum_t \beta^t \left(U(c_t)  + V(n_t) \right)$$
+$$\max_{\begin{matrix} c_t, n_t \\\\ c_t \leq \pi_t + (1-\tau) w_t n_t + r_t k_t - i_t + g_t \\\\ k_{t+1} = (1-\delta) k_t + i_t \\\\ c_t \geq 0 \end{matrix}} \sum_t \beta^t \left(U(c_t)  + V(n_t) \right)$$
 - Note the new budget constraint
   - labour income is taxed, but a lump-sum subsidy ensures nothing is destroyed
   - $g_t =\tau w_t k_t$ is not taken into account for intertemporal optimization

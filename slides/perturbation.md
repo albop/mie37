@@ -191,7 +191,7 @@ $$z_t = \rho z_{t-1}$$
 - ...satisfy the first order conditions
 - ...i.e.
 $$\beta   \left( (1-\delta + \alpha {\overline{k}}^{\alpha -1}) \right) = 1$$
-$$\overline{k} (1-\delta) \overline{k} + \overline{i}$$
+$$\overline{k}=  (1-\delta) \overline{k} + \overline{i}$$
 $$\overline{z} = \rho \overline{z}$$
 
 </div>
@@ -206,7 +206,7 @@ $$\overline{z} = \rho \overline{z}$$
 $$\begin{eqnarray}
 \overline{k} & = & \left( \frac{\frac{1}{\beta}-(1-\delta)}{\alpha} \right)^{\frac{1}{\alpha - 1}} \\\\
 \overline{i} & = & \delta \overline{k} \\\\\
-\overline{z} & = & z
+\overline{z} & = & 0
 \end{eqnarray}$$
 
 </div>
@@ -556,7 +556,7 @@ F & = &
 - At date $t$ *controls* must be chosen as a function of (predetermined) *states*
 
 - Mathematically speaking, the solution is a function $\varphi$ such that:
-  $$\forall t, s_t = \varphi(x_t)$$
+  $$\forall t, x_t = \varphi(s_t)$$
 - Since the model is linear we look for un unknown matrix $X \in \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}$ such that:
 
 $$\Delta x_t = X \Delta s_t$$
@@ -678,7 +678,7 @@ $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
 
 ### Simulating the model
 
-- Suppose we have found the solution $\Delta X_t  = \Delta s_t$
+- Suppose we have found the solution $\Delta x_t  = X \Delta s_t$
 - Recall the transition equation: $\Delta s_{t+1} = F \Delta s_t + G \Delta x_t$
 - We can now compute the model evolution following initial deviation in the state:
 $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
@@ -774,9 +774,9 @@ $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
 - $T(X)$ is implicitly defined by $F(T(X), X)=0$
 - $F(X,Y) = (A + B X) + ( C+ D Y) ( E  + F X )$
   - it is linear in $X$ and in $Y$
-- $F^{\prime}_X (X, Y).u = (B + (C+DY)F) X$
+- $F^{\prime}_X (X, Y).u = (B + (C+DY)F) u$
   - a regular matrix multiplication
-  - its inverse is: $F^{\prime}_X (X, Y) = (B + (C+DY)F)^{-1}$
+  - its inverse is: $F^{\prime}_X (X, Y)^{-1} = (B + (C+DY)F)^{-1}$
 - $F^{\prime}_Y (X, Y).u = D u (E+FX)$
   - a linear operation on matrices
 
@@ -789,7 +789,7 @@ $$F^{\prime}_X (T(X), X) T^{\prime} (X) + F_Y^{\prime}(T(X),X) = 0$$
 - $F^{\prime}_X (T(X), X)$ being a regular matrix, it is (conceptually) easy to invert:
 $$T^{\prime}(X) = -(F^{\prime}_X (T(X), X))^{-1}F_Y^{\prime}(T(X),X)$$
 - Finally, we get the explicit formula for the linear operator $T^{\prime}$ computed at the steady state:
-$$T^{\prime}(\overline{X}).u = ((B + (C+D \overline{X})F)^{-1})^{-1}D u (E+F \overline{X})$$
+$$T^{\prime}(\overline{X}).u = ((B + (C+D \overline{X})F)^{-1})D u (E+F \overline{X})$$
 - We can compute the spectral radius of $T^{\prime}(\overline{X})$ using the power iteration method
 
 ----
@@ -803,7 +803,7 @@ $$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$
   1. backward stability: derivative of simulation operator
 $$\rho(F + H \overline{X} )$$
   2. forward stability: derivative of time iteration operator
-$$\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})^{-1}D u (E+F \overline{X}) \right)$$
+$$\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})D u (E+F \overline{X}) \right)$$
 
 This is equivalent to the so-called Blanchard-Kahn conditions.
 

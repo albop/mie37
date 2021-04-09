@@ -10,6 +10,7 @@ Regular Notebooks:
 
 - [convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
 - [perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html)
+- [rbc](http://www.mosphere.fr/mie37/slides/rbc.html)
 
 ## Communication
 

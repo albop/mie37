@@ -1,5 +1,7 @@
 # Discrete Dynamic Programming
 
+## Advanced Macro: Numerical Methods,  2021 (MIE37)
+
 ---
 
 ## Introduction
@@ -91,7 +93,7 @@ $$\underbrace{
 
 ### Representation as a graph
 
-[TODO]: replace grpah
+[TODO]: replace graph
 
 {% dot attack_plan.svg
     digraph G {
@@ -338,8 +340,6 @@ $$V(s; x()) = E_0 \max \sum_ {t=0}^{T_0} \delta^t \left[ r(s_t, x_t) \right] + \
 
 $$ = E_0 \left[ \max \sum_ {t=0}^{T_0} \delta^t \left[ r(s_t, x_t) \right] +  \delta^{T_0} V(s_ {T_0}; x()) \right]$$
 
-[TODO]: check
-
 ----
 
 ### Continuous vs discrete
@@ -410,17 +410,6 @@ where
     - usually evaluated by replaying the game many times
     - tradeoff exploration / exploitations
 
-----
-
-### Examples
-
-[TODO]
-
-----
-
-### Examples (2)
-
-
 ---
 
 ## Finite horizon DMDP
@@ -431,7 +420,7 @@ where
 
 When $T<\infty$. With discrete action the problem can be represented by a tree.
 
-[TODO]
+[GRAPH]
 
 ----
 

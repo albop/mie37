@@ -48,7 +48,7 @@ I spent the Fall quarter (of 1950) at RAND. My first task was to find a name for
 
 - a matrix $M \in R^n\times R^n$ matrix is said to be __stochastic__ if 
   - all coefficents are non-negative
-  - all the lines lines sum to 1 ($\forall j, \sum_i M_{ij} = 1$)
+  - all the lines lines sum to 1 ($\forall i, \sum_j M_{ij} = 1$)
 - a __probability density__ is a vector $\mu \in R^n$ such that :
   - all components are non-negative
   - all coefficients sum to 1 ($\sum_{i=1}^n \mu_{i} = 1$)
@@ -93,22 +93,7 @@ $$\underbrace{
 
 ### Representation as a graph
 
-[TODO]: replace graph
-
-{% dot attack_plan.svg
-    digraph G {
-        rankdir=LR
-        A
-        B
-        C
-        A -> B [label=0.4]
-        A -> C [label=0.6]
-        C -> C [label=1.0]
-        B -> A [label=0.2]
-        B -> B [label=0.5]
-        B -> C [label=0.5]
-    }
-%}
+![](attack_plan.svgc)
 
 ----
 
@@ -153,28 +138,72 @@ $(P^k)_ {i,j}>0$ and $(P^l)_ {j,i}>0$
 
 ### Connectivity and irreducibility (example from QE)
 
+<div class="container">
+
+<div class="col">
+
+##### Irreducible
+
+![](mc_irreducibility1.png)
+
+- All states can be reached with positive probably from any other initial state.
+
+</div>
+
+<div class="col">
+
+##### Not irreducible
+
+
+![](mc_irreducibility2.png)
+
+- There is a subset of states (poor), which absorbs all the mass coming in.
+
+</div>
+
+</div>
+
 
 ----
 
-
-
-### Connectivity and irreducibility (example from QE)
-
-
-----
 
 ### Aperiodicity
+
 
 - Are there cycles? Starting from a state $i$, how long does it take to return to $i$?
 - The __period__ of a state is defined as
 $$gcd( {k\geq 1 | (P^k)_{i,i}>0} )$$
 - If a state has a period d>1  the chain returns to the state only at dates multiple of d.
 
+
 ----
 
-### Aperiodicity
+### Aperiodicity (example from QE)
 
-example
+
+<div class="container">
+
+<div class="col">
+
+##### Periodic
+
+![](mc_aperiodicity1.png)
+
+- If you start from some states, you return to it, but not before two periods.
+
+</div>
+
+<div class="col">
+
+##### Aperiodic
+
+![](mc_aperiodicity2.png)
+
+- If some mass leaves a state, some of it returns to the state in the next period.
+
+</div>
+
+</div>
 
 ----
 
@@ -247,6 +276,31 @@ How do we compute the stationary distribution?
 
 ----
 
+### Code example
+
+
+```julia [1-2|3-6|7-9|10-12|13-14|15-17]
+# we use the identity matrix and the \ operator
+using LinearAlgebra: I, \
+# define a stochastic matrix (lines sum to 1)
+P = [  0.9  0.1 0.0  ;
+       0.05 0.9 0.05 ;
+       0.0  0.9 0.1  ]
+# define an auxiliary matrix
+M = P' - I
+M[end,:] .= 1.0
+# define rhs
+R = zeros(3)
+R[end] = 1
+# solve the system
+μ = M\R
+# check that you have a solution:
+@assert sum(μ) == 1
+@assert all(abs.(μ'P - μ').<1e-10)
+```
+
+----
+
 ### Further comments
 
 - Knowledge about the structure of the Markov Chain can help speedup the calculations
@@ -283,7 +337,7 @@ How do we compute the stationary distribution?
 - <!-- .element class="fragment" --> <b>Reward</b>: $r(s,x) \in R$
     - aka felicity, intratemporal utility
 
-- <!-- .element class="fragment" --> <b>Policy</b>: $x(): s \rightarrow x\in S(x)$
+- <!-- .element class="fragment" --> <b>Policy</b>: $x(): s \rightarrow x\in X(s)$
     - a.k.a. decision rule
     - we consider *deterministic* policy
     - given $x()$, the evolution of $s$ is a Markov process

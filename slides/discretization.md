@@ -156,7 +156,7 @@ $$
     - *discretize* (or *quantize*) the signal $\epsilon$ as 
 $(w_i, \epsilon_i)_{i=1:N}$ and compute:
 
-$$\frac{1}{N} \sum_n w_n f(\epsilon_n)$$ 
+$$\sum_n w_n f(\epsilon_n)$$ 
 
 ----
 
@@ -258,8 +258,8 @@ $$s_N = \sigma(T_N^2) = \frac{1}{\sqrt{\color{red} N}} \sigma_{\epsilon}$$
 $$T^{MC}\_N =\frac{1}{N}\sum\_{n=1}^N f(\epsilon_n)$$
 - It is unbiased:
 $$E(T_N^{MC}) = E\left[f(\epsilon) \right]$$
-- It's variance is 
-$$E(T_N^{MC}) \propto \frac{1}{\sqrt{N}}$$
+- It's standard deviation is 
+$$\sigma(T_N^{MC}) \propto \frac{1}{\sqrt{N}}$$
     - slow
     - on the plus side: rate independent of the dimension of $\epsilon$
 

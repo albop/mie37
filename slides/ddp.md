@@ -676,7 +676,7 @@ $$\max_{x_n()} r(s, x_n(s)) + \delta \sum_{s^{\prime}\in S} \pi(s^{\prime}| s, x
   - with small probability $\lambda>0$ looses his job:
     - starts next period unemployed
   - otherwise stays employed at same rate
-- Objective: $\max E_0 \left\\{ \sum \beta^t \log(w_t) \right\\}$
+- Objective: $\max E_0 \left\\{ \sum \beta^t \log(c_t) \right\\}$
 
 ----
 
@@ -708,12 +708,13 @@ $\newcommand{\E}{\mathbb{E}}$
 
 - What is the value of being in a given state?
 - If Unemployed, facing current offer $w$:  
-$$V^U(w) = U(\underline{c}) + \max_{a} \begin{cases} \beta V^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{a'}\left[ V^U(a^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V^U(w) = U(\underline{c}) + \max_{a} \begin{cases} \beta V^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{w'}\left[ V^U(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
 - If Employed, at rate $w$
-$$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta \\E_{a'}\left[ V^U(a^{\prime}) \right] $$
+$$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta \\E_{w'}\left[ V^U(w^{\prime}) \right] $$
 
 - We can represent value as two functions $V^U$ and $V^E$ of the states as
   - two vectors of Floats, with three elements (recall: value-function is real valued)
+- You could use one single function $V(E/U, w)$
 
 ----
 
@@ -722,8 +723,8 @@ $$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta \\E_{a'}\left[ V^U(
 
 - Take a guess for value function $\tilde{V^E}$, $\tilde{V^U}$, *tomorrow*
 - Use it to compute value function *today*:
-$$V^U(w) = U(\underline{c}) + \max_{a(w)} \begin{cases} \beta \tilde{V}^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{a'}\left[ \tilde{V}^U(a^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
-$$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta \\E_{a'}\left[\tilde{V}^U(a^{\prime}) \right] $$
+$$V^U(w) = U(\underline{c}) + \max_{a(w)} \begin{cases} \beta \tilde{V}^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{w'}\left[ \tilde{V}^U(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta \\E_{w'}\left[\tilde{V}^U(w^{\prime}) \right] $$
 - $(\tilde{V}^E, \tilde{V}^U)\mapsto (V^E, V^U)$ is one *value iteration* step
 - Note that we don't have to keep track of policies tomorrow
   - all information about future decisions is contained in $\tilde{V}^E, \tilde{V}^U$

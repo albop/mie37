@@ -11,6 +11,10 @@ Regular Notebooks:
 - [convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
 - [perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html)
 - [rbc](http://www.mosphere.fr/mie37/slides/rbc.html)
+- [discrete dynamic programming](http://www.mosphere.fr/mie37/slides/ddp.html)
+
+- [discretization](http://www.mosphere.fr/mie37/slides/discretization.html)
+- [optimization](http://www.mosphere.fr/mie37/slides/optimization.html)
 
 ## Communication
 

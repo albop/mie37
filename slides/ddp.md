@@ -642,3 +642,125 @@ $$\max_{x_n()} r(s, x_n(s)) + \delta \sum_{s^{\prime}\in S} \pi(s^{\prime}| s, x
 - For 2 and 3 it helps representing a linear operator $M$ such that $V_{n+1} = R_n + \delta M_n .  V_n$
 
 <!-- Another approach consist: compute $(\sum_{t\geq 0} \delta^t M_n^t)$ -->
+
+---
+
+## Example : the McCall Model
+
+----
+
+### Idea
+
+- McCall model:
+  - when should an unemployed person accept a job offer?
+  - choice between:
+    - wait for a better offer (and receive low  unemp. benefits)
+    - accept a suboptimal job offer
+- We present a variant of it, with a small probability of loosing a job.
+  
+----
+
+### Formalization
+
+
+- When <mark>unemployed</mark> in date, a job-seeker
+  - consumes unemployment benefit $c_t = \underline{c}$
+  - receives in every date $t$ a job offer $w_t$
+    - $w_t$ is i.i.d., 
+    - takes values $w_1, w_2, w_3$ with probabilities $p_1, p_2, p_3$
+  - if job-seeker accepts, becomes employed at rate $w_t$ in the next period
+  - else he stays unemployed
+  
+- When <mark>employed</mark> at rate $w$
+  - worker consumes salary $c_t = w$
+  - with small probability $\lambda>0$ looses his job:
+    - starts next period unemployed
+  - otherwise stays employed at same rate
+- Objective: $\max E_0 \left\\{ \sum \beta^t \log(w_t) \right\\}$
+
+----
+
+### States / reward
+
+
+- What are the states?
+  - employement status: Unemployed / Employed
+  - if Unemployed:
+    - the level $w\in {w_1, w_2, w_3}$ of the salary that is currently proposed
+  - if Employed:
+    - the level $w\in {w_1, w_2, w_3}$ at which worker was hired
+  - current state, can be represented by a 2x3 index
+- What are the actions?
+  - if Unemployed:
+    - reject (false) / accept (true)
+  - if Employed: None
+  - actions (when unemployed) are represented by a 3 elements binary vector
+- What is the (intratemporal) reward?
+  - if Unemployed: $U(c)$
+  - if Employed at rate w: $U(w)$
+  - here it doesn't depend on the action
+
+----
+
+### Value function
+
+$\newcommand{\E}{\mathbb{E}}$
+
+- What is the value of being in a given state?
+- If Unemployed, facing current offer $w$:  
+$$V^U(w) = U(\underline{c}) + \max_{a} \begin{cases} \beta V^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{a'}\left[ V^U(a^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+- If Employed, at rate $w$
+$$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta \\E_{a'}\left[ V^U(a^{\prime}) \right] $$
+
+- We can represent value as two functions $V^U$ and $V^E$ of the states as
+  - two vectors of Floats, with three elements (recall: value-function is real valued)
+
+----
+
+### Value function iteration
+
+
+- Take a guess for value function $\tilde{V^E}$, $\tilde{V^U}$, *tomorrow*
+- Use it to compute value function *today*:
+$$V^U(w) = U(\underline{c}) + \max_{a(w)} \begin{cases} \beta \tilde{V}^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{a'}\left[ \tilde{V}^U(a^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta \\E_{a'}\left[\tilde{V}^U(a^{\prime}) \right] $$
+- $(\tilde{V}^E, \tilde{V}^U)\mapsto (V^E, V^U)$ is one *value iteration* step
+- Note that we don't have to keep track of policies tomorrow
+  - all information about future decisions is contained in $\tilde{V}^E, \tilde{V}^U$
+  - but we can keep track of current policy: $a(w): \arg\max \cdots$
+
+----
+
+### Value evaluation
+
+- Suppose we take a policy $a(w)$ as given. What is the value of following this policy forever?
+- The value function $V_a^E$, $V_a^U$ satisfies
+$$V_a^U(w) = U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V_a^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta \\E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
+- Note the absence of the max function: we don't reoptimize
+
+----
+
+### Value evaluation (2)
+
+- How do you compute value of policy $a(w)$ recursively?
+- Iterate: $(\tilde{V}^E_a, \tilde{V}^U)\mapsto (V^E_a, V^U_a)$
+$$V_a^U(w) \leftarrow U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V_a^E(w) \leftarrow U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta \\E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
+- Note the absence of the max function: 
+  - we don't reoptimize
+  - we we keep the same policy all along
+
+----
+
+### Policy iteration
+
+- start with policy $a(w)$
+- evaluate the value of this policy $V^E_a, V^U_a$
+  - compute the optimal policy in the Bellman iteration
+  - keep the improved policy $a(w)$
+    - here: $a(w) = \arg\max_{a(w)} \begin{cases} \beta \tilde{V}^E(w)\\\\ \beta  \\E_{a'}\left[ \tilde{V}^U(a^{\prime}) \right] \end{cases}$
+- iterate until $a(w)$ converges
+
+----
+

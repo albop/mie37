@@ -231,7 +231,7 @@ julia> @time sdvals = [stdev(C; N=n, K=10000) for n=NVec]
 
 ----
 
-### Improve the significance of the graphs:
+<!-- ### Improve the significance of the graphs:
 
 - meaningful units (consumption equivalent)
 
@@ -239,7 +239,7 @@ julia> @time sdvals = [stdev(C; N=n, K=10000) for n=NVec]
 
 [TODO: print output]
 
-----
+---- -->
 
 ### Quick theory (1)
 

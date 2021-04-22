@@ -226,9 +226,6 @@ $x_{n+1} = x_n- f(x_n)\frac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1})}$
 
 ----
 
-(TODO: some graphs of failed Newton convergence)
-
-----
 
 ### Backtracking
 
@@ -261,7 +258,6 @@ $x_{n+1} = x_n- f(x_n)\frac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1})}$
 - This is guaranteed to converge to a local minimum
 - In each step, the size of the interval is reduced by a factor $\Phi$
 - By choosing $\Phi=\frac{\sqrt{5}-1}{2}$ one can save one evaluation by iteration.
-  - TODO
 - Remark that bisection is not enough
 
 ----
@@ -278,7 +274,7 @@ $x_{n+1} = x_n- f(x_n)\frac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1})}$
 
 ## Gradient Descent (2)
 
-[TODO: add graph, comment intersection with the x axis]
+
 - Uses local information
   - one needs to compute the gradient
   - note that gradient at $x_n$ does not provide a better guess for the minimum than $x_n$ itself

@@ -10,6 +10,11 @@ Regular Notebooks:
 
 - [convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
 - [perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html)
+- [rbc](http://www.mosphere.fr/mie37/slides/rbc.html)
+- [discrete dynamic programming](http://www.mosphere.fr/mie37/slides/ddp.html)
+
+- [discretization](http://www.mosphere.fr/mie37/slides/discretization.html)
+- [optimization](http://www.mosphere.fr/mie37/slides/optimization.html)
 
 ## Communication
 
@@ -24,14 +29,14 @@ Regular Notebooks:
 
 ## Schedule
 
-| Date  | Content                                   | Homework                                                            |
-| ----- | ----------------------------------------- | ------------------------------------------------------------------- |
-| 04/03 | Intro, Julia Basics Tutorial | Epidemiology Tutorial (1) |
-| 11/03 | <mark>Convergence of Sequences, Julia Basics Tutorial (2) </mark>                                         | <mark style="background-color: orange">Epidemiology Tutorial (2)</mark>                                                                    |
-| 25/03 |                                           |                                                                     |
-| 01/04 |                                           |                                                                     |
-| 08/04 |                                           |                                                                     |
-| 15/04 |                                           |                                                                     |
-| 22/04 |                                           |                                                                     |
-| 29/04 |                                           |                                                                     |
-| 03/05 | Exam                                      |                                                                     |
+| Date  | Content                                               | Homework                  |
+| ----- | ----------------------------------------------------- | ------------------------- |
+| 04/03 | Intro, Julia Basics Tutorial                          | Epidemiology Tutorial (1) |
+| 11/03 | Convergence of Sequences, Julia Basics Tutorial (2)   | Epidemiology Tutorial (2) |
+| 25/03 | Perturbation (1)                                      |                           |
+| 01/04 | <mark>Perturbation (2)</mark>                         | Perturbation Tutorial     |
+| 08/04 | Stochastic Models, RBC Model, Dolo Primer (1)         | Coursework 1              |
+| 15/04 | Discrete Dynamic Programming, McCall Model            |                           |
+| 22/04 | Interpolation, Optimization, Value Function Iteration |                           |
+| 29/04 | Time Iteration Methods                                |                           |
+| 03/05 | Exam                                                  |                           |

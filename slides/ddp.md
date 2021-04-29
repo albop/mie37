@@ -93,7 +93,7 @@ $$\underbrace{
 
 ### Representation as a graph
 
-![](attack_plan.svgc)
+![](attack_plan.svg)
 
 ----
 

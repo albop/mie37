@@ -1,4 +1,4 @@
-# Convergence of recursive series
+# Convergence of recursive sequences
 
 ## Advanced Macro: Numerical Methods,  2021 (MIE37)
 

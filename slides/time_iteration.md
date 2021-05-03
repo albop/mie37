@@ -86,7 +86,7 @@ $$y_t = k_t^\alpha$$
 $$c_t = (1-s_t) y_t$$
 $$i_t = s_t y_t$$
 - optimality:
-$$\beta E_t \left[ \frac{U^{\prime}(c_{t+1})}{U^{\prime}(c_{t})} \overline{r} \right]= 1$$
+$$\beta E_t \left[ \frac{U^{\prime}(c_{t+1})}{U^{\prime}(c_{t})} (1-\delta + k_{t+1}^{\alpha-1}\alpha) \right]= 1$$
 
 </div>
 
@@ -186,7 +186,7 @@ $$x_{t+1} = \tilde{\varphi}(s_{t+1})$$
 $$\forall s, \Phi(\varphi, \tilde{\varphi})(s) = E\left[ f(s, \varphi(s), g(s,\varphi(s), \epsilon), \tilde{\varphi}(g(s,\varphi(s), \epsilon)) \right]$$
 - A solution  is $\varphi$ such that $\Phi(\varphi, \varphi) = 0$
 - The Coleman operator $\mathcal{T}$ is defined implicitly by: 
-$$\Phi(\mathcal{T}(\varphi), \varphi)$$
+$$\Phi(\mathcal{T}(\varphi), \varphi)=0$$
 - The core of the time iteration algorithm, consists in the recursion:
 $$\varphi_{n+1} = \mathcal{T}(\varphi_n)$$
 - It maps future decision rules to current decision rules

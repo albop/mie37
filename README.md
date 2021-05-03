@@ -15,6 +15,7 @@ Regular Notebooks:
 
 - [discretization](http://www.mosphere.fr/mie37/slides/discretization.html)
 - [optimization](http://www.mosphere.fr/mie37/slides/optimization.html)
+- [time iteration](http://www.mosphere.fr/mie37/slides/time_iteration.html)
 
 ## Communication
 

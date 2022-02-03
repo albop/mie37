@@ -25,7 +25,7 @@ Regular Notebooks:
 
 | Date  | Content                                               | Homework                  |
 | ----- | ----------------------------------------------------- | ------------------------- |
-| 03/02 | Intro, Julia Basics Tutorial                          | Epidemiology Tutorial     |
+| <mark>03/02</mark> | Intro, Julia Basics Tutorial                          | Epidemiology Tutorial     |
 | 10/02 | Convergence of Sequences, Julia Basics Tutorial (2)   |                           |
 | 17/02 | Perturbation (1)                                      |                           |
 | 03/02 | Perturbation (2)                                      |                           |

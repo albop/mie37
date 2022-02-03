@@ -1,6 +1,6 @@
 # Introduction
 
-## Advanced Macro: Numerical Methods,  2021 (MIE37)
+## Advanced Macro: Numerical Methods,  2022 (MIE37)
 
 Pablo Winant
 
@@ -123,7 +123,7 @@ Pablo Winant
 ![FEM](graphs/fem.png)
 
 - Easy!: it's a differential equation with boundary values (BVP)
-- *NO*: agents think, they are forward looking and respond to other agents' decisions
+- *NO*: agents think, they are forward looking and respond to other agents' (possibly future) decisions
 
 ---
 
@@ -182,5 +182,5 @@ Pablo Winant
 - Plan A: use the mybinder links from the courses repository.
 - Plan B: use your own laptop. You will need:
   - visual studio code
-  - Julia 1.5.3
+  - Julia 1.6.x
   - git

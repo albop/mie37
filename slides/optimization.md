@@ -1,6 +1,6 @@
 # Math topic: Optimization
 
-## Computational Econommics,  2021 (MIE37)
+## Computational Econommics,  2022 (MIE37)
 
 ---
 

@@ -1,6 +1,6 @@
 # Convergence of recursive sequences
 
-## Advanced Macro: Numerical Methods,  2021 (MIE37)
+## Advanced Macro: Numerical Methods,  2022 (MIE37)
 
 Pablo Winant
 

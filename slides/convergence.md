@@ -6,6 +6,13 @@ Pablo Winant
 
 ---
 
+
+### Life of a computational economist
+
+![](impossible.jpg)
+
+---
+
 ### Life of a computational economist
 
 <video data-autoplay src="waiting_for_convergence.mp4" height=600></video>
@@ -96,7 +103,7 @@ We want to compute a fixed point of $f$ and study its properties.
  <div class="col">
 
 
-- <!-- .element class="fragment" --> __forward looking__:
+- <!-- .element class="fragment" --> <em>forward looking</em>:
   - take $\begin{bmatrix}\pi_{t+1} \\\\ y_{t+1} \end{bmatrix} = {\color{red} {c_n}} z_{t+1}$
   - deduce $\begin{bmatrix}\pi_{t} \\\\ y_{t} \end{bmatrix} = {\color{red} {c_{n+1}}} z_{t}$
   - $\mathcal{T}: \underbrace{c_{n}}\_{t+1: \; \text{tomorrow}} \rightarrow \underbrace{c_{n+1}}\_{t: \text{today}}$ is the __time-iteration__ operator (a.k.a. __Coleman__ operator)
@@ -104,7 +111,7 @@ We want to compute a fixed point of $f$ and study its properties.
   - What is the limit to $c_{t+1} = \mathcal{T} c_n$ ?
   - Under wich conditions (on $\alpha_{\pi}, \alpha_y$) is it convergent ?
     - determinacy conditions
-    - interpretation: does the centreal bank manage to control inflation expectations?
+    - interpretation: does the central bank manage to control inflation expectations?
 
 </div>
 </div>
@@ -117,7 +124,7 @@ We want to compute a fixed point of $f$ and study its properties.
     - we're not very concerned by the existence problem here
     - we'll be happy with local conditions (existence, uniqueness) around a solution
 
-- We can assume there is an interval such that $f([a,b])\subset[a,b]$. Then we know there exists $x$ in $[a,b]$ such that $f(x)=x$. But there can be many such points [TODO] graph
+- We can assume there is an interval such that $f([a,b])\subset[a,b]$. Then we know there exists $x$ in $[a,b]$ such that $f(x)=x$. But there can be many such points.
 
 ---
 
@@ -136,7 +143,7 @@ for a nonconvex/nonmonotonic one, we can get multiple fixed points.
 
 <div class="col">
 
-![](growth_multiple_equilibria.jpg)
+<img src=growth_multiple_equilibria.jpg width=100%>
 
 </div>
 

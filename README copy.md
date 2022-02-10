@@ -8,7 +8,14 @@ Regular Notebooks:
 
 ## Link to the slides:
 
-- [introduction](http://www.mosphere.fr/mie37/slides/index.html)
+- [convergence](http://www.mosphere.fr/mie37/slides/convergence.html)
+- [perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html)
+- [rbc](http://www.mosphere.fr/mie37/slides/rbc.html)
+- [discrete dynamic programming](http://www.mosphere.fr/mie37/slides/ddp.html)
+
+- [discretization](http://www.mosphere.fr/mie37/slides/discretization.html)
+- [optimization](http://www.mosphere.fr/mie37/slides/optimization.html)
+- [time iteration](http://www.mosphere.fr/mie37/slides/time_iteration.html)
 
 ## Communication
 
@@ -25,11 +32,11 @@ Regular Notebooks:
 
 | Date  | Content                                               | Homework                  |
 | ----- | ----------------------------------------------------- | ------------------------- |
-| 03/02 | Intro, Julia Basics Tutorial                          | Epidemiology Tutorial     |
-| <mark>10/02</mark> | Convergence of Sequences, Julia Basics Tutorial (2)   |                           |
+| 03/02 | Intro, Julia Basics Tutorial                          | Epidemiology Tutorial (1) |
+| 10/02 | Convergence of Sequences, Julia Basics Tutorial (2)   | Epidemiology Tutorial (2) |
 | 17/02 | Perturbation (1)                                      |                           |
-| 03/02 | Perturbation (2)                                      |                           |
-| 10/03 | Stochastic Models, RBC Model, Dolo Primer (1)         |                           |
+| 03/02 | Perturbation (2)                                      | Perturbation Tutorial     |
+| 10/03 | Stochastic Models, RBC Model, Dolo Primer (1)         | Coursework 1              |
 | 17/03 | Discrete Dynamic Programming, McCall Model            |                           |
 | 24/03 | Interpolation, Optimization, Value Function Iteration |                           |
 | 31/03 | Time Iteration Methods                                |                           |

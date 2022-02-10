@@ -13,7 +13,7 @@ Regular Notebooks:
 ## Communication
 
 - Zulip (best)
-- Email: `pwinant@escp.eu`
+- Email to `pwinant@escp.eu` starting with `[mie37]`
 - Github issues (PR also welcome)
 
 ## Assessments

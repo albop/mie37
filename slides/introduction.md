@@ -181,6 +181,7 @@ Pablo Winant
 
 - Plan A: use the mybinder links from the courses repository.
 - Plan B: use your own laptop. You will need:
-  - visual studio code
   - Julia 1.6.x
+  - visual studio code
+  - install julia extension to VSCode
   - git

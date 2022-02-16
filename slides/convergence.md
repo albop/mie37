@@ -220,7 +220,7 @@ $$|x_t - x_{t-1}| \sim |f^{\prime}(x_{t-1})| |x_{t-1} - x_{t-2}| $$
 - Ratio of successive approximation errors
 $$\lambda_t =  \frac{ |x_{t} - x_{t-1}| } { |x_{t-1} - x_{t-2}|}$$
 
-- $\lambda_t \rightarrow f^{\prime}(\overline{x})$
+- $\lambda_t \rightarrow | f^{\prime}(\overline{x}) |$
 
 ---
 

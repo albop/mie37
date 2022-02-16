@@ -156,7 +156,40 @@ for a nonconvex/nonmonotonic one, we can get multiple fixed points.
 - How do we characterize behaviour around $x$ such that $f(x)=x$?
     - if $|f^{\prime}(x)|>1$: series is unstable and will not converge to $x$ except by chance
     - if $|f^{\prime}(x)|<1$: $x$ is a stable fixed point
-    - if $|f^{\prime}(x)|=1$: ??? (look at higher order terms)
+    - if $|f^{\prime}(x)|=1$: ??? (look at higher order terms, details  ↓)
+
+----
+
+To get the intution about local convergence assume, you have an initial point $x_n$ close to the steady state and consider the following expresion:
+
+$x_{n+1} - x = f(x_n) - f(x) = f^{\prime}(x) (x_n-x) + o( (x_n-x) )$
+
+If one sets aside the error term (which one can do with full mathematical rigour), the dynamics for very small perturbations are given by:
+
+$|x_{n+1} - x| = |f^{\prime}(x)| |x_n-x|$
+
+When $|f^{\prime}(x)|<1$, the distance to the target decreases at each iteration and we have convergence. When $|f^{\prime}(x)|>1$ there is local divergence.
+
+----
+
+<div class="container">
+<div class="col">
+What about the case  $|f^{\prime}(x)=1|$?  Many cases are possible. To distinguish between them, one need to inspect higher order derivatives.
+
+- when $|f^{\prime}(x)=1|$, $|f^{\prime\prime}(x)|\neq 0$ the series will convergence, only if $(x_0-x)f^{\prime\prime}(x)<0$, i.e. starting from one side of the fixed point. The steady-state is not stable.
+- When $|f^{\prime}(x)=1|$, $|f^{\prime\prime}(x)| = 0$, $|f^{\prime \prime\prime}(x)|\neq 0$ the series will converge, only if $f^{\prime}(x)(f^{\prime\prime\prime}(x))<1$
+
+In general, there is stability only if the function $f$ is crossing the 45 degrees line (when $f^ {\prime}(x)=1)$, or the -45 degrees line (when $f^ {\prime}(x)=1$)
+
+Mathematically, this involves, that:
+- the first non-zero coefficient $f^{k}(x)$ with $k>1$ has odd order ($k$ odd)
+- it has the right sign
+
+</div>
+<div class="col">
+[TODO: add graph]
+</div>
+</div>
 
 ---
 

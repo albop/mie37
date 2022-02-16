@@ -1,4 +1,4 @@
-# Perturbation Analysis (1)
+# Perturbation Analysis
 
 ## Advanced Macro: Numerical Methods,  2022 (MIE37)
 
@@ -37,8 +37,8 @@ $$
 - Definition:
 $$c_t = \exp(z_t) k_t^\alpha - i_t$$
 
-- Control $i_t\in[-(1-\delta) k_t,k_t^\alpha[$
-  - or equivalently $c_t \in [0, k_t^{\alpha}]$
+- Control $i_t\in[-(1-\delta) k_t, \exp(z_t)k_t^\alpha[$
+  - or equivalently $c_t \in [0, \exp(z_t) k_t^{\alpha} + (1-\delta) k_t]$
 
 - Objective:
 $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
@@ -71,12 +71,11 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 
 ### Lagrangian
 
-- Initial Conditions (predetermined states):
-    - $z_0$, $k_0$
+- Initial Conditions (predetermined states): $z_0$, $k_0$
 - Problem:
 $$V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\\\c_0, c_1, c_2 \cdots \\\\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)$$
-s.t. $\forall t\geq 0$
-$$\begin{eqnarray}
+
+$$\text{s.t.}\forall t\geq 0, \\; \\; \begin{eqnarray}
 \mu_t:\quad &  0 & \leq & i_t + (1-\delta) k_t \\\\
 \nu_t:\quad &  i_t & \leq & \exp(z_t) k_t^{\alpha} \\\\
 \lambda_t:\quad &  i_t & = & \exp(z_t) k_t^{\alpha} - c_t\\\\

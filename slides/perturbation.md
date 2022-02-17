@@ -37,8 +37,8 @@ $$
 - Definition:
 $$c_t = \exp(z_t) k_t^\alpha - i_t$$
 
-- Control $i_t\in[-(1-\delta) k_t, \exp(z_t)k_t^\alpha[$
-  - or equivalently $c_t \in [0, \exp(z_t) k_t^{\alpha} + (1-\delta) k_t]$
+- Control $i_t\in[0, \exp(z_t)k_t^\alpha[$
+  - or equivalently $c_t \in ]0, \exp(z_t) k_t^{\alpha}]$
 
 - Objective:
 $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
@@ -82,7 +82,7 @@ $$\text{s.t.}\forall t\geq 0, \\; \\; \begin{eqnarray}
 q_t:\quad &  k_{t+1} & = & (1-\delta) k_{t} + i_{t}
 \end{eqnarray}$$
 - Lagrangian:
-$$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left( i (1-\delta) k_t + i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\\}$$
+$$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left( i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\\}$$
 
 ----
 
@@ -112,7 +112,7 @@ $$\begin{eqnarray}
 
 |                    |                                             |
 | ------------------ | ------------------------------------------- |
-| $\mu_t \geq 0$     | $(1-\delta)k_t + i_t \geq 0$                |
+| $\mu_t \geq 0$     | $ i_t \geq 0$                |
 | $\nu_t \geq 0$     | $\exp(z_t) k_t^{\alpha}-i_t \geq 0$         |
 | $q_t \geq 0$       | $(1-\delta) k_{t} + i_{t} - k_{t+1} \geq 0$ |
 | $\lambda_t \geq 0$ | $\exp(z_t) k_t^{\alpha}  - i_t -c_t = 0$    |
@@ -133,7 +133,7 @@ $$\begin{eqnarray}
 
 |                    |                                             |
 | ------------------ | ------------------------------------------- |
-| $\mu_t \geq 0$     | $(1-\delta)k_t + i_t \geq 0$                |
+| $\mu_t \geq 0$     | $ i_t \geq 0$                |
 | $\nu_t \geq 0$     | $\exp(z_t) k_t^{\alpha}-i_t \geq 0$         |
 | $q_t$       | $(1-\delta) k_{t} + i_{t} - k_{t+1} = 0$ |
 | $\lambda_t$ | $\exp(z_t) k_t^{\alpha}  - i_t -c_t = 0$    |
@@ -153,7 +153,7 @@ Let's review them:
   - hence $\mu_t=0$
 - for multipliers associated to an equality constraint, we always keep the system
   - multiplier can have any sign
-- but sometimes, there is an implicit inequality:
+- inequality formulation is sometimes found too:
   -  $c_t \leq \exp(z_t) k_t^{\alpha}  - i_t$ ( you can destroy production insead of eating or investing it)
   - $k_{t+1} \leq (1-\delta) k_{t} + i_{t}$ (you can destroy capital instead of investing it)
 
@@ -682,7 +682,7 @@ $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
 - We can now compute the model evolution following initial deviation in the state:
 $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
   - $P$ is the simulation operator
-  - it does *backward* iteration
+  - it is a *backward* operator
 (TODO: example of a reaction to a shock)
 - The system is stable if the biggest eigenvalue of $P$ is smaller than one...
 - ... or if its spectral radius is smaller than 1:
@@ -730,7 +730,6 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
 
 - To solve the model we use the backard operator: $$T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  & \rightarrow &  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\\\X_{t+1} & \mapsto & X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}$$
 - What about its stability?
-  - TODO: interpretation
 - Recall: fixed point $\overline{z}$ of recursive sequence $z_n=f(z_{n_1})$ is stable if $|f^{\prime}(\overline{z})|<1$
 - We need to study $T^{\prime}$ of ($X$).
   - but $T$ maps a matrix to another matrix 🐉😓

@@ -76,7 +76,7 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 $$V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\\\c_0, c_1, c_2 \cdots \\\\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)$$
 
 $$\text{s.t.}\forall t\geq 0, \\; \\; \begin{eqnarray}
-\mu_t:\quad &  0 & \leq & i_t + (1-\delta) k_t \\\\
+\mu_t:\quad &  0 & \leq & i_t  \\\\
 \nu_t:\quad &  i_t & \leq & \exp(z_t) k_t^{\alpha} \\\\
 \lambda_t:\quad &  i_t & = & \exp(z_t) k_t^{\alpha} - c_t\\\\
 q_t:\quad &  k_{t+1} & = & (1-\delta) k_{t} + i_{t}
@@ -184,7 +184,7 @@ $$z_t = \rho z_{t-1}$$
 <div class="col">
 
 - Steady-State: $\overline{i}, \overline{k}, \overline{z}$ such that:
-  - $z_{t+1}=k_t=\overline{z}$
+  - $z_{t+1}=z_t=\overline{z}$
   - $k_{t+1}=k_t=\overline{k}$
   - $i_{t+1}=i_t=\overline{i}$
 - ...satisfy the first order conditions
@@ -322,7 +322,7 @@ $$ \begin{bmatrix} \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . 
 - Trick:
     - never use $\frac{d}{dx} \frac{u(x)}{v(x)} = \frac{u'(x)v(x)-u(x)v'(x)}{v(x)^2}$
       - too error prone
-    - use instead $$\frac{d}{dx} {u(x)v(x)} = {u'(x)v(x)+u(x)v'(x)}$$ and $$\frac{d}{dx} u(x) = -\frac{u^{\prime}}{u(x)^2}$$
+    - use instead $$\frac{d}{dx} {u(x)v(x)} = {u'(x)v(x)+u(x)v'(x)}$$ and $$\frac{d}{dx} \frac{1}{u(x)} = -\frac{u^{\prime}}{u(x)^2}$$
 - You can get easier calculations (in some cases) by using log-deviation rules
 
 ----

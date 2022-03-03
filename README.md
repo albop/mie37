@@ -9,6 +9,9 @@ Regular Notebooks:
 ## Link to the slides:
 
 - [introduction](http://www.mosphere.fr/mie37/slides/index.html)
+- [convergence of series](http://www.mosphere.fr/mie37/slides/convergence.html)
+- [perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html)
+
 
 ## Communication
 

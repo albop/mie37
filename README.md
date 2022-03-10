@@ -32,8 +32,8 @@ Regular Notebooks:
 | 03/02 | Intro, Julia Basics Tutorial                           | Epidemiology Tutorial     |
 | 10/02 | Convergence of Sequences, Julia Basics Tutorial (2)    |                           |
 | 17/02 | Perturbation (1)                                       |                           |
-| 03/03 | Perturbation (2)                                       |                           |
-| <mark>10/03 <mark> | Stochastic Models, RBC Model, Dolo Primer |                           |
+| 03/03 | Perturbation (2)                                       | Neoclasssical Tutorial    |
+| <mark>10/03 <mark> | Stochastic Models, RBC Model, Dolo Primer | Homework 1                |
 | 17/03 | Discrete Dynamic Programming, McCall Model             |                           |
 | 24/03 | Interpolation, Optimization, Value Function Iteration  |                           |
 | 31/03 | Time Iteration Methods                                 |                           |

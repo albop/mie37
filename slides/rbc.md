@@ -75,7 +75,7 @@
   - it is a very useful concept to understand stochastic optimization, complete markets, etc.
   - math for continuous processes a bit involved (filtrations, ...), but most intuition can be gained from discrete process
 
-[graph  ]
+![head or tail](head_tail.png)
 
 </div>
 

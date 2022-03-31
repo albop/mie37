@@ -36,6 +36,6 @@ Regular Notebooks:
 | 03/03 | Perturbation (2)                                       | Neoclasssical Tutorial    |
 | 10/03 | Stochastic Models, RBC Model, Dolo Primer | Homework 1                |
 | 17/03 | Discrete Dynamic Programming, McCall Model             |                           |
-| <mark>24/03</mark> | Interpolation, Optimization, Value Function Iteration  |                           |
-| 31/03 | Time Iteration Methods                                 |                           |
-| 07/04 | Exam                                                   |                           |
+| 24/03 | McCall Model (2)  |                       |
+| <mark>31/03</mark> | Interpolation, Optimization, Value Function Iteration  |                           |
+| 07/04 | Time Iteration                                         |                           |

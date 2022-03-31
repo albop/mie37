@@ -327,7 +327,7 @@ $$
 ### Multidimensional interpolation
 
 - Consider a function $f$ defined on a space $X_1 \times X_d$
-- Take $d$ grids $\mathcal{G}_1\subset X_1, ..., \mathcal{G}_d\subset X_d$ with lienar approximation bases $\mathcal{B}_1=(b_1^1, ... b_1^{N_1}),..., \mathcal{B}_d=(b_d^1, ... b_d^{N_d})$.
+- Take $d$ grids $\mathcal{G}_1\subset X_1, ..., \mathcal{G}_d\subset X_d$ with linear approximation bases $\mathcal{B}_1=(b_1^1, ... b_1^{N_1}),..., \mathcal{B}_d=(b_d^1, ... b_d^{N_d})$.
 - Then $f$ can be approximated by
 $f(x_1, ... x_d ; \theta) = \sum_{i_1=1}^{N_1} ... \sum_{i_d=1}^{N_d} \theta_{i_1, ... i_d} \underbrace{b_{i_1}^1(x_1) ...  b_{i_d}^d(x_d)}_{\text{Product Base}}$
 - Morality:
@@ -362,16 +362,4 @@ $f(x_1, ... x_d ; \theta) = \sum_{i_1=1}^{N_1} ... \sum_{i_d=1}^{N_d} \theta_{i_
 using BasisMatrices
 ```
 
-----
-
-### Collocation
-
-- Back to original functional equation: $\Phi(f)(x)$. We want an approximation of $f$.
-  - choose the domain: $x\in [a,b]$
-  - choose an approximation grid $(x_1, ... x_N)$, and matching approximation basis $(b_1, ... b_N)$ so that $f(x;\theta) = \sum_n \theta_n b_n(x)$
-  - for any $\theta = (\theta_1, ... \theta_N)$ we can compute $\Phi(f( ;\theta))(x)$
-  - we need $N$ conditions to pin down $(\theta_1, ... \theta_N)$
-    - *collocation*: set $\Phi(f(;\theta))(x_1)= ... =\Phi(f(;\theta))(x_N)=0$ to pin down $\theta_1, ... \theta_N$
-    - does not guarantee behavior between the points, but they are well chosen
-  
 ----

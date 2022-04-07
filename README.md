@@ -14,11 +14,12 @@ Regular Notebooks:
 - [rbc](http://www.mosphere.fr/mie37/slides/rbc.html)
 - [discrete dynamic programming](http://www.mosphere.fr/mie37/slides/ddp.html)
 - Tools for nonlinear models:
+    - [optimization](http://www.mosphere.fr/mie37/slides/optimization.html)
     - [interpolation](http://www.mosphere.fr/mie37/slides/interpolation.html)
     - [discretization](http://www.mosphere.fr/mie37/slides/discretization.html)
-    - [optimization](http://www.mosphere.fr/mie37/slides/optimization.html)
-- [value_iteration](http://www.mosphere.fr/mie37/slides/value_iteration.html)
-- [time iteration](http://www.mosphere.fr/mie37/slides/time_iteration.html)
+- Nonlinear continous algorithms:
+    - [value iteration](http://www.mosphere.fr/mie37/slides/value_iteration.html)
+    - [time iteration](http://www.mosphere.fr/mie37/slides/time_iteration.html)
 
 
 

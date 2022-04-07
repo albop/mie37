@@ -176,7 +176,7 @@ $$\frac{1}{N} \sum_n w_n f(\epsilon_n)$$
 
 Compute expectation
 
-```julia [1-3|4-7|9-10|14]
+```julia [1-3|4-7|9-10|14|16-17]
 # imports:
 using Distributions: Normal
 
@@ -228,18 +228,7 @@ julia> @time sdvals = [stdev(C; N=n, K=10000) for n=NVec]
 ```
 <!-- .element class="fragment" -->
 
-
 ----
-
-<!-- ### Improve the significance of the graphs:
-
-- meaningful units (consumption equivalent)
-
-- choose right axis for the graphs: log, semi-log
-
-[TODO: print output]
-
----- -->
 
 ### Quick theory (1)
 

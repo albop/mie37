@@ -1,6 +1,6 @@
 # Introduction
 
-## Advanced Macro: Numerical Methods,  2022 (MIE37)
+## Advanced Macro: Numerical Methods,  2023 (MIE37)
 
 Pablo Winant
 
@@ -23,7 +23,7 @@ Pablo Winant
 ### Assignments and Final Exam
 
 -  Hands-on tutorial started in class must be (reasonably) completed by Wednesday night.
- - Preferably: commit the work in your clone.
+  - Preferably: commit the work in your clone.
 - There will be two special assignments with 14 days to complete each of them.
 - Groupwork is OK.
 - Final Exam will take place in the latest session.
@@ -60,6 +60,8 @@ Pablo Winant
 ---
 
 ### Content of the course
+
+<img src=vain_diagram.jpg width=30%>
 
 - Computational Economics is made of:
   - Applied Math (theory)
@@ -181,7 +183,7 @@ Pablo Winant
 
 - Plan A: use the mybinder links from the courses repository.
 - Plan B: use your own laptop. You will need:
-  - Julia 1.6.x
+  - Julia 1.8.x (install using [JuliaUp](https://github.com/JuliaLang/juliaup))
   - visual studio code
-  - install julia extension to VSCode
+  - julia extension to VSCode
   - git

@@ -6,7 +6,24 @@ JupyterLab:
 Regular Notebooks:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/albop/mie37.git/master)
 
+The main link to the slides is [here](http://www.mosphere.fr/mie37/slides/).
+
+## Indicative Schedule
+
+| Date  | Content                                                | Homework                  |
+| ----- | -----------------------------------------------------  | ------------------------- |
+| <mark>02/02</mark> | [Intro](http://www.mosphere.fr/mie37/slides/index.html), Julia Basics (1)                   | Epidemiology Tutorial     |
+| 09/02 | Convergence of Sequences, Julia Basics (2)             |                           |
+| 16/02 | Perturbation (1)                                       |                           |
+| 23/03 | Perturbation (2)                                       |                           |
+| 8/03 | Stochastic Models, RBC Model, Dolo Primer               | Coursework I              |
+| 16/03 | Discrete Dynamic Programming, McCall Model             |                           |
+| 23/03 | McCall Model (2)                                       |                           |
+| 30/03 | Interpolation, Optimization                            |                           |
+| 06/04 | Discretization, Time Iteration                         | Coursework  II            |
+
 ## Link to the slides:
+
 
 - [introduction](http://www.mosphere.fr/mie37/slides/index.html)
 - [convergence of series](http://www.mosphere.fr/mie37/slides/convergence.html)
@@ -33,16 +50,3 @@ Regular Notebooks:
 - tutorials (optional) + projects (mandatory) (50%)
 - final exam (50%)
 
-## Schedule
-
-| Date  | Content                                                | Homework                  |
-| ----- | -----------------------------------------------------  | ------------------------- |
-| 03/02 | Intro, Julia Basics Tutorial                           | Epidemiology Tutorial     |
-| 10/02 | Convergence of Sequences, Julia Basics Tutorial (2)    |                           |
-| 17/02 | Perturbation (1)                                       |                           |
-| 03/03 | Perturbation (2)                                       | Neoclasssical Tutorial    |
-| 10/03 | Stochastic Models, RBC Model, Dolo Primer | Homework 1                |
-| 17/03 | Discrete Dynamic Programming, McCall Model             | Coursework (1)                         |
-| 24/03 | McCall Model (2)  |                       |
-| 31/03 | Interpolation, Optimization |                           |
-| <mark>07/04</mark> | Discretization, Time Iteration                                         | Coursework (2)                          |

@@ -22,7 +22,7 @@ The main link to the slides is [here](http://www.mosphere.fr/mie37/slides/).
 | 30/03 | Interpolation, Optimization                            |                           |
 | 06/04 | Discretization, Time Iteration                         | Coursework  II            |
 
-## Link to the slides:
+## Slides from 2022
 
 
 - [introduction](http://www.mosphere.fr/mie37/slides/index.html)

@@ -1,6 +1,6 @@
 # Convergence of recursive sequences
 
-## Advanced Macro: Numerical Methods,  2022 (MIE37)
+## Advanced Macro: Numerical Methods,  2023 (MIE37)
 
 Pablo Winant
 
@@ -174,7 +174,7 @@ When $|f^{\prime}(x)|<1$, the distance to the target decreases at each iteration
 
 <div class="container">
 <div class="col">
-What about the case  $|f^{\prime}(x)=1|$?  Many cases are possible. To distinguish between them, one need to inspect higher order derivatives.
+What about the case  $|f^{\prime}(x)=1|$?  Many cases are possible. To distinguish between them, one needs to inspect higher order derivatives.
 
 - when $|f^{\prime}(x)=1|$, $|f^{\prime\prime}(x)|\neq 0$ the series will convergence, only if $(x_0-x)f^{\prime\prime}(x)<0$, i.e. starting from one side of the fixed point. The steady-state is not stable.
 - When $|f^{\prime}(x)=1|$, $|f^{\prime\prime}(x)| = 0$, $|f^{\prime \prime\prime}(x)|\neq 0$ the series will converge, only if $f^{\prime}(x)(f^{\prime\prime\prime}(x))<1$
@@ -251,17 +251,21 @@ corresponds to the case of __linear__ convergence (kind of slow).
 
 ### Aitken's extrapolation
 
-note that
+When convergence is geometric, we have: 
+$$ \lim_{x\rightarrow \infty}\frac{ x_{t+1}-x}{x_t-x} = \lambda \in \mathbb{R}^{\star}$$
+
+Which implies:
 
 $$\frac{ x_{t+1}-x}{x_t-x} \sim \frac{ x_{t}-x}{x_{t-1}-x}$$
-
-Take $x_{t-1}, x_t$ and $x_{t+1}$ as given and solve for $x$:
-
-$$x = \frac{x_{t+1}x_{t-1} - x_{t}^2}{x_{t+1}-2x_{t} + x_{t-1}}$$
 
 ---
 
 ### Aitken's extrapolation (2)
+
+
+Take $x_{t-1}, x_t$ and $x_{t+1}$ as given and solve for $x$:
+
+$$x = \frac{x_{t+1}x_{t-1} - x_{t}^2}{x_{t+1}-2x_{t} + x_{t-1}}$$
 
 or after some reordering
 
@@ -278,7 +282,7 @@ $$x = x_{t-1} - \frac{(x_t-x_{t-1})^2}{x_{t+1}-2 x_t + x_{t-1}}$$
 
 It can be shown that the sequence generated from Steffensen's method converges __quadratically__, that is
 
-$\lim_{t\rightarrow\infty} \frac{x_{t+1}-x_t}{(x_t-x_{t-1})^2} \leq M$
+$\lim_{t\rightarrow\infty} \frac{x_{t+1}-x_t}{(x_t-x_{t-1})^2} \leq M  \in \mathbb{R}^{\star}$
 
 ---
 
@@ -300,3 +304,20 @@ $${\lim}\_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|^{\co
 Remark: in the case of linear convergence:
 
 $${\lim}\_{t\rightarrow\infty} \frac{|x\_{t+1}-x\_t|}{|x\_{t}-x\_{t-1}|} = \mu \in R^+ \iff {\lim}\_{t\rightarrow\infty} \frac{|x\_{t+1}-x^{\star}|}{|x\_{t}-x^{\star}|}=\frac{1}{1-\mu}$$
+
+---
+
+### In practice
+
+- Problem:
+  - Suppose one is trying to find $x$ solving the model $G(x)=0$
+  - An iterative algorithm provides a function $f$ defining a recursive series $x_{t+1}$.
+- The best practice consists in monitoring at the same time:
+  - the success criterion: $$\epsilon_n = |G(x_n)|$$
+    - <!-- .element: class="fragment" --> have you found the solution?
+  - the successive approximation errors
+    $$\eta_n = |x_{n+1} - x_n|$$
+    - <!-- .element: class="fragment" --> are you making progress?
+  - the ratio of successive approximation errors
+    $$\lambda_n = \frac{\eta_n}{\eta_{n-1}}$$
+    - <!-- .element: class="fragment" --> what kind of convergence? (if $|\lambda_n|<1$: OK, otherwise: ❓)

@@ -1,2 +1,7 @@
 node_modules/*
 mie37
+*checkpoint*
+slides/*_files/*
+*.aux
+*.log
+*.tex

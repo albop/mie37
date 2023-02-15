@@ -1,10 +1,15 @@
-# Perturbation Analysis
+---
+title: Perturbation Analysis
+subtitle:  "Advanced Macro: Numerical Methods"
+author: Year 2022-2023 (MIE37)
+format:
+  revealjs:
+    navigation: grid
+    width: 1920
+    height: 1080
+aspectratio: 169
+---
 
-## Advanced Macro: Numerical Methods,  2022 (MIE37)
-
-Pablo Winant
-
-----
 
 ## Today
 
@@ -24,9 +29,9 @@ Study Neoclassical Model of Growth with Deterministic Productivity Shocks
 
 ## Neoclassical Growth Model
 
-<div class="container">
+::: columns
 
-<div class="col">
+:::: column
 
 - Transition Equation
 $$\begin{eqnarray}
@@ -43,9 +48,8 @@ $$c_t = \exp(z_t) k_t^\alpha - i_t$$
 - Objective:
 $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 
-
-</div>
-<div class="col">
+::::
+:::: column
 
 - Calibration:
   - $\beta = 0.96$
@@ -54,7 +58,8 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
   - $\alpha = 0.3$
   - $U(x)=\frac{x^{1-\gamma}}{1-\gamma}$
   
-</div>
+::::
+:::
 
 ----
 
@@ -88,8 +93,8 @@ $$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left
 
 ### Lagrangian
 
-<div class="container">
-<div class="col">
+::: columns
+:::: column
 
 - We maximize the lagrangian to get:
 
@@ -104,9 +109,8 @@ $$\begin{eqnarray}
   - check that you don't differentiate w.r.t. $k_0$
 - It looks like the first order condition added four new variables $\mu_t$,$\nu_t$, $\lambda_t$, $q_t$
 
-</div>
-
-<div class="col">
+::::
+:::: column
 
 - Luckily these variables are associated to slackness conditions.
 
@@ -121,15 +125,16 @@ $$\begin{eqnarray}
   - the lagrangian is 0 and it disappears from the F.O.C.s
   - or it is not 0 and the associated constraint adds another condition
 
-</div>
-</div>
+::::
+:::
 
 ----
 
 ### Eliminating constraints
 
-<div class="container">
-<div class="col">
+::: columns
+
+:::: column
 
 |                    |                                             |
 | ------------------ | ------------------------------------------- |
@@ -141,10 +146,11 @@ $$\begin{eqnarray}
 - In general slackness conditions can be occasionally binding
 - For perturbation analysis, we need constraints to be always (or never binding)
 
-</div>
-<div class="col">
+::::
+:::: column
 
 Let's review them:
+
 - $\nu_t$: it is equivalent to $c_t\geq 0$
   - we necessarily have $c_t>0$ since $U^{\prime}(0)=\infty$
   - hence $\nu_t=0$
@@ -157,7 +163,8 @@ Let's review them:
   -  $c_t \leq \exp(z_t) k_t^{\alpha}  - i_t$ ( you can destroy production insead of eating or investing it)
   - $k_{t+1} \leq (1-\delta) k_{t} + i_{t}$ (you can destroy capital instead of investing it)
 
-</div>
+::::
+:::
 
 
 ----
@@ -506,9 +513,9 @@ exp(x) + log(y)
 
 ### Our problem
 
-<div class="container">
+::: columns
 
-<div class="col">
+:::: column
 
 - General formulation of a *linearized* model:
 $$ \begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0_{n_x} \\\\
@@ -520,10 +527,8 @@ where:
   - first equation is *forward* looking
   - second equation is *backward* looking
 
-</div>
-
-<div class="col">
-<div>
+::::
+:::: column
 
 - In the neoclassical model:
 $$\begin{eqnarray}
@@ -541,8 +546,8 @@ E & = & ...\\\\
 F & = & 
 \end{eqnarray}$$
 
-</div>
-</div>
+::::
+:::
 
 ----
 
@@ -585,10 +590,9 @@ $$\Delta i_t =i_z \Delta z_t + i_k \Delta k_t$$
 
 ### Optimality condition:
 
+::: columns
 
-<div class="container">
-
-<div class="col">
+:::: column
 
 - Replacing in the system:
 $$ \begin{eqnarray}
@@ -603,8 +607,8 @@ $$
 
 $$( (A + B X) + ( D X + C) ( E  + F X ) ) s_t = 0$$
 
-</div>
-<div class="col">
+::::
+:::: column
 
 - This must be true for all $s_t$. We get the special Ricatti equation:
 
@@ -616,8 +620,8 @@ $$(A + B \color{red}{X}) + ( D \color{red}{X} + C) ( E  + F \color{red}{X} ) = 0
     - today: linear time iteration selects only one solution
     - next time: eigenvalues analysis
 
-</div>
-</div>
+::::
+:::
 
 ----
 
@@ -640,10 +644,8 @@ $$(A + B X) + (C + D \tilde{X}) ( E  + F X ) ) \Delta s_t = 0 $$
 
 ### Linear Time Iteration (2)
 
-
-<div class="container">
-
-<div class="col">
+::: columns
+:::: column
 
 - We get the equation: 
 $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
@@ -654,8 +656,8 @@ $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
 - $T$ is the time iteration operator... for linear models
   - it does *forward iteration* ($X_t$ as a function of $X_{t+1}$)
 
-</div>
-<div class="col">
+::::
+:::: column
 
 - algorithm:
   - choose stopping criteria: $\epsilon_0$ and $\eta_0$
@@ -670,8 +672,8 @@ $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
       - stop and return $X_{n+1}$
       - otherwise iterate with $X_{n+1}$
 
-</div>
-</div>
+::::
+:::
 
 ----
 
@@ -695,8 +697,8 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
 
 ### Spectral radius
 
-<div class="container">
-<div class="col">
+::: columns
+:::: column
 
 - How do you compute the spectral radius of matrix P?
   - naive approach: compute all eigenvalues, check the value of the biggest one...
@@ -705,8 +707,8 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
   - take a linear operator $L$ over a Banach Space $\mathcal{B}$ (vector space with a norm)
   - use the fact that *for most* $u_0\in \mathcal{B}$, $\frac{|L^{n+1} u_0|}{|L^n u_0|}\rightarrow \rho(L)$
 
-</div>
-<div class="col">
+::::
+:::: column
 
 - Algorithm:
   - choose tolerance criterium: $\eta>0$
@@ -720,8 +722,8 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
       - stop and return $|x_{n+1}|$
       - else iterate with $u_{n+1}$
 
-</div>
-</div>
+::::
+:::
 
 ----
 

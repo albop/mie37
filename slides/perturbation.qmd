@@ -4,10 +4,10 @@ subtitle:  "Advanced Macro: Numerical Methods"
 author: Year 2022-2023 (MIE37)
 format:
   revealjs:
+    html-math-method: mathjax
     navigation: grid
     width: 1920
     height: 1080
-aspectratio: 169
 ---
 
 
@@ -35,7 +35,7 @@ Study Neoclassical Model of Growth with Deterministic Productivity Shocks
 
 - Transition Equation
 $$\begin{eqnarray}
-k_t & = & (1-\delta) k_{t-1} + i_{t-1} \\\\
+k_t & = & (1-\delta) k_{t-1} + i_{t-1} \\
 z_t & = & \rho z_{t-1}
 \end{eqnarray}
 $$
@@ -74,20 +74,24 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 
 ----
 
-### Lagrangian
+### Lagrangian {.scrollable}
 
 - Initial Conditions (predetermined states): $z_0$, $k_0$
 - Problem:
-$$V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\\\c_0, c_1, c_2 \cdots \\\\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)$$
+$$V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\c_0, c_1, c_2 \cdots \\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)$$
 
-$$\text{s.t.}\forall t\geq 0, \\; \\; \begin{eqnarray}
-\mu_t:\quad &  0 & \leq & i_t  \\\\
-\nu_t:\quad &  i_t & \leq & \exp(z_t) k_t^{\alpha} \\\\
-\lambda_t:\quad &  i_t & = & \exp(z_t) k_t^{\alpha} - c_t\\\\
+$$\text{s.t.}\forall t\geq 0, \; \; \begin{eqnarray}
+\mu_t:\quad &  0 & \leq & i_t  \\
+\nu_t:\quad &  i_t & \leq & \exp(z_t) k_t^{\alpha} \\
+\lambda_t:\quad &  i_t & = & \exp(z_t) k_t^{\alpha} - c_t\\
 q_t:\quad &  k_{t+1} & = & (1-\delta) k_{t} + i_{t}
 \end{eqnarray}$$
+
 - Lagrangian:
-$$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left( i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\\}$$
+$$
+\mathcal{L} (z_0, k_0) = \sum_{t \geq 0} \beta^t\left
+\{ U(c_t) + \mu_t \left( i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\}
+$$
 
 ----
 
@@ -99,8 +103,8 @@ $$\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left
 - We maximize the lagrangian to get:
 
 $$\begin{eqnarray}
-\forall t\geq0 & \frac{\partial \mathcal{L}}{\partial i_t} & = & 0 \\\\
-& \frac{\partial \mathcal{L}}{\partial c_t} & = & 0 \\\\
+\forall t\geq0 & \frac{\partial \mathcal{L}}{\partial i_t} & = & 0 \\
+& \frac{\partial \mathcal{L}}{\partial c_t} & = & 0 \\
  & \frac{\partial \mathcal{L}}{\partial k_{t+1}} & = & 0 
 \end{eqnarray}$$
 
@@ -116,7 +120,7 @@ $$\begin{eqnarray}
 
 |                    |                                             |
 | ------------------ | ------------------------------------------- |
-| $\mu_t \geq 0$     | $ i_t \geq 0$                |
+| $\mu_t \geq 0$     | $i_t \geq 0$                               |
 | $\nu_t \geq 0$     | $\exp(z_t) k_t^{\alpha}-i_t \geq 0$         |
 | $q_t \geq 0$       | $(1-\delta) k_{t} + i_{t} - k_{t+1} \geq 0$ |
 | $\lambda_t \geq 0$ | $\exp(z_t) k_t^{\alpha}  - i_t -c_t = 0$    |
@@ -138,7 +142,7 @@ $$\begin{eqnarray}
 
 |                    |                                             |
 | ------------------ | ------------------------------------------- |
-| $\mu_t \geq 0$     | $ i_t \geq 0$                |
+| $\mu_t \geq 0$     | $i_t \geq 0$                |
 | $\nu_t \geq 0$     | $\exp(z_t) k_t^{\alpha}-i_t \geq 0$         |
 | $q_t$       | $(1-\delta) k_{t} + i_{t} - k_{t+1} = 0$ |
 | $\lambda_t$ | $\exp(z_t) k_t^{\alpha}  - i_t -c_t = 0$    |
@@ -178,30 +182,36 @@ $$\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}
 $$c_t = k_t^\alpha - i_t$$
 
 - Transition:
-$$k_t (1-\delta) k_{t-1} + i_{t-1}$$
+$$k_t = (1-\delta) k_{t-1} + i_{t-1}$$
 $$z_t = \rho z_{t-1}$$
 
 ----
 
 ### Steady-State
 
+::: columns
 
-<div class="container">
-
-<div class="col">
+:::: column
 
 - Steady-State: $\overline{i}, \overline{k}, \overline{z}$ such that:
   - $z_{t+1}=z_t=\overline{z}$
   - $k_{t+1}=k_t=\overline{k}$
   - $i_{t+1}=i_t=\overline{i}$
+  - $c_{t+1}=c_t=\overline{c}$
 - ...satisfy the first order conditions
 - ...i.e.
-$$\beta   \left( (1-\delta + \alpha {\overline{k}}^{\alpha -1}) \right) = 1$$
-$$\overline{k}=  (1-\delta) \overline{k} + \overline{i}$$
-$$\overline{z} = \rho \overline{z}$$
 
-</div>
-<div class="col">
+$$
+\begin{eqnarray}
+1 & = & \beta   \left( (1-\delta + \alpha {\overline{k}}^{\alpha -1}) \right)  \\
+\overline{k} & = & (1-\delta) \overline{k} + \overline{i} \\
+\overline{z} & = & \rho \overline{z} \\
+\overline{c} & = & \overline{k}^{\alpha} - \overline{i}
+\end{eqnarray}
+$$
+
+::::
+:::: column
 
 - Solution?
   - closed-form
@@ -210,13 +220,14 @@ $$\overline{z} = \rho \overline{z}$$
 - Here we can get a closed form:
 
 $$\begin{eqnarray}
-\overline{k} & = & \left( \frac{\frac{1}{\beta}-(1-\delta)}{\alpha} \right)^{\frac{1}{\alpha - 1}} \\\\
-\overline{i} & = & \delta \overline{k} \\\\\
-\overline{z} & = & 0
+\overline{k} & = & \left( \frac{\frac{1}{\beta}-(1-\delta)}{\alpha} \right)^{\frac{1}{\alpha - 1}} \\
+\overline{i} & = & \delta \overline{k} \\\
+\overline{z} & = & 0 \\
+\overline{c} & = & \overline{k}^{\alpha} - \overline{i}
 \end{eqnarray}$$
 
-</div>
-</div>
+::::
+:::
 
 ----
 
@@ -250,11 +261,12 @@ $$\overline{z }+ \Delta z_t = \overline{z}+ \Delta \rho z_{t-1}$$
 
 ### Result:
 
-- Optimality Condition
-$$\begin{bmatrix} . & . & . \\ \end{bmatrix} \begin{bmatrix} \Delta i_t \\\\ \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & . & . \\ \end{bmatrix} \begin{bmatrix} \Delta i_{t+t} \\\\ \Delta k_{t+1} \\\\ \Delta z_{t+1} \end{bmatrix} $$
+- Optimality conditions
+$$\begin{bmatrix} . & . & . & . \\ \end{bmatrix} \begin{bmatrix} \Delta i_t \\ \Delta c_t  \\ \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & . & . \\ \end{bmatrix} \begin{bmatrix} \Delta i_{t+1} \\  \Delta c_{t+1} \\ \Delta k_{t+1} \\ \Delta z_{t+1} \end{bmatrix} $$
 
 - Transition
-$$ \begin{bmatrix} \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & .  \\\\ . & . \end{bmatrix} \begin{bmatrix} \Delta k_{t-1} \\\\ \Delta z_{t-1} \end{bmatrix}  + \begin{bmatrix} . \end{bmatrix} \begin{bmatrix}\Delta i_{t-1}\end{bmatrix}$$
+$$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & .  \\ . & . \end{bmatrix} \begin{bmatrix} \Delta k_{t-1} \\ \Delta z_{t-1} \end{bmatrix}  + \begin{bmatrix} . \end{bmatrix} \begin{bmatrix}\Delta i_{t-1}\end{bmatrix}$$
+
 
 ---
 
@@ -336,8 +348,12 @@ $$ \begin{bmatrix} \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . 
 
 ### Finite Differences
 
-- Choose small $\epsilon>0$, typically $\sqrt{ \textit{machine eps}}$
+::: columns
 
+:::: column
+
+- Choose small $\epsilon>0$, typically $\sqrt{ \textit{machine eps}}$
+  - check ```eps()```
 - Forward Difference scheme:
     -  $f'(x) \approx \frac{f(x+\epsilon) - f(x)}{\epsilon}$
     - precision: $o(\epsilon)$
@@ -348,20 +364,45 @@ $$ \begin{bmatrix} \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . 
     - average of forward and backward
     - precision: $o(\epsilon^2)$
 
+::::
+:::: column
+
+
+Two packages `FiniteDiff` and `FiniteDifferences`.
+
+Example:
+
+```julia
+using FiniteDiff
+
+g(x) = [x[1]^2 x[2]^3]
+FiniteDiff.finite_difference_jacobian(g, [0.1, 0.2])
+```
+
+::::
+:::
+
 ----
 
 ### Finite Differences: Higher order
 
 - Central formula:
-$$\begin{aligned}
+$$
+\begin{aligned}
 f''(x) & \approx & \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(f(x+\epsilon))-f(x))-(f(x)-f(x-\epsilon))}{\epsilon^2} \\ & = & \frac{f(x+\epsilon)-2f(x)+f(x-\epsilon)}{\epsilon^2}
-\end{aligned}$$
+\end{aligned}
+$$
+
     - precision: $o(\epsilon)$
 - Generalizes to higher order but becomes more and more innacurate
 
 ----
 
 ### Symbolic Differentiation
+
+::: columns
+
+:::: column
 
 - manipulate the tree of algebraic expressions
     - implements various simplification rules
@@ -370,24 +411,40 @@ f''(x) & \approx & \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(f(x+\eps
 - sometimes inaccurate:
   - cf: $\left(\frac{1+u(x)}{1+v(x)}\right)^{100}$
 
-----
 
-### Julia Packages:
+::::
+:::: column
 
+Two main libraries:
 
-
-- *FiniteDiff.jl*, *FiniteDifferences.jl*, *SparseDiffTools.jl*
-    - careful implementation of finite diff
-- *Calculus.jl*:
+- [SymEngine.jl](https://github.com/symengine/SymEngine.jl)
+    - fast symbolic calculation
+    - mature C++ engine
+- [Symbolics.jl](https://symbolics.juliasymbolics.org/stable/):
     - pure julia
     - finite difference
     - symbolic calculation
-- *SymEngine.jl*
-    - fast symbolic calculation
+
+
+
+Example using Symbolics:
+```julia
+using Symbolics
+@variables a x b y
+eq = a*sin(x) + b*cos(y)
+Symbolics.derivative(eq, x)
+```
+::::
+:::
 
 ----
 
 ### Automatic Differentiation
+
+![ ](future.jpg.jpg)
+
+
+#### Automatic Differentiation
 
 - does not provide mathematical insights but solves the other problems
 
@@ -398,22 +455,32 @@ f''(x) & \approx & \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(f(x+\eps
 
 ----
 
-### Simple example:
+### Automatic source code rewrite
+
+::: columns
+:::: column
+
+Consider this simple function 
 
 ```julia
-function f(x::Float64, y::Float64)
+function f(x::Number)
+
     a = x + 1
-    b = y^2
-    c = sin(a) + a + b
+    b = x^2
+    c = sin(a) 
+    d = c + b
+
+    return d
+
 end
 ```
+::::
+:::: column
 
-----
+We can rewrite the code as follows:
 
-### Automatic rewrite: source code transform
-
-```julia
-function f(x::Float64)
+```{.julia}
+function f(x::Number)
 
     # x is an argument
     x_dx = 1.0
@@ -424,22 +491,26 @@ function f(x::Float64)
     b = x^2
     b_dx = 2*x*x_dx
 
-    t = sin(a)
-    t_x = cos(a)*a_dx
+    c = sin(a)
+    c_x = cos(a)*a_dx
 
-    c = t + b
-    c_x = t_dx + b_dx
+    d = c + b
+    d_x = c_dx + b_dx
 
-    return (c, c_x)
+    return (d, d_x)
 end
 ```
 
+::::
+:::
 ----
 
 ### Dual numbers: operator overloading
 
+Instead of rewriting source code, we can use dual numbers to perform exactly the same calculations.
+
 ```julia
-struct DN
+struct DN<:Number
     x::Float64
     dx::Float64
 end
@@ -452,9 +523,16 @@ end
 ...
 ```
 
+Try it on function `f` What do we miss ?
+
 ----
 
-### Compatible with control flow
+### Dual numbers
+
+
+This approach (and automatic differentiation in general) is compatible with control flow operations (`if`, `while`, ...)
+
+Let's see it with the dual numbers defined by `ForwardDiff` library:
 
 ```julia
 import ForwardDiff: Dual
@@ -474,28 +552,45 @@ exp(x) + log(y)
 
 ----
 
-### Forward Accumulation Mode
+### Automatic differentiation
 
-- Forward Accumulation mode: isomorphic to dual number calculation
-  - compute tree with values and derivatives at the same time
-  - efficient for $f: R^n\rightarrow R^m$, with $n<<m$
-    - (keeps lots of empty gradients when $n>>m$)
+There are *many* flavours of automatic differenation (check [JuliaDiff.org](https://juliadiff.org/))
 
-----
+\ 
 
-### Reverse Accumulation Mode
+\ 
+
+::: columns
+
+:::: column
+
+#### Forward Accumulation Mode
+
+- isomorphic to dual number calculation
+- compute values and derivatives at the same time
+- efficient for $f: R^n\rightarrow R^m$, with $n<<m$
+  - (keeps lots of empty gradients when $n>>m$)
+
+::::
+:::: column
+
+#### Reverse Accumulation Mode
 
 - Reverse Accumulation / Back Propagation
-    - efficient for $f: R^n\rightarrow R^m$, with $m<<n$
+    - efficient for $f: R^n\rightarrow R^m$, with $n>>m$
     - requires data storage (to keep intermediate values)
     - graph / example
 
 - Very good for machine learning:
-   - $\nabla_{\theta} F(x;\theta)$ where $F$ can be an objective
+   - $\nabla_{\theta} F(x;\theta)$ where $F$ is a scalar objective
+
+::::
+:::
 
 ----
 
 ### Libraries for AutoDiff
+
 
 - See JuliaDiff: http://www.juliadiff.org/
   - *ForwardDiff.jl*
@@ -504,6 +599,18 @@ exp(x) + log(y)
 - Deep learning framework:
   - higher order diff w.r.t. any vector -> tensor operations
   - Flux.jl, MXNet.jl, Tensorflow.jl
+
+
+::: {.callout-note title="Example with ForwardDiff"}
+
+Example with `ForwardDiff`:
+
+``` julia
+  using ForwardDiff
+ForwardDiff.jacobian(u->[u[1]^2, u[2]+u[1]], [0.1,0.2])
+```
+
+:::
 
 ---
 
@@ -518,7 +625,7 @@ exp(x) + log(y)
 :::: column
 
 - General formulation of a *linearized* model:
-$$ \begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0_{n_x} \\\\
+$$ \begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0_{n_x} \\
 s_{t+1} & = & E s_t + F x_t \end{eqnarray}$$
 where:
   - $s_t \in \mathbb{R}^{n_s}$ is a vector of *states*
@@ -532,17 +639,17 @@ where:
 
 - In the neoclassical model:
 $$\begin{eqnarray}
-s_t & = & (\Delta z_t, \Delta k_t) \\\\
-x_t & = & (\Delta i_t)
+s_t & = & (\Delta z_t, \Delta k_t) \\
+x_t & = & (\Delta i_t, \Delta c_t)
 \end{eqnarray}$$
 
 - The linearized system is:
 $$\begin{eqnarray}
-A & = & ...\\\\
-B & = & ...\\\\
-C & = & ...\\\\
-D & = & ...\\\\
-E & = & ...\\\\
+A & = & ...\\
+B & = & ...\\
+C & = & ...\\
+D & = & ...\\
+E & = & ...\\
 F & = & 
 \end{eqnarray}$$
 
@@ -553,8 +660,9 @@ F & = &
 
 ### Solution
 
-<div class="container">
-<div class="col">
+::: columns
+
+:::: column
 
 - What is the solution of our problem?
 - At date $t$ *controls* must be chosen as a function of (predetermined) *states*
@@ -565,25 +673,27 @@ F & = &
 
 $$\Delta x_t = X \Delta s_t$$
 
+::::
+:::: column
 
-</div>
+In the neoclassical model
 
-<div class="col">
-<div>
-  
-  In the neoclassical model
-- The control $i_t$ must be a function of the states
--  there is a decision rule $i()$ such that 
+- The states are $k_t$ and $z_t$
+
+- The controls $i_t$ and $c_t$ must be a function of the states
+-  there is a decision rule $i()$, $c()$ such that 
 $$i_t = i(z_t, k_t)$$
+$$c_t = c(z_t, k_t)$$
+
 - In the linearized model:
 $$\Delta i_t =i_z \Delta z_t + i_k \Delta k_t$$
+$$\Delta c_t =c_z \Delta z_t + c_k \Delta k_t$$
 
 
-- $k_t$ and $z_t$: the states
 
 
-</div>
-</div>
+::::
+:::
 
 
 ----
@@ -595,30 +705,36 @@ $$\Delta i_t =i_z \Delta z_t + i_k \Delta k_t$$
 :::: column
 
 - Replacing in the system:
-$$ \begin{eqnarray}
-\Delta x_t & = & X \Delta s_t \\\\
-\Delta s_{t+1} & = & E \Delta s_t + F X \Delta s_t \\\\
-\Delta x_{t+1} & = & X \Delta s_{t+1} \\\\
+<!-- $$ \begin{eqnarray}
+\Delta x_t & = & X \Delta s_t \\
+\Delta s_{t+1} & = & E \Delta s_t + F X \Delta s_t \\
+\Delta x_{t+1} & = & X \Delta s_{t+1} \\
 A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} & = & 0
 \end{eqnarray}
-$$
+$$ -->
+
+$$\Delta x_t  =  X \Delta s_t$$
+$$\Delta s_{t+1}  =  E \Delta s_t + F X \Delta s_t$$
+$$\Delta x_{t+1}  =  X \Delta s_{t+1}$$
+$$A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1}  =  0$$
+
 
 - If we make the full substitution:
 
-$$( (A + B X) + ( D X + C) ( E  + F X ) ) s_t = 0$$
+$$( (A + B X) + ( D X + C) ( E  + F X ) ) \Delta s_t = 0$$
 
 ::::
 :::: column
 
 - This must be true for all $s_t$. We get the special Ricatti equation:
 
-$$(A + B \color{red}{X}) + ( D \color{red}{X} + C) ( E  + F \color{red}{X} ) = 0 $$
+$$(A + B {\color{red}{X}} ) + ( D {\color{red}{X}} + C) ( E  + F {\color{red}X} ) = 0$$
 
-- this is a __quadratic__, __matrix__ ( $X$ is 1 by 2 ) equation:
+- this is a __quadratic__, __matrix__ ( $X$ is 2 by 2 ) equation:
   - requires special solution method
   - there are multiple solutions: which should we choose?
-    - today: linear time iteration selects only one solution
-    - next time: eigenvalues analysis
+  - today: linear time iteration selects only one solution
+    - alternative: eigenvalues analysis
 
 ::::
 :::
@@ -629,11 +745,11 @@ $$(A + B \color{red}{X}) + ( D \color{red}{X} + C) ( E  + F \color{red}{X} ) = 0
 
 - Let's be more subtle: define
   - $X$: decision rule today and
-  - $\tilde{X}$ is decision rule tomorrow.
+  - $\tilde{X}$: is decision rule tomorrow.
 $$\begin{eqnarray}
-\Delta x_t & =&  X \Delta s_t \\\\
-\Delta s_{t+1} & = & E \Delta  s_t + F X \Delta s_t \\\\
-\Delta x_{t+1} & = & \tilde{X} \Delta s_{t+1} \\\\
+\Delta x_t & =&  X \Delta s_t \\
+\Delta s_{t+1} & = & E \Delta  s_t + F X \Delta s_t \\
+\Delta x_{t+1} & = & \tilde{X} \Delta s_{t+1} \\
 A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} & = & 0
 \end{eqnarray}$$
 - We get, $\forall s_t$:
@@ -648,7 +764,9 @@ $$(A + B X) + (C + D \tilde{X}) ( E  + F X ) ) \Delta s_t = 0 $$
 :::: column
 
 - We get the equation: 
-$$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
+$$\begin{eqnarray}
+F(X, \tilde{X}) & = & (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) \\&=& 0
+\end{eqnarray}$$
 - Consider the *linear time iteration* algorithm
 - When the model is well-specified it is guaranteed to converge to the right solution.
   - cf *linear time iteration* by Pontus Rendahl ([link](https://irihs.ihs.ac.at/id/eprint/4351/1/es-330.pdf))
@@ -659,18 +777,19 @@ $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
 ::::
 :::: column
 
-- algorithm:
-  - choose stopping criteria: $\epsilon_0$ and $\eta_0$
-  - choose random $X_0$
-  - given $X_n$:
-    - compute $X_{n+1}$ such that $F(X_{n+1}, X_{n}) = 0$
-      <span class="r-stack"><span class="fragment current-visible">$$(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0$$</span><span class="fragment current-visible">$$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$</span><span class="fragment">$$X_{n+1} = T(X_n)$$</span></span>
-    - compute:
-      - $\eta_n = |X_{n+1} - X_n|$
-      - $\epsilon_n = F(X_{n+1}, X_{n+1})$
-    - if $\eta_n<\eta_0$ and $\epsilon_n<\epsilon_0$
-      - stop and return $X_{n+1}$
-      - otherwise iterate with $X_{n+1}$
+#### Algorithm:
+
+- choose stopping criteria: $\epsilon_0$ and $\eta_0$
+- choose random $X_0$
+- given $X_n$:
+  - compute $X_{n+1}$ such that $F(X_{n+1}, X_{n}) = 0$
+    <span class="r-stack"><span class="fragment current-visible">$$(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0$$</span><span class="fragment current-visible">$$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$</span><span class="fragment">$$X_{n+1} = T(X_n)$$</span></span>
+  - compute:
+    - $\eta_n = |X_{n+1} - X_n|$
+    - $\epsilon_n = F(X_{n+1}, X_{n+1})$
+  - if $\eta_n<\eta_0$ and $\epsilon_n<\epsilon_0$
+    - stop and return $X_{n+1}$
+    - otherwise iterate with $X_{n+1}$
 
 ::::
 :::
@@ -682,7 +801,7 @@ $$F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 $$
 - Suppose we have found the solution $\Delta x_t  = X \Delta s_t$
 - Recall the transition equation: $\Delta s_{t+1} = F \Delta s_t + G \Delta x_t$
 - We can now compute the model evolution following initial deviation in the state:
-$$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
+$$\Delta s_t = \underbrace{(F + G X)}_{P} \Delta s_{t-1}$$
   - $P$ is the simulation operator
   - it is a *backward* operator
 (TODO: example of a reaction to a shock)
@@ -702,25 +821,33 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
 
 - How do you compute the spectral radius of matrix P?
   - naive approach: compute all eigenvalues, check the value of the biggest one...
-  - better approach: power iteration method
+  ```julia
+  using LinearAlgebra
+  M = rand(2,2)
+  maximum(abs, eigvals(M))
+  ```
+  - becomes limited when size of matrix growth
+  - another approach: power iteration method
 - Power iteration method:
+  - works for matrices and linear operators
   - take a linear operator $L$ over a Banach Space $\mathcal{B}$ (vector space with a norm)
   - use the fact that *for most* $u_0\in \mathcal{B}$, $\frac{|L^{n+1} u_0|}{|L^n u_0|}\rightarrow \rho(L)$
 
 ::::
 :::: column
 
-- Algorithm:
-  - choose tolerance criterium: $\eta>0$
-  - choose random initial $x_0$ and define $u_0 = \frac{x_0}{|x_0|}$
-    - by construction: $|u_0|=1$
-  - given $u_n$, compute 
-    - $x_{n+1} = L.u_n$
-    - $u_{n+1} = \frac{x_{n+1}}{|x_{n+1}|}$
-    - compute $\eta_{n+1} = |u_{n+1} - u_n|$
-    - if $\eta_{n+1}<\eta$: 
-      - stop and return $|x_{n+1}|$
-      - else iterate with $u_{n+1}$
+#### Algorithm:
+
+- choose tolerance criterium: $\eta>0$
+- choose random initial $x_0$ and define $u_0 = \frac{x_0}{|x_0|}$
+  - by construction: $|u_0|=1$
+- given $u_n$, compute 
+  - $x_{n+1} = L.u_n$
+  - $u_{n+1} = \frac{x_{n+1}}{|x_{n+1}|}$
+  - compute $\eta_{n+1} = |u_{n+1} - u_n|$
+  - if $\eta_{n+1}<\eta$: 
+    - stop and return $|x_{n+1}|$
+    - else iterate with $u_{n+1}$
 
 ::::
 :::
@@ -730,7 +857,7 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
 ### Stability of the backward operator
 
 
-- To solve the model we use the backard operator: $$T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  & \rightarrow &  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\\\X_{t+1} & \mapsto & X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}$$
+- To solve the model we use the backard operator: $$T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  & \rightarrow &  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\X_{t+1} & \mapsto & X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}$$
 - What about its stability?
 - Recall: fixed point $\overline{z}$ of recursive sequence $z_n=f(z_{n_1})$ is stable if $|f^{\prime}(\overline{z})|<1$
 - We need to study $T^{\prime}$ of ($X$).
@@ -748,7 +875,7 @@ $$\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}$$
 - Consider $\overline{x} \in \mathcal{B}$.
 - $\mathcal{T}$ is differentiable at $\overline{x}$ if there exists a bounded linear operator $L \in \mathcal{L}(\mathcal{B})$ such that:
 $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
-- when it exists we denote this operator by $\mathcal{T}^{\prime}(\overline{x})$
+  - when it exists we denote this operator by $\mathcal{T}^{\prime}(\overline{x})$
 - Remarks:
   - Bounded operator means: $\sup_{|x|=1} |L.x|<+\infty$
   - This definition of a derivative is usually referred to as Fréchet-derivative
@@ -800,19 +927,9 @@ $$T^{\prime}(\overline{X}).u = ((B + (C+D \overline{X})F)^{-1})D u (E+F \overlin
 2. Time iteration algorithm, starting from an initial guess $X_0$ and we repeat until convergence:
 $$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$
 3. We compute the spectral radius of two operators to ensure the model is well defined and that the solution is the right one.
-  1. backward stability: derivative of simulation operator
-$$\rho(F + H \overline{X} )$$
-  2. forward stability: derivative of time iteration operator
-$$\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})D u (E+F \overline{X}) \right)$$
+  1. __backward stability__: derivative of simulation operator
+$$\boxed{\rho(F + H \overline{X} )}$$
+  2. __forward stability__: derivative of time iteration operator
+$$\boxed{\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})D u (E+F \overline{X}) \right)}$$
 
 This is equivalent to the so-called Blanchard-Kahn conditions.
-
----
-
-## Schur Decomposition Method and Blanchard-Kahn conditions
-
-----
-
-[tbc]
-
----

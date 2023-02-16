@@ -422,7 +422,7 @@ Year 2022-2023 (MIE37)
 <div class="column">
 <ul>
 <li><p>Transition Equation <span class="math display">\[\begin{eqnarray}
-k_t &amp; = &amp; (1-\delta) k_{t-1} + i_{t-1} \\\\
+k_t &amp; = &amp; (1-\delta) k_{t-1} + i_{t-1} \\
 z_t &amp; = &amp; \rho z_{t-1}
 \end{eqnarray}
 \]</span></p></li>
@@ -465,17 +465,23 @@ z_t &amp; = &amp; \rho z_{t-1}
 </section>
 <section class="slide level2">
 
-<h3 id="lagrangian">Lagrangian</h3>
+<h3 class="scrollable" id="lagrangian">Lagrangian</h3>
 <ul>
 <li>Initial Conditions (predetermined states): <span class="math inline">\(z_0\)</span>, <span class="math inline">\(k_0\)</span></li>
-<li>Problem: <span class="math display">\[V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\\\c_0, c_1, c_2 \cdots \\\\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)\]</span></li>
+<li>Problem: <span class="math display">\[V(z_0, k_0) = \max_{\begin{matrix}i_0, i_1, i_2, \cdots \\c_0, c_1, c_2 \cdots \\ k_1, k_2, \cdots\end{matrix}} \sum_{t \geq 0}\beta^t U(c_t)\]</span></li>
 </ul>
-<p><span class="math display">\[\text{s.t.}\forall t\geq 0, \\; \\; \begin{eqnarray}
-\mu_t:\quad &amp;  0 &amp; \leq &amp; i_t  \\\\
-\nu_t:\quad &amp;  i_t &amp; \leq &amp; \exp(z_t) k_t^{\alpha} \\\\
-\lambda_t:\quad &amp;  i_t &amp; = &amp; \exp(z_t) k_t^{\alpha} - c_t\\\\
+<p><span class="math display">\[\text{s.t.}\forall t\geq 0, \; \; \begin{eqnarray}
+\mu_t:\quad &amp;  0 &amp; \leq &amp; i_t  \\
+\nu_t:\quad &amp;  i_t &amp; \leq &amp; \exp(z_t) k_t^{\alpha} \\
+\lambda_t:\quad &amp;  i_t &amp; = &amp; \exp(z_t) k_t^{\alpha} - c_t\\
 q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
-\end{eqnarray}\]</span> - Lagrangian: <span class="math display">\[\mathcal{L(z_0, k_0)} =   \sum_{t \geq 0} \beta^t\left\\{ U(c_t) + \mu_t \left( i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\\}\]</span></p>
+\end{eqnarray}\]</span></p>
+<ul>
+<li>Lagrangian: <span class="math display">\[
+\mathcal{L} (z_0, k_0) = \sum_{t \geq 0} \beta^t\left
+\{ U(c_t) + \mu_t \left( i_t \right) + \nu_t \left(\exp(z_t)k_t^{\alpha} - i_t \right) + \lambda_t \left(\exp(z_t) k_t^{\alpha}  - i_t -c_t \right)  + q_t \left( (1-\delta) k_{t} + i_{t} - k_{t+1} \right) \right\}
+\]</span></li>
+</ul>
 </section>
 <section class="slide level2">
 
@@ -486,8 +492,8 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <li>We maximize the lagrangian to get:</li>
 </ul>
 <p><span class="math display">\[\begin{eqnarray}
-\forall t\geq0 &amp; \frac{\partial \mathcal{L}}{\partial i_t} &amp; = &amp; 0 \\\\
-&amp; \frac{\partial \mathcal{L}}{\partial c_t} &amp; = &amp; 0 \\\\
+\forall t\geq0 &amp; \frac{\partial \mathcal{L}}{\partial i_t} &amp; = &amp; 0 \\
+&amp; \frac{\partial \mathcal{L}}{\partial c_t} &amp; = &amp; 0 \\
 &amp; \frac{\partial \mathcal{L}}{\partial k_{t+1}} &amp; = &amp; 0
 \end{eqnarray}\]</span></p>
 <ul>
@@ -505,7 +511,7 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(\mu_t \geq 0\)</span></td>
-<td>$ i_t $</td>
+<td><span class="math inline">\(i_t \geq 0\)</span></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\nu_t \geq 0\)</span></td>
@@ -540,7 +546,7 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(\mu_t \geq 0\)</span></td>
-<td>$ i_t $</td>
+<td><span class="math inline">\(i_t \geq 0\)</span></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\nu_t \geq 0\)</span></td>
@@ -595,26 +601,34 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <li>Takes into account the fact that <span class="math inline">\(c_t&gt;0\)</span>.</li>
 </ul></li>
 <li><p>Definition: <span class="math display">\[c_t = k_t^\alpha - i_t\]</span></p></li>
-<li><p>Transition: <span class="math display">\[k_t (1-\delta) k_{t-1} + i_{t-1}\]</span> <span class="math display">\[z_t = \rho z_{t-1}\]</span></p></li>
+<li><p>Transition: <span class="math display">\[k_t = (1-\delta) k_{t-1} + i_{t-1}\]</span> <span class="math display">\[z_t = \rho z_{t-1}\]</span></p></li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h3 id="steady-state">Steady-State</h3>
-<div class="container">
-<div class="col">
+<div class="columns">
+<div class="column">
 <ul>
 <li>Steady-State: <span class="math inline">\(\overline{i}, \overline{k}, \overline{z}\)</span> such that:
 <ul>
 <li><span class="math inline">\(z_{t+1}=z_t=\overline{z}\)</span></li>
 <li><span class="math inline">\(k_{t+1}=k_t=\overline{k}\)</span></li>
 <li><span class="math inline">\(i_{t+1}=i_t=\overline{i}\)</span></li>
+<li><span class="math inline">\(c_{t+1}=c_t=\overline{c}\)</span></li>
 </ul></li>
 <li>…satisfy the first order conditions</li>
-<li>…i.e. <span class="math display">\[\beta   \left( (1-\delta + \alpha {\overline{k}}^{\alpha -1}) \right) = 1\]</span> <span class="math display">\[\overline{k}=  (1-\delta) \overline{k} + \overline{i}\]</span> <span class="math display">\[\overline{z} = \rho \overline{z}\]</span></li>
+<li>…i.e.</li>
 </ul>
-</div>
-<div class="col">
+<p><span class="math display">\[
+\begin{eqnarray}
+1 &amp; = &amp; \beta   \left( (1-\delta + \alpha {\overline{k}}^{\alpha -1}) \right)  \\
+\overline{k} &amp; = &amp; (1-\delta) \overline{k} + \overline{i} \\
+\overline{z} &amp; = &amp; \rho \overline{z} \\
+\overline{c} &amp; = &amp; \overline{k}^{\alpha} - \overline{i}
+\end{eqnarray}
+\]</span></p>
+</div><div class="column">
 <ul>
 <li>Solution?
 <ul>
@@ -624,9 +638,10 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <li>Here we can get a closed form:</li>
 </ul>
 <p><span class="math display">\[\begin{eqnarray}
-\overline{k} &amp; = &amp; \left( \frac{\frac{1}{\beta}-(1-\delta)}{\alpha} \right)^{\frac{1}{\alpha - 1}} \\\\
-\overline{i} &amp; = &amp; \delta \overline{k} \\\\\
-\overline{z} &amp; = &amp; 0
+\overline{k} &amp; = &amp; \left( \frac{\frac{1}{\beta}-(1-\delta)}{\alpha} \right)^{\frac{1}{\alpha - 1}} \\
+\overline{i} &amp; = &amp; \delta \overline{k} \\\
+\overline{z} &amp; = &amp; 0 \\
+\overline{c} &amp; = &amp; \overline{k}^{\alpha} - \overline{i}
 \end{eqnarray}\]</span></p>
 </div>
 </div>
@@ -656,8 +671,8 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 
 <h3 id="result">Result:</h3>
 <ul>
-<li><p>Optimality Condition <span class="math display">\[\begin{bmatrix} . &amp; . &amp; . \\ \end{bmatrix} \begin{bmatrix} \Delta i_t \\\\ \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . &amp; . &amp; . \\ \end{bmatrix} \begin{bmatrix} \Delta i_{t+t} \\\\ \Delta k_{t+1} \\\\ \Delta z_{t+1} \end{bmatrix} \]</span></p></li>
-<li><p>Transition <span class="math display">\[ \begin{bmatrix} \Delta k_t \\\\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . &amp; .  \\\\ . &amp; . \end{bmatrix} \begin{bmatrix} \Delta k_{t-1} \\\\ \Delta z_{t-1} \end{bmatrix}  + \begin{bmatrix} . \end{bmatrix} \begin{bmatrix}\Delta i_{t-1}\end{bmatrix}\]</span></p></li>
+<li><p>Optimality conditions <span class="math display">\[\begin{bmatrix} . &amp; . &amp; . &amp; . \\ \end{bmatrix} \begin{bmatrix} \Delta i_t \\ \Delta c_t  \\ \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . &amp; . &amp; . \\ \end{bmatrix} \begin{bmatrix} \Delta i_{t+1} \\  \Delta c_{t+1} \\ \Delta k_{t+1} \\ \Delta z_{t+1} \end{bmatrix} \]</span></p></li>
+<li><p>Transition <span class="math display">\[ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . &amp; .  \\ . &amp; . \end{bmatrix} \begin{bmatrix} \Delta k_{t-1} \\ \Delta z_{t-1} \end{bmatrix}  + \begin{bmatrix} . \end{bmatrix} \begin{bmatrix}\Delta i_{t-1}\end{bmatrix}\]</span></p></li>
 </ul>
 </section>
 <section id="computing-derivatives" class="slide level2">
@@ -769,38 +784,56 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <section class="slide level2">
 
 <h3 id="finite-differences">Finite Differences</h3>
+<div class="columns">
+<div class="column">
 <ul>
-<li><p>Choose small <span class="math inline">\(\epsilon&gt;0\)</span>, typically <span class="math inline">\(\sqrt{ \textit{machine eps}}\)</span></p></li>
-<li><p>Forward Difference scheme:</p>
+<li>Choose small <span class="math inline">\(\epsilon&gt;0\)</span>, typically <span class="math inline">\(\sqrt{ \textit{machine eps}}\)</span>
+<ul>
+<li>check <code>eps()</code></li>
+</ul></li>
+<li>Forward Difference scheme:
 <ul>
 <li><span class="math inline">\(f'(x) \approx \frac{f(x+\epsilon) - f(x)}{\epsilon}\)</span></li>
 <li>precision: <span class="math inline">\(o(\epsilon)\)</span></li>
 <li>bonus: if <span class="math inline">\(f(x+\epsilon)\)</span> can compute <span class="math inline">\(f(x)-f(x-\epsilon)\)</span> instead (Backward)</li>
 </ul></li>
-<li><p>Central Difference scheme:</p>
+<li>Central Difference scheme:
 <ul>
 <li><span class="math inline">\(f'(x) \approx \frac{f(x+\epsilon) - f(x-\epsilon)}{2\epsilon}\)</span></li>
 <li>average of forward and backward</li>
 <li>precision: <span class="math inline">\(o(\epsilon^2)\)</span></li>
 </ul></li>
 </ul>
+</div><div class="column">
+<p>Two packages <code>FiniteDiff</code> and <code>FiniteDifferences</code>.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">using</span> <span class="bu">FiniteDiff</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">g</span>(x) <span class="op">=</span> [x[<span class="fl">1</span>]<span class="op">^</span><span class="fl">2</span> x[<span class="fl">2</span>]<span class="op">^</span><span class="fl">3</span>]</span>
+<span id="cb1-4"><a href="#cb1-4"></a>FiniteDiff.<span class="fu">finite_difference_jacobian</span>(g, [<span class="fl">0.1</span>, <span class="fl">0.2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
 <h3 id="finite-differences-higher-order">Finite Differences: Higher order</h3>
 <ul>
-<li>Central formula: <span class="math display">\[\begin{aligned}
+<li><p>Central formula: <span class="math display">\[
+\begin{aligned}
 f''(x) &amp; \approx &amp; \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(f(x+\epsilon))-f(x))-(f(x)-f(x-\epsilon))}{\epsilon^2} \\ &amp; = &amp; \frac{f(x+\epsilon)-2f(x)+f(x-\epsilon)}{\epsilon^2}
-\end{aligned}\]</span>
+\end{aligned}
+\]</span></p>
 <ul>
 <li>precision: <span class="math inline">\(o(\epsilon)\)</span></li>
 </ul></li>
-<li>Generalizes to higher order but becomes more and more innacurate</li>
+<li><p>Generalizes to higher order but becomes more and more innacurate</p></li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h3 id="symbolic-differentiation">Symbolic Differentiation</h3>
+<div class="columns">
+<div class="column">
 <ul>
 <li>manipulate the tree of algebraic expressions
 <ul>
@@ -813,30 +846,34 @@ f''(x) &amp; \approx &amp; \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(
 <li>cf: <span class="math inline">\(\left(\frac{1+u(x)}{1+v(x)}\right)^{100}\)</span></li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level2">
-
-<h3 id="julia-packages">Julia Packages:</h3>
+</div><div class="column">
+<p>Two main libraries:</p>
 <ul>
-<li><em>FiniteDiff.jl</em>, <em>FiniteDifferences.jl</em>, <em>SparseDiffTools.jl</em>
+<li><a href="https://github.com/symengine/SymEngine.jl">SymEngine.jl</a>
 <ul>
-<li>careful implementation of finite diff</li>
+<li>fast symbolic calculation</li>
+<li>mature C++ engine</li>
 </ul></li>
-<li><em>Calculus.jl</em>:
+<li><a href="https://symbolics.juliasymbolics.org/stable/">Symbolics.jl</a>:
 <ul>
 <li>pure julia</li>
 <li>finite difference</li>
 <li>symbolic calculation</li>
 </ul></li>
-<li><em>SymEngine.jl</em>
-<ul>
-<li>fast symbolic calculation</li>
-</ul></li>
 </ul>
+<p>Example using Symbolics:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">using</span> <span class="bu">Symbolics</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="pp">@variables</span> a x b y</span>
+<span id="cb2-3"><a href="#cb2-3"></a>eq <span class="op">=</span> <span class="fu">a*sin</span>(x) <span class="op">+</span> <span class="fu">b*cos</span>(y)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>Symbolics.<span class="fu">derivative</span>(eq, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
 <h3 id="automatic-differentiation">Automatic Differentiation</h3>
+
+<img data-src="future.jpg.jpg" class="r-stretch"><h4 id="automatic-differentiation-1">Automatic Differentiation</h4>
 <ul>
 <li><p>does not provide mathematical insights but solves the other problems</p></li>
 <li><p>can differentiate any piece of code</p></li>
@@ -849,96 +886,112 @@ f''(x) &amp; \approx &amp; \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(
 </section>
 <section class="slide level2">
 
-<h3 id="simple-example">Simple example:</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">function</span> <span class="fu">f</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    a <span class="op">=</span> x <span class="op">+</span> <span class="fl">1</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    b <span class="op">=</span> y<span class="op">^</span><span class="fl">2</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    c <span class="op">=</span> <span class="fu">sin</span>(a) <span class="op">+</span> a <span class="op">+</span> b</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section class="slide level2">
-
-<h3 id="automatic-rewrite-source-code-transform">Automatic rewrite: source code transform</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">function</span> <span class="fu">f</span>(x<span class="op">::</span><span class="dt">Float64</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="co"># x is an argument</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>    x_dx <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a>    a <span class="op">=</span> x <span class="op">+</span> <span class="fl">1</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>    a_dx <span class="op">=</span> x_dx</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>    b <span class="op">=</span> x<span class="op">^</span><span class="fl">2</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>    b_dx <span class="op">=</span> <span class="fl">2</span><span class="op">*</span>x<span class="op">*</span>x_dx</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a>    t <span class="op">=</span> <span class="fu">sin</span>(a)</span>
-<span id="cb2-13"><a href="#cb2-13"></a>    t_x <span class="op">=</span> <span class="fu">cos</span>(a)<span class="op">*</span>a_dx</span>
-<span id="cb2-14"><a href="#cb2-14"></a></span>
-<span id="cb2-15"><a href="#cb2-15"></a>    c <span class="op">=</span> t <span class="op">+</span> b</span>
-<span id="cb2-16"><a href="#cb2-16"></a>    c_x <span class="op">=</span> t_dx <span class="op">+</span> b_dx</span>
-<span id="cb2-17"><a href="#cb2-17"></a></span>
-<span id="cb2-18"><a href="#cb2-18"></a>    <span class="cf">return</span> (c, c_x)</span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="automatic-source-code-rewrite">Automatic source code rewrite</h3>
+<div class="columns">
+<div class="column">
+<p>Consider this simple function</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">function</span> <span class="fu">f</span>(x<span class="op">::</span><span class="dt">Number</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    a <span class="op">=</span> x <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    b <span class="op">=</span> x<span class="op">^</span><span class="fl">2</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    c <span class="op">=</span> <span class="fu">sin</span>(a) </span>
+<span id="cb3-6"><a href="#cb3-6"></a>    d <span class="op">=</span> c <span class="op">+</span> b</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="cf">return</span> d</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<p>We can rewrite the code as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">function</span> <span class="fu">f</span>(x<span class="op">::</span><span class="dt">Number</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="co"># x is an argument</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    x_dx <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    a <span class="op">=</span> x <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    a_dx <span class="op">=</span> x_dx</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    b <span class="op">=</span> x<span class="op">^</span><span class="fl">2</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    b_dx <span class="op">=</span> <span class="fl">2</span><span class="op">*</span>x<span class="op">*</span>x_dx</span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a>    c <span class="op">=</span> <span class="fu">sin</span>(a)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    c_x <span class="op">=</span> <span class="fu">cos</span>(a)<span class="op">*</span>a_dx</span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a>    d <span class="op">=</span> c <span class="op">+</span> b</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    d_x <span class="op">=</span> c_dx <span class="op">+</span> b_dx</span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="cf">return</span> (d, d_x)</span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
 <h3 id="dual-numbers-operator-overloading">Dual numbers: operator overloading</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">struct</span> DN</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>    dx<span class="op">::</span><span class="dt">Float64</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">end</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="fu">+</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">+</span>b.x, a.dx<span class="op">+</span>b.dx)</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="fu">-</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">-</span>b.x, a.dx<span class="op">-</span>b.dx)</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="fu">*</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">*</span>b.x, a.x<span class="op">*</span>b.dx<span class="op">+</span>a.dx<span class="op">*</span>b.x)</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="op">/</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">/</span>b.x, (a.dx<span class="op">*</span>b.x<span class="op">-</span>a.x<span class="op">*</span>b.dx)<span class="op">/</span>b.dx<span class="op">^</span><span class="fl">2</span>)</span>
-<span id="cb3-10"><a href="#cb3-10"></a></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="op">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Instead of rewriting source code, we can use dual numbers to perform exactly the same calculations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">struct</span> DN<span class="op">&lt;:</span><span class="dt">Number</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    dx<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">end</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="fu">+</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">+</span>b.x, a.dx<span class="op">+</span>b.dx)</span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="fu">-</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">-</span>b.x, a.dx<span class="op">-</span>b.dx)</span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">*</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">*</span>b.x, a.x<span class="op">*</span>b.dx<span class="op">+</span>a.dx<span class="op">*</span>b.x)</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="op">/</span>(a<span class="op">::</span><span class="dt">DN</span>,b<span class="op">::</span><span class="dt">DN</span>) <span class="op">=</span> <span class="fu">DN</span>(a.x<span class="op">/</span>b.x, (a.dx<span class="op">*</span>b.x<span class="op">-</span>a.x<span class="op">*</span>b.dx)<span class="op">/</span>b.dx<span class="op">^</span><span class="fl">2</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="op">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Try it on function <code>f</code> What do we miss ?</p>
 </section>
 <section class="slide level2">
 
-<h3 id="compatible-with-control-flow">Compatible with control flow</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> <span class="bu">ForwardDiff</span>: Dual</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>x <span class="op">=</span> <span class="fu">Dual</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>a <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>x</span>
-<span id="cb4-5"><a href="#cb4-5"></a>b <span class="op">=</span> <span class="fu">sum</span>([(x)<span class="op">^</span>i<span class="op">/</span><span class="fu">i*</span>(<span class="op">-</span><span class="fl">1</span>)<span class="op">^</span>(i<span class="op">+</span><span class="fl">1</span>) for i<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5000</span>])</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># compare with log(1+x)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="dual-numbers">Dual numbers</h3>
+<p>This approach (and automatic differentiation in general) is compatible with control flow operations (<code>if</code>, <code>while</code>, …)</p>
+<p>Let’s see it with the dual numbers defined by <code>ForwardDiff</code> library:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> <span class="bu">ForwardDiff</span>: Dual</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>x <span class="op">=</span> <span class="fu">Dual</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>a <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>x</span>
+<span id="cb6-5"><a href="#cb6-5"></a>b <span class="op">=</span> <span class="fu">sum</span>([(x)<span class="op">^</span>i<span class="op">/</span><span class="fu">i*</span>(<span class="op">-</span><span class="fl">1</span>)<span class="op">^</span>(i<span class="op">+</span><span class="fl">1</span>) for i<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5000</span>])</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co"># compare with log(1+x)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>generalizes nicely to gradient computations</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1"></a>x <span class="op">=</span> <span class="fu">Dual</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>y <span class="op">=</span> <span class="fu">Dual</span>(<span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">exp</span>(x) <span class="op">+</span> <span class="fu">log</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1"></a>x <span class="op">=</span> <span class="fu">Dual</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>y <span class="op">=</span> <span class="fu">Dual</span>(<span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">exp</span>(x) <span class="op">+</span> <span class="fu">log</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section class="slide level2">
 
-<h3 id="forward-accumulation-mode">Forward Accumulation Mode</h3>
+<h3 id="automatic-differentiation-2">Automatic differentiation</h3>
+<p>There are <em>many</em> flavours of automatic differenation (check <a href="https://juliadiff.org/">JuliaDiff.org</a>)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="columns">
+<div class="column">
+<h4 id="forward-accumulation-mode">Forward Accumulation Mode</h4>
 <ul>
-<li>Forward Accumulation mode: isomorphic to dual number calculation
-<ul>
-<li>compute tree with values and derivatives at the same time</li>
+<li>isomorphic to dual number calculation</li>
+<li>compute values and derivatives at the same time</li>
 <li>efficient for <span class="math inline">\(f: R^n\rightarrow R^m\)</span>, with <span class="math inline">\(n&lt;&lt;m\)</span>
 <ul>
 <li>(keeps lots of empty gradients when <span class="math inline">\(n&gt;&gt;m\)</span>)</li>
 </ul></li>
-</ul></li>
 </ul>
-</section>
-<section class="slide level2">
-
-<h3 id="reverse-accumulation-mode">Reverse Accumulation Mode</h3>
+</div><div class="column">
+<h4 id="reverse-accumulation-mode">Reverse Accumulation Mode</h4>
 <ul>
 <li>Reverse Accumulation / Back Propagation
 <ul>
-<li>efficient for <span class="math inline">\(f: R^n\rightarrow R^m\)</span>, with <span class="math inline">\(m&lt;&lt;n\)</span></li>
+<li>efficient for <span class="math inline">\(f: R^n\rightarrow R^m\)</span>, with <span class="math inline">\(n&gt;&gt;m\)</span></li>
 <li>requires data storage (to keep intermediate values)</li>
 <li>graph / example</li>
 </ul></li>
 <li>Very good for machine learning:
 <ul>
-<li><span class="math inline">\(\nabla_{\theta} F(x;\theta)\)</span> where <span class="math inline">\(F\)</span> can be an objective</li>
+<li><span class="math inline">\(\nabla_{\theta} F(x;\theta)\)</span> where <span class="math inline">\(F\)</span> is a scalar objective</li>
 </ul></li>
 </ul>
+</div>
+</div>
 </section>
 <section class="slide level2">
 
@@ -956,6 +1009,21 @@ f''(x) &amp; \approx &amp; \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(
 <li>Flux.jl, MXNet.jl, Tensorflow.jl</li>
 </ul></li>
 </ul>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Example with <code>ForwardDiff</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1"></a>  <span class="im">using</span> <span class="bu">ForwardDiff</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>ForwardDiff.<span class="fu">jacobian</span>(u<span class="op">-&gt;</span>[u[<span class="fl">1</span>]<span class="op">^</span><span class="fl">2</span>, u[<span class="fl">2</span>]<span class="op">+</span>u[<span class="fl">1</span>]], [<span class="fl">0.1</span>,<span class="fl">0.2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="solution-using-linear-time-iteration" class="slide level2">
 <h2>Solution using Linear Time iteration</h2>
@@ -966,7 +1034,7 @@ f''(x) &amp; \approx &amp; \frac{f'(x)-f'(x-\epsilon)}{\epsilon} \approx \frac{(
 <div class="columns">
 <div class="column">
 <ul>
-<li>General formulation of a <em>linearized</em> model: <span class="math display">\[ \begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} &amp; = &amp; 0_{n_x} \\\\
+<li>General formulation of a <em>linearized</em> model: <span class="math display">\[ \begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} &amp; = &amp; 0_{n_x} \\
 s_{t+1} &amp; = &amp; E s_t + F x_t \end{eqnarray}\]</span> where:
 <ul>
 <li><span class="math inline">\(s_t \in \mathbb{R}^{n_s}\)</span> is a vector of <em>states</em></li>
@@ -981,15 +1049,15 @@ s_{t+1} &amp; = &amp; E s_t + F x_t \end{eqnarray}\]</span> where:
 </div><div class="column">
 <ul>
 <li><p>In the neoclassical model: <span class="math display">\[\begin{eqnarray}
-s_t &amp; = &amp; (\Delta z_t, \Delta k_t) \\\\
-x_t &amp; = &amp; (\Delta i_t)
+s_t &amp; = &amp; (\Delta z_t, \Delta k_t) \\
+x_t &amp; = &amp; (\Delta i_t, \Delta c_t)
 \end{eqnarray}\]</span></p></li>
 <li><p>The linearized system is: <span class="math display">\[\begin{eqnarray}
-A &amp; = &amp; ...\\\\
-B &amp; = &amp; ...\\\\
-C &amp; = &amp; ...\\\\
-D &amp; = &amp; ...\\\\
-E &amp; = &amp; ...\\\\
+A &amp; = &amp; ...\\
+B &amp; = &amp; ...\\
+C &amp; = &amp; ...\\
+D &amp; = &amp; ...\\
+E &amp; = &amp; ...\\
 F &amp; = &amp;
 \end{eqnarray}\]</span></p></li>
 </ul>
@@ -999,8 +1067,8 @@ F &amp; = &amp;
 <section class="slide level2">
 
 <h3 id="solution">Solution</h3>
-<div class="container">
-<div class="col">
+<div class="columns">
+<div class="column">
 <ul>
 <li><p>What is the solution of our problem?</p></li>
 <li><p>At date <span class="math inline">\(t\)</span> <em>controls</em> must be chosen as a function of (predetermined) <em>states</em></p></li>
@@ -1008,45 +1076,49 @@ F &amp; = &amp;
 <li><p>Since the model is linear we look for un unknown matrix <span class="math inline">\(X \in \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}\)</span> such that:</p></li>
 </ul>
 <p><span class="math display">\[\Delta x_t = X \Delta s_t\]</span></p>
-</div>
-<div class="col">
-<div>
-<p>In the neoclassical model - The control <span class="math inline">\(i_t\)</span> must be a function of the states - there is a decision rule <span class="math inline">\(i()\)</span> such that <span class="math display">\[i_t = i(z_t, k_t)\]</span> - In the linearized model: <span class="math display">\[\Delta i_t =i_z \Delta z_t + i_k \Delta k_t\]</span></p>
+</div><div class="column">
+<p>In the neoclassical model</p>
 <ul>
-<li><span class="math inline">\(k_t\)</span> and <span class="math inline">\(z_t\)</span>: the states</li>
+<li><p>The states are <span class="math inline">\(k_t\)</span> and <span class="math inline">\(z_t\)</span></p></li>
+<li><p>The controls <span class="math inline">\(i_t\)</span> and <span class="math inline">\(c_t\)</span> must be a function of the states</p></li>
+<li><p>there is a decision rule <span class="math inline">\(i()\)</span>, <span class="math inline">\(c()\)</span> such that <span class="math display">\[i_t = i(z_t, k_t)\]</span> <span class="math display">\[c_t = c(z_t, k_t)\]</span></p></li>
+<li><p>In the linearized model: <span class="math display">\[\Delta i_t =i_z \Delta z_t + i_k \Delta k_t\]</span> <span class="math display">\[\Delta c_t =c_z \Delta z_t + c_k \Delta k_t\]</span></p></li>
 </ul>
 </div>
 </div>
-</div></section>
+</section>
 <section class="slide level2">
 
 <h3 id="optimality-condition">Optimality condition:</h3>
 <div class="columns">
 <div class="column">
 <ul>
-<li><p>Replacing in the system: <span class="math display">\[ \begin{eqnarray}
-\Delta x_t &amp; = &amp; X \Delta s_t \\\\
-\Delta s_{t+1} &amp; = &amp; E \Delta s_t + F X \Delta s_t \\\\
-\Delta x_{t+1} &amp; = &amp; X \Delta s_{t+1} \\\\
-A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 0
+<li>Replacing in the system: <!-- $$ \begin{eqnarray}
+\Delta x_t & = & X \Delta s_t \\
+\Delta s_{t+1} & = & E \Delta s_t + F X \Delta s_t \\
+\Delta x_{t+1} & = & X \Delta s_{t+1} \\
+A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} & = & 0
 \end{eqnarray}
-\]</span></p></li>
-<li><p>If we make the full substitution:</p></li>
+$$ --></li>
 </ul>
-<p><span class="math display">\[( (A + B X) + ( D X + C) ( E  + F X ) ) s_t = 0\]</span></p>
+<p><span class="math display">\[\Delta x_t  =  X \Delta s_t\]</span> <span class="math display">\[\Delta s_{t+1}  =  E \Delta s_t + F X \Delta s_t\]</span> <span class="math display">\[\Delta x_{t+1}  =  X \Delta s_{t+1}\]</span> <span class="math display">\[A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1}  =  0\]</span></p>
+<ul>
+<li>If we make the full substitution:</li>
+</ul>
+<p><span class="math display">\[( (A + B X) + ( D X + C) ( E  + F X ) ) \Delta s_t = 0\]</span></p>
 </div><div class="column">
 <ul>
 <li>This must be true for all <span class="math inline">\(s_t\)</span>. We get the special Ricatti equation:</li>
 </ul>
-<p><span class="math display">\[(A + B \color{red}{X}) + ( D \color{red}{X} + C) ( E  + F \color{red}{X} ) = 0 \]</span></p>
+<p><span class="math display">\[(A + B {\color{red}{X}} ) + ( D {\color{red}{X}} + C) ( E  + F {\color{red}X} ) = 0\]</span></p>
 <ul>
-<li>this is a <strong>quadratic</strong>, <strong>matrix</strong> ( <span class="math inline">\(X\)</span> is 1 by 2 ) equation:
+<li>this is a <strong>quadratic</strong>, <strong>matrix</strong> ( <span class="math inline">\(X\)</span> is 2 by 2 ) equation:
 <ul>
 <li>requires special solution method</li>
-<li>there are multiple solutions: which should we choose?
+<li>there are multiple solutions: which should we choose?</li>
+<li>today: linear time iteration selects only one solution
 <ul>
-<li>today: linear time iteration selects only one solution</li>
-<li>next time: eigenvalues analysis</li>
+<li>alternative: eigenvalues analysis</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1060,10 +1132,10 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <li>Let’s be more subtle: define
 <ul>
 <li><span class="math inline">\(X\)</span>: decision rule today and</li>
-<li><span class="math inline">\(\tilde{X}\)</span> is decision rule tomorrow. <span class="math display">\[\begin{eqnarray}
-\Delta x_t &amp; =&amp;  X \Delta s_t \\\\
-\Delta s_{t+1} &amp; = &amp; E \Delta  s_t + F X \Delta s_t \\\\
-\Delta x_{t+1} &amp; = &amp; \tilde{X} \Delta s_{t+1} \\\\
+<li><span class="math inline">\(\tilde{X}\)</span>: is decision rule tomorrow. <span class="math display">\[\begin{eqnarray}
+\Delta x_t &amp; =&amp;  X \Delta s_t \\
+\Delta s_{t+1} &amp; = &amp; E \Delta  s_t + F X \Delta s_t \\
+\Delta x_{t+1} &amp; = &amp; \tilde{X} \Delta s_{t+1} \\
 A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 0
 \end{eqnarray}\]</span></li>
 </ul></li>
@@ -1077,7 +1149,9 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <div class="columns">
 <div class="column">
 <ul>
-<li>We get the equation: <span class="math display">\[F(X, \tilde{X}) = (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) = 0 \]</span></li>
+<li>We get the equation: <span class="math display">\[\begin{eqnarray}
+F(X, \tilde{X}) &amp; = &amp; (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) \\&amp;=&amp; 0
+\end{eqnarray}\]</span></li>
 <li>Consider the <em>linear time iteration</em> algorithm</li>
 <li>When the model is well-specified it is guaranteed to converge to the right solution.
 <ul>
@@ -1090,8 +1164,7 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 </ul></li>
 </ul>
 </div><div class="column">
-<ul>
-<li>algorithm:
+<h4 id="algorithm">Algorithm:</h4>
 <ul>
 <li>choose stopping criteria: <span class="math inline">\(\epsilon_0\)</span> and <span class="math inline">\(\eta_0\)</span></li>
 <li>choose random <span class="math inline">\(X_0\)</span></li>
@@ -1109,7 +1182,6 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <li>otherwise iterate with <span class="math inline">\(X_{n+1}\)</span></li>
 </ul></li>
 </ul></li>
-</ul></li>
 </ul>
 </div>
 </div>
@@ -1120,7 +1192,7 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <ul>
 <li>Suppose we have found the solution <span class="math inline">\(\Delta x_t = X \Delta s_t\)</span></li>
 <li>Recall the transition equation: <span class="math inline">\(\Delta s_{t+1} = F \Delta s_t + G \Delta x_t\)</span></li>
-<li>We can now compute the model evolution following initial deviation in the state: <span class="math display">\[\Delta s_t = \underbrace{(F + G X)}\_{P} \Delta s\_{t-1}\]</span>
+<li>We can now compute the model evolution following initial deviation in the state: <span class="math display">\[\Delta s_t = \underbrace{(F + G X)}_{P} \Delta s_{t-1}\]</span>
 <ul>
 <li><span class="math inline">\(P\)</span> is the simulation operator</li>
 <li>it is a <em>backward</em> operator (TODO: example of a reaction to a shock)</li>
@@ -1143,17 +1215,23 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <li>How do you compute the spectral radius of matrix P?
 <ul>
 <li>naive approach: compute all eigenvalues, check the value of the biggest one…</li>
-<li>better approach: power iteration method</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>M <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">2</span>,<span class="fl">2</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">maximum</span>(abs, <span class="fu">eigvals</span>(M))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>becomes limited when size of matrix growth</li>
+<li>another approach: power iteration method</li>
 </ul></li>
 <li>Power iteration method:
 <ul>
+<li>works for matrices and linear operators</li>
 <li>take a linear operator <span class="math inline">\(L\)</span> over a Banach Space <span class="math inline">\(\mathcal{B}\)</span> (vector space with a norm)</li>
 <li>use the fact that <em>for most</em> <span class="math inline">\(u_0\in \mathcal{B}\)</span>, <span class="math inline">\(\frac{|L^{n+1} u_0|}{|L^n u_0|}\rightarrow \rho(L)\)</span></li>
 </ul></li>
 </ul>
 </div><div class="column">
-<ul>
-<li>Algorithm:
+<h4 id="algorithm-1">Algorithm:</h4>
 <ul>
 <li>choose tolerance criterium: <span class="math inline">\(\eta&gt;0\)</span></li>
 <li>choose random initial <span class="math inline">\(x_0\)</span> and define <span class="math inline">\(u_0 = \frac{x_0}{|x_0|}\)</span>
@@ -1171,7 +1249,6 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <li>else iterate with <span class="math inline">\(u_{n+1}\)</span></li>
 </ul></li>
 </ul></li>
-</ul></li>
 </ul>
 </div>
 </div>
@@ -1180,7 +1257,7 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 
 <h3 id="stability-of-the-backward-operator">Stability of the backward operator</h3>
 <ul>
-<li>To solve the model we use the backard operator: <span class="math display">\[T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  &amp; \rightarrow &amp;  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\\\X_{t+1} &amp; \mapsto &amp; X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}\]</span></li>
+<li>To solve the model we use the backard operator: <span class="math display">\[T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  &amp; \rightarrow &amp;  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\X_{t+1} &amp; \mapsto &amp; X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}\]</span></li>
 <li>What about its stability?</li>
 <li>Recall: fixed point <span class="math inline">\(\overline{z}\)</span> of recursive sequence <span class="math inline">\(z_n=f(z_{n_1})\)</span> is stable if <span class="math inline">\(|f^{\prime}(\overline{z})|&lt;1\)</span></li>
 <li>We need to study <span class="math inline">\(T^{\prime}\)</span> of (<span class="math inline">\(X\)</span>).
@@ -1198,8 +1275,10 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <li>Consider a Banach Space <span class="math inline">\(\mathcal{B}\)</span>.</li>
 <li>Consider an operator (i.e.&nbsp;a function): <span class="math inline">\(\mathcal{T}: \mathcal{B} \rightarrow \mathcal{B}\)</span>.</li>
 <li>Consider <span class="math inline">\(\overline{x} \in \mathcal{B}\)</span>.</li>
-<li><span class="math inline">\(\mathcal{T}\)</span> is differentiable at <span class="math inline">\(\overline{x}\)</span> if there exists a bounded linear operator <span class="math inline">\(L \in \mathcal{L}(\mathcal{B})\)</span> such that: <span class="math display">\[\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)\]</span></li>
+<li><span class="math inline">\(\mathcal{T}\)</span> is differentiable at <span class="math inline">\(\overline{x}\)</span> if there exists a bounded linear operator <span class="math inline">\(L \in \mathcal{L}(\mathcal{B})\)</span> such that: <span class="math display">\[\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)\]</span>
+<ul>
 <li>when it exists we denote this operator by <span class="math inline">\(\mathcal{T}^{\prime}(\overline{x})\)</span></li>
+</ul></li>
 <li>Remarks:
 <ul>
 <li>Bounded operator means: <span class="math inline">\(\sup_{|x|=1} |L.x|&lt;+\infty\)</span></li>
@@ -1265,20 +1344,10 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
 <li>We compute the derivatives of the model</li>
 <li>Time iteration algorithm, starting from an initial guess <span class="math inline">\(X_0\)</span> and we repeat until convergence: <span class="math display">\[X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)\]</span></li>
 <li>We compute the spectral radius of two operators to ensure the model is well defined and that the solution is the right one.</li>
-<li>backward stability: derivative of simulation operator <span class="math display">\[\rho(F + H \overline{X} )\]</span></li>
-<li>forward stability: derivative of time iteration operator <span class="math display">\[\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})D u (E+F \overline{X}) \right)\]</span></li>
+<li><strong>backward stability</strong>: derivative of simulation operator <span class="math display">\[\boxed{\rho(F + H \overline{X} )}\]</span></li>
+<li><strong>forward stability</strong>: derivative of time iteration operator <span class="math display">\[\boxed{\rho \left( u\mapsto ((B + (C+D \overline{X})F)^{-1})D u (E+F \overline{X}) \right)}\]</span></li>
 </ol>
 <p>This is equivalent to the so-called Blanchard-Kahn conditions.</p>
-</section>
-<section id="schur-decomposition-method-and-blanchard-kahn-conditions" class="slide level2">
-<h2>Schur Decomposition Method and Blanchard-Kahn conditions</h2>
-</section>
-<section class="slide level2">
-
-<p>[tbc]</p>
-</section>
-<section class="slide level2">
-
 <div class="footer footer-default">
 
 </div>
@@ -1468,7 +1537,7 @@ A \Delta s_t + B \Delta x_t + C \Delta s_{t+1} + D \Delta x_{t+1} &amp; = &amp; 
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],

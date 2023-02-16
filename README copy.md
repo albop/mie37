@@ -1,1 +1,0 @@
-jad.falou@ensae.fr, dalil.youcefi@ensae.fr, romain.lebeau@ensae.fr, yiyun_zheng@ensae.fr, sebastianjoseph.davidson@ensae.fr, jeanbaptiste.chaniot@ensae.fr, isabel.fontesbaptista@ensae.fr, zijun.wang@ensae.fr, alex.tordjman@ensae.fr, karim.haidar@ensae.fr

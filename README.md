@@ -14,7 +14,7 @@ The main link to the slides is [here](http://www.mosphere.fr/mie37/slides/).
 | ------------------ | ------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | 02/02              | [Intro](http://www.mosphere.fr/mie37/slides/index.html), Julia Basics (1)                                           | Epidemiology Tutorial  |
 | 09/02              | [Convergence of Sequences](http://www.mosphere.fr/mie37/slides/convergence.html), Julia Basics (2),  Solow Tutorial | Finish Solow Tutorial  |
-| <mark>16/02</mark> | Perturbation (1)                                                                                                    | Finish Neoclassical    |
+| <mark>16/02</mark> | [Convergence of Sequences](http://www.mosphere.fr/mie37/slides/perturbation.html) (1)                                                                                                    | Finish Neoclassical    |
 | 23/03              | Perturbation (2)                                                                                                    |                        |
 | 8/03               | Stochastic Models, RBC Model, Dolo Primer                                                                           | Coursework I           |
 | 16/03              | Discrete Dynamic Programming, McCall Model                                                                          |                        |

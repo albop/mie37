@@ -5,6 +5,12 @@
 	"name": "Julia (Community)",
 	"image": "ghcr.io/julia-vscode/julia-devcontainer",
 	"extensions": ["julialang.language-julia", "albop.dolo-language"],
-	"postCreateCommand": "/julia-devcontainer-scripts/postcreate.jl",
+	"postCreateCommand": [
+		"/julia-devcontainer-scripts/postcreate.jl",
+		"wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.2.335/quarto-1.2.335-linux-amd64.tar.gz",
+		"mkdir ~/opt",
+		"tar -C ~/opt -xvzf quarto-1.2.335-linux-amd64.tar.gz",
+		"ln -s ~/opt/quarto-1.2.335/bin/quarto /home/vscode/.local/bin/"
+	],
 	"remoteUser": "vscode"
 }

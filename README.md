@@ -10,17 +10,17 @@ The main link to the slides is [here](http://www.mosphere.fr/mie37/slides/).
 
 ## Indicative Schedule
 
-| Date               | Content                                                                                                             | Homework              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| 02/02              | [Intro](http://www.mosphere.fr/mie37/slides/index.html), Julia Basics (1)                                           | Epidemiology Tutorial |
-| <mark>09/02</mark> | [Convergence of Sequences](http://www.mosphere.fr/mie37/slides/convergence.html), Julia Basics (2),  Solow Tutorial |                       |
-| 16/02              | Perturbation (1)                                                                                                    |                       |
-| 23/03              | Perturbation (2)                                                                                                    |                       |
-| 8/03               | Stochastic Models, RBC Model, Dolo Primer                                                                           | Coursework I          |
-| 16/03              | Discrete Dynamic Programming, McCall Model                                                                          |                       |
-| 23/03              | McCall Model (2)                                                                                                    |                       |
-| 30/03              | Interpolation, Optimization                                                                                         |                       |
-| 06/04              | Discretization, Time Iteration                                                                                      | Coursework  II        |
+| Date               | Content                                                                                                             | Homework               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| 02/02              | [Intro](http://www.mosphere.fr/mie37/slides/index.html), Julia Basics (1)                                           | Epidemiology Tutorial  |
+| 09/02              | [Convergence of Sequences](http://www.mosphere.fr/mie37/slides/convergence.html), Julia Basics (2),  Solow Tutorial | Finish Solow Tutorial  |
+| <mark>16/02</mark> | Perturbation (1)                                                                                                    | Finish Neoclassical    |
+| 23/03              | Perturbation (2)                                                                                                    |                        |
+| 8/03               | Stochastic Models, RBC Model, Dolo Primer                                                                           | Coursework I           |
+| 16/03              | Discrete Dynamic Programming, McCall Model                                                                          |                        |
+| 23/03              | McCall Model (2)                                                                                                    |                        |
+| 30/03              | Interpolation, Optimization                                                                                         |                        |
+| 06/04              | Discretization, Time Iteration                                                                                      | Coursework  II         |
 
 ## Slides from 2022
 

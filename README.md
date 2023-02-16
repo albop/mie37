@@ -1,4 +1,4 @@
 # Advanced Macro: Numerical Methods
 
 
-Check all details on the [website](www.mosphere.fr/mie37)
+Check all details on the [website](https://www.mosphere.fr/mie37/)

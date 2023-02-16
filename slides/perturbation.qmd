@@ -5,7 +5,7 @@ author: Year 2022-2023 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax
-    navigation: grid
+    navigation-mode: grid
     width: 1920
     height: 1080
 ---

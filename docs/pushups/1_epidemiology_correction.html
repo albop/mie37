@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Advanced Macro: Numerical Methods – epidemiology_correction</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Advanced Macro: Numerical Methods</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Advanced Macro: Numerical Methods</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Slides</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/convergence.html" class="sidebar-item-text sidebar-link">Convergence of sequences</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/perturbation.html" class="sidebar-item-text sidebar-link">Perturbation Analysis</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Tutorials</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">Convergence: Solow Model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_perturbation_neoclassical.html" class="sidebar-item-text sidebar-link">Perturbation: Neoclassical Growth Model</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tutorial-epidemiology-models" id="toc-tutorial-epidemiology-models" class="nav-link active" data-scroll-target="#tutorial-epidemiology-models">Tutorial: Epidemiology Models</a>
+  <ul class="collapse">
+  <li><a href="#advanced-macroeconomics-numerical-methods-mie37" id="toc-advanced-macroeconomics-numerical-methods-mie37" class="nav-link" data-scroll-target="#advanced-macroeconomics-numerical-methods-mie37">Advanced Macroeconomics: Numerical Methods (MIE37)</a>
+  <ul class="collapse">
+  <li><a href="#simple-sir-model" id="toc-simple-sir-model" class="nav-link" data-scroll-target="#simple-sir-model">Simple SIR model</a></li>
+  <li><a href="#a-spatial-sir-model" id="toc-a-spatial-sir-model" class="nav-link" data-scroll-target="#a-spatial-sir-model">A Spatial SIR model</a></li>
+  <li><a href="#additional-questions" id="toc-additional-questions" class="nav-link" data-scroll-target="#additional-questions">Additional questions</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="tutorial-epidemiology-models" class="level1">
+<h1>Tutorial: Epidemiology Models</h1>
+<section id="advanced-macroeconomics-numerical-methods-mie37" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-macroeconomics-numerical-methods-mie37">Advanced Macroeconomics: Numerical Methods (MIE37)</h2>
+<p>H.W. Heathcote: epidemiologic models are <em>deterministic models for infectious diseases which are spread by direct person-to-person contact in a population</em>.</p>
+<p>This kind of models has been used since by a few decades by economist, for matters that have nothing to do with health.</p>
+<ul>
+<li>diffusion of information, or opinions on social medias</li>
+<li>asset prices and fads</li>
+<li>expectation formation for macroeconomic outcomes (ex: <em>The Epidemiology of Macroeconomic Expectations</em> by Chris Carroll)</li>
+</ul>
+<p>Epidemiologic models have two features that depart from standard economic models:</p>
+<ul>
+<li>Agent’s behaviour does not take the full system into account, an is irrational in the sense that it isn’t forwards looking. Instead, an agent is given a behavioural heuristic.</li>
+<li>The transitions of the whole system can be determined without solving for complex interactions first.</li>
+</ul>
+<p>Understanding why these two assumptions are very costly for economists will keep us busy during a big part of the course. Here we just consider two simple models as small programming exercises.</p>
+<section id="simple-sir-model" class="level3">
+<h3 class="anchored" data-anchor-id="simple-sir-model">Simple SIR model</h3>
+<p>There is a continuum of agents of mass <span class="math inline">\(1\)</span>. Each agent can be either “Susceptible” (S), “Infected” (I) or “Recovered” (R). In each period, one agent meets another agent drawn randomly. During a meeting Susceptible agents who meet an infected agent, will always catch the disease (or the fad) but are not contagious. Infected agents, have a probability <span class="math inline">\(\pi\)</span> of being recovered. Nothing happens to Recovered agents who meet other people. No distinction is made between recovering as a healthy or a dead person.</p>
+<p>We’re interested in the evolution in the number infected persons, both the speed of infection and the total amount of infected people in every period.</p>
+<p><strong>Write down the transition equations for <span class="math inline">\(n_I\)</span>, the number of infected people, for <span class="math inline">\(n_R\)</span> the number of recovered people and <span class="math inline">\(n_S\)</span> the number of susceptible people.</strong></p>
+<p><strong>Compute the transition function <code>f</code> for the vector state <span class="math inline">\(s_t\)</span> returning <span class="math inline">\(s_{t+1}\)</span>.</strong></p>
+<p><strong>Compute the transitions over <span class="math inline">\(T\)</span> periods. Plot the result using Plots.jl. (bonus: check against closed form solution)</strong></p>
+<p><strong>We now assume a Susceptible person who meets an infected one has a probability <span class="math inline">\(\mu\)</span> of catching the disease. Update the transition function. Update function <span class="math inline">\(f\)</span> and write a function of <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\pi\)</span> which returns the simulation. Compare different values of the parameters. How would you interpret “social distancing”? How would you choose parameters <span class="math inline">\(\Pi\)</span> and <span class="math inline">\(\mu\)</span></strong></p>
+</section>
+<section id="a-spatial-sir-model" class="level3">
+<h3 class="anchored" data-anchor-id="a-spatial-sir-model">A Spatial SIR model</h3>
+<p>We now consider another version of the model where agents evolve in the space <span class="math inline">\(\mathcal{S}=[0,1]\times[0,1]\)</span>. There are <span class="math inline">\(N\in\mathbb{N}\)</span> agent. At any date, each agent <span class="math inline">\(n \in [0,1]\)</span> is located at <span class="math inline">\((x_n,y_n)\in \mathcal{S}\)</span>.</p>
+<p>Each agent moves follows a random walk bounded by <span class="math inline">\(\mathcal{S}\)</span>: <span class="math display">\[x_t = \min(\max( x_{t-1} + \epsilon_t, 0), 1)\]</span> <span class="math display">\[y_t = \min(\max( y_{t-1} + \eta_t, 0), 1)\]</span> where <span class="math inline">\(\epsilon_t\)</span> and <span class="math inline">\(\eta_t\)</span> are both normally distributed with standard deviation <span class="math inline">\(\sigma\)</span>.</p>
+<p>At any date, the individual state of an agent is <span class="math inline">\(s_t=(x_t, y_t, h_t)\)</span> where <span class="math inline">\(h_t\)</span> is either “S”, “I” or “R”. <span class="math inline">\(v_t\)</span> denotes the states of all agents (for instance <span class="math inline">\(v_t=(s_{n,t})_n\)</span>. The health status of each agent is updated in the following way:</p>
+<ul>
+<li>Agents <span class="math inline">\(R\)</span> stay <span class="math inline">\(R\)</span>.</li>
+<li>Agents <span class="math inline">\(I\)</span> have probability <span class="math inline">\(\pi\)</span> to become <span class="math inline">\(R\)</span>. They stay <span class="math inline">\(I\)</span> otherwise.</li>
+<li>An agent of type <span class="math inline">\(S\)</span> in position <span class="math inline">\((x,y)\)</span> has a probability <span class="math inline">\(prob(x,y,S)\)</span> to be infected that is <span class="math inline">\(\mu\)</span> if there is another infected agent within a radius <span class="math inline">\(r&gt;0\)</span>.</li>
+</ul>
+<p><strong>Define a type <code>Agent</code>, which holds the type of an agent. The state of the whole system will be held in a <code>Vector[Agent]</code> type.</strong></p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Status</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    state<span class="op">::</span><span class="dt">Int8</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Agent</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    status<span class="op">::</span><span class="dt">Status</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Parameters</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cn">π</span><span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    μ<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    σ<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    r<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">=</span> <span class="fu">Parameters</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.001</span>, <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>Parameters(0.1, 0.1, 0.001, 0.1)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rand</span>() <span class="co"># uniform between 0 and 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>0.5635454056856684</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> SUSCEPTIBLE <span class="op">=</span> <span class="fu">Status</span>(<span class="fl">0</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> INFECTED <span class="op">=</span> <span class="fu">Status</span>(<span class="fl">1</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> RECOVERED <span class="op">=</span> <span class="fu">Status</span>(<span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Status(2)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Agent</span>() <span class="op">=</span> <span class="fu">Agent</span>(<span class="fu">rand</span>(), <span class="fu">rand</span>(), SUSCEPTIBLE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Agent</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Agent</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Agent(0.9321507308941688, 0.9125899999676816, Status(0))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="fl">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>100</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>population <span class="op">=</span> [<span class="fu">Agent</span>() for i<span class="op">=</span><span class="fl">1</span><span class="op">:</span>N]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>100-element Vector{Agent}:
+ Agent(0.628775526315654, 0.7747187339300827, Status(0))
+ Agent(0.848203633522232, 0.12697652589887465, Status(0))
+ Agent(0.3770730637725206, 0.6518910908952857, Status(0))
+ Agent(0.5858942210794518, 0.9315300981592123, Status(0))
+ Agent(0.9355437044101396, 0.01257220054159136, Status(0))
+ Agent(0.0028969107658058935, 0.7063256479188373, Status(0))
+ Agent(0.7093600220340011, 0.38687950925069736, Status(0))
+ Agent(0.39101974989637966, 0.7702746583032465, Status(0))
+ Agent(0.9780100962658798, 0.7733381341853336, Status(0))
+ Agent(0.3050038561296904, 0.3910848311360444, Status(0))
+ Agent(0.2852412500502912, 0.15063632807752292, Status(0))
+ Agent(0.017203804189477978, 0.5087081675152239, Status(0))
+ Agent(0.25535255761686404, 0.17367674782088405, Status(0))
+ ⋮
+ Agent(0.1941335667477393, 0.2838472092184854, Status(0))
+ Agent(0.21633766104898777, 0.1966735094373273, Status(0))
+ Agent(0.6831569995645241, 0.8920419336580139, Status(0))
+ Agent(0.9622417953536797, 0.39182392462501126, Status(0))
+ Agent(0.2739499783123305, 0.7185297915614013, Status(0))
+ Agent(0.24694950085367484, 0.45228886139759705, Status(0))
+ Agent(0.6297114224499756, 0.4032956358091453, Status(0))
+ Agent(0.43542881147602186, 0.6126881629284924, Status(0))
+ Agent(0.32287284121939286, 0.8719234425590454, Status(0))
+ Agent(0.4564635812057405, 0.7335491904444007, Status(0))
+ Agent(0.8603354574919857, 0.7200255521995313, Status(0))
+ Agent(0.5362575560436258, 0.04291256858421444, Status(0))</code></pre>
+</div>
+</div>
+<p><strong>Write a function <code>spatial_transition(S::Vector{Agent})::Vector{Agent}</code> to compute the transition of the positions. Write another function <code>random_guess(T=100)</code> which simulates for <span class="math inline">\(T\)</span> periods in order to find a good initial guess.</strong></p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">move</span>(agent<span class="op">::</span><span class="dt">Agent</span>, p<span class="op">::</span><span class="dt">Parameters</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> agent.x <span class="op">+</span> <span class="fu">randn</span>()<span class="op">*</span>p.σ</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> agent.y <span class="op">+</span> <span class="fu">randn</span>()<span class="op">*</span>p.σ</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">Agent</span>(x, y, agent.status)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>move (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">Agent</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Agent(0.47223716356217693, 0.6635242305673732, Status(0))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">move</span>(s, p0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>Agent(0.47378596063805917, 0.665414145159432, Status(0))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">spatial_transition</span>(S<span class="op">::</span><span class="dt">Vector{Agent}</span>, p<span class="op">::</span><span class="dt">Parameters</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> [<span class="fu">move</span>(agent, p) for agent <span class="kw">in</span> S]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>spatial_transition (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spatial_transition</span>(population, p0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>100-element Vector{Agent}:
+ Agent(0.6291229889106399, 0.774070225270899, Status(0))
+ Agent(0.8492560959259334, 0.12722132837173722, Status(0))
+ Agent(0.3767834602439938, 0.6531753736840068, Status(0))
+ Agent(0.5855802186575476, 0.9314864791265248, Status(0))
+ Agent(0.9355728554104757, 0.0147052591465586, Status(0))
+ Agent(0.002418270849616774, 0.7063249119204462, Status(0))
+ Agent(0.707917249104527, 0.38881840471119206, Status(0))
+ Agent(0.39094335960860116, 0.771927538997568, Status(0))
+ Agent(0.9777438556540287, 0.7739879703309611, Status(0))
+ Agent(0.3059470622744458, 0.39105261241885153, Status(0))
+ Agent(0.2846707776844322, 0.1501994827208828, Status(0))
+ Agent(0.016439024784622704, 0.5086506588124433, Status(0))
+ Agent(0.2544781760434176, 0.17513164699524292, Status(0))
+ ⋮
+ Agent(0.19468554246935676, 0.28493805370350134, Status(0))
+ Agent(0.2157212801784034, 0.19605624712784833, Status(0))
+ Agent(0.6841183772626205, 0.8917157204512453, Status(0))
+ Agent(0.9619082508405186, 0.39142752163734507, Status(0))
+ Agent(0.27378095520752205, 0.7174255427828923, Status(0))
+ Agent(0.24756324831567023, 0.4505642735758591, Status(0))
+ Agent(0.6288632551262225, 0.40536477381800373, Status(0))
+ Agent(0.4356625735283086, 0.614521653730983, Status(0))
+ Agent(0.324335078005909, 0.8715459749863679, Status(0))
+ Agent(0.4562206598464672, 0.7341017315886411, Status(0))
+ Agent(0.8597297360316762, 0.7201195225680559, Status(0))
+ Agent(0.5375863325198571, 0.04339672685778972, Status(0))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">random_guess</span>(p0, T<span class="op">=</span><span class="fl">100</span>, N<span class="op">=</span><span class="fl">100</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    population <span class="op">=</span> [<span class="fu">Agent</span>() for n <span class="op">=</span><span class="fl">1</span><span class="op">:</span>N]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>T</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        population <span class="op">=</span> <span class="fu">spatial_transition</span>(population, p0)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> population</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>random_guess (generic function with 3 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">random_guess</span>(p0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>100-element Vector{Agent}:
+ Agent(0.021148909567778883, 0.47314918146830615, Status(0))
+ Agent(0.5089546321194396, 0.28884513251996013, Status(0))
+ Agent(0.10491956415835271, 0.03417556625673566, Status(0))
+ Agent(0.9648890196776359, 0.29156910851739715, Status(0))
+ Agent(0.9550089218945547, 0.6302006590901906, Status(0))
+ Agent(0.3373709215204663, 0.5974486029242638, Status(0))
+ Agent(0.039620256025278466, 0.8244282387537727, Status(0))
+ Agent(0.766594069080001, 0.16756944526349368, Status(0))
+ Agent(0.43998997083123537, 0.38760080495602073, Status(0))
+ Agent(0.8197449310709023, 0.4049939138409894, Status(0))
+ Agent(0.7023572874176478, 0.9223123325033322, Status(0))
+ Agent(0.7838120506296088, 0.003946385150953381, Status(0))
+ Agent(0.3499841116914357, 0.4690434636787926, Status(0))
+ ⋮
+ Agent(0.4706292315132484, 0.9633774556626334, Status(0))
+ Agent(0.11601326441296803, 0.21677391220315914, Status(0))
+ Agent(0.1360317989573984, 0.3051995851284062, Status(0))
+ Agent(0.06404029710874866, 0.12963451119876945, Status(0))
+ Agent(0.8819544938117289, 0.34781087309163483, Status(0))
+ Agent(0.30686411620952936, 0.32898742746510923, Status(0))
+ Agent(0.07350006357718267, 0.2408092420737203, Status(0))
+ Agent(0.3703927194187015, 0.408806625745773, Status(0))
+ Agent(0.49607150587083376, 0.6952786978677291, Status(0))
+ Agent(0.3300798342640545, 0.9699989839486622, Status(0))
+ Agent(0.46573276741862035, 0.975095147901568, Status(0))
+ Agent(0.6679626351164057, 0.31069373176474274, Status(0))</code></pre>
+</div>
+</div>
+<p><strong>Write a function <code>show_population</code> to plot all agents with different colors for different health status.</strong></p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Plots</span>: plot, plot!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots </span><span class="co"># imports all functions that are "exported"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>[a.x for a <span class="kw">in</span> population],</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>[a.y for a <span class="kw">in</span> population]; marker<span class="op">=</span><span class="st">"."</span>, seriestype<span class="op">=:</span>scatter <span class="co"># should make lines invisible</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Skipped marker arg ..
+└ @ Plots /home/pablo/.julia/packages/Plots/8K4be/src/args.jl:1230</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<p><img src="1_epidemiology_correction_files/figure-html/cell-24-output-2.svg" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>[a.x for a <span class="kw">in</span> population],</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>[a.y for a <span class="kw">in</span> population]; marker<span class="op">=</span><span class="st">"."</span>, seriestype<span class="op">=:</span>scatter <span class="co"># should make lines invisible</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Skipped marker arg ..
+└ @ Plots /home/pablo/.julia/packages/Plots/8K4be/src/args.jl:1230</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<p><img src="1_epidemiology_correction_files/figure-html/cell-25-output-2.svg" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Plots</span>: plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">plot</span>(population<span class="op">::</span><span class="dt">Vector{Agent}</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    pl <span class="op">=</span> <span class="fu">scatter</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        [a.x for a <span class="kw">in</span> population],</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        [a.y for a <span class="kw">in</span> population]; marker<span class="op">=</span><span class="st">"."</span>, seriestype<span class="op">=:</span>scatter <span class="co"># should make lines invisible</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pl</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>plot (generic function with 5 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>pop0 <span class="op">=</span> <span class="fu">random_guess</span>(p0);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pop0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Skipped marker arg ..
+└ @ Plots /home/pablo/.julia/packages/Plots/8K4be/src/args.jl:1230</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<p><img src="1_epidemiology_correction_files/figure-html/cell-29-output-2.svg" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Write a function <code>evolve(S::Vector[Agent])::Vector[Agent]</code> which takes the population in a given state and returns the same population with updated health status.</strong></p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Base</span>: -</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>(<span class="op">-</span>)(a1, a2) <span class="op">=</span> <span class="fu">Agent</span>( a1.x<span class="op">-</span>a2.x, a1.y <span class="op">-</span> a2.y, a1.status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>- (generic function with 251 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distance</span>(a1<span class="op">::</span><span class="dt">Agent</span>, a2<span class="op">::</span><span class="dt">Agent</span>) <span class="op">=</span> <span class="fu">sqrt</span>( ((a2<span class="op">-</span>a1).x)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> ((a2<span class="op">-</span>a1).y)<span class="op">^</span><span class="fl">2</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>distance (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distance</span>(<span class="fu">Agent</span>(), <span class="fu">Agent</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>0.5090802924591714</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">evolve</span>(S<span class="op">::</span><span class="dt">Vector{Agent}</span>, p<span class="op">::</span><span class="dt">Parameters</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> <span class="fu">spatial_transition</span>(S, p)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    new_S <span class="op">=</span> []</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i,agent) <span class="kw">in</span> <span class="fu">enumerate</span>(S)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> agent.status <span class="op">==</span> SUSCEPTIBLE</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>            risky_encounter <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> (j,oagent) <span class="kw">in</span> <span class="fu">enumerate</span>(S)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> j<span class="op">!=</span>i</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>                    d <span class="op">=</span> <span class="fu">distance</span>(agent, oagent)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> (d<span class="op">&lt;</span>p.r) <span class="op">&amp;&amp;</span> (oagent.status <span class="op">==</span> INFECTED)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>                        risky_encounter<span class="op">=</span><span class="cn">true</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">break</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">end</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> risky_encounter</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>() <span class="op">&lt;</span> p.μ</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>                    new_agent <span class="op">=</span> <span class="fu">Agent</span>(agent.x, agent.y, INFECTED)</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>                    new_agent <span class="op">=</span> agent</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>                new_agent <span class="op">=</span> agent</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> agent.status <span class="op">==</span> INFECTED</span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="fu">rand</span>() <span class="op">&lt;</span> p.<span class="cn">π</span></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>                new_agent <span class="op">=</span> <span class="fu">Agent</span>(agent.x, agent.y, RECOVERED)</span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a>                new_agent <span class="op">=</span> agent</span>
+<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> agent.status <span class="op">==</span> RECOVERED</span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a>            new_agent <span class="op">=</span> agent</span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>(new_S, new_agent)</span>
+<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb48-42"><a href="#cb48-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb48-43"><a href="#cb48-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-44"><a href="#cb48-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> new_S</span>
+<span id="cb48-45"><a href="#cb48-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-46"><a href="#cb48-46" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="70">
+<pre><code>evolve (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">infect</span>(agent<span class="op">::</span><span class="dt">Agent</span>) <span class="op">=</span> <span class="fu">Agent</span>(agent.x, agent.y, INFECTED)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<pre><code>infect (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pop0[<span class="fl">1</span>] <span class="op">=</span> <span class="fu">infect</span>(pop0[<span class="fl">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="72">
+<pre><code>Agent(0.441866421899041, 0.8123508004680626, Status(1))</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">evolve</span>(pop0, p0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
+<pre><code>100-element Vector{Any}:
+ Agent(0.4400986434346771, 0.8131979953305294, Status(1))
+ Agent(0.78591525472586, 0.938679005088445, Status(0))
+ Agent(0.9974960146827153, 0.31911388887754416, Status(0))
+ Agent(0.18839463783145038, 0.5914093128283494, Status(0))
+ Agent(0.10703795332461867, 0.2415377529237061, Status(0))
+ Agent(0.40189765364697577, 0.3942218375197692, Status(0))
+ Agent(0.6278090339114756, 0.7000969921375494, Status(0))
+ Agent(0.49849882061198286, 1.002173861309859, Status(0))
+ Agent(0.4012144028963097, 0.15381332262052724, Status(0))
+ Agent(0.5995126013762854, 0.36860720597926183, Status(0))
+ Agent(0.7150538251648496, 0.23048985018664622, Status(0))
+ Agent(0.8366926540976956, 0.13098169699111353, Status(0))
+ Agent(0.13405582978722977, 0.9769724778529784, Status(0))
+ ⋮
+ Agent(0.8009668473739764, 0.44717266736615346, Status(0))
+ Agent(0.39963701899944176, 0.09695743075130865, Status(0))
+ Agent(0.730909838624037, 0.8957170083296532, Status(0))
+ Agent(0.12202686189475535, 0.7108331647212076, Status(0))
+ Agent(0.02556974911988038, 0.6512206926550195, Status(0))
+ Agent(0.8277838112049084, 0.3977093786688347, Status(0))
+ Agent(0.9230871033326455, 0.5494691005216155, Status(0))
+ Agent(0.8487731829698942, 0.17613479053354542, Status(0))
+ Agent(0.23996260436414685, 0.7259301056175521, Status(0))
+ Agent(0.8111453442558807, 0.16457921836217404, Status(0))
+ Agent(0.8538287191395986, 0.5008508352686645, Status(0))
+ Agent(0.7317131321638034, 0.1406695400875948, Status(0))</code></pre>
+</div>
+</div>
+<p><strong>Write a function <code>simulate(S0::Vector[Agent], k=1)</code> to simulate the economy starting from an initially random position with <code>k</code> infected individuals. The returned object should be of type <code>Vector[Vector[Agent]]</code>.</strong></p>
+<div class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">simulate</span>(S0<span class="op">::</span><span class="dt">Vector{Agent}</span>, p<span class="op">::</span><span class="dt">Parameters</span>; T<span class="op">=</span><span class="fl">1</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    sim <span class="op">=</span> [S0]</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t<span class="op">=</span><span class="fl">1</span><span class="op">:</span>T</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>        pop <span class="op">=</span> sim[<span class="kw">end</span>]</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>(sim, <span class="fu">evolve</span>(pop, p))</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sim</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="74">
+<pre><code>simulate (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> <span class="fu">simulate</span>(pop0, p0; T<span class="op">=</span><span class="fl">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
+<pre><code>101-element Vector{Vector{Agent}}:
+ [Agent(0.441866421899041, 0.8123508004680626, Status(1)), Agent(0.7854071329647904, 0.9372482823692116, Status(0)), Agent(0.9975409897421323, 0.31961377242256905, Status(0)), Agent(0.18872704600426163, 0.5920558147918156, Status(0)), Agent(0.10615016895963983, 0.24037685998821293, Status(0)), Agent(0.401518414766676, 0.395735934342022, Status(0)), Agent(0.6293589919021436, 0.7013413101083454, Status(0)), Agent(0.49880131265821676, 0.9999988537761209, Status(0)), Agent(0.4024638668258409, 0.15323105376578777, Status(0)), Agent(0.5999188515799793, 0.36821832736573823, Status(0))  …  Agent(0.731749120112525, 0.8948896273227398, Status(0)), Agent(0.12294544837412476, 0.7099547508813026, Status(0)), Agent(0.02690848676757432, 0.6522679193401205, Status(0)), Agent(0.8285987229784609, 0.4000528595082623, Status(0)), Agent(0.9247625025601486, 0.5503127753459159, Status(0)), Agent(0.8471722875835832, 0.17657205514505364, Status(0)), Agent(0.24002620565354532, 0.7273299291660996, Status(0)), Agent(0.8136778097822348, 0.16502056409612506, Status(0)), Agent(0.8527105933494985, 0.5001524252059384, Status(0)), Agent(0.732526185487153, 0.14100901661174903, Status(0))]
+ [Agent(0.442529836076338, 0.8118853082864981, Status(1)), Agent(0.7862632773602122, 0.9383191277842291, Status(0)), Agent(0.9970697848694335, 0.32075364462559497, Status(0)), Agent(0.18856628119118946, 0.5932929653910708, Status(0)), Agent(0.10424294166135492, 0.2405480949258491, Status(0)), Agent(0.40191842703392794, 0.3946178237221266, Status(0)), Agent(0.6296232133600783, 0.701124301377656, Status(0)), Agent(0.4991187958295939, 0.9985977150520342, Status(0)), Agent(0.40157255198549363, 0.1528055005730649, Status(0)), Agent(0.6009852569159178, 0.36783563378970857, Status(0))  …  Agent(0.7326275002869485, 0.8940202682289238, Status(0)), Agent(0.12403776134999274, 0.709883156910694, Status(0)), Agent(0.0257075122830999, 0.6520990387126823, Status(0)), Agent(0.8281341756445871, 0.4005485456037277, Status(0)), Agent(0.9247203544043578, 0.5495552560441944, Status(0)), Agent(0.8469420132317502, 0.17467741635687342, Status(0)), Agent(0.23950559996022514, 0.7277666656988727, Status(0)), Agent(0.813351683659198, 0.1639834251071749, Status(0)), Agent(0.8529785706179416, 0.5006748192345365, Status(0)), Agent(0.7314903560736649, 0.14103122839908525, Status(0))]
+ [Agent(0.44385741799503986, 0.8122509010936316, Status(1)), Agent(0.7864154704487637, 0.9375699248346644, Status(0)), Agent(0.9975168175778097, 0.32158389173502827, Status(0)), Agent(0.18894816490110694, 0.5917154392625062, Status(0)), Agent(0.10573235976811694, 0.24091711336275304, Status(0)), Agent(0.4020041714066411, 0.393511966903223, Status(0)), Agent(0.6294431457358413, 0.7019410824976265, Status(0)), Agent(0.5003163466648354, 0.9970328060068792, Status(0)), Agent(0.4020519419748231, 0.1535949792853815, Status(0)), Agent(0.601680542862499, 0.36667751960898654, Status(0))  …  Agent(0.7306191324904929, 0.8926855562666102, Status(0)), Agent(0.12331798578407342, 0.7106271461238091, Status(0)), Agent(0.027261635351836247, 0.6512648252926417, Status(0)), Agent(0.82806037996398, 0.3998987976430061, Status(0)), Agent(0.9250805300878677, 0.5509498037189139, Status(0)), Agent(0.8459961051899432, 0.1745809946224706, Status(0)), Agent(0.24057262348542838, 0.7258585169402969, Status(0)), Agent(0.8124883720245265, 0.16227753640987697, Status(0)), Agent(0.8545396955425436, 0.5008680309670407, Status(0)), Agent(0.732356294300309, 0.14079358267401554, Status(0))]
+ [Agent(0.44143601430313795, 0.8109012527767526, Status(1)), Agent(0.7847855563513468, 0.9385605323662012, Status(0)), Agent(0.9981882560049341, 0.32305079206348347, Status(0)), Agent(0.18873719776669323, 0.590114018781142, Status(0)), Agent(0.10629160358125028, 0.2425945497187616, Status(0)), Agent(0.40172180403359264, 0.3935794841421229, Status(0)), Agent(0.628845310730426, 0.700643704410727, Status(0)), Agent(0.49981506734223097, 0.9962009041338814, Status(0)), Agent(0.40138134937030784, 0.15455146103835202, Status(0)), Agent(0.601273352054296, 0.3668590853865329, Status(0))  …  Agent(0.7300646583061547, 0.8926376302904875, Status(0)), Agent(0.12197247095019595, 0.7104821427216658, Status(0)), Agent(0.02647232988916635, 0.6509050068898048, Status(0)), Agent(0.8278654650237912, 0.39938690609025884, Status(0)), Agent(0.9255844977242286, 0.5508175849731638, Status(0)), Agent(0.8461845964016704, 0.17541016158557582, Status(0)), Agent(0.23888127382389324, 0.727075487892517, Status(0)), Agent(0.8128831033856619, 0.16442473271629224, Status(0)), Agent(0.8555546172805246, 0.4997080582404427, Status(0)), Agent(0.7299968512301199, 0.14090917313800772, Status(0))]
+ [Agent(0.44143232550513156, 0.8116322806233718, Status(2)), Agent(0.7850271276115492, 0.9377850100721135, Status(0)), Agent(0.9984818211781348, 0.32289006481733745, Status(0)), Agent(0.19013415022055025, 0.5912656320891427, Status(0)), Agent(0.10721531219567947, 0.2423539301041307, Status(0)), Agent(0.40151743246022675, 0.3931825847156946, Status(0)), Agent(0.6283864914547052, 0.6997669246063346, Status(0)), Agent(0.5010837675562352, 0.995086940362378, Status(0)), Agent(0.40144208995163844, 0.15400358824281257, Status(0)), Agent(0.6031062156289628, 0.3656875957557012, Status(0))  …  Agent(0.7295286074132161, 0.8922281120525392, Status(0)), Agent(0.1213042020261773, 0.7111101463417513, Status(0)), Agent(0.026878219578959736, 0.6507413471658348, Status(0)), Agent(0.8281518299121955, 0.4000593075793267, Status(0)), Agent(0.9247818164770577, 0.5506769864086912, Status(0)), Agent(0.8460116223861153, 0.17404424873403893, Status(0)), Agent(0.2372654976950991, 0.7279115724188011, Status(0)), Agent(0.8138969346333568, 0.1644245830634919, Status(0)), Agent(0.8556271675245165, 0.5009554582182628, Status(0)), Agent(0.730390690755905, 0.13957971306075168, Status(0))]
+ [Agent(0.4431575878851423, 0.8126325342166986, Status(2)), Agent(0.787024421028446, 0.937894676998416, Status(0)), Agent(0.998633819389741, 0.32393172361441774, Status(0)), Agent(0.1889873198606994, 0.5902533018665567, Status(0)), Agent(0.10842621690802556, 0.2420351925411216, Status(0)), Agent(0.40315570913514426, 0.3927643929788164, Status(0)), Agent(0.6282892549167484, 0.6989346050599804, Status(0)), Agent(0.5022257890874796, 0.9935755617044859, Status(0)), Agent(0.40253992951857714, 0.15335936323863417, Status(0)), Agent(0.6039868229654618, 0.36392657429600067, Status(0))  …  Agent(0.7293719845769621, 0.8925509079691587, Status(0)), Agent(0.12223710211500795, 0.7109965052006866, Status(0)), Agent(0.027240444842885354, 0.6510527311402889, Status(0)), Agent(0.8274600967789527, 0.40083952898801556, Status(0)), Agent(0.9235683253601106, 0.5508330657406815, Status(0)), Agent(0.84463080264382, 0.17272533425700382, Status(0)), Agent(0.2381432037563708, 0.7301545618178992, Status(0)), Agent(0.8138885513760006, 0.164311088053162, Status(0)), Agent(0.855316352863125, 0.5024662562313975, Status(0)), Agent(0.7304012007037838, 0.13848558658865961, Status(0))]
+ [Agent(0.4422261921096162, 0.8125111503727651, Status(2)), Agent(0.7877822534386613, 0.9382138147070861, Status(0)), Agent(0.9983331736115238, 0.3237234031058819, Status(0)), Agent(0.18753811532563303, 0.5912216760270286, Status(0)), Agent(0.1079119536259964, 0.24208228475841426, Status(0)), Agent(0.40364664639051534, 0.39308884363207613, Status(0)), Agent(0.6295272780062282, 0.6992165022677231, Status(0)), Agent(0.5016302453095813, 0.9933584027498878, Status(0)), Agent(0.4025049384064205, 0.15343629751602844, Status(0)), Agent(0.6060131702329192, 0.36277154899495867, Status(0))  …  Agent(0.7280287588689087, 0.8917147049938571, Status(0)), Agent(0.12161514261014436, 0.712077854463025, Status(0)), Agent(0.02879380915352566, 0.6491253465783401, Status(0)), Agent(0.8262782069396624, 0.40166823222798526, Status(0)), Agent(0.9233862860072962, 0.5512033055291579, Status(0)), Agent(0.845045437947382, 0.17119887690611912, Status(0)), Agent(0.2395103752026538, 0.72869332243359, Status(0)), Agent(0.8139922235324106, 0.16375853882422403, Status(0)), Agent(0.8539983798251518, 0.5030021942885732, Status(0)), Agent(0.7305272166752103, 0.13901409362321895, Status(0))]
+ [Agent(0.4417178608879097, 0.8122452603507276, Status(2)), Agent(0.7881703536556063, 0.9382540835459329, Status(0)), Agent(0.998007837540053, 0.32353414566619976, Status(0)), Agent(0.18616572069638335, 0.5925128455278946, Status(0)), Agent(0.10718228498237004, 0.2416644655343551, Status(0)), Agent(0.40419187793068956, 0.39321096853700876, Status(0)), Agent(0.6288564305547872, 0.7003087137158607, Status(0)), Agent(0.5027070212916008, 0.993344425203185, Status(0)), Agent(0.40188142590238307, 0.153836254102514, Status(0)), Agent(0.6053187789521222, 0.3631848311530929, Status(0))  …  Agent(0.7261391396505329, 0.8918533564723, Status(0)), Agent(0.12228945130139726, 0.7115205900929901, Status(0)), Agent(0.0292921547492081, 0.6505692786238139, Status(0)), Agent(0.8270726538516735, 0.4020111348943792, Status(0)), Agent(0.9224233867668022, 0.553410193118374, Status(0)), Agent(0.8445823961404897, 0.16961433475502294, Status(0)), Agent(0.23934644665704916, 0.7266488842804865, Status(0)), Agent(0.8162694447091483, 0.16366871791966067, Status(0)), Agent(0.8530398662334816, 0.5025163718673221, Status(0)), Agent(0.7293255618622704, 0.13811327624332112, Status(0))]
+ [Agent(0.442485264332925, 0.8111123942890234, Status(2)), Agent(0.7874558412325513, 0.9401673353904162, Status(0)), Agent(0.9988120562101837, 0.32251265447455835, Status(0)), Agent(0.18441538374927377, 0.591485911572609, Status(0)), Agent(0.10756520675802331, 0.24051363282491278, Status(0)), Agent(0.40317703298237684, 0.3931660877843566, Status(0)), Agent(0.630217986028868, 0.7001066765524754, Status(0)), Agent(0.5026988592656141, 0.9950846911833151, Status(0)), Agent(0.402022428053736, 0.15217594558460018, Status(0)), Agent(0.6051994830394399, 0.3631935461936355, Status(0))  …  Agent(0.7262768236837008, 0.8911137644015331, Status(0)), Agent(0.12167654943701815, 0.7137730924033405, Status(0)), Agent(0.02943415980253969, 0.6501892895809172, Status(0)), Agent(0.8286468313990312, 0.40032576153857824, Status(0)), Agent(0.9225584417877741, 0.5552505418520908, Status(0)), Agent(0.846458533251086, 0.16916074926909644, Status(0)), Agent(0.2406175892863526, 0.7256268984737472, Status(0)), Agent(0.8162888246281313, 0.16340082446475673, Status(0)), Agent(0.8528634882845119, 0.5025576427557168, Status(0)), Agent(0.7301035120863177, 0.1373696283282154, Status(0))]
+ [Agent(0.44322685908842174, 0.8108472980530821, Status(2)), Agent(0.7882734915769418, 0.9388941791885129, Status(0)), Agent(0.9963884625993057, 0.3206701153441409, Status(0)), Agent(0.1848125883876502, 0.5932006537475214, Status(0)), Agent(0.1068683283736011, 0.23991559086550954, Status(0)), Agent(0.4030005998380687, 0.3932203882297437, Status(0)), Agent(0.6317163301895065, 0.7003276978304297, Status(0)), Agent(0.5044924339898348, 0.9951957550162323, Status(0)), Agent(0.40196466527330404, 0.15237224588858364, Status(0)), Agent(0.6052926153727103, 0.36310717085027383, Status(0))  …  Agent(0.7248453474207927, 0.8909552391374455, Status(0)), Agent(0.1206642712971681, 0.7139955464135125, Status(0)), Agent(0.029360861545914243, 0.6518116541565286, Status(0)), Agent(0.829012049439057, 0.3996619997387848, Status(0)), Agent(0.9223417793654037, 0.5569189821270372, Status(0)), Agent(0.8473160616372989, 0.1669410271747154, Status(0)), Agent(0.23904717619229723, 0.7250900197658998, Status(0)), Agent(0.816371089988887, 0.1606654245298471, Status(0)), Agent(0.8528613606554278, 0.5026025758748991, Status(0)), Agent(0.7309130655758349, 0.13598171940211456, Status(0))]
+ [Agent(0.4451064391515084, 0.81110921492663, Status(2)), Agent(0.7877628905388975, 0.9389437434742378, Status(0)), Agent(0.9967985336126756, 0.32186036233297355, Status(0)), Agent(0.18532019893473453, 0.5930075902092301, Status(0)), Agent(0.10696903519344199, 0.24107554000186807, Status(0)), Agent(0.40206437025500846, 0.39385274651765834, Status(0)), Agent(0.6299242686437513, 0.6995089039391037, Status(0)), Agent(0.5049788617892761, 0.9946490902712464, Status(0)), Agent(0.40234234539023755, 0.1530052268633083, Status(0)), Agent(0.6062882633994584, 0.3636313008399237, Status(0))  …  Agent(0.723856920668422, 0.8918804512338937, Status(0)), Agent(0.12310641137713298, 0.7141265013176181, Status(0)), Agent(0.03034362910671491, 0.6506064228644849, Status(0)), Agent(0.8296908315782956, 0.3997833365647314, Status(0)), Agent(0.921137242213987, 0.557378624040555, Status(0)), Agent(0.8476182253924445, 0.16906976194599635, Status(0)), Agent(0.2378018609005793, 0.7245191933111635, Status(0)), Agent(0.8150245475644172, 0.1608597746562974, Status(0)), Agent(0.853199147154455, 0.5015556270048845, Status(0)), Agent(0.731290918801849, 0.13552056291977949, Status(0))]
+ [Agent(0.44515779347107465, 0.8120132414551714, Status(2)), Agent(0.7889479823203434, 0.9387350931980668, Status(0)), Agent(0.9981818435167096, 0.3209827249621066, Status(0)), Agent(0.18698665137589807, 0.5931208965110198, Status(0)), Agent(0.10809028228425278, 0.24164393689151897, Status(0)), Agent(0.40297520684765564, 0.39323500005132905, Status(0)), Agent(0.6293893146302708, 0.6982509506512435, Status(0)), Agent(0.5051918659136754, 0.9936347410214128, Status(0)), Agent(0.4018720062673195, 0.15438588966845102, Status(0)), Agent(0.6055420510089545, 0.3646983735142258, Status(0))  …  Agent(0.7237382318170292, 0.891285098087303, Status(0)), Agent(0.1231679174290374, 0.7127340152952455, Status(0)), Agent(0.03143523888851154, 0.6494468071578929, Status(0)), Agent(0.8287898184564868, 0.39960725247710677, Status(0)), Agent(0.921154108216751, 0.5574157689775252, Status(0)), Agent(0.848809609364808, 0.16824775856599353, Status(0)), Agent(0.2359922772997027, 0.7257769873004642, Status(0)), Agent(0.816774355121578, 0.16082216713348343, Status(0)), Agent(0.8531932224160214, 0.5014457015588222, Status(0)), Agent(0.7312592026545321, 0.13774461298470492, Status(0))]
+ [Agent(0.4457091246692341, 0.8110066531085949, Status(2)), Agent(0.7892404847730928, 0.9395990683348232, Status(0)), Agent(0.9978674187832937, 0.32209342591882334, Status(0)), Agent(0.18709997865730804, 0.5938639224209723, Status(0)), Agent(0.10867070437577005, 0.24106917004093478, Status(0)), Agent(0.400082969687098, 0.39281326312069875, Status(0)), Agent(0.6294819202135417, 0.6979119121968463, Status(0)), Agent(0.5053092207374443, 0.9927818519543103, Status(0)), Agent(0.40194029469365483, 0.15527100953704143, Status(0)), Agent(0.6048119570698722, 0.36502416690121275, Status(0))  …  Agent(0.7257546287397749, 0.8912297082862555, Status(0)), Agent(0.12433793460290997, 0.712515270777967, Status(0)), Agent(0.030934710887631243, 0.6494409673371144, Status(0)), Agent(0.8311325513550206, 0.3994313562267959, Status(0)), Agent(0.9202509596097429, 0.5577058425374563, Status(0)), Agent(0.848066049346399, 0.1681642281409571, Status(0)), Agent(0.23512526350612847, 0.7259873432137083, Status(0)), Agent(0.8165706839655698, 0.1608190568674662, Status(0)), Agent(0.8515814707672584, 0.5012819322475581, Status(0)), Agent(0.7329191712778952, 0.1365845923206646, Status(0))]
+ ⋮
+ [Agent(0.4398434290763222, 0.8130731797279486, Status(2)), Agent(0.7852626279612421, 0.9372060272613925, Status(0)), Agent(1.0075928437415744, 0.3251082563375485, Status(0)), Agent(0.19329604818718593, 0.5937758628008794, Status(0)), Agent(0.08999487417869875, 0.2374683894450651, Status(0)), Agent(0.39917969842162326, 0.396195776761437, Status(0)), Agent(0.6284815141315211, 0.6972720882206642, Status(0)), Agent(0.4969647168369334, 0.998169006681133, Status(0)), Agent(0.4005114012238426, 0.1595804380928642, Status(0)), Agent(0.601558154040745, 0.3660629031866788, Status(0))  …  Agent(0.74091461923018, 0.9001020023952853, Status(0)), Agent(0.12594781595205476, 0.7121386428341928, Status(0)), Agent(0.036492853764586865, 0.654725165431608, Status(0)), Agent(0.8170106492900315, 0.4070644354131682, Status(0)), Agent(0.9244161446884629, 0.5656759974898161, Status(0)), Agent(0.8425933391140563, 0.16522740354220533, Status(0)), Agent(0.24053705724972232, 0.7124497408072096, Status(0)), Agent(0.8180081915954618, 0.1484365145316182, Status(0)), Agent(0.8423316114907028, 0.5062379903959389, Status(0)), Agent(0.7340634474187695, 0.1379845705419109, Status(0))]
+ [Agent(0.4392156539484673, 0.811763348671184, Status(2)), Agent(0.7849583971212757, 0.9365112153915957, Status(0)), Agent(1.0081852321571763, 0.32606052640840094, Status(0)), Agent(0.19527928461182176, 0.5940446101434919, Status(0)), Agent(0.09161156100672048, 0.23787357166838113, Status(0)), Agent(0.3990964784821896, 0.3951908698994591, Status(0)), Agent(0.6290470048183306, 0.6980261752757873, Status(0)), Agent(0.49650314507789745, 0.9980910893454142, Status(0)), Agent(0.4003618534002786, 0.1595872155278906, Status(0)), Agent(0.6019681611098464, 0.3679913270612052, Status(0))  …  Agent(0.7409986078592539, 0.9000361991808946, Status(0)), Agent(0.1260765156909216, 0.7115979847116818, Status(0)), Agent(0.03746454144468891, 0.655327406329063, Status(0)), Agent(0.8164729417447567, 0.4073737932718268, Status(0)), Agent(0.926087788659693, 0.5665300362887863, Status(0)), Agent(0.8413369772125101, 0.16563034938718046, Status(0)), Agent(0.2393675220553736, 0.7146713233323678, Status(0)), Agent(0.8179269771093182, 0.14823898569338656, Status(0)), Agent(0.8425054241845531, 0.5069164535198505, Status(0)), Agent(0.7337240952649209, 0.13773392754048205, Status(0))]
+ [Agent(0.439227338118714, 0.8123352027097855, Status(2)), Agent(0.7834853890829637, 0.9370241313571385, Status(0)), Agent(1.0091620014066498, 0.32545321907626307, Status(0)), Agent(0.19616243600288777, 0.5941888799455464, Status(0)), Agent(0.09122459419168762, 0.2374708568095875, Status(0)), Agent(0.3997182930481254, 0.39673903732686794, Status(0)), Agent(0.6298425266504987, 0.6978881400441301, Status(0)), Agent(0.4970711182095145, 0.9976484659945547, Status(0)), Agent(0.40101165640560266, 0.16114839882237592, Status(0)), Agent(0.6028096717922249, 0.36970919850544565, Status(0))  …  Agent(0.7402965748515359, 0.8999604214630188, Status(0)), Agent(0.12430281015516363, 0.7110062494365031, Status(0)), Agent(0.03671361649541695, 0.6559809040452571, Status(0)), Agent(0.8167510263326209, 0.40722536206598087, Status(0)), Agent(0.9252870641801766, 0.5670254804090208, Status(0)), Agent(0.8414018597100469, 0.16420462723419726, Status(0)), Agent(0.23804362206602314, 0.7144535521154051, Status(0)), Agent(0.8198552234144876, 0.14827968519112983, Status(0)), Agent(0.8420485055719842, 0.506821999145314, Status(0)), Agent(0.7321982703509006, 0.13838319146657221, Status(0))]
+ [Agent(0.43810080192148554, 0.8118306753874529, Status(2)), Agent(0.782682036086891, 0.9370538153597171, Status(0)), Agent(1.0087783906630885, 0.32373250399512915, Status(0)), Agent(0.19493990876056627, 0.5946414699409198, Status(0)), Agent(0.09117874552363367, 0.2376985197357713, Status(0)), Agent(0.3998882646272509, 0.3946573322920105, Status(0)), Agent(0.6304344464399961, 0.6967668562387759, Status(0)), Agent(0.49668693505821754, 0.9980507224388557, Status(0)), Agent(0.4004394072314649, 0.16314008526584028, Status(0)), Agent(0.6020251238911148, 0.3688812189790221, Status(0))  …  Agent(0.7395399934882655, 0.9001073588654738, Status(0)), Agent(0.1251388442377291, 0.7092826148525743, Status(0)), Agent(0.037987724519309804, 0.6565674625988727, Status(0)), Agent(0.8154322425502669, 0.40671627740405336, Status(0)), Agent(0.9230882301873304, 0.5654541647359658, Status(0)), Agent(0.8426407293236821, 0.16550426965038645, Status(0)), Agent(0.2386269826042905, 0.7140105225287274, Status(0)), Agent(0.8183408865375883, 0.1479204972650557, Status(0)), Agent(0.8434579570364978, 0.5062368390748042, Status(0)), Agent(0.7335278725590169, 0.13703817330375284, Status(0))]
+ [Agent(0.43819409122235226, 0.8132218488329089, Status(2)), Agent(0.7827478233331987, 0.9379879291039458, Status(0)), Agent(1.0085129653015796, 0.3266642088283069, Status(0)), Agent(0.1951502991536997, 0.5946400659376244, Status(0)), Agent(0.09036890376766628, 0.2374420339605776, Status(0)), Agent(0.39921801667529105, 0.3951579329052276, Status(0)), Agent(0.6306273347789411, 0.6978241927311339, Status(0)), Agent(0.4975792133626165, 0.9953226616166782, Status(0)), Agent(0.40005233428351544, 0.1636514861553488, Status(0)), Agent(0.6008542832622338, 0.36921640682868057, Status(0))  …  Agent(0.7388218571058214, 0.9003187404000286, Status(0)), Agent(0.12436544864091162, 0.708726277715301, Status(0)), Agent(0.036356042612690403, 0.656593058966902, Status(0)), Agent(0.8131048216733904, 0.40711156787369723, Status(0)), Agent(0.9221287251507804, 0.5679553883985176, Status(0)), Agent(0.8437055635902875, 0.16639151128720975, Status(0)), Agent(0.23911383433125138, 0.7125869940043238, Status(0)), Agent(0.8167470688661548, 0.14842700902926872, Status(0)), Agent(0.8442827694486111, 0.5054598203740532, Status(0)), Agent(0.7339811160734665, 0.1371917062261695, Status(0))]
+ [Agent(0.43846863888812293, 0.8136527857381026, Status(2)), Agent(0.7825248272720242, 0.9384904560838251, Status(0)), Agent(1.0088013169047685, 0.3253201237583487, Status(0)), Agent(0.19572453406305707, 0.5949056892089403, Status(0)), Agent(0.09061470001048597, 0.2372639074679479, Status(0)), Agent(0.4001885476746242, 0.3953655492581143, Status(0)), Agent(0.6294370652764794, 0.6951696977142238, Status(0)), Agent(0.49748870523378935, 0.9955387680681281, Status(0)), Agent(0.4008554323360955, 0.16293660564285237, Status(0)), Agent(0.6003359240263713, 0.3681862617364786, Status(0))  …  Agent(0.7392590113299143, 0.9017741951814178, Status(0)), Agent(0.12540355781253976, 0.7090225226390683, Status(0)), Agent(0.036710222670873725, 0.6572926436609897, Status(0)), Agent(0.8149726955891011, 0.4075292104443696, Status(0)), Agent(0.9222294616385645, 0.5694585737096522, Status(0)), Agent(0.8423531092108231, 0.16677893980419012, Status(0)), Agent(0.24056726720927646, 0.7128936916734243, Status(0)), Agent(0.8179805673008121, 0.14800083947859793, Status(0)), Agent(0.8457468940771942, 0.5032910023227684, Status(0)), Agent(0.7338172958376615, 0.13635238236090624, Status(0))]
+ [Agent(0.4384817322665405, 0.8145575587422089, Status(2)), Agent(0.7822186215866562, 0.9374691178008379, Status(0)), Agent(1.0082835702010473, 0.3249337095473684, Status(0)), Agent(0.194816644373963, 0.5955122052502505, Status(0)), Agent(0.08908408480355341, 0.23893408756942616, Status(0)), Agent(0.39993067819066863, 0.39385767315946324, Status(0)), Agent(0.6293293786102713, 0.6941718691253689, Status(0)), Agent(0.49577969062525684, 0.9950679361980109, Status(0)), Agent(0.4023822805349393, 0.16373461374840423, Status(0)), Agent(0.6002030621570295, 0.3673809295190543, Status(0))  …  Agent(0.7401415127349003, 0.9021697751668745, Status(0)), Agent(0.12450442445458329, 0.7106996103549397, Status(0)), Agent(0.037236969107168616, 0.6583308321229506, Status(0)), Agent(0.8166491757819228, 0.4086256063970911, Status(0)), Agent(0.9217921730805787, 0.5706304370987498, Status(0)), Agent(0.8412198673689512, 0.16783721086394254, Status(0)), Agent(0.24060286477689416, 0.7118218640801746, Status(0)), Agent(0.8169282496124602, 0.1479057523833763, Status(0)), Agent(0.8455114870852158, 0.5049416849833813, Status(0)), Agent(0.7336838677720915, 0.13593882973254437, Status(0))]
+ [Agent(0.43802882966908646, 0.815397590050508, Status(2)), Agent(0.7829321934732368, 0.9384210573841409, Status(0)), Agent(1.0093839070202968, 0.32375028502454956, Status(0)), Agent(0.19513157857685162, 0.5951919730417315, Status(0)), Agent(0.08611132659533327, 0.2394714922557445, Status(0)), Agent(0.4006316884233861, 0.3972154854983049, Status(0)), Agent(0.6289841730910128, 0.6932328173644657, Status(0)), Agent(0.4960046964537785, 0.9956030264916814, Status(0)), Agent(0.40255633464026275, 0.16380807749677131, Status(0)), Agent(0.6002826001465114, 0.3667129562962687, Status(0))  …  Agent(0.739445731733693, 0.9021834043201518, Status(0)), Agent(0.12528214698214585, 0.7118581896103984, Status(0)), Agent(0.03586069757171176, 0.6593839193822566, Status(0)), Agent(0.8156854583799873, 0.41049570247088324, Status(0)), Agent(0.9223115775645503, 0.5707646208083953, Status(0)), Agent(0.8403425284822064, 0.1680547375439349, Status(0)), Agent(0.24285955962415237, 0.7127887787501292, Status(0)), Agent(0.817029357221291, 0.1490636230023905, Status(0)), Agent(0.845081981452403, 0.5061738680866381, Status(0)), Agent(0.7326186396946935, 0.1364755252877274, Status(0))]
+ [Agent(0.43607142953995304, 0.8152098453663569, Status(2)), Agent(0.7835393697708456, 0.9385418094155858, Status(0)), Agent(1.0088535409304513, 0.32510738509370946, Status(0)), Agent(0.19529336378174542, 0.597952129974227, Status(0)), Agent(0.08661580181288077, 0.237620537190702, Status(0)), Agent(0.40009099237070517, 0.39768138845787615, Status(0)), Agent(0.6284863050490712, 0.6926996499511484, Status(0)), Agent(0.4943239965743711, 0.9945316475488202, Status(0)), Agent(0.4025548243817535, 0.16413986562279517, Status(0)), Agent(0.599768144915327, 0.3655297239443983, Status(0))  …  Agent(0.7400494468207819, 0.9029151884920059, Status(0)), Agent(0.1248120423085644, 0.7117951396605311, Status(0)), Agent(0.0347381096445276, 0.6594365998790008, Status(0)), Agent(0.8154668286485132, 0.4100146960943363, Status(0)), Agent(0.9222744887261148, 0.5715111777099923, Status(0)), Agent(0.8400620454298172, 0.1668444654639437, Status(0)), Agent(0.24349150848976048, 0.7132350722428226, Status(0)), Agent(0.8175721221845748, 0.14988269487760322, Status(0)), Agent(0.8452814224431108, 0.5055534856992605, Status(0)), Agent(0.7329802089774513, 0.1376259529897503, Status(0))]
+ [Agent(0.4358186431583357, 0.8154740107924721, Status(2)), Agent(0.7831489766743316, 0.9369680534311884, Status(0)), Agent(1.0111249443859158, 0.32659678796455405, Status(0)), Agent(0.19603846269853012, 0.5976963309475658, Status(0)), Agent(0.08792432653307412, 0.23699140613620373, Status(0)), Agent(0.40070770337896017, 0.39656861556265893, Status(0)), Agent(0.628093213306971, 0.6922920457358762, Status(0)), Agent(0.493789583468707, 0.9949546394425134, Status(0)), Agent(0.3996903197018787, 0.16322055992933554, Status(0)), Agent(0.5988565310689405, 0.36466053675105786, Status(0))  …  Agent(0.7400445529433035, 0.9017663663775608, Status(0)), Agent(0.12424554126569615, 0.711265109601701, Status(0)), Agent(0.036283922678269444, 0.6584020514238422, Status(0)), Agent(0.8133283900887575, 0.4111445928256766, Status(0)), Agent(0.9237999878865827, 0.5715144823685466, Status(0)), Agent(0.8398395863474708, 0.16762700698506575, Status(0)), Agent(0.24518336564124465, 0.7131911699751711, Status(0)), Agent(0.8186014184819426, 0.14975827714166834, Status(0)), Agent(0.8454225373606199, 0.5070896885444538, Status(0)), Agent(0.7340498529822086, 0.13763117106985565, Status(0))]
+ [Agent(0.4353492041537104, 0.8135623647279063, Status(2)), Agent(0.7837726026738221, 0.9381707366593354, Status(0)), Agent(1.0088997360450638, 0.32557302082853506, Status(0)), Agent(0.1987582325252235, 0.598463372098762, Status(0)), Agent(0.0878359188455921, 0.23669093601482705, Status(0)), Agent(0.4025094525744544, 0.396033858938448, Status(0)), Agent(0.6291848515696487, 0.6911996660420342, Status(0)), Agent(0.49249464975634183, 0.9932322112005854, Status(0)), Agent(0.4004265479616885, 0.16243570725201553, Status(0)), Agent(0.5993547930391107, 0.3644401165944391, Status(0))  …  Agent(0.7405405332513715, 0.9003640764090779, Status(0)), Agent(0.12480475860049448, 0.7102932040597387, Status(0)), Agent(0.03515747429519327, 0.6584542199932989, Status(0)), Agent(0.8116440828703527, 0.41085518301503965, Status(0)), Agent(0.9232570254296937, 0.5714790025230235, Status(0)), Agent(0.8391342788121922, 0.16573327950847294, Status(0)), Agent(0.24468870793190514, 0.7133161778591234, Status(0)), Agent(0.8181505881044948, 0.14909209245083282, Status(0)), Agent(0.8474400943359627, 0.5078384272366958, Status(0)), Agent(0.7338587218426641, 0.1386562969678601, Status(0))]
+ [Agent(0.435079370086555, 0.8159315991465731, Status(2)), Agent(0.7830349322617804, 0.9385191019299033, Status(0)), Agent(1.0086096404812195, 0.3238428842699708, Status(0)), Agent(0.19831781763296338, 0.5985380514133444, Status(0)), Agent(0.08834826623219312, 0.23763801486915395, Status(0)), Agent(0.40125819314705297, 0.3958903557205134, Status(0)), Agent(0.6300609340922065, 0.6909358380765523, Status(0)), Agent(0.4951081271877429, 0.992296104423664, Status(0)), Agent(0.4012946520107518, 0.16324041274461554, Status(0)), Agent(0.5997953012758569, 0.36362155790279194, Status(0))  …  Agent(0.7409157888938563, 0.9002552209858768, Status(0)), Agent(0.12618150526469918, 0.70929765059573, Status(0)), Agent(0.034479892248360317, 0.6596951123646058, Status(0)), Agent(0.8120455114782488, 0.4110310650811127, Status(0)), Agent(0.9245210445446359, 0.5692097656835027, Status(0)), Agent(0.8379442929278645, 0.16514487556268984, Status(0)), Agent(0.24452878931707084, 0.7133418220416281, Status(0)), Agent(0.8189504007760263, 0.1492064899911878, Status(0)), Agent(0.848256020130256, 0.5075775541398552, Status(0)), Agent(0.7345688404042433, 0.13905143597251823, Status(0))]</code></pre>
+</div>
+</div>
+<p><strong>Compute statistics along a simulated path for <span class="math inline">\(n_I\)</span>, <span class="math inline">\(n_S\)</span>, <span class="math inline">\(n_R\)</span>. Plot and compare with the basic SIR model</strong></p>
+<div class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(pop<span class="op">::</span><span class="dt">Vector{Agent}</span>, state) <span class="op">=</span> <span class="fu">sum</span>(a.status<span class="op">==</span>state <span class="cf">for</span> a <span class="kw">in</span> pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="81">
+<pre><code>count (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(pop0, SUSCEPTIBLE)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(pop0, SUSCEPTIBLE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="82">
+<pre><code>99</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>p0.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">=</span> <span class="fu">Parameters</span>(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="108">
+<pre><code>Parameters(0.05, 0.5, 0.1, 0.2)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="109">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> <span class="fu">simulate</span>(pop0, p0; T<span class="op">=</span><span class="fl">100</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="110">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>sim_n_S <span class="op">=</span> [<span class="fu">count</span>(pop, SUSCEPTIBLE) for pop <span class="kw">in</span> sim]</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>sim_n_I <span class="op">=</span> [<span class="fu">count</span>(pop, INFECTED) for pop <span class="kw">in</span> sim]</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>sim_n_R <span class="op">=</span> [<span class="fu">count</span>(pop, RECOVERED) for pop <span class="kw">in</span> sim]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="110">
+<pre><code>101-element Vector{Int64}:
+  0
+  0
+  2
+  3
+  5
+  5
+  5
+  6
+  6
+  6
+  6
+  6
+  7
+  ⋮
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27
+ 27</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="111">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>pl <span class="op">=</span> <span class="fu">plot</span>(sim_n_S, label<span class="op">=</span><span class="st">"Susceptible"</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(pl, sim_n_I, label<span class="op">=</span><span class="st">"Infected"</span>)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(pl, sim_n_R, label<span class="op">=</span><span class="st">"Recovered"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="111">
+<p><img src="1_epidemiology_correction_files/figure-html/cell-45-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="additional-questions" class="level3">
+<h3 class="anchored" data-anchor-id="additional-questions">Additional questions</h3>
+<p>Have fun by trying to answer one of these questions: - change probability of infection so that it depends on the number of infected people in the vincinity (with some suitable functional formulation for) - compute an animation of the transition - compute an interactive visualisation (with <code>Interact.jl</code> if available)</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+exectute:
+  echo: true
+website:
+  title: "Advanced Macro: Numerical Methods"
+  sidebar:
+      style: "docked"
+      search: true
+      contents:
+        - section: "Slides"
+          contents:
+            - slides/introduction.qmd
+            - slides/convergence.qmd
+            - slides/perturbation.qmd
+        - section: "Tutorials"
+          contents:
+            - notebooks/1_Julia_Basics_correction.ipynb
+            - notebooks/2_solow_correction.ipynb
+            - notebooks/3_perturbation_neoclassical.ipynb
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+
+
+

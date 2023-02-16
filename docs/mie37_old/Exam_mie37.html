@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Advanced Macro: Numerical Methods – exam_mie37</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Advanced Macro: Numerical Methods</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Advanced Macro: Numerical Methods</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Slides</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/convergence.html" class="sidebar-item-text sidebar-link">Convergence of sequences</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/perturbation.html" class="sidebar-item-text sidebar-link">Perturbation Analysis</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Tutorials</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">Convergence: Solow Model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_perturbation_neoclassical.html" class="sidebar-item-text sidebar-link">Perturbation: Neoclassical Growth Model</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#final-exam-mie37" id="toc-final-exam-mie37" class="nav-link active" data-scroll-target="#final-exam-mie37">Final Exam MIE37</a>
+  <ul class="collapse">
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
+  <li><a href="#dividend-pricing" id="toc-dividend-pricing" class="nav-link" data-scroll-target="#dividend-pricing">Dividend Pricing</a></li>
+  <li><a href="#linear-time-iteration" id="toc-linear-time-iteration" class="nav-link" data-scroll-target="#linear-time-iteration">Linear Time Iteration</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="final-exam-mie37" class="level1">
+<h1>Final Exam MIE37</h1>
+<ul>
+<li>Name: …</li>
+<li>First Name: …</li>
+</ul>
+<p>Completed notebook must be returned to <code>pwinant@escp.eu</code> by 12:15.</p>
+<p>There is no predefined number of points per question, and in general no <em>right</em> answer so don’t hesitate to take initiatives, and make developments you find interesting. You can use any external library that you want. In particular, the following ones might be useful: - <code>ForwardDiff.jl</code> - <code>Interpolations.jl</code> - <code>FastGaussQuadrature.jl</code> - <code>Plots.jl</code> or <code>SimplePlots.jl</code></p>
+<section id="linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
+<ol type="1">
+<li><p><strong>For <span class="math inline">\(N=100\)</span>, compute a sample <span class="math inline">\((x_i, y_i)_{i=[1:N]}\)</span> satisfying <span class="math display">\[y_i=0.4+2.5 x_i + \epsilon_i\]</span> where <span class="math inline">\(x_i\)</span> uniformly distributed between 0 and 1 and <span class="math inline">\(\epsilon_i\)</span> is drawn from a normal distribution with standard deviation 0.5.</strong></p></li>
+<li><p><strong>Define the model <span class="math inline">\(f(x;a,b)=a+b x\)</span>. Find the parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> which minimize the objective <span class="math inline">\(\xi(a,b)=\sum_i (f(x_i;a,b)-y_i)^2\)</span> by using a numerical optimization algorithm (not the formula for the regression). Plot.</strong></p></li>
+</ol>
+<p><mark>Hint</mark>: you can write your own gradient descent algorithm or use an optimization library).</p>
+</section>
+<section id="dividend-pricing" class="level2">
+<h2 class="anchored" data-anchor-id="dividend-pricing">Dividend Pricing</h2>
+<p>A dividend process is described by <span class="math inline">\(d_t=\exp(\epsilon) (d_{t-1})^\rho\)</span> with <span class="math inline">\(\rho=0.9\)</span> and <span class="math inline">\(\epsilon\)</span> a normal i.i.d. process with mean 0 and standard deviation 0.05. Given discount rate <span class="math inline">\(\beta=0.95\)</span> our ultimate goal is to evaluate the price of a right to the dividend, which satisfies:</p>
+<p><span class="math display">\[p_t=d_t + \beta E_t \left[ p_{t+1} \right]\]</span></p>
+<p>In functional form, we look for a function <span class="math inline">\(p()\)</span> such that</p>
+<p><span class="math display">\[\forall d, \color{blue}{p}(d)=d+\beta E_{\epsilon} \left[ \color{red}{p}\left( \exp(\epsilon) (d)^\rho \right)\right]\]</span></p>
+<p>The general algorithm, will consist in updating the price function on the left as a function of the price function on the right. It raises two challenges: - integrate the term within the square brackets (we’ll use quadrature) - interpolate the price function so that it can be evaluated at any realisation of <span class="math inline">\(\exp(\epsilon) (d)^\rho\)</span></p>
+<ol type="1">
+<li><p><strong>Integration: discretize random shock <span class="math inline">\(\epsilon_t\)</span> with <span class="math inline">\(K=5\)</span> nodes and weights <span class="math inline">\((w_i, \epsilon_i)\)</span> by using a gauss-hermite quadrature. As an example, use this discretization to evaluate <span class="math inline">\(\mathbb{E}\left(\epsilon^2\right)\)</span> and <span class="math inline">\(\mathbb{E}\left[ \exp(\epsilon)\right]\)</span>.</strong></p></li>
+<li><p><strong>Interpolation: for <span class="math inline">\(N=20\)</span>, propose a regular grid <span class="math inline">\((d_1, ... d_N)\)</span> for <span class="math inline">\(d\)</span> that is large enough to contain a large fraction of of the realizations of <span class="math inline">\(d_t\)</span>. Function <span class="math inline">\(p()\)</span> will be represented by an <span class="math inline">\(N\)</span>-components vector <code>p</code>. Linear interpolation will be used to evaluate <code>p</code> outside of the grid points (you can use . Choose an initial guess for <span class="math inline">\(p\)</span>, for instance <span class="math inline">\(p(d)=d^2\)</span> and plot the interpolated function.</strong></p></li>
+</ol>
+<p><mark>Hint</mark>: given a vector of points <code>x</code> and matching vector of values <code>y</code>, you can use <code>itp = LinearInterpolation(x, y, extrapolation_bc = Line())</code> to construct a smooth function, which equals <code>y</code> on <code>x</code>. You can then interpolate at any point or vector of points <code>z</code> with <code>itp(z)</code>.</p>
+<ol start="3" type="1">
+<li><p><strong>Assuming vector <code>p0</code> represents the <span class="math inline">\(p()\)</span> function on the right, compute <code>p1</code> vector which represents the <span class="math inline">\(p()\)</span> function on the left. Call <code>T()</code> the function which map <code>p0</code> to <code>p1</code>.</strong></p></li>
+<li><p><strong>Find the equilibrium price <code>p</code> by iterating on <code>T()</code>. Plot.</strong>_</p></li>
+</ol>
+</section>
+<section id="linear-time-iteration" class="level2">
+<h2 class="anchored" data-anchor-id="linear-time-iteration">Linear Time Iteration</h2>
+<p>A deterministic one-dimensional linear model for inflation is written in the form:</p>
+<p><span class="math display">\[\pi_{t+1} - (\lambda_1 + \lambda_2) \pi_t + \lambda_1 \lambda_2 \pi_{t-1}\]</span></p>
+<p>with <span class="math inline">\(0&lt;\lambda_1&lt;\lambda_2\)</span> Here, inflation is backward looking in the sense that inflation <span class="math inline">\(\pi_t\)</span> will depend on past inflation <span class="math inline">\(\pi_{t-1}\)</span>. The solution takes the form <span class="math inline">\(\forall t, \space \pi_t = \lambda \pi_{t-1}\)</span> where <span class="math inline">\(\lambda\)</span> is a constant to be determined.</p>
+<ol type="1">
+<li><p><strong>(Theory) Write down the second order equation <span class="math inline">\(P(\lambda)=0\)</span>, which characterizes <span class="math inline">\(\lambda\)</span>. What are the roots of polynomial <span class="math inline">\(P\)</span> ?</strong></p></li>
+<li><p><strong>(Theory 2) Justify that <span class="math inline">\(T(x) = \frac{-\lambda_1\lambda_2}{x-\lambda_1-\lambda_2}\)</span> is the time iteration operator. Show that it admits two fixed points, but that only one of them is stable by computing <span class="math inline">\(|T^{\prime}|\)</span>.</strong></p></li>
+</ol>
+<p>It is actually possible (and easy) to show that the series <span class="math inline">\((x_n)\)</span> defined recursively by <span class="math inline">\(x_n = T(x_{n-1})\)</span> converges to <span class="math inline">\(\lambda_1\)</span> starting from any initial point <span class="math inline">\(x_0\)</span>, except from <span class="math inline">\(\lambda_2\)</span>. This method of computing a solution is called <em>linear time iteration</em>.</p>
+<ol start="3" type="1">
+<li><p><strong>Implement the linear time iteration and illustrate its convergence graphically by plotting its progress, starting from various levels of <span class="math inline">\(x_0\)</span>. Show one case with <span class="math inline">\(\lambda_1&lt;\lambda_2&lt;1\)</span>, one with <span class="math inline">\(\lambda_1&lt;1&lt;\lambda_2\)</span> and one with <span class="math inline">\(1&lt;\lambda_1&lt;\lambda_2\)</span>.</strong></p></li>
+<li><p><strong>A model is well specified if it admits a unique non-diverging solution. What method would you propose to check that the solution obtained by linear time-iteration is convergent and unique?</strong></p></li>
+<li><p><strong>(Bonus) Implement an <em>improved</em> linear time iteration algorithm, that is a Newton descent applied to <span class="math inline">\(x-T(x)\)</span> and discuss its convergence.</strong></p></li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

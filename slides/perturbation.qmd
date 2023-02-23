@@ -21,9 +21,7 @@ Study Neoclassical Model of Growth with Deterministic Productivity Shocks
    - Linear Time Iteration
 4. Implementation
 
----
-
-## Deriving First Order Conditions
+# Deriving First Order Conditions
 
 ----
 
@@ -63,7 +61,7 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 
 ----
 
-### Deriving First Order Conditions
+## Deriving First Order Conditions
 
 - Two methods:
     1. Bellman:
@@ -74,7 +72,7 @@ $$\max_{i_t} \sum_{t\geq0} \beta^t U(c_t)$$
 
 ----
 
-### Lagrangian {.scrollable}
+## Lagrangian {.scrollable}
 
 - Initial Conditions (predetermined states): $z_0$, $k_0$
 - Problem:
@@ -95,7 +93,7 @@ $$
 
 ----
 
-### Lagrangian
+## Lagrangian
 
 ::: columns
 :::: column
@@ -134,7 +132,7 @@ $$\begin{eqnarray}
 
 ----
 
-### Eliminating constraints
+## Eliminating constraints
 
 ::: columns
 
@@ -173,7 +171,7 @@ Let's review them:
 
 ----
 
-### First order model
+## First order model
 
 - Optimality Condition:
 $$\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}} \left( (1-\delta + \alpha k_t^{\alpha -1}) \right)\right] = 1$$
@@ -187,7 +185,7 @@ $$z_t = \rho z_{t-1}$$
 
 ----
 
-### Steady-State
+## Steady-State
 
 ::: columns
 
@@ -231,7 +229,7 @@ $$\begin{eqnarray}
 
 ----
 
-### Perturbation Analysis
+## Perturbation Analysis
 
 <div class="container">
 
@@ -259,7 +257,7 @@ $$\overline{z }+ \Delta z_t = \overline{z}+ \Delta \rho z_{t-1}$$
 
 ----
 
-### Result:
+## Result:
 
 - Optimality conditions
 $$\begin{bmatrix} . & . & . & . \\ \end{bmatrix} \begin{bmatrix} \Delta i_t \\ \Delta c_t  \\ \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & . & . \\ \end{bmatrix} \begin{bmatrix} \Delta i_{t+1} \\  \Delta c_{t+1} \\ \Delta k_{t+1} \\ \Delta z_{t+1} \end{bmatrix} $$
@@ -270,7 +268,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
 
 ---
 
-## Computing Derivatives
+# Computing Derivatives
 
 ----
 
@@ -282,7 +280,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
   
 ----
 
-### Julia Console
+## Julia Console
 
 - Accessible:
   - from a good terminal
@@ -296,7 +294,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
 
 ----
 
-### Julia package ecosystem
+## Julia package ecosystem
 
 - Large package ecosystem
 - Fairly good quality native code
@@ -307,7 +305,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
 
 ----
 
-### How do you install packages?
+## How do you install pckages?
 
 - Short and wrong answer: `] add PackageName`
 - Better answer:
@@ -324,7 +322,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
 
 ----
 
-### Main approaches
+## Main approaches
 
 - Back to our problem, how to we differentiate the model?
 - Main approaches:
@@ -336,7 +334,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
 
 ----
 
-### Manual Differentiation
+## Manual Differentiation
 
 - Trick:
     - never use $\frac{d}{dx} \frac{u(x)}{v(x)} = \frac{u'(x)v(x)-u(x)v'(x)}{v(x)^2}$
@@ -346,7 +344,7 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
 
 ----
 
-### Finite Differences
+## Finite Differences
 
 ::: columns
 
@@ -384,7 +382,7 @@ FiniteDiff.finite_difference_jacobian(g, [0.1, 0.2])
 
 ----
 
-### Finite Differences: Higher order
+## Finite Differences: Higher order
 
 - Central formula:
 $$
@@ -398,7 +396,7 @@ $$
 
 ----
 
-### Symbolic Differentiation
+## Symbolic Differentiation
 
 ::: columns
 
@@ -439,12 +437,12 @@ Symbolics.derivative(eq, x)
 
 ----
 
-### Automatic Differentiation
+## Automatic Differentiation
 
 ![ ](future.jpg.jpg)
 
 
-#### Automatic Differentiation
+### Automatic Differentiation
 
 - does not provide mathematical insights but solves the other problems
 
@@ -455,7 +453,7 @@ Symbolics.derivative(eq, x)
 
 ----
 
-### Automatic source code rewrite
+## Automatic source code rewrite
 
 ::: columns
 :::: column
@@ -479,7 +477,7 @@ end
 
 We can rewrite the code as follows:
 
-```{.julia}
+```julia
 function f(x::Number)
 
     # x is an argument
@@ -505,7 +503,7 @@ end
 :::
 ----
 
-### Dual numbers: operator overloading
+## Dual numbers: operator overloading
 
 Instead of rewriting source code, we can use dual numbers to perform exactly the same calculations.
 
@@ -527,8 +525,7 @@ Try it on function `f` What do we miss ?
 
 ----
 
-### Dual numbers
-
+## Dual numbers
 
 This approach (and automatic differentiation in general) is compatible with control flow operations (`if`, `while`, ...)
 
@@ -552,7 +549,7 @@ exp(x) + log(y)
 
 ----
 
-### Automatic differentiation
+## Automatic differentiation
 
 There are *many* flavours of automatic differenation (check [JuliaDiff.org](https://juliadiff.org/))
 
@@ -564,7 +561,7 @@ There are *many* flavours of automatic differenation (check [JuliaDiff.org](http
 
 :::: column
 
-#### Forward Accumulation Mode
+### Forward Accumulation Mode
 
 - isomorphic to dual number calculation
 - compute values and derivatives at the same time
@@ -574,7 +571,7 @@ There are *many* flavours of automatic differenation (check [JuliaDiff.org](http
 ::::
 :::: column
 
-#### Reverse Accumulation Mode
+### Reverse Accumulation Mode
 
 - Reverse Accumulation / Back Propagation
     - efficient for $f: R^n\rightarrow R^m$, with $n>>m$
@@ -589,7 +586,7 @@ There are *many* flavours of automatic differenation (check [JuliaDiff.org](http
 
 ----
 
-### Libraries for AutoDiff
+## Libraries for AutoDiff
 
 
 - See JuliaDiff: http://www.juliadiff.org/
@@ -614,11 +611,11 @@ ForwardDiff.jacobian(u->[u[1]^2, u[2]+u[1]], [0.1,0.2])
 
 ---
 
-## Solution using Linear Time iteration
+# Solution using Linear Time iteration
 
 ----
 
-### Our problem
+## Our problem
 
 ::: columns
 
@@ -658,7 +655,7 @@ F & = &
 
 ----
 
-### Solution
+## Solution
 
 ::: columns
 
@@ -698,7 +695,7 @@ $$\Delta c_t =c_z \Delta z_t + c_k \Delta k_t$$
 
 ----
 
-### Optimality condition:
+## Optimality condition:
 
 ::: columns
 
@@ -741,7 +738,7 @@ $$(A + B {\color{red}{X}} ) + ( D {\color{red}{X}} + C) ( E  + F {\color{red}X} 
 
 ----
 
-### Linear Time Iteration
+## Linear Time Iteration
 
 - Let's be more subtle: define
   - $X$: decision rule today and
@@ -758,7 +755,7 @@ $$(A + B X) + (C + D \tilde{X}) ( E  + F X ) ) \Delta s_t = 0 $$
 
 ----
 
-### Linear Time Iteration (2)
+## Linear Time Iteration (2)
 
 ::: columns
 :::: column
@@ -777,7 +774,7 @@ F(X, \tilde{X}) & = & (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) \\&=& 0
 ::::
 :::: column
 
-#### Algorithm:
+### Algorithm:
 
 - choose stopping criteria: $\epsilon_0$ and $\eta_0$
 - choose random $X_0$
@@ -796,7 +793,7 @@ F(X, \tilde{X}) & = & (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) \\&=& 0
 
 ----
 
-### Simulating the model
+## Simulating the model
 
 - Suppose we have found the solution $\Delta x_t  = X \Delta s_t$
 - Recall the transition equation: $\Delta s_{t+1} = F \Delta s_t + G \Delta x_t$
@@ -814,7 +811,7 @@ $$\Delta s_t = \underbrace{(F + G X)}_{P} \Delta s_{t-1}$$
 
 ----
 
-### Spectral radius
+## Spectral radius
 
 ::: columns
 :::: column
@@ -836,8 +833,7 @@ $$\Delta s_t = \underbrace{(F + G X)}_{P} \Delta s_{t-1}$$
 ::::
 :::: column
 
-#### Algorithm:
-
+### Algorithm:
 - choose tolerance criterium: $\eta>0$
 - choose random initial $x_0$ and define $u_0 = \frac{x_0}{|x_0|}$
   - by construction: $|u_0|=1$
@@ -854,7 +850,7 @@ $$\Delta s_t = \underbrace{(F + G X)}_{P} \Delta s_{t-1}$$
 
 ----
 
-### Stability of the backward operator
+## Stability of the backward operator
 
 
 - To solve the model we use the backard operator: $$T: \begin{eqnarray} \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  & \rightarrow &  \mathbb{R}^{n_x} \times \mathbb{R}^{n_s}  \\X_{t+1} & \mapsto & X_t \text{s.t.} F(X_t,X_{t+1})=0\end{eqnarray}$$
@@ -868,7 +864,7 @@ $$\Delta s_t = \underbrace{(F + G X)}_{P} \Delta s_{t-1}$$
 
 ----
 
-### Differentials
+## Differentials
 
 - Consider a Banach Space $\mathcal{B}$.
 - Consider an operator (i.e. a function): $\mathcal{T}: \mathcal{B} \rightarrow \mathcal{B}$.
@@ -882,7 +878,7 @@ $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
 
 ----
 
-### Examples of linear operators
+## Examples of linear operators
 
 - $x$ vector, A a matrix, $T(x) = Ax$
   - then $T(x+u) = Ax + A.u + 0$
@@ -896,7 +892,7 @@ $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
 
 ----
 
-### Back to the time iteration operator
+## Back to the time iteration operator
 
 - $T(X)$ is implicitly defined by $F(T(X), X)=0$
 - $F(X,Y) = (A + B X) + ( C+ D Y) ( E  + F X )$
@@ -909,7 +905,7 @@ $$\mathcal{T}(x) = \overline{x} + L.(x-\overline{x}) + o(|x-\overline{x}|)$$
 
 ----
 
-### The derivative of the time-iteration operator
+## The derivative of the time-iteration operator
 
 - Implicit relation can be differentiated:
 $$F^{\prime}_X (T(X), X) T^{\prime} (X) + F_Y^{\prime}(T(X),X) = 0$$
@@ -921,7 +917,7 @@ $$T^{\prime}(\overline{X}).u = ((B + (C+D \overline{X})F)^{-1})D u (E+F \overlin
 
 ----
 
-### Recap
+## Recap
 
 1. We compute the derivatives of the model
 2. Time iteration algorithm, starting from an initial guess $X_0$ and we repeat until convergence:

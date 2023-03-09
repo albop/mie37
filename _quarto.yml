@@ -14,11 +14,12 @@ website:
             - slides/introduction.qmd
             - slides/convergence.qmd
             - slides/perturbation.qmd
+            - slides/ddp.qmd
         - section: "Tutorials"
           contents:
             - notebooks/1_Julia_Basics_correction.ipynb
             - notebooks/2_solow_correction.ipynb
-            - notebooks/3_perturbation_neoclassical.ipynb
+            - notebooks/3_perturbation_neoclassical_correction.ipynb
 
 format:
   html:

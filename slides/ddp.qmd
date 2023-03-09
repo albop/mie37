@@ -6,6 +6,8 @@ format:
   revealjs:
     width: 1920
     height: 1080
+    toc: true
+    toc-depth: 1
 logo: logo.png
 ---
 

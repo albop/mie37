@@ -90,7 +90,6 @@ $$\underbrace{
 - Denote by $S=(s_1,...s_n)$ a finite set with $n$ elements ($|S|=n$). 
 - A __Markov Chain__ with values in $S$ and with transitions given by a stochastic matrix $P\in R^n\times R^n$ identfies a __stochastic process__ $(X_t)_{t\geq 0}$ such that $$P_{ij} = Prob(X_{t+1}=s_j|X_t=s_i)$$
 - In words, line $i$ describes the conditional distribution of $X_{t+1}$ conditional on $X_t=s_i$.
-[TODO: illustration]
 
 ## What about longer horizons?
 
@@ -240,7 +239,7 @@ How do we compute the stationary distribution?
 ## Code example
 
 
-```julia [1-2|3-6|7-9|10-12|13-14|15-17]
+```{.julia code-line-numbers="[1-2|3-6|7-9|10-12|13-14|15-17]"}
 # we use the identity matrix and the \ operator
 using LinearAlgebra: I, \
 # define a stochastic matrix (lines sum to 1)
@@ -278,12 +277,13 @@ R[end] = 1
 
 ## General Formulation
 
+### Markov Decision Problem
 
 ::: columns
 
 :::: column
 
-- <!-- .element class="fragment" --> <b>Markov Decision Problem</b>
+- <!-- .element class="fragment" --> <b>Environment</b>
   - states: $s \in S$
   - actions: $x \in X(s)$
   - transitions: $\pi(s'| s, x) \in S$
@@ -407,7 +407,7 @@ where
 
 When $T<\infty$. With discrete action the problem can be represented by a tree.
 
-[GRAPH]
+![](graphs/ddp.svg)
 
 ## Finite horizon DMDP
 
@@ -458,7 +458,7 @@ $$V(s; x()) =  r(s, x(s)) + \delta \sum_{s'} p(s'|s,x(s)) V(s'; x()) $$
 
 ## Successive Approximation (2)
 
-- Taking continuation value as given we can certainly improve the value in every state $\tilde{V}$ by choosing $\tilde{x}()$ so as to maximze
+- Taking continuation value as given we can certainly improve the value in every state $\tilde{V}$ by choosing $\tilde{x}()$ so as to maximize
 $$\tilde{V}(s; x(), \tilde{x}()) =  r(s, \tilde{x}(s)) + \delta \sum_{s'} \pi(s'|s,\tilde{x}(s) )V(s'; x()) $$
 - By construction: $\forall s, \tilde{V}(s, \tilde{x}(), x()) > {V}(s, x())$
     - it is an __improvement step__
@@ -568,7 +568,7 @@ $$\max_{x_n()} r(s, x_n(s)) + \delta \sum_{s^{\prime}\in S} \pi(s^{\prime}| s, x
   - with small probability $\lambda>0$ looses his job:
     - starts next period unemployed
   - otherwise stays employed at same rate
-- Objective: $\max E_0 \left\\{ \sum \beta^t \log(w_t) \right\\}$
+- Objective: $\max E_0 \left\{ \sum \beta^t \log(w_t) \right\}$
 
 ## States / reward
 
@@ -596,9 +596,9 @@ $\newcommand{\E}{\mathbb{E}}$
 
 - What is the value of being in a given state?
 - If Unemployed, facing current offer $w$:  
-$$V^U(w) = U(\underline{c}) + \max_{a} \begin{cases} \beta V^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{a'}\left[ V^U(a^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V^U(w) = U(\underline{c}) + \max_{a} \begin{cases} \beta V^E(w) & \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ V^U(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
 - If Employed, at rate $w$
-$$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta \\E_{a'}\left[ V^U(a^{\prime}) \right] $$
+$$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta E_{w'}\left[ V^U(w^{\prime}) \right] $$
 
 - We can represent value as two functions $V^U$ and $V^E$ of the states as
   - two vectors of Floats, with three elements (recall: value-function is real valued)
@@ -607,8 +607,8 @@ $$V^E(w) = U(w) +  (1-\lambda) \beta V^E(w) +  \lambda \beta \\E_{a'}\left[ V^U(
 
 - Take a guess for value function $\tilde{V^E}$, $\tilde{V^U}$, *tomorrow*
 - Use it to compute value function *today*:
-$$V^U(w) = U(\underline{c}) + \max_{a(w)} \begin{cases} \beta \tilde{V}^E(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{a'}\left[ \tilde{V}^U(a^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
-$$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta \\E_{a'}\left[\tilde{V}^U(a^{\prime}) \right] $$
+$$V^U(w) = U(\underline{c}) + \max_{a(w)} \begin{cases} \beta \tilde{V}^E(w) & \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ \tilde{V}^U(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta E_{w'}\left[\tilde{V}^U(w^{\prime}) \right] $$
 - $(\tilde{V}^E, \tilde{V}^U)\mapsto (V^E, V^U)$ is one *value iteration* step
 - Note that we don't have to keep track of policies tomorrow
   - all information about future decisions is contained in $\tilde{V}^E, \tilde{V}^U$
@@ -618,16 +618,16 @@ $$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta \\E_{a'}\le
 
 - Suppose we take a policy $a(w)$ as given. What is the value of following this policy forever?
 - The value function $V_a^E$, $V_a^U$ satisfies
-$$V_a^U(w) = U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
-$$V_a^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta \\E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
+$$V_a^U(w) = U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V_a^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
 - Note the absence of the max function: we don't reoptimize
 
 ## Value evaluation (2)
 
 - How do you compute value of policy $a(w)$ recursively?
 - Iterate: $(\tilde{V}^E_a, \tilde{V}^U)\mapsto (V^E_a, V^U_a)$
-$$V_a^U(w) \leftarrow U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\\\ \beta  \\E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
-$$V_a^E(w) \leftarrow U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta \\E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
+$$V_a^U(w) \leftarrow U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V_a^E(w) \leftarrow U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
 - Note the absence of the max function: 
   - we don't reoptimize
   - we we keep the same policy all along
@@ -636,7 +636,6 @@ $$V_a^E(w) \leftarrow U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \bet
 
 - start with policy $a(w)$
 - evaluate the value of this policy $V^E_a, V^U_a$
-  - compute the optimal policy in the Bellman iteration
-  - keep the improved policy $a(w)$
-    - here: $a(w) = \arg\max_{a(w)} \begin{cases} \beta \tilde{V}^E(w)\\\\ \beta  \\E_{a'}\left[ \tilde{V}^U(a^{\prime}) \right] \end{cases}$
+- compute the optimal policy $a(w)$ in the Bellman iteration
+  - here: $a(w) = \arg\max_{a(w)} \begin{cases} \beta \tilde{V}^E(w)\\ \beta  E_{a'}\left[ \tilde{V}^U(a^{\prime}) \right] \end{cases}$
 - iterate until $a(w)$ converges

@@ -60,7 +60,7 @@
     "href": "slides/ddp.html#probabilistic-interpretation",
     "title": "Discrete Dynamic Programming",
     "section": "Probabilistic interpretation",
-    "text": "Probabilistic interpretation\n\nDenote by \\(S=(s_1,...s_n)\\) a finite set with \\(n\\) elements (\\(|S|=n\\)).\nA Markov Chain with values in \\(S\\) and with transitions given by a stochastic matrix \\(P\\in R^n\\times R^n\\) identfies a stochastic process \\((X_t)_{t\\geq 0}\\) such that \\[P_{ij} = Prob(X_{t+1}=s_j|X_t=s_i)\\]\nIn words, line \\(i\\) describes the conditional distribution of \\(X_{t+1}\\) conditional on \\(X_t=s_i\\). [TODO: illustration]"
+    "text": "Probabilistic interpretation\n\nDenote by \\(S=(s_1,...s_n)\\) a finite set with \\(n\\) elements (\\(|S|=n\\)).\nA Markov Chain with values in \\(S\\) and with transitions given by a stochastic matrix \\(P\\in R^n\\times R^n\\) identfies a stochastic process \\((X_t)_{t\\geq 0}\\) such that \\[P_{ij} = Prob(X_{t+1}=s_j|X_t=s_i)\\]\nIn words, line \\(i\\) describes the conditional distribution of \\(X_{t+1}\\) conditional on \\(X_t=s_i\\)."
   },
   {
     "objectID": "slides/ddp.html#what-about-longer-horizons",
@@ -137,7 +137,7 @@
     "href": "slides/ddp.html#code-example",
     "title": "Discrete Dynamic Programming",
     "section": "Code example",
-    "text": "Code example\njulia [1-2|3-6|7-9|10-12|13-14|15-17] # we use the identity matrix and the \\ operator using LinearAlgebra: I, \\ # define a stochastic matrix (lines sum to 1) P = [  0.9  0.1 0.0  ;        0.05 0.9 0.05 ;        0.0  0.9 0.1  ] # define an auxiliary matrix M = P' - I M[end,:] .= 1.0 # define rhs R = zeros(3) R[end] = 1 # solve the system μ = M\\R # check that you have a solution: @assert sum(μ) == 1 @assert all(abs.(μ'P - μ').<1e-10)"
+    "text": "Code example\n# we use the identity matrix and the \\ operator\nusing LinearAlgebra: I, \\\n# define a stochastic matrix (lines sum to 1)\nP = [  0.9  0.1 0.0  ;\n       0.05 0.9 0.05 ;\n       0.0  0.9 0.1  ]\n# define an auxiliary matrix\nM = P' - I\nM[end,:] .= 1.0\n# define rhs\nR = zeros(3)\nR[end] = 1\n# solve the system\nμ = M\\R\n# check that you have a solution:\n@assert sum(μ) == 1\n@assert all(abs.(μ'P - μ').<1e-10)"
   },
   {
     "objectID": "slides/ddp.html#further-comments",
@@ -151,7 +151,7 @@
     "href": "slides/ddp.html#general-formulation",
     "title": "Discrete Dynamic Programming",
     "section": "General Formulation",
-    "text": "General Formulation\n\n\n\n\nMarkov Decision Problem\n\nstates: \\(s \\in S\\)\nactions: \\(x \\in X(s)\\)\ntransitions: \\(\\pi(s'| s, x) \\in S\\)\n\n\\(probability\\) of going to \\(s'\\) in state \\(s\\)…\n… given action \\(x\\)\n\n\n\n\n\n\nReward: \\(r(s,x) \\in R\\)\n\naka felicity, intratemporal utility\n\n\nPolicy: \\(x(): s \\rightarrow x\\in X(s)\\)\n\na.k.a. decision rule\nwe consider deterministic policy\ngiven \\(x()\\), the evolution of \\(s\\) is a Markov process\n\n\\(\\pi(. |s, x())\\) is a distribution for \\(s'\\) over \\(S\\)\nit depends only on \\(s\\)"
+    "text": "General Formulation\nMarkov Decision Problem\n\n\n\n\nEnvironment\n\nstates: \\(s \\in S\\)\nactions: \\(x \\in X(s)\\)\ntransitions: \\(\\pi(s'| s, x) \\in S\\)\n\n\\(probability\\) of going to \\(s'\\) in state \\(s\\)…\n… given action \\(x\\)\n\n\n\n\n\n\nReward: \\(r(s,x) \\in R\\)\n\naka felicity, intratemporal utility\n\n\nPolicy: \\(x(): s \\rightarrow x\\in X(s)\\)\n\na.k.a. decision rule\nwe consider deterministic policy\ngiven \\(x()\\), the evolution of \\(s\\) is a Markov process\n\n\\(\\pi(. |s, x())\\) is a distribution for \\(s'\\) over \\(S\\)\nit depends only on \\(s\\)"
   },
   {
     "objectID": "slides/ddp.html#objective",
@@ -214,7 +214,7 @@
     "href": "slides/ddp.html#finite-horizon-dmdp-1",
     "title": "Discrete Dynamic Programming",
     "section": "Finite horizon DMDP",
-    "text": "Finite horizon DMDP\nWhen \\(T<\\infty\\). With discrete action the problem can be represented by a tree.\n[GRAPH]"
+    "text": "Finite horizon DMDP\nWhen \\(T<\\infty\\). With discrete action the problem can be represented by a tree."
   },
   {
     "objectID": "slides/ddp.html#finite-horizon-dmdp-2",
@@ -256,7 +256,7 @@
     "href": "slides/ddp.html#successive-approximation-2",
     "title": "Discrete Dynamic Programming",
     "section": "Successive Approximation (2)",
-    "text": "Successive Approximation (2)\n\nTaking continuation value as given we can certainly improve the value in every state \\(\\tilde{V}\\) by choosing \\(\\tilde{x}()\\) so as to maximze \\[\\tilde{V}(s; x(), \\tilde{x}()) =  r(s, \\tilde{x}(s)) + \\delta \\sum_{s'} \\pi(s'|s,\\tilde{x}(s) )V(s'; x()) \\]\nBy construction: \\(\\forall s, \\tilde{V}(s, \\tilde{x}(), x()) > {V}(s, x())\\)\n\nit is an improvement step\n\nCan \\({V}(s, \\tilde{x}())\\) be worse for some states than \\({V}(s, \\tilde{x}())\\) ?\n\nactually no"
+    "text": "Successive Approximation (2)\n\nTaking continuation value as given we can certainly improve the value in every state \\(\\tilde{V}\\) by choosing \\(\\tilde{x}()\\) so as to maximize \\[\\tilde{V}(s; x(), \\tilde{x}()) =  r(s, \\tilde{x}(s)) + \\delta \\sum_{s'} \\pi(s'|s,\\tilde{x}(s) )V(s'; x()) \\]\nBy construction: \\(\\forall s, \\tilde{V}(s, \\tilde{x}(), x()) > {V}(s, x())\\)\n\nit is an improvement step\n\nCan \\({V}(s, \\tilde{x}())\\) be worse for some states than \\({V}(s, \\tilde{x}())\\) ?\n\nactually no"
   },
   {
     "objectID": "slides/ddp.html#bellman-equation",
@@ -319,7 +319,7 @@
     "href": "slides/ddp.html#formalization",
     "title": "Discrete Dynamic Programming",
     "section": "Formalization",
-    "text": "Formalization\n\nWhen unemployed in date, a job-seeker\n\nconsumes unemployment benefit \\(c_t = \\underline{c}\\)\nreceives in every date \\(t\\) a job offer \\(w_t\\)\n\n\\(w_t\\) is i.i.d.,\ntakes values \\(w_1, w_2, w_3\\) with probabilities \\(p_1, p_2, p_3\\)\n\nif job-seeker accepts, becomes employed at rate \\(w_t\\) in the next period\nelse he stays unemployed\n\nWhen employed at rate \\(w\\)\n\nworker consumes salary \\(c_t = w\\)\nwith small probability \\(\\lambda>0\\) looses his job:\n\nstarts next period unemployed\n\notherwise stays employed at same rate\n\nObjective: \\(\\max E_0 \\left\\\\{ \\sum \\beta^t \\log(w_t) \\right\\\\}\\)"
+    "text": "Formalization\n\nWhen unemployed in date, a job-seeker\n\nconsumes unemployment benefit \\(c_t = \\underline{c}\\)\nreceives in every date \\(t\\) a job offer \\(w_t\\)\n\n\\(w_t\\) is i.i.d.,\ntakes values \\(w_1, w_2, w_3\\) with probabilities \\(p_1, p_2, p_3\\)\n\nif job-seeker accepts, becomes employed at rate \\(w_t\\) in the next period\nelse he stays unemployed\n\nWhen employed at rate \\(w\\)\n\nworker consumes salary \\(c_t = w\\)\nwith small probability \\(\\lambda>0\\) looses his job:\n\nstarts next period unemployed\n\notherwise stays employed at same rate\n\nObjective: \\(\\max E_0 \\left\\{ \\sum \\beta^t \\log(w_t) \\right\\}\\)"
   },
   {
     "objectID": "slides/ddp.html#states-reward",
@@ -333,35 +333,35 @@
     "href": "slides/ddp.html#value-function",
     "title": "Discrete Dynamic Programming",
     "section": "Value function",
-    "text": "Value function\n\\(\\newcommand{\\E}{\\mathbb{E}}\\)\n\nWhat is the value of being in a given state?\nIf Unemployed, facing current offer \\(w\\):\n\\[V^U(w) = U(\\underline{c}) + \\max_{a} \\begin{cases} \\beta V^E(w) & \\text{if $a(w)$ is true} \\\\\\\\ \\beta  \\\\E_{a'}\\left[ V^U(a^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\]\nIf Employed, at rate \\(w\\) \\[V^E(w) = U(w) +  (1-\\lambda) \\beta V^E(w) +  \\lambda \\beta \\\\E_{a'}\\left[ V^U(a^{\\prime}) \\right] \\]\nWe can represent value as two functions \\(V^U\\) and \\(V^E\\) of the states as\n\ntwo vectors of Floats, with three elements (recall: value-function is real valued)"
+    "text": "Value function\n\\(\\newcommand{\\E}{\\mathbb{E}}\\)\n\nWhat is the value of being in a given state?\nIf Unemployed, facing current offer \\(w\\):\n\\[V^U(w) = U(\\underline{c}) + \\max_{a} \\begin{cases} \\beta V^E(w) & \\text{if $a(w)$ is true} \\\\ \\beta  E_{w'}\\left[ V^U(w^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\]\nIf Employed, at rate \\(w\\) \\[V^E(w) = U(w) +  (1-\\lambda) \\beta V^E(w) +  \\lambda \\beta E_{w'}\\left[ V^U(w^{\\prime}) \\right] \\]\nWe can represent value as two functions \\(V^U\\) and \\(V^E\\) of the states as\n\ntwo vectors of Floats, with three elements (recall: value-function is real valued)"
   },
   {
     "objectID": "slides/ddp.html#value-function-iteration",
     "href": "slides/ddp.html#value-function-iteration",
     "title": "Discrete Dynamic Programming",
     "section": "Value function iteration",
-    "text": "Value function iteration\n\nTake a guess for value function \\(\\tilde{V^E}\\), \\(\\tilde{V^U}\\), tomorrow\nUse it to compute value function today: \\[V^U(w) = U(\\underline{c}) + \\max_{a(w)} \\begin{cases} \\beta \\tilde{V}^E(w) & \\text{if $a(w)$ is true} \\\\\\\\ \\beta  \\\\E_{a'}\\left[ \\tilde{V}^U(a^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\] \\[V^E(w) = U(w) +  (1-\\lambda) \\beta \\tilde{V}^E(w) +  \\lambda \\beta \\\\E_{a'}\\left[\\tilde{V}^U(a^{\\prime}) \\right] \\]\n\\((\\tilde{V}^E, \\tilde{V}^U)\\mapsto (V^E, V^U)\\) is one value iteration step\nNote that we don’t have to keep track of policies tomorrow\n\nall information about future decisions is contained in \\(\\tilde{V}^E, \\tilde{V}^U\\)\nbut we can keep track of current policy: \\(a(w): \\arg\\max \\cdots\\)"
+    "text": "Value function iteration\n\nTake a guess for value function \\(\\tilde{V^E}\\), \\(\\tilde{V^U}\\), tomorrow\nUse it to compute value function today: \\[V^U(w) = U(\\underline{c}) + \\max_{a(w)} \\begin{cases} \\beta \\tilde{V}^E(w) & \\text{if $a(w)$ is true} \\\\ \\beta  E_{w'}\\left[ \\tilde{V}^U(w^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\] \\[V^E(w) = U(w) +  (1-\\lambda) \\beta \\tilde{V}^E(w) +  \\lambda \\beta E_{w'}\\left[\\tilde{V}^U(w^{\\prime}) \\right] \\]\n\\((\\tilde{V}^E, \\tilde{V}^U)\\mapsto (V^E, V^U)\\) is one value iteration step\nNote that we don’t have to keep track of policies tomorrow\n\nall information about future decisions is contained in \\(\\tilde{V}^E, \\tilde{V}^U\\)\nbut we can keep track of current policy: \\(a(w): \\arg\\max \\cdots\\)"
   },
   {
     "objectID": "slides/ddp.html#value-evaluation",
     "href": "slides/ddp.html#value-evaluation",
     "title": "Discrete Dynamic Programming",
     "section": "Value evaluation",
-    "text": "Value evaluation\n\nSuppose we take a policy \\(a(w)\\) as given. What is the value of following this policy forever?\nThe value function \\(V_a^E\\), \\(V_a^U\\) satisfies \\[V_a^U(w) = U(\\underline{c}) + \\begin{cases} \\beta \\tilde{V}^E_a(w) & \\text{if $a(w)$ is true} \\\\\\\\ \\beta  \\\\E_{w'}\\left[ \\tilde{V}^U_a(w^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\] \\[V_a^E(w) = U(w) +  (1-\\lambda) \\beta \\tilde{V}^E_a(w) +  \\lambda \\beta \\\\E_{w'}\\left[\\tilde{V}^U_a(w^{\\prime}) \\right] \\]\nNote the absence of the max function: we don’t reoptimize"
+    "text": "Value evaluation\n\nSuppose we take a policy \\(a(w)\\) as given. What is the value of following this policy forever?\nThe value function \\(V_a^E\\), \\(V_a^U\\) satisfies \\[V_a^U(w) = U(\\underline{c}) + \\begin{cases} \\beta \\tilde{V}^E_a(w) & \\text{if $a(w)$ is true} \\\\ \\beta  E_{w'}\\left[ \\tilde{V}^U_a(w^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\] \\[V_a^E(w) = U(w) +  (1-\\lambda) \\beta \\tilde{V}^E_a(w) +  \\lambda \\beta E_{w'}\\left[\\tilde{V}^U_a(w^{\\prime}) \\right] \\]\nNote the absence of the max function: we don’t reoptimize"
   },
   {
     "objectID": "slides/ddp.html#value-evaluation-2",
     "href": "slides/ddp.html#value-evaluation-2",
     "title": "Discrete Dynamic Programming",
     "section": "Value evaluation (2)",
-    "text": "Value evaluation (2)\n\nHow do you compute value of policy \\(a(w)\\) recursively?\nIterate: \\((\\tilde{V}^E_a, \\tilde{V}^U)\\mapsto (V^E_a, V^U_a)\\) \\[V_a^U(w) \\leftarrow U(\\underline{c}) + \\begin{cases} \\beta \\tilde{V}^E_a(w) & \\text{if $a(w)$ is true} \\\\\\\\ \\beta  \\\\E_{w'}\\left[ \\tilde{V}^U_a(w^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\] \\[V_a^E(w) \\leftarrow U(w) +  (1-\\lambda) \\beta \\tilde{V}^E_a(w) +  \\lambda \\beta \\\\E_{w'}\\left[\\tilde{V}^U_a(w^{\\prime}) \\right] \\]\nNote the absence of the max function:\n\nwe don’t reoptimize\nwe we keep the same policy all along"
+    "text": "Value evaluation (2)\n\nHow do you compute value of policy \\(a(w)\\) recursively?\nIterate: \\((\\tilde{V}^E_a, \\tilde{V}^U)\\mapsto (V^E_a, V^U_a)\\) \\[V_a^U(w) \\leftarrow U(\\underline{c}) + \\begin{cases} \\beta \\tilde{V}^E_a(w) & \\text{if $a(w)$ is true} \\\\ \\beta  E_{w'}\\left[ \\tilde{V}^U_a(w^{\\prime}) \\right]  & \\text{if $a(w)$ is false} \\end{cases}\\] \\[V_a^E(w) \\leftarrow U(w) +  (1-\\lambda) \\beta \\tilde{V}^E_a(w) +  \\lambda \\beta E_{w'}\\left[\\tilde{V}^U_a(w^{\\prime}) \\right] \\]\nNote the absence of the max function:\n\nwe don’t reoptimize\nwe we keep the same policy all along"
   },
   {
     "objectID": "slides/ddp.html#policy-iteration",
     "href": "slides/ddp.html#policy-iteration",
     "title": "Discrete Dynamic Programming",
     "section": "Policy iteration",
-    "text": "Policy iteration\n\nstart with policy \\(a(w)\\)\nevaluate the value of this policy \\(V^E_a, V^U_a\\)\n\ncompute the optimal policy in the Bellman iteration\nkeep the improved policy \\(a(w)\\)\n\nhere: \\(a(w) = \\arg\\max_{a(w)} \\begin{cases} \\beta \\tilde{V}^E(w)\\\\\\\\ \\beta \\\\E_{a'}\\left[ \\tilde{V}^U(a^{\\prime}) \\right] \\end{cases}\\)\n\n\niterate until \\(a(w)\\) converges"
+    "text": "Policy iteration\n\nstart with policy \\(a(w)\\)\nevaluate the value of this policy \\(V^E_a, V^U_a\\)\ncompute the optimal policy \\(a(w)\\) in the Bellman iteration\n\nhere: \\(a(w) = \\arg\\max_{a(w)} \\begin{cases} \\beta \\tilde{V}^E(w)\\\\ \\beta E_{a'}\\left[ \\tilde{V}^U(a^{\\prime}) \\right] \\end{cases}\\)\n\niterate until \\(a(w)\\) converges"
   },
   {
     "objectID": "slides/time_iteration.html",

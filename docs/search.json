@@ -768,5 +768,166 @@
     "title": "Advanced Macro: Numerical Methods",
     "section": "",
     "text": "H.W. Heathcote: epidemiologic models are deterministic models for infectious diseases which are spread by direct person-to-person contact in a population.\nThis kind of models has been used since by a few decades by economist, for matters that have nothing to do with health.\n\ndiffusion of information, or opinions on social medias\nasset prices and fads\nexpectation formation for macroeconomic outcomes (ex: The Epidemiology of Macroeconomic Expectations by Chris Carroll)\n\nEpidemiologic models have two features that depart from standard economic models:\n\nAgent’s behaviour does not take the full system into account, an is irrational in the sense that it isn’t forward looking. Instead, an agent is given a behavioural heuristic.\nThe transitions of the whole system can be determined without solving for complex interactions first.\n\nUnderstanding why these two assumptions are very costly for economists will keep us busy during a big part of the course. Here we just consider two simple models as small programming exercises.\n\n\nThere is a continuum of agents of mass \\(1\\). Each agent can be either “Susceptible” (S), “Infected” (I) or “Recovered” (R). In each period, one agent meets another agent drawn randomly. During a meeting Susceptible agents who meet an infected agent, will always catch the disease (or the fad) but are not contagious. Infected agents, have a probability \\(\\pi\\) of being recovered. Nothing happens to Recovered agents who meet other people. No distinction is made between recovering as a healthy or a dead person.\nWe’re interested in the evolution in the number infected persons, both the speed of infection and the total amount of infected people in every period.\nWrite down the transition equations for \\(n_I\\), the number of infected people, for \\(n_R\\) the number of recovered people and \\(n_S\\) the number of susceptible people.\nCompute the transition function f for the vector state \\(s_t\\) returning \\(s_{t+1}\\).\nCompute the transitions over \\(T\\) periods. Plot the result using Plots.jl. (bonus: check against closed form solution)\nWe now assume a Susceptible person who meets an infected one has a probability \\(\\mu\\) of catching the disease. Update the transition function. Update function \\(f\\) and write a function of \\(\\mu\\), \\(\\pi\\) which returns the simulation. Compare different values of the parameters. How would you interpret “social distancing”? How would you choose parameters \\(\\Pi\\) and \\(\\mu\\)\n\n\n\nWe now consider another version of the model where agents evolve in the space \\(\\mathcal{S}=[0,1]\\times[0,1]\\). There are \\(N\\in\\mathbb{N}\\) agent. At any date, each agent \\(n \\in [0,1]\\) is located at \\((x_n,y_n)\\in \\mathcal{S}\\).\nEach agent moves follows a random walk bounded by \\(\\mathcal{S}\\): \\[x_t = \\min(\\max( x_{t-1} + \\epsilon_t, 0), 1)\\] \\[y_t = \\min(\\max( y_{t-1} + \\eta_t, 0), 1)\\] where \\(\\epsilon_t\\) and \\(\\eta_t\\) are both normally distributed with standard deviation \\(\\sigma\\).\nAt any date, the individual state of an agent is \\(s_t=(x_t, y_t, h_t)\\) where \\(h_t\\) is either “S”, “I” or “R”. \\(v_t\\) denotes the states of all agents (for instance \\(v_t=(s_{n,t})_n\\). The health status of each agent is updated in the following way:\n\nAgents \\(R\\) stay \\(R\\).\nAgents \\(I\\) have probability \\(\\pi\\) to become \\(R\\). They stay \\(I\\) otherwise.\nAn agent of type \\(S\\) in position \\((x,y)\\) has a probability \\(prob(x,y,S)\\) to be infected that is \\(\\mu\\) if there is another infected agent within a radius \\(r>0\\).\n\nDefine a type Agent, which holds the type of an agent. The state of the whole system will be held in a Vector[Agent] type.\nWrite a function spatial_transition(S::Vector{Agent})::Vector{Agent} to compute the transition of the positions. Write another function random_guess(T=100) which simulates for \\(T\\) periods in order to find a good initial guess.\nWrite a function show_population to plot all agents with different colors for different health status.\nWrite a function evolve(S::Vector[Agent])::Vector[Agent] which takes the population in a given state and returns the same population with updated health status.\nWrite a function simulate(S0::Vector[Agent], k=1) to simulate the economy starting from an initially random position with k infected individuals. The returned object should be of type Vector[Vector[Agent]].\nCompute statistics along a simulated path for \\(n_I\\), \\(n_S\\), \\(n_R\\). Plot and compare with the basic SIR model\n\n\n\nHave fun by trying to answer one of these questions: - change probability of infection so that it depends on the number of infected people in the vincinity (with some suitable functional formulation for) - compute an animation of the transition - compute an interactive visualisation (with Interact.jl if available)"
+  },
+  {
+    "objectID": "slides/discretization.html#advanced-macro-numerical-methods-2022-mie37",
+    "href": "slides/discretization.html#advanced-macro-numerical-methods-2022-mie37",
+    "title": "Discretization",
+    "section": "Advanced Macro: Numerical Methods, 2022 (MIE37)",
+    "text": "Advanced Macro: Numerical Methods, 2022 (MIE37)"
+  },
+  {
+    "objectID": "slides/discretization.html#introduction",
+    "href": "slides/discretization.html#introduction",
+    "title": "Discretization",
+    "section": "Introduction",
+    "text": "Introduction"
+  },
+  {
+    "objectID": "slides/discretization.html#discretizing-an-ar1",
+    "href": "slides/discretization.html#discretizing-an-ar1",
+    "title": "Discretization",
+    "section": "Discretizing an AR1",
+    "text": "Discretizing an AR1"
+  },
+  {
+    "objectID": "slides/discretization.html#discretizing-an-iid-law",
+    "href": "slides/discretization.html#discretizing-an-iid-law",
+    "title": "Discretization",
+    "section": "Discretizing an iid law",
+    "text": "Discretizing an iid law"
+  },
+  {
+    "objectID": "slides/discretization.html#several-kinds-of-discretization",
+    "href": "slides/discretization.html#several-kinds-of-discretization",
+    "title": "Discretization",
+    "section": "Several kinds of Discretization",
+    "text": "Several kinds of Discretization\n\napproximate operator with a finite number of iterations:\n\ncompute \\(\\int_a^b f(x) dx\\)\ncompute \\(E_\\omega f(\\omega)\\)\n\nrepresent an infinite dimensional object with a finite set of parameters:\n\n\\(f \\equiv (f(x_i))_{i=1:N}\\) with \\(x_i=a+\\frac{i-1}{N-1}(b-a)\\)\n\ndiscretize arguments\n\n\\(\\omega \\equiv (\\mu_i, \\omega_i)_{i=1:N}\\) such that \\(E_\\omega f(\\omega) \\approx \\sum_i \\mu_i f(\\omega_i)\\) (quantization)\n\ndiscretize continous process by a discrete one:\n\ncontinuous markov chain to discrete markov Chain"
+  },
+  {
+    "objectID": "slides/discretization.html#discretizing-an-ar1-1",
+    "href": "slides/discretization.html#discretizing-an-ar1-1",
+    "title": "Discretization",
+    "section": "Discretizing an AR1",
+    "text": "Discretizing an AR1\n\nTake \\(AR1\\) process \\[x_t = \\rho x_{t-1} + \\epsilon_t\\]\n\nwith \\(|\\rho| <1\\) and \\(\\epsilon \\sim N(0,\\sigma)\\)\n\nCan we replace \\((x_t)\\) by a discrete markov chain?\n\napproximate version:\n\ngood time \\(x^g\\) and bad time \\(x^b\\). Probability \\(\\pi\\) of staying in the same, \\(1-\\pi\\) of switching.\n\ntwo systematic methods (available in QuantEcon.jl)\n\nTauchen\nRouwenhorst"
+  },
+  {
+    "objectID": "slides/discretization.html#ar1-tauchen",
+    "href": "slides/discretization.html#ar1-tauchen",
+    "title": "Discretization",
+    "section": "AR1: Tauchen",
+    "text": "AR1: Tauchen\n\nThe unconditional distribution of an AR1 is a normal law \\(\\mathcal{N}(0,\\frac{\\sigma}{\\sqrt{1-\\rho^2}})\\)\nChoose \\(m>0\\), typically \\(m=3\\)\nBound the process: \\(\\underline{x} = -m \\frac{\\sigma}{\\sqrt{1-\\rho^2}}\\) and \\(\\overline{x} = m \\frac{\\sigma}{\\sqrt{1-\\rho^2}}\\)\nDefine the \\(N\\) discretized points (\\(i\\in[1,n]\\)): \\(y_i = \\underline{x} + \\frac{i-1}{N-1}(\\overline{x}-\\underline{x})\\)\nDefine the transitions:\n\n\\[\\begin{eqnarray}\n\\pi_{ij} & = & prob \\left( y_{t+1}=y_j|y_t=y_i\\right)\\\\\n         & = & prob \\left( |y_{t+1}-x_j| = \\inf_k |y_{t+1}-x_k| \\left| y_t=y_i \\right. \\right)\n\\end{eqnarray}\\]"
+  },
+  {
+    "objectID": "slides/discretization.html#ar1-tauchen-2",
+    "href": "slides/discretization.html#ar1-tauchen-2",
+    "title": "Discretization",
+    "section": "AR1: Tauchen (2)",
+    "text": "AR1: Tauchen (2)\n\nFormulas \\(\\delta=\\frac{\\overline{x}-\\underline{x}}{N}\\):\n\nif \\(1<k<N-1\\)\n\\[\\pi_{jk} = F(\\frac{y_k + \\delta/2-\\rho y_j}{\\sigma_{\\epsilon}}) - F(y_k + \\delta/2-\\rho y_j)\\]\nif \\(k=1\\)\n\\[\\pi_{j} = F(\\frac{y_k + \\delta/2-\\rho y_j}{\\sigma_{\\epsilon}}) \\]\nif \\(k=N\\)\n\\[\\pi_{j} = 1- F(\\frac{y_k - \\delta/2-\\rho y_j}{\\sigma_{\\epsilon}}) \\]"
+  },
+  {
+    "objectID": "slides/discretization.html#how-to-assess-the-quality-of-approximation",
+    "href": "slides/discretization.html#how-to-assess-the-quality-of-approximation",
+    "title": "Discretization",
+    "section": "How to assess the quality of approximation ?",
+    "text": "How to assess the quality of approximation ?\n\ncompare generated stationary moments between discretized process and true AR1:\n\nE(), Var(), ACor()\n\nby looking at the exact ergodic distribution or by doing some simulations\nnot very precise when then process is very persistent \\(\\rho\\approx 1\\)"
+  },
+  {
+    "objectID": "slides/discretization.html#rouvenhorst-method-1",
+    "href": "slides/discretization.html#rouvenhorst-method-1",
+    "title": "Discretization",
+    "section": "Rouvenhorst method (1)",
+    "text": "Rouvenhorst method (1)\n\nN = 2\n\nchoose \\(y_1=-\\psi\\), \\(y_2=\\psi\\)\ndefine transition matrix: \\[\\Theta_2 = \\begin{bmatrix}\np & 1-p\\\\\\\\\n1-q & q\n\\end{bmatrix}\\]\nchoose \\(p\\), \\(q\\) and \\(\\psi\\) to match some moments: \\(E()\\), \\(Var()\\), \\(ACor()\\)\n\nthey can be computed analytically for AR1 and for discretized version."
+  },
+  {
+    "objectID": "slides/discretization.html#rouvenhorst-method-2",
+    "href": "slides/discretization.html#rouvenhorst-method-2",
+    "title": "Discretization",
+    "section": "Rouvenhorst method (2)",
+    "text": "Rouvenhorst method (2)\n\nN >2 \\[\\Theta_N =\np \\begin{bmatrix}  \n\\Theta_{N-1}  & 0\\\\\\\\\n0 & 0\n\\end{bmatrix} +\n(1-p) \\begin{bmatrix}  \n0 & \\Theta_{N-1} \\\\\\\\\n0 & 0\n\\end{bmatrix} +\n(1-q) \\begin{bmatrix}  \n0 & 0\\\\\\\\\n\\Theta_{N-1} & 0\n\\end{bmatrix} +\nq \\begin{bmatrix}  \n0 & 0\\\\\\\\\n0 & \\Theta_{N-1}\n\\end{bmatrix}\n\\]\nNormalize all lines"
+  },
+  {
+    "objectID": "slides/discretization.html#rouvenhorst-method-3",
+    "href": "slides/discretization.html#rouvenhorst-method-3",
+    "title": "Discretization",
+    "section": "Rouvenhorst method (3)",
+    "text": "Rouvenhorst method (3)\n\nProcedure converges to Bernouilli distribution.\nMoments can be computed in closed form:\n\n\\(E() = \\frac{(q-p)\\psi}{2-(p+q)}\\)\n\\(Var() = \\psi^2 \\left[ 1-4 s (1-s) + \\frac{4s(1-s)}{N-1}\\right]\\)\n\\(Acor()= p+q-1\\)\n\nRouwenhorst method performs better for highly correlated processes"
+  },
+  {
+    "objectID": "slides/discretization.html#common-problem",
+    "href": "slides/discretization.html#common-problem",
+    "title": "Discretization",
+    "section": "Common problem:",
+    "text": "Common problem:\n\nGiven \\(f\\), and an iid process \\(\\epsilon \\sim N(0,\\sigma^2)\\), how to approximate \\(E_{\\epsilon} f(\\epsilon)\\) ?\nIdeas:\n\ndraw lots of random \\((\\epsilon\\_n)\\_{n=1:N}\\) and compute \\[\\frac{1}{N}\\sum_{n=1}^N f(\\epsilon_n)\\]\n\naka Monte-Carlo simulations\n\ngiven a method to approximate integrals, compute \\[\\int_{u=-\\infty}^{\\infty} f(u) \\mu(u) du\\] with \\(\\mu(u)=\\frac{1}{\\sigma\\sqrt{2 \\pi}}e^{-\\frac{u^2}{2\\sigma^2}}\\)\ndiscretize (or quantize) the signal \\(\\epsilon\\) as \\((w_i, \\epsilon_i)_{i=1:N}\\) and compute:\n\n\n\\[\\frac{1}{N} \\sum_n w_n f(\\epsilon_n)\\]"
+  },
+  {
+    "objectID": "slides/discretization.html#whats-wrong-with-monte-carlo-simulations",
+    "href": "slides/discretization.html#whats-wrong-with-monte-carlo-simulations",
+    "title": "Discretization",
+    "section": "What’s wrong with Monte-Carlo Simulations?",
+    "text": "What’s wrong with Monte-Carlo Simulations?\n\nLet’s take an exemple:\n\nconsumption is \\(C(\\epsilon)=U(e^{\\epsilon})\\)\nwith \\({\\sigma}\\_{\\epsilon}=0.05\\) and \\(U(x)=\\frac{x^{1-\\gamma}}{1-\\gamma}\\) and \\(\\gamma=40\\).\n\nLet’s compute \\(E_{\\epsilon}(C(\\epsilon))\\) precisely.\nDiscuss value of \\(\\gamma\\): is it crazy? (risk return)"
+  },
+  {
+    "objectID": "slides/discretization.html#whats-wrong-with-monte-carlo-simulations-1",
+    "href": "slides/discretization.html#whats-wrong-with-monte-carlo-simulations-1",
+    "title": "Discretization",
+    "section": "What’s wrong with Monte-Carlo Simulations?",
+    "text": "What’s wrong with Monte-Carlo Simulations?\nCompute expectation\n# imports:\nusing Distributions: Normal\n\n# define the model\nσ = 0.05; γ = 40\nU(x)=(x^(-γ))/(-γ)\nC(e) = U(exp(e))\n\n# create distributions\ndis = Normal(0,σ)      \nE_ϵ(f;N=1000) = sum(f(rand(dis)) for i=1:N)/N\n\nNVec = [1000, 5000, 10000, 15000, 20000]\nvals = [E_ϵ(C; N=i) for i=NVec]\njulia> vals = [E_ϵ(C; N=i) for i=NVec\n5-element Array{Float64,1}:\n -0.17546927855215824\n -0.2906119630309043\n -0.17924501776041424\n -0.1826805612086024\n -0.181184208323609"
+  },
+  {
+    "objectID": "slides/discretization.html#whats-wrong-with-monte-carlo-simulations-2",
+    "href": "slides/discretization.html#whats-wrong-with-monte-carlo-simulations-2",
+    "title": "Discretization",
+    "section": "What’s wrong with Monte-Carlo Simulations?",
+    "text": "What’s wrong with Monte-Carlo Simulations?\nusing Statistics: std\n\n#computes estimates for various N\nstdev(f; N=100, K=100) = std(E_ϵ(f; N=N) for k=1:K)\nsdvals = [stdev(C; N=n, K=10000) for n=NVec]\njulia> @time sdvals = [stdev(C; N=n, K=10000) for n=NVec]      \n 99.558940 seconds (2.55 G allocations: 38.011 GiB, 0.81% gc time)\n5-element Array{Float64,1}:                                       \n 0.04106466473642666                                              \n 0.018296399941889575                                             \n 0.013174287295527257                                             \n 0.01086721462174894                                              \n 0.009383218078206898"
+  },
+  {
+    "objectID": "slides/discretization.html#quick-theory-1",
+    "href": "slides/discretization.html#quick-theory-1",
+    "title": "Discretization",
+    "section": "Quick theory (1)",
+    "text": "Quick theory (1)\n\nFact: the sum of several independent gaussian variables is a gaussian variable\nSo \\(T_N =\\frac{1}{N}\\sum_{n=1}^N \\epsilon_n\\) is gaussian variable. Its mean is 0 (unbiased). Let’s compute its variance: \\[E(T_N^2) = \\frac{1}{N^2} \\sum_{n=1}^N E\\left[ \\epsilon_n^2 \\right]\\]\nThe standard deviation is: \\[s_N = \\sigma(T_N^2) = \\frac{1}{\\sqrt{\\color{red} N}} \\sigma_{\\epsilon}\\]\nConclusion: the precision of (basic) Monte-Carlo decreases only as a square root of the number of experiments."
+  },
+  {
+    "objectID": "slides/discretization.html#quick-theory-2",
+    "href": "slides/discretization.html#quick-theory-2",
+    "title": "Discretization",
+    "section": "Quick theory (2)",
+    "text": "Quick theory (2)\n\nIn the general case, the Monte-Carlo estimator is: \\[T^{MC}\\_N =\\frac{1}{N}\\sum\\_{n=1}^N f(\\epsilon_n)\\]\nIt is unbiased: \\[E(T_N^{MC}) = E\\left[f(\\epsilon) \\right]\\]\nIt’s variance is \\[E(T_N^{MC}) \\propto \\frac{1}{\\sqrt{N}}\\]\n\nslow\non the plus side: rate independent of the dimension of \\(\\epsilon\\)"
+  },
+  {
+    "objectID": "slides/discretization.html#quantization-using-quantiles",
+    "href": "slides/discretization.html#quantization-using-quantiles",
+    "title": "Discretization",
+    "section": "Quantization using quantiles",
+    "text": "Quantization using quantiles\n\n\n\nEquiprobable discretization\nWorks for any distribution with pdf and cdf\nSplit the space into equal \\(N\\) quantiles: \\[(I_i=[a_i,a_{i+1}])_{i=1:N}\\] such that \\[prob(\\epsilon \\in I_i)=\\frac{1}{N}\\]\nChoose the nodes as the median of each interval: \\[prob(\\epsilon\\in[a_i,x_i]) = prob(\\epsilon\\in[x_i,a_{i+1}])\\]\nThe quantization is \\((1/N, x_i)_{i=1:N}\\)\n\n\n\n[graph]"
+  },
+  {
+    "objectID": "slides/discretization.html#gauss-hermite",
+    "href": "slides/discretization.html#gauss-hermite",
+    "title": "Discretization",
+    "section": "Gauss-Hermite",
+    "text": "Gauss-Hermite\n\n\\(f\\in \\mathcal{F}\\) a Banach space (or \\(\\mathbb{R}^n\\)), \\(\\epsilon\\) a gaussian variable\n\n\\(I: f\\rightarrow E_{\\epsilon} f(\\epsilon)\\) is a linear application\n\nsuppose there is a dense family of polynomials \\(P_n\\), spanning \\(\\mathcal{F}_n\\)\n\n\\(I\\) restricted to \\(\\mathcal{F}_N\\) is a \\(N\\)-dimensional linear form\n\nGauss quadrature magic\n\na way to choose \\(\\\\epsilon_i\\) and \\(w_i\\) such that \\[\\left(f\\rightarrow\\sum\\_{n=1}^N w_n f(\\epsilon_i) \\right)= \\left.I\\right|\\_{\\mathcal{F}_{2N}}\\]"
+  },
+  {
+    "objectID": "slides/discretization.html#gauss-hermite-1",
+    "href": "slides/discretization.html#gauss-hermite-1",
+    "title": "Discretization",
+    "section": "Gauss-Hermite",
+    "text": "Gauss-Hermite\n\nVery accurate if a function can be approximated by polynomials\nBad:\n\nimprecise if function \\(f\\) has kinks or non local behaviour\n\npoints \\(\\epsilon_n\\) can be very far from the origin (TODO: graph)\n\nnot super easy to commute weights and nodes (but there are good libraries)"
+  },
+  {
+    "objectID": "slides/discretization.html#gauss-",
+    "href": "slides/discretization.html#gauss-",
+    "title": "Discretization",
+    "section": "Gauss-*",
+    "text": "Gauss-*\n\nSame logic can be applied to compute integration with weight function \\(w(x)\\): \\[\\int_a^b f(x) w(x)\\]\nGauss-Hermite:\n\n\\(w(x) = e^{-x^2}\\), \\([a,b] = [-\\infty, \\infty]\\)\n\nGauss-Legendre:\n\n\\(w(x) = 1\\)\n\nGauss-Chebychev:\n\n\\(w(x)=\\sqrt{1-x^2}\\), \\([a,b] = [-1, 1]\\)\nfor periodic functions"
+  },
+  {
+    "objectID": "slides/discretization.html#in-practice",
+    "href": "slides/discretization.html#in-practice",
+    "title": "Discretization",
+    "section": "In practice",
+    "text": "In practice\nBeware that weight is not the density of the normal law:\n\\[\\frac{1}{\\sqrt{2 \\pi \\sigma^2}}\\int f(x) e^{-\\frac{x^2}{2\\sigma^2}}dx = {\\frac{1}{\\sqrt{\\pi}}}\\int f(u {\\sigma \\sqrt{2}}) e^{-{u^2}}du \\] \\[{\\frac{1}{\\sqrt{\\pi}}}\\sum_n w_n f(\\epsilon_n {\\sigma \\sqrt{2}})\\]\nusing FastGaussQuadrature\n\nx, w = gausslegendre( 10 );\nx = x.*σ*sqrt(2) # renormalize nodes\ns = sum( w_*U(exp(x_)) for (w_,x_) in zip(x,w))\ns /= sqrt(\\pi) # renormalize output"
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Advanced Macro: Numerical Methods</title>
+<title>Advanced Macro: Numerical Methods – ddp_mccall</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -59,8 +59,9 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -82,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Advanced Macro: Numerical Methods</a> 
+      <a href="../">Advanced Macro: Numerical Methods</a> 
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -102,37 +103,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="../slides/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/convergence.html" class="sidebar-item-text sidebar-link">Convergence of sequences</a>
+  <a href="../slides/convergence.html" class="sidebar-item-text sidebar-link">Convergence of sequences</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/perturbation.html" class="sidebar-item-text sidebar-link">Perturbation Analysis</a>
+  <a href="../slides/perturbation.html" class="sidebar-item-text sidebar-link">Perturbation Analysis</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/ddp.html" class="sidebar-item-text sidebar-link">Discrete Dynamic Programming</a>
+  <a href="../slides/ddp.html" class="sidebar-item-text sidebar-link">Discrete Dynamic Programming</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/discretization.html" class="sidebar-item-text sidebar-link">Discretization</a>
+  <a href="../slides/discretization.html" class="sidebar-item-text sidebar-link">Discretization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/optimization.html" class="sidebar-item-text sidebar-link">Optimization</a>
+  <a href="../slides/optimization.html" class="sidebar-item-text sidebar-link">Optimization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/interpolation.html" class="sidebar-item-text sidebar-link">Interpolation</a>
+  <a href="../slides/interpolation.html" class="sidebar-item-text sidebar-link">Interpolation</a>
   </div>
 </li>
       </ul>
@@ -147,17 +148,17 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  <a href="../notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">Convergence: Solow Model</a>
+  <a href="../notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">Convergence: Solow Model</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/3_perturbation_neoclassical_correction.html" class="sidebar-item-text sidebar-link">Perturbation: Neoclassical Growth Model</a>
+  <a href="../notebooks/3_perturbation_neoclassical_correction.html" class="sidebar-item-text sidebar-link">Perturbation: Neoclassical Growth Model</a>
   </div>
 </li>
       </ul>
@@ -171,108 +172,62 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#indicative-schedule" id="toc-indicative-schedule" class="nav-link active" data-scroll-target="#indicative-schedule">Indicative Schedule</a></li>
-  <li><a href="#communication" id="toc-communication" class="nav-link" data-scroll-target="#communication">Communication</a></li>
-  <li><a href="#assessments" id="toc-assessments" class="nav-link" data-scroll-target="#assessments">Assessments</a></li>
+  <li><a href="#discrete-dynamic-programming-2" id="toc-discrete-dynamic-programming-2" class="nav-link active" data-scroll-target="#discrete-dynamic-programming-2">Discrete Dynamic Programming (2)</a>
+  <ul class="collapse">
+  <li><a href="#advanced-macro-numerical-methods" id="toc-advanced-macro-numerical-methods" class="nav-link" data-scroll-target="#advanced-macro-numerical-methods">Advanced Macro: numerical methods</a>
+  <ul class="collapse">
+  <li><a href="#job-search-model" id="toc-job-search-model" class="nav-link" data-scroll-target="#job-search-model">Job-Search Model</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">Advanced Macro: Numerical Methods</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<p>Check the <a href="https://www.mosphere.fr/mie37/">website</a> for the course!</p>
-<section id="indicative-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="indicative-schedule">Indicative Schedule</h2>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Content</th>
-<th>Homework</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>02/02</td>
-<td><a href="http://www.mosphere.fr/mie37/slides/index.html">Intro</a>, Julia Basics (1)</td>
-<td>Epidemiology Tutorial</td>
-</tr>
-<tr class="even">
-<td>09/02</td>
-<td><a href="http://www.mosphere.fr/mie37/slides/convergence.html">Convergence of Sequences</a>, Julia Basics (2), Solow Tutorial</td>
-<td>Finish Solow Tutorial</td>
-</tr>
-<tr class="odd">
-<td><mark>16/02</mark></td>
-<td><a href="http://www.mosphere.fr/mie37/slides/perturbation.html">Perturbation</a> (1)</td>
-<td>Finish Neoclassical</td>
-</tr>
-<tr class="even">
-<td>23/02</td>
-<td>Perturbation (2)</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>8/03</td>
-<td>Discrete Dynamic Programming, McCall Model</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>16/03</td>
-<td>Discrete Dynamic Programming, McCall Model</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>23/03</td>
-<td>McCall Model (2)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>30/03</td>
-<td>Discretization</td>
-<td>Coursework</td>
-</tr>
-<tr class="odd">
-<td>06/04</td>
-<td>Value Function Iteration</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="communication" class="level2">
-<h2 class="anchored" data-anchor-id="communication">Communication</h2>
+<section id="discrete-dynamic-programming-2" class="level1">
+<h1>Discrete Dynamic Programming (2)</h1>
+<section id="advanced-macro-numerical-methods" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-macro-numerical-methods">Advanced Macro: numerical methods</h2>
+<section id="job-search-model" class="level3">
+<h3 class="anchored" data-anchor-id="job-search-model">Job-Search Model</h3>
 <ul>
-<li>Zulip (best)</li>
-<li>Email to <code>pwinant@escp.eu</code> starting with <code>[mie37]</code></li>
-<li>Github issues (PR also welcome)</li>
-</ul>
-</section>
-<section id="assessments" class="level2">
-<h2 class="anchored" data-anchor-id="assessments">Assessments</h2>
+<li>When unemployed in date, a job-seeker
 <ul>
-<li>tutorials (optional) + projects (mandatory) (50%)</li>
-<li>final exam (50%)</li>
+<li>consumes unemployment benefit <span class="math inline">\(c_t = \underline{c}\)</span></li>
+<li>receives in every date <span class="math inline">\(t\)</span> a job offer <span class="math inline">\(w_t\)</span>
+<ul>
+<li><span class="math inline">\(w_t\)</span> is i.i.d.,</li>
+<li>takes values <span class="math inline">\(w_1, w_2, w_3\)</span> with probabilities <span class="math inline">\(p_1, p_2, p_3\)</span></li>
+</ul></li>
+<li>if job-seeker accepts, becomes employed at rate <span class="math inline">\(w_t\)</span> in the next period</li>
+<li>else he stays unemployed</li>
+</ul></li>
+<li>When employed at rate <span class="math inline">\(w\)</span>
+<ul>
+<li>worker consumes salary <span class="math inline">\(c_t = w\)</span></li>
+<li>with small probability <span class="math inline">\(\lambda&gt;0\)</span> looses his job:
+<ul>
+<li>starts next period unemployed</li>
+</ul></li>
+<li>otherwise stays employed at same rate</li>
+</ul></li>
+<li>Objective: <span class="math inline">\(\max E_0 \left\{ \sum \beta^t \log(w_t) \right\}\)</span></li>
 </ul>
+<p><strong>What are the states, the controls, the reward of this problem ? Write down the Bellman equation.</strong></p>
+<p><strong>Define a parameter structure for the model.</strong></p>
+<p><strong>Define a function <code>value_update(V_U::Vector{Float64}, V_E::Vector{Float64}, x::Vector{Bool}, p::Parameters)::Tuple{Vector, Vector}</code>, which takes in value functions tomorrow and a policy vector and return updated values for today.</strong></p>
+<p><strong>Define a function <strong>Define a function <code>policy_eval(x::Vector{Bool}, p::Parameter)::Tuple{Vector, Vector}</code> which takes in a policy vector and returns the value(s) of following this policies forever. You can add relevant arguments to the function.</strong> which takes in a policy vector and returns the value(s) of following this policies forever. You can add relevant arguments to the function.</strong></p>
+<p><strong>Define a function <code>bellman_step(V_E::Vector, V_U::Vector, p::Parameters)::Tuple{Vector, Vector, Vector}</code> which returns updated values, together with improved policy rules.</strong></p>
+<p><strong>Implement Value Function</strong></p>
+<p><strong>Implement Policy Iteration and compare rates of convergence.</strong></p>
+<p><strong>Discuss the Effects of the Parameters</strong></p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

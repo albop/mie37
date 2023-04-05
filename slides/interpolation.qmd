@@ -1,10 +1,18 @@
-# Math topic: Interpolation
-
-## Advanced Macro: Numerical Methods,  2022 (MIE37)
-
+---
+title: Interpolation
+subtitle:  "Computational Economics"
+author: Year 2022-2023 (MIE37)
+format:
+  revealjs:
+    html-math-method: mathjax
+    width: 1920
+    height: 1080
+logo: logo.png
 ---
 
-### Basics
+# Introduction
+
+## Basics
 
 Two continuous sets $X\in R^p$, $Y \in R^q$.
 
@@ -19,9 +27,7 @@ Discover implicit relation $y=f(x)$ (the model) then compute $\tilde{y}=f(\tilde
 $f$ is chosen from a family $\mathcal{F}$ of functions parameterized by a parameter $\theta$, the approximation family.
 
 
-----
-
-### Interpolation vs. Regression
+## Interpolation vs. Regression
 
 - _Interpolation_: $f$ is chosen such that $\forall n, y_n=f(x_n)$
     <!-- - family ${f_{\theta}}$ is interpolating if $\forall n, \exists f \in \mathcal{F}, f(x_n)= y_n$ -->
@@ -31,9 +37,8 @@ $f$ is chosen from a family $\mathcal{F}$ of functions parameterized by a parame
 - Remarks:
     - some applied mathematicians tend to mix the two (interpolate=evaluate f outside of X)
 
-----
 
-### Examples (1): Linear Interpolation
+## Examples (1): Linear Interpolation
 
 1d Graph. Join the dots. Linear/Spline
 
@@ -41,9 +46,8 @@ $f$ is chosen from a family $\mathcal{F}$ of functions parameterized by a parame
 
 Conclusion: interpolate only if $f$ is known precisely on $X$
 
-----
 
-### Example (2)
+## Example (2)
 
 ![](faces.png)
 
@@ -51,9 +55,8 @@ Conclusion: interpolate only if $f$ is known precisely on $X$
 - $X$ and $Y$: large databases of low and high resolutions images
 - $\mathcal{F}$: neural network
 
-----
 
-### Why do we need it?
+## Why do we need it?
 
 - In economics, we often solve a problem $\Phi(f)=0$ where $f$ is a function: $\forall s, \Phi(f)(s) = 0$
 - If we approximate $f$ by some element $f(;\theta)\in\mathcal{F}$ we just need to identify a finite set of parameters $\theta \in R^n$
@@ -64,9 +67,8 @@ Conclusion: interpolate only if $f$ is known precisely on $X$
   - choose higher number of objectives ($p>n$) that must be minimized:
     - example: __regression__, choose $s_1, ..., s_p$. Find $f$ such that minimize $\sum_i \Phi(f)(s_i)^2 = 0$
 
-----
 
-### Several interpolation flavours
+## Several interpolation flavours
 
 - local vs spectral:
     - local: functions in $f$ have compact support
@@ -75,23 +77,21 @@ Conclusion: interpolate only if $f$ is known precisely on $X$
     - $\mathcal{F}$ is a vector space: $f(x) \approx \sum_{i=1}^N \theta_n b_n(x)$ where $b_n$ is a base of $\mathcal{F}$
     - nonlinear: wavelets, neural networks, ....
 
----
 
-## Splines
+# Splines
 
-----
 
-### Linear
+## Linear
 
 - Take function $f$ defined on an interval $[a,b]$. Suppose the value is known at $(a=x_1, ... x_N=b)$. Denote $y_i = f(x_i)$.
 - Join the dots: define a piecewise linear function as
-$$\forall x \in [x_i, x_{i+1}], \tilde{f}(x) = y_i + \underbrace{\frac{x-x_i}{x_{i+1}-x_i}}\_{\text{barycentric coordinate}} (y_{i+1} - y_i)$$
+$$\forall x \in [x_i, x_{i+1}], \tilde{f}(x) = y_i + \underbrace{\frac{x-x_i}{x_{i+1}-x_i}}_{\text{barycentric coordinate}} (y_{i+1} - y_i)$$
 
 [TODO: graph]
 
 ----
 
-### Linear
+## Linear
 
 - Alternate view:
 $$\tilde{f}(x) = \sum_{i=1}^N y_i B^i_1(x)$$
@@ -101,7 +101,7 @@ where $b_1^i(x)=\frac{x-x_{i-1}}{x_i-x_{i-1}}.1_{x\in[x_{i-1},x_i]} + (1-\frac{x
 
 ----
 
-### Splines
+## Splines
 
 - $n$-th order *spline* : piecewise polynomial function that is $n$ times differentiable except on a finite set of break points (aka *knots*), where it is $(n-1)$ times differentiable.
 
@@ -110,11 +110,11 @@ where $b_1^i(x)=\frac{x-x_{i-1}}{x_i-x_{i-1}}.1_{x\in[x_{i-1},x_i]} + (1-\frac{x
 - example: order 2
     - suppose $\tilde{f}(x_i)$ and $\tilde{f}^{\prime}(x_i)$ are known, choose the coefficients for the patch $p_{i+1}(x) = a_{i+1}x^2+b_{i+1}x + c_{i+1}$
     - Already two constraints. Condition $p_{i+1}(x_{i+1})=\tilde{f}(x_{i+1})$ supplies another one.
-    - Do it for every patch. Not that it requires to set $f^{\prime}(a)$ beforehand.
+    - Do it for every patch. Note that it requires to set $f^{\prime}(a)$ beforehand.
 
 ----
 
-### Basis Splines (much better)
+## Basis Splines (much better)
 
 - Define
 $$B_{i,1}(x) = 1_{x \in [x_i, x_{i+1}]}$$
@@ -126,13 +126,13 @@ $$B_{i,k+1}(x) = \frac{x-x_i}{x_{i+k}-x_i}B_{i,k}(x) +
 
 ----
 
-### Basis splines
+## Basis splines
 
 ![Basis Splines](basis_splines.png)
 
 ----
 
-### Basis splines are not interpolating
+## Basis splines are not interpolating
 
 - Unfortunately basis splines are not "interpolating" in the sense that in general
    $$f(x_i) \neq \sum_{n} f(x_n) B_{n,k} (x_i)$$
@@ -147,7 +147,7 @@ $$B_{i,k+1}(x) = \frac{x-x_i}{x_{i+k}-x_i}B_{i,k}(x) +
 
 ----
 
-### In practice: Interpolations
+## In practice: Interpolations
 
 ```julia
 f(x) = log(x)
@@ -165,7 +165,7 @@ interp_cubic(1.3) # interpolate
 
 ----
 
-### In practice: Interpolations (2)
+## In practice: Interpolations (2)
 
 Note that in  $y_i = \sum_n c_n B_{n,k} (x_i)$, $y_i$ and $c_n$ could perfectly well be vectors. If we use a Vector type which implements all operations (`zeros`, `*`, ...) we can interpolate them with the same operations
 
@@ -181,13 +181,10 @@ interp_linear = LinearInterpolation(xs, A)
 interp_linear(1.3) # returns a 2d SVector
 ```
 
----
 
-### Mental break: matrix conditioning
+# Mental break: matrix conditioning
 
-----
-
-### Matrix conditioning
+## Matrix conditioning
 
 - Suppose you want to solve vector equation $A x=y$. Will a small error in $y$ affect a lot the value of $x$? (in particular round-off errors)
     - condition number: $\lim_{\epsilon\rightarrow 0} \sup_{\delta y\leq \epsilon} \frac{\delta x}{\delta y}$
@@ -197,13 +194,10 @@ interp_linear(1.3) # returns a 2d SVector
     - some rows/columns are very small, others are gigantic
     - rows/columns are almost colinear
 
----
 
-## Polynomial approximation
+# Polynomial approximation
 
-----
-
-### Fitting polynomials
+## Fitting polynomials
 
 - Let's approximate: $f(;\theta) = \sum_{n=0}^K \theta_k x^k$.
 
@@ -213,11 +207,10 @@ interp_linear(1.3) # returns a 2d SVector
 
 $$\forall n \in[0,K],  \underbrace{\sum_k \theta_k (x_n)^{k}}_{M \theta} = y_k$$
 
-----
 
-### Vandermonde Matrix
+## Vandermonde Matrix
 
-- $M$ has a special structure, a Vencermode matrix:
+- $M$ has a special structure, a Vandermode matrix:
 $$
 M = 
 \begin{bmatrix}
@@ -232,7 +225,7 @@ $$
 
 ----
 
-### Orthogonal polynomials
+## Orthogonal polynomials
 
 - Define a scalar product over functions on the domain $[a,b]$ by choosing a positive weight function $w(x)$.
 $$<P,Q> = \int_a^b w(x) P(x)Q(x) dx$$
@@ -244,9 +237,7 @@ $$<P,Q> = \int_a^b w(x) P(x)Q(x) dx$$
     - this is optimal for the norm associated to $<>$ (projection on the orthogonal base)
 
 
-----
-
-### Vandermonde matrix
+## Vandermonde matrix
 
 Coefficients can still be identified by inverting: 
 $$\forall n \in[0,K] \underbrace{\sum_k \theta_k T_k(x_n)}_{M \theta} = y_n$$
@@ -264,13 +255,12 @@ T_0(x_K) & T_1(x_K) &  \cdots & T_K(x_K)
 \end{bmatrix}
 $$
 
-----
 
-### Problem: Runge error
+## Problem: Runge error
 
-<div class="container">
+::: columns
 
-<div class="col">
+:::: column
 
 - Red: Runge function $f(x)=\frac{1}{1+25x^2}$
 - Blue: interpolates at 6, regularly-spaced, points
@@ -282,18 +272,15 @@ $$
   1. use regression method instead
   2. choose the interpolation points wisely
 
-</div>
-
-<div class="col">
+::::
+:::: column
 
 ![](Runge_phenomenon.svg.png)
 
-</div>
-</div>
+::::
+:::
 
-----
-
-### Chebychev Nodes
+## Chebychev Nodes
 
 - There is an optimal way to choose the interpolation points:
     - the roots of $cos(\frac{2 k - 1}{2n} \pi)$ for [-1,1]
@@ -301,9 +288,8 @@ $$
 - for the interpolating polynomial:
       $$|f(x) - P_n(x)|  \leq \frac{1}{2^n (n+1)!} \max_{\xi \in [-1,1]} |f^n(\xi)|$$
 
-----
 
-### Chebychev polynomials
+## Chebychev polynomials
 
 - Chebychev polynomials (of the first kind) have their zeros on the nodes.
 - Definitions:
@@ -313,18 +299,14 @@ $$
 - Very good choice:
   - matrix $M$ is well conditioned: $\sqrt{2}$
 
-----
 
-### Chebychev Polynomial
+## Chebychev Polynomial
 ![](chebychev.png)
 
----
 
-## Additional topics
+# Additional topics
 
-----
-
-### Multidimensional interpolation
+## Multidimensional interpolation
 
 - Consider a function $f$ defined on a space $X_1 \times X_d$
 - Take $d$ grids $\mathcal{G}_1\subset X_1, ..., \mathcal{G}_d\subset X_d$ with linear approximation bases $\mathcal{B}_1=(b_1^1, ... b_1^{N_1}),..., \mathcal{B}_d=(b_d^1, ... b_d^{N_d})$.
@@ -338,9 +320,8 @@ $f(x_1, ... x_d ; \theta) = \sum_{i_1=1}^{N_1} ... \sum_{i_d=1}^{N_d} \theta_{i_
 - Problem: number of coefficients to determine increases exponentially with number of dimensions:
   - "Curse of Dimensionality"
 
-----
 
-### Multidimensional interpolation (2)
+## Multidimensional interpolation (2)
 
 - Ways to mitigate the curse of dimensionality
 - Remedies: 
@@ -351,15 +332,8 @@ $f(x_1, ... x_d ; \theta) = \sum_{i_1=1}^{N_1} ... \sum_{i_d=1}^{N_d} \theta_{i_
 - No black-magic theorem: *there is no solution to the curse of dimensionality*
   - .. but there are methods to adapt to problem whose intrinsic dimension is smaller than the actual number of variables
 
-----
 
-### In Practice: 
+## In Practice: 
 
-- `Interpolations.jl` can interepolate on multi-dim grids
+- `Interpolations.jl` can interpolate on multi-dim grids
 - If you want to construct basis matrices yourself, `BasisMatrices.jl`:
-
-```
-using BasisMatrices
-```
-
-----

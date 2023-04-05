@@ -15,6 +15,10 @@ website:
             - slides/convergence.qmd
             - slides/perturbation.qmd
             - slides/ddp.qmd
+            - slides/discretization.qmd
+            - slides/optimization.qmd
+            - slides/interpolation.qmd
+
         - section: "Tutorials"
           contents:
             - notebooks/1_Julia_Basics_correction.ipynb

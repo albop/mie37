@@ -11,8 +11,8 @@ Check the [website](https://www.mosphere.fr/mie37/) for the course!
 | 8/03               | Discrete Dynamic Programming, McCall Model       |                        |
 | 16/03              | Discrete Dynamic Programming, McCall Model                     |                        |
 | 23/03              | McCall Model (2)                                                                                                    |                        |
-| 30/03              | Interpolation, Optimization                                                                                         |                        |
-| 06/04              | Discretization, Time Iteration                                                                                      | Coursework  II         |
+| 30/03              | Discretization                                                                                         |    Coursework                    |
+| 06/04              | Value Function Iteration                                                                                      |          |
 
 ## Communication
 

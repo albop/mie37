@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Advanced Macro: Numerical Methods</title>
+<title>Advanced Macro: Numerical Methods – discrete_dynamic_programming_correction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -59,8 +59,9 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -82,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Advanced Macro: Numerical Methods</a> 
+      <a href="../">Advanced Macro: Numerical Methods</a> 
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -102,37 +103,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="../slides/introduction.html" class="sidebar-item-text sidebar-link">Introduction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/convergence.html" class="sidebar-item-text sidebar-link">Convergence of sequences</a>
+  <a href="../slides/convergence.html" class="sidebar-item-text sidebar-link">Convergence of sequences</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/perturbation.html" class="sidebar-item-text sidebar-link">Perturbation Analysis</a>
+  <a href="../slides/perturbation.html" class="sidebar-item-text sidebar-link">Perturbation Analysis</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/ddp.html" class="sidebar-item-text sidebar-link">Discrete Dynamic Programming</a>
+  <a href="../slides/ddp.html" class="sidebar-item-text sidebar-link">Discrete Dynamic Programming</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/discretization.html" class="sidebar-item-text sidebar-link">Discretization</a>
+  <a href="../slides/discretization.html" class="sidebar-item-text sidebar-link">Discretization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/optimization.html" class="sidebar-item-text sidebar-link">Optimization</a>
+  <a href="../slides/optimization.html" class="sidebar-item-text sidebar-link">Optimization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/interpolation.html" class="sidebar-item-text sidebar-link">Interpolation</a>
+  <a href="../slides/interpolation.html" class="sidebar-item-text sidebar-link">Interpolation</a>
   </div>
 </li>
       </ul>
@@ -147,17 +148,17 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  <a href="../notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">Convergence: Solow Model</a>
+  <a href="../notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">Convergence: Solow Model</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notebooks/3_perturbation_neoclassical_correction.html" class="sidebar-item-text sidebar-link">Perturbation: Neoclassical Growth Model</a>
+  <a href="../notebooks/3_perturbation_neoclassical_correction.html" class="sidebar-item-text sidebar-link">Perturbation: Neoclassical Growth Model</a>
   </div>
 </li>
       </ul>
@@ -171,108 +172,82 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#indicative-schedule" id="toc-indicative-schedule" class="nav-link active" data-scroll-target="#indicative-schedule">Indicative Schedule</a></li>
-  <li><a href="#communication" id="toc-communication" class="nav-link" data-scroll-target="#communication">Communication</a></li>
-  <li><a href="#assessments" id="toc-assessments" class="nav-link" data-scroll-target="#assessments">Assessments</a></li>
+  <li><a href="#tutorial-discrete-dynamic-programming" id="toc-tutorial-discrete-dynamic-programming" class="nav-link active" data-scroll-target="#tutorial-discrete-dynamic-programming">Tutorial: Discrete Dynamic Programming</a>
+  <ul class="collapse">
+  <li><a href="#markov-chains" id="toc-markov-chains" class="nav-link" data-scroll-target="#markov-chains">Markov Chains</a></li>
+  <li><a href="#basic-asset-pricing-model" id="toc-basic-asset-pricing-model" class="nav-link" data-scroll-target="#basic-asset-pricing-model">Basic Asset Pricing model</a></li>
+  <li><a href="#asset-replacement-from-compecon" id="toc-asset-replacement-from-compecon" class="nav-link" data-scroll-target="#asset-replacement-from-compecon">Asset replacement (from Compecon)</a>
+  <ul class="collapse">
+  <li><a href="#brock-mirman-stochastic-growth-model" id="toc-brock-mirman-stochastic-growth-model" class="nav-link" data-scroll-target="#brock-mirman-stochastic-growth-model">Brock-Mirman Stochastic Growth model</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">Advanced Macro: Numerical Methods</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<p>Check the <a href="https://www.mosphere.fr/mie37/">website</a> for the course!</p>
-<section id="indicative-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="indicative-schedule">Indicative Schedule</h2>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Content</th>
-<th>Homework</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>02/02</td>
-<td><a href="http://www.mosphere.fr/mie37/slides/index.html">Intro</a>, Julia Basics (1)</td>
-<td>Epidemiology Tutorial</td>
-</tr>
-<tr class="even">
-<td>09/02</td>
-<td><a href="http://www.mosphere.fr/mie37/slides/convergence.html">Convergence of Sequences</a>, Julia Basics (2), Solow Tutorial</td>
-<td>Finish Solow Tutorial</td>
-</tr>
-<tr class="odd">
-<td><mark>16/02</mark></td>
-<td><a href="http://www.mosphere.fr/mie37/slides/perturbation.html">Perturbation</a> (1)</td>
-<td>Finish Neoclassical</td>
-</tr>
-<tr class="even">
-<td>23/02</td>
-<td>Perturbation (2)</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>8/03</td>
-<td>Discrete Dynamic Programming, McCall Model</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>16/03</td>
-<td>Discrete Dynamic Programming, McCall Model</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>23/03</td>
-<td>McCall Model (2)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>30/03</td>
-<td>Discretization</td>
-<td>Coursework</td>
-</tr>
-<tr class="odd">
-<td>06/04</td>
-<td>Value Function Iteration</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<section id="tutorial-discrete-dynamic-programming" class="level1">
+<h1>Tutorial: Discrete Dynamic Programming</h1>
+<section id="markov-chains" class="level2">
+<h2 class="anchored" data-anchor-id="markov-chains">Markov Chains</h2>
+<p>A worker’s employment dynamics obey the stochastic matrix</p>
+<p><span class="math display">\[P = \begin{bmatrix}
+1-\alpha &amp; \alpha \\
+\beta &amp; 1-\beta
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[P = \begin{bmatrix}
+1-\alpha &amp; ... \\
+\beta &amp; ...
+\end{bmatrix}\]</span></p>
+<p>with <span class="math inline">\(\alpha\in(0,1)\)</span> and <span class="math inline">\(\beta\in (0,1)\)</span>. First line corresponds to employment, second line to unemployment.</p>
+<p><strong>Which is the stationary equilibrium? (choose any value for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>)</strong></p>
+<p><strong>In the long run, what will the the fraction <span class="math inline">\(p\)</span> of time spent unemployed? (Denote by <span class="math inline">\(X_m\)</span> the fraction of dates were one is unemployed)</strong></p>
+<p><strong>Illustrate this convergence by generating a simulated series of length 10000 starting at <span class="math inline">\(X_0=1\)</span>. Plot <span class="math inline">\(X_m-p\)</span> against <span class="math inline">\(m\)</span>. (Take <span class="math inline">\(\alpha=\beta=0.1\)</span>).</strong></p>
 </section>
-<section id="communication" class="level2">
-<h2 class="anchored" data-anchor-id="communication">Communication</h2>
-<ul>
-<li>Zulip (best)</li>
-<li>Email to <code>pwinant@escp.eu</code> starting with <code>[mie37]</code></li>
-<li>Github issues (PR also welcome)</li>
-</ul>
+<section id="basic-asset-pricing-model" class="level2">
+<h2 class="anchored" data-anchor-id="basic-asset-pricing-model">Basic Asset Pricing model</h2>
+<p>A financial asset yields dividend <span class="math inline">\((x_t)\)</span>, which follows an AR1. It is evaluated using the stochastic discount factor: <span class="math inline">\(\rho_{0,t} = \beta^t \exp(y_t)\)</span> where <span class="math inline">\(\beta&lt;1\)</span> and <span class="math inline">\(y_t\)</span> is an <span class="math inline">\(AR1\)</span>. The price of the asset is given by <span class="math inline">\(p_0 = \sum_{t\geq 0} \rho_{0,t} U(x_t)\)</span> where <span class="math inline">\(U(u)=\exp(u)^{0.5}/{0.5}\)</span>. Our goal is to find the pricing function <span class="math inline">\(p(x,y)\)</span>, which yields the price of the asset in any state.</p>
+<p><strong>Write down the recursive equation which must be satisfied by <span class="math inline">\(p\)</span>.</strong></p>
+<p><span class="math display">\[p_t = U(x_t) + \beta E_t \left[ \frac{e^{y_{t+1}}}{e^{y_t}} p_{t+1} \right]\]</span></p>
+<p><strong>Compute the ergodic distribution of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</strong></p>
+<p><strong>Discretize processes <span class="math inline">\((x_t)\)</span> and <span class="math inline">\((y_t)\)</span> using 2 states each. How would you represent the unknown <span class="math inline">\(p()\)</span>?</strong></p>
+<p><strong>Solve for <span class="math inline">\(p()\)</span> using successive approximations</strong></p>
+<p><strong>Solve for <span class="math inline">\(p()\)</span> by solving a linear system (homework)</strong></p>
 </section>
-<section id="assessments" class="level2">
-<h2 class="anchored" data-anchor-id="assessments">Assessments</h2>
-<ul>
-<li>tutorials (optional) + projects (mandatory) (50%)</li>
-<li>final exam (50%)</li>
-</ul>
+<section id="asset-replacement-from-compecon" class="level2">
+<h2 class="anchored" data-anchor-id="asset-replacement-from-compecon">Asset replacement (from Compecon)</h2>
+<p>At the beginning of each year, a manufacturer must decide whether to continue to operate an aging physical asset or replace it with a new one.</p>
+<p>An asset that is <span class="math inline">\(a\)</span> years old yields a profit contribution <span class="math inline">\(p(a)\)</span> up to <span class="math inline">\(n\)</span> years, at which point, the asset becomes unsafe and must be replaced by law.</p>
+<p>The cost of a new asset is <span class="math inline">\(c\)</span>. What replacement policy maximizes profits?</p>
+<p>Calibration: profit <span class="math inline">\(p(a)=50-2.5a-2.5a^2\)</span>. Maximum asset age: 5 years. Asset replacement cost: 75, annual discount factor <span class="math inline">\(\delta=0.9\)</span>.</p>
+<p><strong>Define kind of problem, the state space, the actions, the reward function, and the Bellman updating equation</strong></p>
+<p><strong>Solve the problem using Value Function Iteration</strong></p>
+<p><strong>Solve the problem using Policy Iteration. Compare with VFI.</strong></p>
+<section id="brock-mirman-stochastic-growth-model" class="level3">
+<h3 class="anchored" data-anchor-id="brock-mirman-stochastic-growth-model">Brock-Mirman Stochastic Growth model</h3>
+<p>This is a neoclassical growth model with unpredictable shocks on productivity.</p>
+<p>Social planner tries to solve:</p>
+<p><span class="math display">\[\max E_t \left[ \sum_{n=0}^{\infty} \beta^n \log C_{t+n} \right]\]</span></p>
+<p>s.t.</p>
+<p><span class="math display">\[K_{t+1} = Y_t - C_t\]</span> <span class="math display">\[Y_{t+1} = A_{t+1}K_{t+1}^\alpha\]</span></p>
+<p>where <span class="math inline">\(A_t\)</span> is the level of productivity in period <span class="math inline">\(t\)</span>. It can take values <span class="math inline">\(A^h=1.05\)</span> and <span class="math inline">\(A^l=0.95\)</span>. The transition between these two states are given by the matrix: <span class="math display">\[P = \begin{bmatrix}
+0.9, 0.1\\
+0.1, 0.9
+\end{bmatrix}\]</span></p>
+<p><strong>Propose a plausible calibration</strong></p>
+<p><strong>What are the states? What are the controls? Is it possible to bound them in a natural way? Propose a discretization scheme.</strong></p>
+<p><strong>Write down the Bellman equation</strong></p>
+<p><strong>How do you represent a policy function? Implement a value evaluation function.</strong></p>
+<p><strong>Solve the model using Value Function Iteration. Plot the solution.</strong></p>
+<p><strong>Implement Policy Improvement Steps. Compare convergence Speed.</strong></p>
+<p><strong>Bonus: Propose some ideas to improve performances.</strong></p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

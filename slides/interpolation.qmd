@@ -1,6 +1,6 @@
 ---
 title: Interpolation
-subtitle:  "Computational Economics"
+subtitle:  "Numerical Methods"
 author: Year 2022-2023 (MIE37)
 format:
   revealjs:

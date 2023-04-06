@@ -1,6 +1,6 @@
 ---
 title: Optimization
-subtitle:  "Computational Economics"
+subtitle:  "Macroeconomics: Numerical Methods"
 author: Year 2022-2023 (MIE37)
 format:
   revealjs:

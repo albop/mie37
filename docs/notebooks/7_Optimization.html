@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Advanced Macro: Numerical Methods – discrete_dynamic_programming_correction</title>
+<title>Advanced Macro: Numerical Methods – optimization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -177,14 +177,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tutorial-discrete-dynamic-programming" id="toc-tutorial-discrete-dynamic-programming" class="nav-link active" data-scroll-target="#tutorial-discrete-dynamic-programming">Tutorial: Discrete Dynamic Programming</a>
+  <li><a href="#tutorial-optimization" id="toc-tutorial-optimization" class="nav-link active" data-scroll-target="#tutorial-optimization">Tutorial: Optimization</a>
   <ul class="collapse">
-  <li><a href="#markov-chains" id="toc-markov-chains" class="nav-link" data-scroll-target="#markov-chains">Markov Chains</a></li>
-  <li><a href="#basic-asset-pricing-model" id="toc-basic-asset-pricing-model" class="nav-link" data-scroll-target="#basic-asset-pricing-model">Basic Asset Pricing model</a></li>
-  <li><a href="#asset-replacement-from-compecon" id="toc-asset-replacement-from-compecon" class="nav-link" data-scroll-target="#asset-replacement-from-compecon">Asset replacement (from Compecon)</a>
-  <ul class="collapse">
-  <li><a href="#brock-mirman-stochastic-growth-model" id="toc-brock-mirman-stochastic-growth-model" class="nav-link" data-scroll-target="#brock-mirman-stochastic-growth-model">Brock-Mirman Stochastic Growth model</a></li>
-  </ul></li>
+  <li><a href="#computational-economics-mie37" id="toc-computational-economics-mie37" class="nav-link" data-scroll-target="#computational-economics-mie37">Computational Economics (MIE37)</a></li>
+  <li><a href="#profit-optimization-by-a-monopolist" id="toc-profit-optimization-by-a-monopolist" class="nav-link" data-scroll-target="#profit-optimization-by-a-monopolist">Profit optimization by a monopolist</a></li>
+  <li><a href="#constrained-optimization" id="toc-constrained-optimization" class="nav-link" data-scroll-target="#constrained-optimization">Constrained optimization</a></li>
+  <li><a href="#consumption-optimization" id="toc-consumption-optimization" class="nav-link" data-scroll-target="#consumption-optimization">Consumption optimization</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -194,64 +192,42 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="tutorial-discrete-dynamic-programming" class="level1">
-<h1>Tutorial: Discrete Dynamic Programming</h1>
-<section id="markov-chains" class="level2">
-<h2 class="anchored" data-anchor-id="markov-chains">Markov Chains</h2>
-<p>A worker’s employment dynamics obey the stochastic matrix</p>
-<p><span class="math display">\[P = \begin{bmatrix}
-1-\alpha &amp; \alpha \\
-\beta &amp; 1-\beta
-\end{bmatrix}\]</span></p>
-<p><span class="math display">\[P = \begin{bmatrix}
-1-\alpha &amp; ... \\
-\beta &amp; ...
-\end{bmatrix}\]</span></p>
-<p>with <span class="math inline">\(\alpha\in(0,1)\)</span> and <span class="math inline">\(\beta\in (0,1)\)</span>. First line corresponds to employment, second line to unemployment.</p>
-<p><strong>Which is the stationary equilibrium? (choose any value for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>)</strong></p>
-<p><strong>In the long run, what will the the fraction <span class="math inline">\(p\)</span> of time spent unemployed? (Denote by <span class="math inline">\(X_m\)</span> the fraction of dates were one is unemployed)</strong></p>
-<p><strong>Illustrate this convergence by generating a simulated series of length 10000 starting at <span class="math inline">\(X_0=1\)</span>. Plot <span class="math inline">\(X_m-p\)</span> against <span class="math inline">\(m\)</span>. (Take <span class="math inline">\(\alpha=\beta=0.1\)</span>).</strong></p>
+<section id="tutorial-optimization" class="level1">
+<h1>Tutorial: Optimization</h1>
+<section id="computational-economics-mie37" class="level2">
+<h2 class="anchored" data-anchor-id="computational-economics-mie37">Computational Economics (MIE37)</h2>
+<p>In this tutorial you will learn to code and use common optimization algorithms for static models.</p>
+<hr>
 </section>
-<section id="basic-asset-pricing-model" class="level2">
-<h2 class="anchored" data-anchor-id="basic-asset-pricing-model">Basic Asset Pricing model</h2>
-<p>A financial asset yields dividend <span class="math inline">\((x_t)\)</span>, which follows an AR1. It is evaluated using the stochastic discount factor: <span class="math inline">\(\rho_{0,t} = \beta^t \exp(y_t)\)</span> where <span class="math inline">\(\beta&lt;1\)</span> and <span class="math inline">\(y_t\)</span> is an <span class="math inline">\(AR1\)</span>. The price of the asset is given by <span class="math inline">\(p_0 = \sum_{t\geq 0} \rho_{0,t} U(x_t)\)</span> where <span class="math inline">\(U(u)=\exp(u)^{0.5}/{0.5}\)</span>. Our goal is to find the pricing function <span class="math inline">\(p(x,y)\)</span>, which yields the price of the asset in any state.</p>
-<p><strong>Write down the recursive equation which must be satisfied by <span class="math inline">\(p\)</span>.</strong></p>
-<p><span class="math display">\[p_t = U(x_t) + \beta E_t \left[ \frac{e^{y_{t+1}}}{e^{y_t}} p_{t+1} \right]\]</span></p>
-<p><strong>Compute the ergodic distribution of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</strong></p>
-<p><strong>Discretize processes <span class="math inline">\((x_t)\)</span> and <span class="math inline">\((y_t)\)</span> using 2 states each. How would you represent the unknown <span class="math inline">\(p()\)</span>?</strong></p>
-<p><strong>Solve for <span class="math inline">\(p()\)</span> using successive approximations</strong></p>
-<p><strong>Solve for <span class="math inline">\(p()\)</span> by solving a linear system (homework)</strong></p>
+<section id="profit-optimization-by-a-monopolist" class="level2">
+<h2 class="anchored" data-anchor-id="profit-optimization-by-a-monopolist">Profit optimization by a monopolist</h2>
+<p>A monopolist produces quantity <span class="math inline">\(q\)</span> of goods X at price <span class="math inline">\(p\)</span>. Its cost function is <span class="math inline">\(c(q) = 0.5 + q (1-qe^{-q})\)</span></p>
+<p>The consumer’s demand for price <span class="math inline">\(p\)</span> is <span class="math inline">\(x(p)=2 e^{-0.5 p}\)</span> (constant elasticity of demand to price).</p>
+<p><strong>Write down the profit function of the monopolist and find the optimal production (if any). Don’t use any library except for plotting.</strong></p>
+<hr>
 </section>
-<section id="asset-replacement-from-compecon" class="level2">
-<h2 class="anchored" data-anchor-id="asset-replacement-from-compecon">Asset replacement (from Compecon)</h2>
-<p>At the beginning of each year, a manufacturer must decide whether to continue to operate an aging physical asset or replace it with a new one.</p>
-<p>An asset that is <span class="math inline">\(a\)</span> years old yields a profit contribution <span class="math inline">\(p(a)\)</span> up to <span class="math inline">\(n\)</span> years, at which point, the asset becomes unsafe and must be replaced by law.</p>
-<p>The cost of a new asset is <span class="math inline">\(c\)</span>. What replacement policy maximizes profits?</p>
-<p>Calibration: profit <span class="math inline">\(p(a)=50-2.5a-2.5a^2\)</span>. Maximum asset age: 5 years. Asset replacement cost: 75, annual discount factor <span class="math inline">\(\delta=0.9\)</span>.</p>
-<p><strong>Define kind of problem, the state space, the actions, the reward function, and the Bellman updating equation</strong></p>
-<p><strong>Solve the problem using Value Function Iteration</strong></p>
-<p><strong>Solve the problem using Policy Iteration. Compare with VFI.</strong></p>
-<section id="brock-mirman-stochastic-growth-model" class="level3">
-<h3 class="anchored" data-anchor-id="brock-mirman-stochastic-growth-model">Brock-Mirman Stochastic Growth model</h3>
-<p>This is a neoclassical growth model with unpredictable shocks on productivity.</p>
-<p>Social planner tries to solve:</p>
-<p><span class="math display">\[\max E_t \left[ \sum_{n=0}^{\infty} \beta^n \log C_{t+n} \right]\]</span></p>
-<p>s.t.</p>
-<p><span class="math display">\[K_{t+1} = Y_t - C_t\]</span> <span class="math display">\[Y_{t+1} = A_{t+1}K_{t+1}^\alpha\]</span></p>
-<p>where <span class="math inline">\(A_t\)</span> is the level of productivity in period <span class="math inline">\(t\)</span>. It can take values <span class="math inline">\(A^h=1.05\)</span> and <span class="math inline">\(A^l=0.95\)</span>. The transition between these two states are given by the matrix: <span class="math display">\[P = \begin{bmatrix}
-0.9, 0.1\\
-0.1, 0.9
-\end{bmatrix}\]</span></p>
-<p><strong>Propose a plausible calibration</strong></p>
-<p><strong>What are the states? What are the controls? Is it possible to bound them in a natural way? Propose a discretization scheme.</strong></p>
-<p><strong>Write down the Bellman equation</strong></p>
-<p><strong>How do you represent a policy function? Implement a value evaluation function.</strong></p>
-<p><strong>Solve the model using Value Function Iteration. Plot the solution.</strong></p>
-<p><strong>Implement Policy Improvement Steps. Compare convergence Speed.</strong></p>
-<p><strong>Bonus: Propose some ideas to improve performances.</strong></p>
+<section id="constrained-optimization" class="level2">
+<h2 class="anchored" data-anchor-id="constrained-optimization">Constrained optimization</h2>
+<p>Consider the function <span class="math inline">\(f(x,y) = 1-(x-0.5)^2 -(y-0.3)^2\)</span>.</p>
+<p><strong>Use Optim.jl to minimize <span class="math inline">\(f\)</span> without constraint. Check you understand diagnostic information returned by the optimizer.</strong></p>
+<p><strong>Now, consider the constraint <span class="math inline">\(x&lt;0.3\)</span> and maximize <span class="math inline">\(f\)</span> under this new constraint.</strong></p>
+<p><strong>Reformulate the problem as a root finding problem with lagrangians. Write the complementarity conditions.</strong></p>
+<p><strong>Solve using NLSolve.jl</strong></p>
+<hr>
+</section>
+<section id="consumption-optimization" class="level2">
+<h2 class="anchored" data-anchor-id="consumption-optimization">Consumption optimization</h2>
+<p>A consumer has preferences <span class="math inline">\(U(c_1, c_2)\)</span> over two consumption goods <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_2\)</span>.</p>
+<p>Given a budget <span class="math inline">\(I\)</span>, consumer wants to maximize utility subject to the budget constraint <span class="math inline">\(p_1 c_1 + p_2 c_2 \leq I\)</span>.</p>
+<p>We choose a Stone-Geary specification where</p>
+<p><span class="math inline">\(U(c_1, c_2)=\beta_1 \log(c_1-\gamma_1) + \beta_2 \log(c_2-\gamma_2)\)</span></p>
+<p><strong>Write the Karush-Kuhn-Tucker necessary conditions for the problem.</strong></p>
+<p><strong>Verify the KKT conditions are sufficient for optimality.</strong></p>
+<p><strong>Derive analytically the demand functions, and the shadow price.</strong></p>
+<p><strong>Interpret this problem as a complementarity problem and solve it using NLSolve.</strong></p>
+<p><strong>Produce some nice graphs with isoutility curves, the budget constraint and the optimal choice.</strong></p>
 
 
-</section>
 </section>
 </section>
 

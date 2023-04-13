@@ -18,13 +18,15 @@ website:
             - slides/discretization.qmd
             - slides/optimization.qmd
             - slides/interpolation.qmd
+            - slides/time_iteration.qmd
 
         - section: "Tutorials"
           contents:
             - notebooks/1_Julia_Basics_correction.ipynb
             - notebooks/2_solow_correction.ipynb
             - notebooks/3_perturbation_neoclassical_correction.ipynb
-
+            - notebooks/7_Optimization_correction.ipynb
+            - notebooks/8_smooth_vfi.ipynb
 format:
   html:
     theme: flatly

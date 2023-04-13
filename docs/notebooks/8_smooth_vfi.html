@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Advanced Macro: Numerical Methods – a_optimization_pushups</title>
+<title>Advanced Macro: Numerical Methods – smooth_vfi</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,6 +59,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -172,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/8_smooth_vfi.html" class="sidebar-item-text sidebar-link">Tutorial: Smooth Value Function Iteration</a>
+  <a href="../notebooks/8_smooth_vfi.html" class="sidebar-item-text sidebar-link active">Tutorial: Smooth Value Function Iteration</a>
   </div>
 </li>
       </ul>
@@ -186,9 +187,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tutorial-basic-optimization-algorithms" id="toc-tutorial-basic-optimization-algorithms" class="nav-link active" data-scroll-target="#tutorial-basic-optimization-algorithms">Tutorial: Basic Optimization Algorithms</a>
+  <li><a href="#tutorial-smooth-value-function-iteration" id="toc-tutorial-smooth-value-function-iteration" class="nav-link active" data-scroll-target="#tutorial-smooth-value-function-iteration">Tutorial: Smooth Value Function Iteration</a>
   <ul class="collapse">
-  <li><a href="#computational-economics-mie37" id="toc-computational-economics-mie37" class="nav-link" data-scroll-target="#computational-economics-mie37">Computational Economics (MIE37)</a></li>
+  <li><a href="#advanced-macroeconomics-mie37" id="toc-advanced-macroeconomics-mie37" class="nav-link" data-scroll-target="#advanced-macroeconomics-mie37">Advanced Macroeconomics (MIE37)</a></li>
+  <li><a href="#neoclassical-growth-model" id="toc-neoclassical-growth-model" class="nav-link" data-scroll-target="#neoclassical-growth-model">Neoclassical growth model</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -198,21 +200,40 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="tutorial-basic-optimization-algorithms" class="level1">
-<h1>Tutorial: Basic Optimization Algorithms</h1>
-<section id="computational-economics-mie37" class="level2">
-<h2 class="anchored" data-anchor-id="computational-economics-mie37">Computational Economics (MIE37)</h2>
-<p>The spirit of this simple tutorial consists in learning how to write simple solution algorithms. For each algorithm, test that it works, using simple test functions whose solution is known.</p>
-<p><strong>Write a function <code>fixed_point(f::Function, x0::Float64)</code> which computes the fixed point of <code>f</code> starting from initial point <code>x0</code>.</strong></p>
-<p><strong>Write a function <code>bisection(f::Function, a::Float64, b::Float64)</code> which computes a zero of function <code>f</code> within <code>(a,b)</code> using a bisection method.</strong></p>
-<p><strong>Write a function <code>golden(f::Function, a::Float64, b::Float64)</code> which computes a zero of function <code>f</code> within <code>(a,b)</code> using a golden ratio method.</strong></p>
-<p><strong>Write a function <code>zero_newton(f::Function, x0::Float64)</code> which computes the zero of function <code>f</code> starting from initial point <code>x0</code>.</strong></p>
-<p><strong>Add an option <code>zero_newton(f::Function, x0::Float64, backtracking=true)</code> which computes the zero of function <code>f</code> starting from initial point <code>x0</code> using backtracking in each iteration.</strong></p>
-<p><strong>Write a function <code>min_gd(f::Function, x0::Float64)</code> which computes the minimum of function <code>f</code> using gradient descent. Assume <code>f</code> returns a scalar and a gradient.</strong></p>
-<p><strong>Write a function <code>min_nr(f::Function, x0::Float64)</code> which computes the minimum of function <code>f</code> using Newton-Raphson method. Assume <code>f</code> returns a scalar, a gradient, and a hessian.</strong></p>
-<p><strong>Write a method <code>zero_newton(f::Function, x0::Vector{Float64})</code> which computes the zero of a vector valued function <code>f</code> starting from initial point <code>x0</code>.</strong></p>
-<p><strong>Add an method <code>zero_newton(f::Function, x0::Vector{Float64}, backtracking=true)</code> which computes the zero of function <code>f</code> starting from initial point <code>x0</code> using backtracking in each iteration.</strong></p>
-<p><strong>Add a method <code>zero_newton(f::Function, x0::Vector{Float64}, backtracking=true, lb=Vector{Float64})</code> which computes the zero of function <code>f</code> starting from initial point <code>x0</code> taking complementarity constraint into account <code>x&gt;=lb</code> using the Fischer-Burmeister method.</strong></p>
+<section id="tutorial-smooth-value-function-iteration" class="level1">
+<h1>Tutorial: Smooth Value Function Iteration</h1>
+<section id="advanced-macroeconomics-mie37" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-macroeconomics-mie37">Advanced Macroeconomics (MIE37)</h2>
+</section>
+<section id="neoclassical-growth-model" class="level2">
+<h2 class="anchored" data-anchor-id="neoclassical-growth-model">Neoclassical growth model</h2>
+<p>We consider here, another deterministic version of the neoclassical growth model, but propose a slightly different solution method.</p>
+<p>A representative agent uses capital <span class="math inline">\(k_t\)</span> to produce <span class="math inline">\(y_t\)</span> using the following production function:</p>
+<p><span class="math display">\[y_t = k_t^{\alpha}\]</span></p>
+<p>He chooses to consume an amount <span class="math inline">\(c_t \in ]0, y_t]\)</span> and invests what remains: <span class="math display">\[i_t = y_t - c_t\]</span></p>
+<p>He accumulates capital <span class="math inline">\(k_t\)</span> according to:</p>
+<p><span class="math display">\[k_{t+1} = \left( 1-\delta \right) k_{t} + i_{t}\]</span></p>
+<p>where <span class="math inline">\(\delta\)</span> is the depreciation rate and <span class="math inline">\(i_t\)</span> is the amount invested.</p>
+<p>The goal of the representative agent is to maximize:</p>
+<p><span class="math display">\[\sum_{t\geq 0} \beta^t U(c_t)\]</span></p>
+<p>where <span class="math inline">\(U(x)=\frac{x^{1-\gamma}}{1-\gamma}\)</span> and <span class="math inline">\(\beta&lt;1\)</span> is the discount factor.</p>
+<p>Since the problem is time homogenous, the value function depends on available capital only and satisfies the following Bellman equation:</p>
+<p><span class="math display">\[V\left(\underbrace{k}_{k_t}\right) = \max_{c\in[0,1[} U(c) + \beta V\left(\underbrace{(1-\delta)k + \underbrace{(k^{\alpha}-c)}_{y_{t+1}}}_{k_{t+1}}\right)\]</span></p>
+<p>Our goal is to obtain a smooth approximation of <span class="math inline">\(k\)</span> and <span class="math inline">\(V\)</span> by using interpolations techniques.</p>
+<p>For this model, using the dynamic first-order conditions, one can show the deterministic steady-state of the model satisfies <span class="math inline">\(1=\beta \left( (1-\delta) + \alpha k^{\alpha -1} \right)\)</span>.</p>
+<p><strong>Create a suitable Parameter type to hold the parameters. Write a function <code>steady_state(p::Parameter)</code> to compute the steady-state capital <code>kbar</code> and the corresponding steady-state consumption <code>cbar</code></strong></p>
+<p><strong>Set <span class="math inline">\(N=10\)</span> and define a reasonable grid <code>kgrid=range(kmin, kmax; length=N)</code> to approximate capital <span class="math inline">\(k\)</span>.</strong></p>
+<p><strong>The unknown value function is represented as a <code>N</code> elements arrays. Define <code>Vi(k,p)=U(δ * k^α)/(1-𝛽)</code> and compute the initial guess <code>V0 = [Vi(k,p) for k in kgrid]</code>. Define a finer grid <code>ktest=range(kmin, kmax;length=1000)</code> and find the values of <code>Vi</code> on it by using <code>Interpolations.jl</code> library to interpolate <code>V0</code> between the points of <code>kgrid</code>.</strong></p>
+<p><strong>Compute a Bellman improvement function <code>bellman(V0::Vector{Float64}, p::Parameter, kgrid)::Tuple{Vector{Float64}, Vector{Float64}}</code> which does the following steps:</strong></p>
+<ul>
+<li><p>take an initial guess <code>V0</code> for the value function</p></li>
+<li><p>at each grid point from kvec, optimize nonlinearly, the function <span class="math inline">\(c \rightarrow U(c) + \beta V\left((1-\delta)k + (k^{\alpha}-c)\right)\)</span> for each capital level in the grid <code>kvec</code>. In this expression the function <code>V()</code> interpolates <code>V0</code> defined on <code>kvec</code> on any point <code>k</code> so that the resulting function is continuous.</p></li>
+<li><p>return the updated value and investment rules</p></li>
+</ul>
+<p><strong>Write a value interation function <code>vfi(N, p)</code> which solves the model defined by parameter <code>p</code> using the value function algorithm. The function should return the value function and the policy rule.</strong></p>
+<p><strong>Plot the solution. Comment.</strong></p>
+<p><strong>Bonus 1: plot a graph showing the convergence back to the steady-state</strong></p>
+<p><strong>Bonus 2: implement the policy iteration algorithm by adding an evaluation step in the <code>vfi</code> function.</strong></p>
 
 
 </section>

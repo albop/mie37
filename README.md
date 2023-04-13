@@ -13,7 +13,7 @@ Check the [website](https://www.mosphere.fr/mie37/) for the course!
 | 23/03              | McCall Model (2)                                                                                                    |                        |
 | 30/03              | Discretization                                                                                         |    Coursework                    |
 | <mark>06/04</mark>              | Interpolation                                                                                      |          |
-| 13/04              | Approximate Dynamie Programming (VFI)                                                                                      |          |
+| 13/04              | Approximate Dynamic Programming (VFI)                                                                                      |          |
 
 ## Communication
 

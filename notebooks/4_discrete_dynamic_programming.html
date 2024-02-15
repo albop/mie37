@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Advanced Macro: Numerical Methods - Tutorial: Discrete Dynamic Programming</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Advanced Macro: Numerical Methods
+      </li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Advanced Macro: Numerical Methods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Convergence of sequences</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/perturbation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Perturbation Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/ddp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discrete Dynamic Programming</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/discretization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discretization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Optimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interpolation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/time_iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Time Iteration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/1_Julia_Basics_correction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2_solow_correction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Convergence: Solow Model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/3_perturbation_neoclassical_correction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Perturbation: Neoclassical Growth Model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/7_Optimization_correction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial: Optimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/8_smooth_vfi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial: Smooth Value Function Iteration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tutorial-discrete-dynamic-programming" id="toc-tutorial-discrete-dynamic-programming" class="nav-link active" data-scroll-target="#tutorial-discrete-dynamic-programming">Tutorial: Discrete Dynamic Programming</a>
+  <ul class="collapse">
+  <li><a href="#markov-chains" id="toc-markov-chains" class="nav-link" data-scroll-target="#markov-chains">Markov Chains</a></li>
+  <li><a href="#basic-asset-pricing-model" id="toc-basic-asset-pricing-model" class="nav-link" data-scroll-target="#basic-asset-pricing-model">Basic Asset Pricing model</a></li>
+  <li><a href="#asset-replacement-from-compecon" id="toc-asset-replacement-from-compecon" class="nav-link" data-scroll-target="#asset-replacement-from-compecon">Asset replacement (from Compecon)</a>
+  <ul class="collapse">
+  <li><a href="#brock-mirman-stochastic-growth-model" id="toc-brock-mirman-stochastic-growth-model" class="nav-link" data-scroll-target="#brock-mirman-stochastic-growth-model">Brock-Mirman Stochastic Growth model</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tutorial: Discrete Dynamic Programming</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="tutorial-discrete-dynamic-programming" class="level1">
+<h1>Tutorial: Discrete Dynamic Programming</h1>
+<section id="markov-chains" class="level2">
+<h2 class="anchored" data-anchor-id="markov-chains">Markov Chains</h2>
+<p>A worker’s employment dynamics obey the stochastic matrix</p>
+<p><span class="math display">\[P = \begin{bmatrix}
+1-\alpha &amp; \alpha \\
+\beta &amp; 1-\beta
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[P = \begin{bmatrix}
+1-\alpha &amp; ... \\
+\beta &amp; ...
+\end{bmatrix}\]</span></p>
+<p>with <span class="math inline">\(\alpha\in(0,1)\)</span> and <span class="math inline">\(\beta\in (0,1)\)</span>. First line corresponds to employment, second line to unemployment.</p>
+<p><strong>Which is the stationary equilibrium? (choose any value for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>)</strong></p>
+<div id="cell-4" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>α <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> [<span class="fl">1</span><span class="op">-</span>α α; β <span class="fl">1</span><span class="op">-</span>β]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×2 Matrix{Float64}:
+ 0.8  0.2
+ 0.3  0.7</code></pre>
+</div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1</span>,<span class="fl">1</span>]<span class="ch">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1×2 adjoint(::Vector{Int64}) with eltype Int64:
+ 1  1</code></pre>
+</div>
+</div>
+<div id="cell-6" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we want μ = μ*P</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># we want μ = P'*μ</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we want (P'-I)*μ = 0</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># can we μ=(P'-I)\0</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>: I</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> (P<span class="op">'-</span>I)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>Q <span class="op">=</span> <span class="fu">cat</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    M,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">1</span>,<span class="fl">1</span>]<span class="ch">'</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    ; dims<span class="op">=</span><span class="fl">1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Q <span class="op">\</span> [<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1.0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2-element Vector{Float64}:
+ 0.6
+ 0.3999999999999999</code></pre>
+</div>
+</div>
+<p><strong>In the long run, what will the the fraction <span class="math inline">\(p\)</span> of time spent unemployed? (Denote by <span class="math inline">\(X_m\)</span> the fraction of dates were one is unemployed)</strong></p>
+<p><strong>Illustrate this convergence by generating a simulated series of length 10000 starting at <span class="math inline">\(X_0=1\)</span>. Plot <span class="math inline">\(X_m-p\)</span> against <span class="math inline">\(m\)</span>. (Take <span class="math inline">\(\alpha=\beta=0.1\)</span>).</strong></p>
+</section>
+<section id="basic-asset-pricing-model" class="level2">
+<h2 class="anchored" data-anchor-id="basic-asset-pricing-model">Basic Asset Pricing model</h2>
+<p>A financial asset yields dividend <span class="math inline">\((x_t)\)</span>, which follows an AR1. It is evaluated using the stochastic discount factor: <span class="math inline">\(\rho_{0,t} = \beta^t \exp(y_t)\)</span> where <span class="math inline">\(\beta&lt;1\)</span> and <span class="math inline">\(y_t\)</span> is an <span class="math inline">\(AR1\)</span>. The price of the asset is given by <span class="math inline">\(p_0 = \sum_{t\geq 0} \rho_{0,t} U(x_t)\)</span> where <span class="math inline">\(U(u)=\exp(u)^{0.5}/{0.5}\)</span>. Our goal is to find the pricing function <span class="math inline">\(p(x,y)\)</span>, which yields the price of the asset in any state.</p>
+<p><strong>Write down the recursive equation which must be satisfied by <span class="math inline">\(p\)</span>.</strong></p>
+<p><span class="math display">\[p_t = U(x_t) + \beta E_t \left[ \frac{e^{y_{t+1}}}{e^{y_t}} p_{t+1} \right]\]</span></p>
+<p><strong>Compute the ergodic distribution of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</strong></p>
+<div id="cell-15" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we do it for three states</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> [ <span class="fl">0.9</span>  <span class="fl">0.05</span> <span class="fl">0.05</span> ;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.05</span> <span class="fl">0.9</span>  <span class="fl">0.05</span> ;</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.05</span> <span class="fl">0.05</span> <span class="fl">0.9</span> ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>3×3 Matrix{Float64}:
+ 0.9   0.05  0.05
+ 0.05  0.9   0.05
+ 0.05  0.05  0.9</code></pre>
+</div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(M; dims<span class="op">=</span><span class="fl">2</span>) <span class="co"># all columns sum to 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>3×1 Matrix{Float64}:
+ 1.0
+ 1.0
+ 1.0</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we want the solution μ such that</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># μ M  = μ</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#M' μ = μ</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Mp <span class="op">=</span> M<span class="op">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>3×3 adjoint(::Matrix{Float64}) with eltype Float64:
+ 0.9   0.05  0.05
+ 0.05  0.9   0.05
+ 0.05  0.05  0.9</code></pre>
+</div>
+</div>
+<div id="cell-19" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> M<span class="op">'-</span> I</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># μ should satisfy (M'-I)μ = 0</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to add the condition $|μ|=1$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>3×3 Matrix{Float64}:
+ -0.1    0.05   0.05
+  0.05  -0.1    0.05
+  0.05   0.05  -0.1</code></pre>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>P[<span class="kw">end</span>,<span class="op">:</span>] <span class="op">.=</span> <span class="fl">1.0</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>P</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we should have $ P  \mu = [0, 0, 1]</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>v0 <span class="op">=</span> [<span class="fl">0</span>., <span class="fl">0</span>., <span class="fl">1</span>.]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>3-element Vector{Float64}:
+ 0.0
+ 0.0
+ 1.0</code></pre>
+</div>
+</div>
+<div id="cell-21" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>μ <span class="op">=</span> P <span class="op">\</span> v0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>3-element Vector{Float64}:
+ 0.3333333333333333
+ 0.3333333333333334
+ 0.33333333333333326</code></pre>
+</div>
+</div>
+<div id="cell-22" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>μ<span class="ch">'*M - μ'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1×3 adjoint(::Vector{Float64}) with eltype Float64:
+ 0.0  0.0  0.0</code></pre>
+</div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(μ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1.0</code></pre>
+</div>
+</div>
+<p><strong>Discretize processes <span class="math inline">\((x_t)\)</span> and <span class="math inline">\((y_t)\)</span> using 2 states each. How would you represent the unknown <span class="math inline">\(p()\)</span>?</strong></p>
+<div id="cell-25" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>M_x <span class="op">=</span> [ <span class="fl">0.9</span>  <span class="fl">0.1</span> ; <span class="fl">0.1</span> <span class="fl">0.9</span> ]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>M_y <span class="op">=</span> [ <span class="fl">0.5</span>  <span class="fl">0.5</span> ; <span class="fl">0.5</span> <span class="fl">0.5</span> ]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>v_x <span class="op">=</span> [<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>v_y <span class="op">=</span> [<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2-element Vector{Float64}:
+ -0.1
+  0.1</code></pre>
+</div>
+</div>
+<p>We represent <span class="math inline">\(p(x,y)\)</span> as a 2d matrix <span class="math inline">\((p_{ij})\)</span> where <span class="math inline">\(p_{ij}=p(x_i, y_j)\)</span></p>
+<div id="cell-27" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>P_0 <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">2</span>,<span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×2 Matrix{Float64}:
+ 0.694689  0.349115
+ 0.883153  0.187633</code></pre>
+</div>
+</div>
+<div id="cell-28" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Can we list the full states: $(x_i, y_j)$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-29" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Base.Iterators</span>: product</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-30" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># option 1</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>[<span class="fu">product</span>(v_x, v_y)<span class="op">...</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>4-element Vector{Tuple{Float64, Float64}}:
+ (-0.1, -0.1)
+ (0.1, -0.1)
+ (-0.1, 0.1)
+ (0.1, 0.1)</code></pre>
+</div>
+</div>
+<div id="cell-31" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># option 2</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> [(a,b) for a <span class="kw">in</span> v_x, b <span class="kw">in</span> v_y]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>grid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×2 Matrix{Tuple{Float64, Float64}}:
+ (-0.1, -0.1)  (-0.1, 0.1)
+ (0.1, -0.1)   (0.1, 0.1)</code></pre>
+</div>
+</div>
+<div id="cell-32" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kron</span>(M_x, M_y) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>4×4 Matrix{Float64}:
+ 0.45  0.45  0.05  0.05
+ 0.45  0.45  0.05  0.05
+ 0.05  0.05  0.45  0.45
+ 0.05  0.05  0.45  0.45</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># can you write yourself the kronecker matrix?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Solve for <span class="math inline">\(p()\)</span> using successive approximations</strong></p>
+<div id="cell-35" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to avoid using global variables</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="fu">merge</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    (;M_x, M_y, v_x, v_y),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    (;β<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(M_x = [0.9 0.1; 0.1 0.9], M_y = [0.5 0.5; 0.5 0.5], v_x = [-0.1, 0.1], v_y = [-0.1, 0.1], β = 0.9)</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">U</span>(u) <span class="op">=</span> <span class="fu">sqrt</span>(<span class="fu">exp</span>(u))<span class="op">/</span><span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>U (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-37" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">evaluation_step</span>(p_0<span class="op">::</span><span class="dt">Matrix</span>, model)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    (;M_x, M_y, v_x, v_y, β) <span class="op">=</span> model</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    p_1 <span class="op">=</span> p_0<span class="op">*</span><span class="fl">0</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#iteration over the  (current) state-space</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_x, <span class="fl">1</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_y, <span class="fl">1</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>            reward <span class="op">=</span> <span class="fu">U</span>(v_x[i])</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>            continuation <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>            <span class="co"># enumerate all future states</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> k<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_x, <span class="fl">1</span>)</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> l<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_y, <span class="fl">1</span>)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># probability of ending in (k,l) from (i,j)</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>                    λ <span class="op">=</span> M_x[i,k] <span class="op">*</span> M_y[j, l]</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>                    continuation <span class="op">+=</span> λ <span class="op">*</span> p_0[k,l]</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>            p_1[i,j] <span class="op">=</span> reward <span class="op">+</span> β<span class="op">*</span>continuation</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_1<span class="op">::</span><span class="dt">Matrix</span></span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>evaluation_step (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-38" class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">evaluation_step</span>(p_0<span class="op">::</span><span class="dt">Matrix</span>, model)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    (;M_x, M_y, v_x, v_y, β) <span class="op">=</span> model</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    p_1 <span class="op">=</span> p_0<span class="op">*</span><span class="fl">0</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#iteration over the  (current) state-space</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_x, <span class="fl">1</span>), j<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_y, <span class="fl">1</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>            p_1[i,j] <span class="op">=</span>  <span class="fu">U</span>(v_x[i]) <span class="op">+</span> <span class="fu">β*sum</span>( M_x[i,k]<span class="op">*</span>M_y[j, l] <span class="op">*</span>p_0[k,l] <span class="cf">for</span> k<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_x, <span class="fl">1</span>), l<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(M_y, <span class="fl">1</span>) )</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_1<span class="op">::</span><span class="dt">Matrix</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>evaluation_step (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-39" class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">evaluation_step</span>(P_0, model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×2 Matrix{Float64}:
+ 2.37338  2.37338
+ 2.58318  2.58318</code></pre>
+</div>
+</div>
+<div id="cell-40" class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">price</span>(model; T<span class="op">=</span><span class="fl">100</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    p_0 <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">2</span>,<span class="fl">2</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        p_1 <span class="op">=</span> <span class="fu">evaluation_step</span>(p_0, model)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        p_0 <span class="op">=</span> p_1</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_0</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>price (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-41" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">price</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×2 Matrix{Float64}:
+ 19.6672  19.6672
+ 20.3818  20.3818</code></pre>
+</div>
+</div>
+<p><strong>Solve for <span class="math inline">\(p()\)</span> by solving a linear system (homework)</strong></p>
+</section>
+<section id="asset-replacement-from-compecon" class="level2">
+<h2 class="anchored" data-anchor-id="asset-replacement-from-compecon">Asset replacement (from Compecon)</h2>
+<p>At the beginning of each year, a manufacturer must decide whether to continue to operate an aging physical asset or replace it with a new one.</p>
+<p>An asset that is <span class="math inline">\(a\)</span> years old yields a profit contribution <span class="math inline">\(p(a)\)</span> up to <span class="math inline">\(n\)</span> years, at which point, the asset becomes unsafe and must be replaced by law.</p>
+<p>The cost of a new asset is <span class="math inline">\(c\)</span>. What replacement policy maximizes profits?</p>
+<p>Calibration: profit <span class="math inline">\(p(a)=50-2.5a-2.5a^2\)</span>. Maximum asset age: 5 years. Asset replacement cost: 75, annual discount factor <span class="math inline">\(\delta=0.9\)</span>.</p>
+<p><strong>Define kind of problem, the state space, the actions, the reward function, and the Bellman updating equation</strong></p>
+<p>kind of problem: - discrete/finite state and actions space - infinite horizon - discrete dynamic programming problem (d.m.d.p.)</p>
+<ul>
+<li>state-space: asset age <span class="math inline">\(a\in[0,1,2,3,4,5]\)</span></li>
+<li>actions: keep/replace (<span class="math inline">\(\text{replace} in false/true\)</span> if a&lt;5)</li>
+</ul>
+<p>Bellman updating equation:</p>
+<p><span class="math display">\[ V(a) ← p(a) + \delta \begin{cases} V(0) - c \   \text{if a=true} \\ V(a+1) \text{if a=false} \\ V(0)-c \text{if a=5}\end{cases}   \]</span></p>
+<p><strong>Solve the problem using Value Function Iteration</strong></p>
+<div id="cell-50" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p</span>(a) <span class="op">=</span> <span class="fl">50</span><span class="op">-</span><span class="fl">2.5</span><span class="op">*</span>a<span class="op">-</span><span class="fl">2.5</span><span class="op">*</span>a<span class="op">^</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>p (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-51" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="st">value_update: computes the Bellman update</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="st">- x: policy function</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="st">- V: Value function</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">value_update</span>(x<span class="op">::</span><span class="dt">Vector{Bool}</span>, V<span class="op">::</span><span class="dt">Vector{Float64}</span>; δ<span class="op">=</span><span class="fl">0.9</span>, c<span class="op">=</span><span class="fl">75.0</span>)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    V1 <span class="op">=</span> V<span class="op">*</span><span class="fl">0</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="fu">length</span>(V)</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="fl">1</span><span class="op">:</span>N</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> i<span class="op">-</span><span class="fl">1</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a <span class="op">==</span> <span class="fl">5</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>            <span class="co"># forced replacement</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># a1 = 0</span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>            reward <span class="op">=</span> <span class="fu">p</span>(a) <span class="op">-</span> c</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>            contv <span class="op">=</span> V[<span class="fl">1</span>]</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> x[i]</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>                <span class="co"># replace</span></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>                reward <span class="op">=</span> <span class="fu">p</span>(a) <span class="op">-</span> c</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>                contv <span class="op">=</span> V[<span class="fl">1</span>]</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>                <span class="co"># not replace</span></span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>                reward <span class="op">=</span> <span class="fu">p</span>(a)</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>                contv <span class="op">=</span> V[i<span class="op">+</span><span class="fl">1</span>]</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a>        V1[i] <span class="op">=</span> reward <span class="op">+</span> δ<span class="op">*</span>contv</span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> V1</span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>value_update</code></pre>
+</div>
+</div>
+<div id="cell-52" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> [<span class="cn">false</span>, <span class="cn">false</span>, <span class="cn">false</span>, <span class="cn">false</span>, <span class="cn">false</span>]</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>V0 <span class="op">=</span> [<span class="fl">0.0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>6-element Vector{Float64}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0</code></pre>
+</div>
+</div>
+<div id="cell-53" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">value_update</span>(x0, V0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>6-element Vector{Float64}:
+   50.0
+   45.0
+   35.0
+   20.0
+    0.0
+ -100.0</code></pre>
+</div>
+</div>
+<div id="cell-55" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="st">value_update: computes the Bellman update</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="st">- x: policy function</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="st">- V: Value function</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">bellman_update</span>( V<span class="op">::</span><span class="dt">Vector{Float64}</span>; δ<span class="op">=</span><span class="fl">0.9</span>, c<span class="op">=</span><span class="fl">75.0</span>)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    V1 <span class="op">=</span> V<span class="op">*</span><span class="fl">0</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    x1 <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Bool</span>, <span class="fl">5</span>) <span class="co"># create a vector [false, false, ...]</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="fu">length</span>(V)</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="fl">1</span><span class="op">:</span>N</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> i<span class="op">-</span><span class="fl">1</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a <span class="op">==</span> <span class="fl">5</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># forced replacement</span></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># a1 = 0</span></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>            reward <span class="op">=</span> <span class="fu">p</span>(a) <span class="op">-</span> c</span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>            contv <span class="op">=</span> V[<span class="fl">1</span>]</span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>            V1[i] <span class="op">=</span> reward <span class="op">+</span> δ<span class="op">*</span>contv</span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># replace</span></span>
+<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a>            V_rep <span class="op">=</span> <span class="fu">p</span>(a) <span class="op">-</span> c <span class="op">+</span> δ<span class="op">*</span>V[<span class="fl">1</span>]</span>
+<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>            <span class="co"># not replace</span></span>
+<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>            V_nrep <span class="op">=</span> <span class="fu">p</span>(a) <span class="op">+</span> δ<span class="op">*</span>V[i<span class="op">+</span><span class="fl">1</span>]</span>
+<span id="cb59-30"><a href="#cb59-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-31"><a href="#cb59-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> V_rep<span class="op">&gt;</span>V_nrep</span>
+<span id="cb59-32"><a href="#cb59-32" aria-hidden="true" tabindex="-1"></a>                V1[i] <span class="op">=</span> V_rep</span>
+<span id="cb59-33"><a href="#cb59-33" aria-hidden="true" tabindex="-1"></a>                x1[i] <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb59-34"><a href="#cb59-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb59-35"><a href="#cb59-35" aria-hidden="true" tabindex="-1"></a>                V1[i] <span class="op">=</span> V_nrep</span>
+<span id="cb59-36"><a href="#cb59-36" aria-hidden="true" tabindex="-1"></a>                x1[i] <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb59-37"><a href="#cb59-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb59-38"><a href="#cb59-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-39"><a href="#cb59-39" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb59-40"><a href="#cb59-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb59-41"><a href="#cb59-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-42"><a href="#cb59-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb59-43"><a href="#cb59-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-44"><a href="#cb59-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> V1, x1</span>
+<span id="cb59-45"><a href="#cb59-45" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>bellman_update</code></pre>
+</div>
+</div>
+<div id="cell-56" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">vfi</span>(V0; log<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    x1 <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Bool</span>, <span class="fl">5</span>)</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>    record <span class="op">=</span> [(;V<span class="op">=</span>V0, x<span class="op">=</span>x1)]</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>        V1, x1 <span class="op">=</span> <span class="fu">bellman_update</span>(V0)</span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>(record , (;V<span class="op">=</span>V1, x<span class="op">=</span>x1))</span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(x1)</span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>        V0 <span class="op">=</span> V1</span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> V0, x1,  record</span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>vfi (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-57" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SimplePlots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-58" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>V, x, record <span class="op">=</span> <span class="fu">vfi</span>(V0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bool[0, 0, 0, 0, 0]
+Bool[0, 0, 0, 0, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 1, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]
+Bool[0, 0, 0, 1, 1]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>([229.00165560469247, 198.8907284496583, 170.99026363319058, 151.10095881624548, 131.10095881624548, 106.10095881624548], Bool[0, 0, 0, 1, 1], NamedTuple{(:V, :x), Tuple{Vector{Float64}, Vector{Bool}}}[(V = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], x = [0, 0, 0, 0, 0]), (V = [50.0, 45.0, 35.0, 20.0, 0.0, -100.0], x = [0, 0, 0, 0, 0]), (V = [90.5, 76.5, 53.0, 20.0, -30.0, -55.0], x = [0, 0, 0, 0, 1]), (V = [118.85000000000001, 92.7, 53.0, 26.450000000000003, 6.450000000000003, -18.549999999999997], x = [0, 0, 0, 1, 1]), (V = [133.43, 92.7, 66.965, 51.965, 31.965000000000003, 6.965000000000003], x = [0, 0, 1, 1, 1]), (V = [133.43, 105.2685, 81.7685, 65.087, 45.087, 20.087000000000003], x = [0, 0, 0, 1, 1]), (V = [144.74165, 118.59165, 93.57830000000001, 65.087, 45.087, 20.087000000000003], x = [0, 0, 0, 1, 1]), (V = [156.732485, 129.22047000000003, 93.57830000000001, 75.267485, 55.26748499999999, 30.267484999999994], x = [0, 0, 0, 1, 1]), (V = [166.298423, 129.22047000000003, 102.7407365, 86.0592365, 66.0592365, 41.0592365], x = [0, 0, 0, 1, 1]), (V = [166.298423, 137.46666285, 112.45331285, 94.6685807, 74.6685807, 49.66858070000001], x = [0, 0, 0, 1, 1])  …  (V = [228.9951651634136, 198.88504039519822, 170.9833782168869, 151.09410174532763, 131.09410174532763, 106.09410174532763], x = [0, 0, 0, 1, 1]), (V = [228.9965363556784, 198.88504039519822, 170.98469157079487, 151.09564864707224, 131.09564864707224, 106.09564864707224], x = [0, 0, 0, 1, 1]), (V = [228.9965363556784, 198.8862224137154, 170.98608378236503, 151.09688272011056, 131.09688272011056, 106.09688272011056], x = [0, 0, 0, 1, 1]), (V = [228.99760017234385, 198.88747540412854, 170.9871944480995, 151.09688272011056, 131.09688272011056, 106.09688272011056], x = [0, 0, 0, 1, 1]), (V = [228.9987278637157, 198.88847500328956, 170.9871944480995, 151.09784015510948, 131.09784015510948, 106.09784015510948], x = [0, 0, 0, 1, 1]), (V = [228.9996275029606, 198.88847500328956, 170.98805613959854, 151.09885507734413, 131.09885507734413, 106.09885507734413], x = [0, 0, 0, 1, 1]), (V = [228.9996275029606, 198.8892505256387, 170.9889695696097, 151.09966475266455, 131.09966475266455, 106.09966475266455], x = [0, 0, 0, 1, 1]), (V = [229.0003254730748, 198.89007261264874, 170.9896982773981, 151.09966475266455, 131.09966475266455, 106.09966475266455], x = [0, 0, 0, 1, 1]), (V = [229.00106535138386, 198.8907284496583, 170.9896982773981, 151.10029292576732, 131.10029292576732, 106.10029292576732], x = [0, 0, 0, 1, 1]), (V = [229.00165560469247, 198.8907284496583, 170.99026363319058, 151.10095881624548, 131.10095881624548, 106.10095881624548], x = [0, 0, 0, 1, 1])])</code></pre>
+</div>
+</div>
+<div id="cell-59" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>([<span class="cn">e</span>.V[<span class="fl">1</span>] for <span class="cn">e</span> <span class="kw">in</span> record])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bright-black-fg">       ┌──────────────────────────────────────────────────────────────┐</span> 
+   <span class="ansi-bright-black-fg">229</span><span class="ansi-bright-black-fg"> │</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-green-fg">⣀</span><span class="ansi-green-fg">⣀</span><span class="ansi-green-fg">⠤</span><span class="ansi-green-fg">⠤</span><span class="ansi-green-fg">⠒</span><span class="ansi-green-fg">⠒</span><span class="ansi-green-fg">⠒</span><span class="ansi-green-fg">⠒</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-green-fg">⠉</span><span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-green-fg">⢀</span><span class="ansi-green-fg">⣀</span><span class="ansi-green-fg">⠔</span><span class="ansi-green-fg">⠋</span><span class="ansi-green-fg">⠉</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀⠀⠀⠀⠀⠀⠀<span class="ansi-green-fg">⣀</span><span class="ansi-green-fg">⡠</span><span class="ansi-green-fg">⠃</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀⠀⠀⠀⠀⠀<span class="ansi-green-fg">⡔</span><span class="ansi-green-fg">⠁</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀⠀⠀⠀<span class="ansi-green-fg">⢰</span><span class="ansi-green-fg">⠚</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀⠀⠀<span class="ansi-green-fg">⢠</span><span class="ansi-green-fg">⠃</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀⠀<span class="ansi-green-fg">⡤</span><span class="ansi-green-fg">⠇</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀<span class="ansi-green-fg">⢠</span><span class="ansi-green-fg">⠃</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀<span class="ansi-green-fg">⡸</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀<span class="ansi-green-fg">⡇</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span>⠀<span class="ansi-green-fg">⡇</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span><span class="ansi-green-fg">⢸</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span><span class="ansi-green-fg">⢸</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span><span class="ansi-green-fg">⡎</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+      <span class="ansi-bright-black-fg"> │</span><span class="ansi-green-fg">⡇</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+     <span class="ansi-bright-black-fg">0</span><span class="ansi-bright-black-fg"> │</span><span class="ansi-green-fg">⡇</span>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<span class="ansi-bright-black-fg">│</span> 
+<span class="ansi-bright-black-fg">       └──────────────────────────────────────────────────────────────┘</span> 
+<span class="ansi-bright-black-fg">       1</span><span class="ansi-bright-black-fg">                              </span><span class="ansi-bright-black-fg">                              101</span></pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code></code></pre>
+</div>
+</div>
+<div id="cell-60" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>([<span class="cn">e</span>.x[<span class="fl">1</span>]<span class="op">*</span><span class="fl">0</span> for <span class="cn">e</span> <span class="kw">in</span> record])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>ArgumentError: ArgumentError: height has to be positive</code></pre>
+</div>
+</div>
+<p><strong>Solve the problem using Policy Iteration. Compare with VFI.</strong></p>
+<section id="brock-mirman-stochastic-growth-model" class="level3">
+<h3 class="anchored" data-anchor-id="brock-mirman-stochastic-growth-model">Brock-Mirman Stochastic Growth model</h3>
+<p>This is a neoclassical growth model with unpredictable shocks on productivity.</p>
+<p>Social planner tries to solve:</p>
+<p><span class="math display">\[\max E_t \left[ \sum_{n=0}^{\infty} \beta^n \log C_{t+n} \right]\]</span></p>
+<p>s.t.</p>
+<p><span class="math display">\[K_{t+1} = Y_t - C_t\]</span> <span class="math display">\[Y_{t+1} = A_{t+1}K_{t+1}^\alpha\]</span></p>
+<p>where <span class="math inline">\(A_t\)</span> is the level of productivity in period <span class="math inline">\(t\)</span>. It can take values <span class="math inline">\(A^h=1.05\)</span> and <span class="math inline">\(A^l=0.95\)</span>. The transition between these two states are given by the matrix: <span class="math display">\[P = \begin{bmatrix}
+0.9, 0.1\\
+0.1, 0.9
+\end{bmatrix}\]</span></p>
+<p><strong>Propose a plausible calibration</strong></p>
+<p><strong>What are the states? What are the controls? Is it possible to bound them in a natural way? Propose a discretization scheme.</strong></p>
+<p><strong>Write down the Bellman equation</strong></p>
+<p><strong>How do you represent a policy function? Implement a value evaluation function.</strong></p>
+<p><strong>Solve the model using Value Function Iteration. Plot the solution.</strong></p>
+<p><strong>Implement Policy Improvement Steps. Compare convergence Speed.</strong></p>
+<p><strong>Bonus: Propose some ideas to improve performances.</strong></p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

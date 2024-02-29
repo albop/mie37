@@ -340,15 +340,13 @@ Pablo Winant
 
   <p class="date">2024-02-29</p>
 </section>
-<section class="slide level2">
-
-<h3 id="life-of-a-computational-economist">Life of a computational economist</h3>
+<section id="life-of-a-computational-economist" class="slide level2">
+<h2>Life of a computational economist</h2>
 
 <img data-src="impossible.jpg" class="r-stretch"></section>
-<section class="slide level2">
-
-<h3 id="life-of-a-computational-economist-1">Life of a computational economist</h3>
-<p><video data-src="waiting_for_convergence.mp4" data-with="600" controls=""><a href="waiting_for_convergence.mp4">Video</a></video></p>
+<section id="life-of-a-computational-economist-1" class="slide level2">
+<h2>Life of a computational economist</h2>
+<p><video data-src="waiting_for_convergence.mp4" style="width:50.0%" controls=""><a href="waiting_for_convergence.mp4">Video</a></video></p>
 <ul>
 <li><!-- .element: class="fragment" -->
 We spend <strong>a lot</strong> of time waiting for algorithms to converge!
@@ -362,17 +360,15 @@ even better: understand convergence properties (information about the model)</li
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
-<h3 id="recursive-sequence">Recursive sequence</h3>
+<section id="recursive-sequence" class="slide level2">
+<h2>Recursive sequence</h2>
 <p>Consider a function <span class="math inline">\(f: R\rightarrow R\)</span> and a recursive sequence <span class="math inline">\((x_n)\)</span> defined by <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_n = f(x_{n-1})\)</span>.</p>
 <p>We want to compute a fixed point of <span class="math inline">\(f\)</span> and study its properties.</p>
 </section>
-<section class="slide level2">
-
-<h3 id="example-growth-model">Example: growth model</h3>
+<section id="example-growth-model" class="slide level2">
+<h2>Example: growth model</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:60%;">
 <ul>
 <li>Solow growth model:
 <ul>
@@ -383,44 +379,36 @@ even better: understand convergence properties (information about the model)</li
 </ul>
 <div class="r-stack">
 <div class="fragment current-visible" data-fragment-index="2">
-<ul>
-<li>For a given value of <span class="math inline">\({\color{red} s}\in\mathbb{R}^{+}\)</span> ( <span class="math inline">\({\color{red} s}\)</span> is a <strong>decision rule</strong>) <span class="math display">\[k_{t+1} = f(k_t, {\color{red} s})\]</span>
+<p>For a given value of <span class="math inline">\({\color{red} s}\in\mathbb{R}^{+}\)</span> ( <span class="math inline">\({\color{red} s}\)</span> is a <strong>decision rule</strong>) <span class="math display">\[k_{t+1} = f(k_t, {\color{red} s})\]</span></p>
 <ul>
 <li><strong>backward-looking</strong> iterations</li>
 <li>Solow hypothesis: saving rate is invariant</li>
-</ul></li>
 </ul>
 </div>
 <div class="fragment">
-<ul>
-<li>Questions:
+<p>Questions:</p>
 <ul>
 <li>What is the steady-state?</li>
 <li>Can we characterize the transition back the steady-state?</li>
-<li>Characterize the dynamics close to the steady-state?
-<ul>
-<li>next session</li>
-</ul></li>
+<li>Characterize the dynamics close to the steady-state?</li>
 <li>what is the optimal <span class="math inline">\(s\)</span> ?</li>
-</ul></li>
 </ul>
 </div>
 </div>
-</div><div class="column">
+</div><div class="column" style="width:40%;">
 <p><img class="fragment" src="solow.png" width="100%" data-fragment-index="2"></p>
 </div>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="another-example-linear-new-keynesian-model">Another example: linear new keynesian model</h3>
+<section id="another-example-linear-new-keynesian-model" class="slide level2">
+<h2>Another example: linear new keynesian model</h2>
 <div class="columns">
 <div class="column">
 <ul>
 <li>Basic New Keynesian model (<a href="https://www.crei.cat/wp-content/uploads/users/pages/ch3_slides_june2015(1).pdf">full derivation</a> if curious )
 <ul>
-<li>new philips curve (PC):<span class="math display">\[\pi_t = \beta \mathbb{E}\_t \pi_{t+1} + \kappa y_t\]</span></li>
-<li>dynamic investment-saving equation (IS):<span class="math display">\[y_t = \beta \mathbb{E}\_t y_{t+1} - \frac{1}{\sigma}(i_t - \mathbb{E}\_t(\pi_{t+1}) ) - {\color{green} z_t}\]</span></li>
+<li>new philips curve (PC):<span class="math display">\[\pi_t = \beta \mathbb{E}_t \pi_{t+1} + \kappa y_t\]</span></li>
+<li>dynamic investment-saving equation (IS):<span class="math display">\[y_t = \beta \mathbb{E}_t y_{t+1} - \frac{1}{\sigma}(i_t - \mathbb{E}_t(\pi_{t+1}) ) - {\color{green} z_t}\]</span></li>
 <li>interest rate setting (taylor rule): <span class="math display">\[i_t = \alpha_{\pi} \pi_t + \alpha_{y} y_t\]</span></li>
 </ul></li>
 <li><!-- .element class="fragment" -->
@@ -430,14 +418,18 @@ Solving the system:
 </ul></li>
 </ul>
 </div><div class="column">
+<div class="fragment">
 <ul>
-<li><!-- .element class="fragment" -->
-<em>forward looking</em>:
+<li><em>forward looking</em>:
 <ul>
 <li>take <span class="math inline">\(\begin{bmatrix}\pi_{t+1} \\\\ y_{t+1} \end{bmatrix} = {\color{red} {c_n}} z_{t+1}\)</span></li>
 <li>deduce <span class="math inline">\(\begin{bmatrix}\pi_{t} \\\\ y_{t} \end{bmatrix} = {\color{red} {c_{n+1}}} z_{t}\)</span></li>
-<li><span class="math inline">\(\mathcal{T}: \underbrace{c_{n}}\_{t+1: \; \text{tomorrow}} \rightarrow \underbrace{c_{n+1}}\_{t: \text{today}}\)</span> is the <strong>time-iteration</strong> operator (a.k.a. <strong>Coleman</strong> operator)</li>
+<li><span class="math inline">\(\mathcal{T}: \underbrace{c_{n}}_{t+1: \; \text{tomorrow}} \rightarrow \underbrace{c_{n+1}}_{t: \text{today}}\)</span> is the <strong>time-iteration</strong> operator (a.k.a. <strong>Coleman</strong> operator)</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><!-- .element class="fragment" -->
 Questions:
 <ul>
@@ -451,10 +443,10 @@ Questions:
 </ul>
 </div>
 </div>
+</div>
 </section>
-<section class="slide level2">
-
-<h3 id="recursive-series-2">Recursive series (2)</h3>
+<section id="recursive-series-2" class="slide level2">
+<h2>Recursive series (2)</h2>
 <ul>
 <li>Wait: does a fixed point exist?
 <ul>
@@ -464,9 +456,8 @@ Questions:
 <li>We can assume there is an interval such that <span class="math inline">\(f([a,b])\subset[a,b]\)</span>. Then we know there exists <span class="math inline">\(x\)</span> in <span class="math inline">\([a,b]\)</span> such that <span class="math inline">\(f(x)=x\)</span>. But there can be many such points.</li>
 </ul>
 </section>
-<section class="slide level2">
-
-<h3 id="example-growth-model-with-multiple-fixed-points">Example: growth model with multiple fixed points</h3>
+<section id="example-growth-model-with-multiple-fixed-points" class="slide level2">
+<h2>Example: growth model with multiple fixed points</h2>
 <div class="container">
 <div class="col">
 <ul>
@@ -474,13 +465,12 @@ Questions:
 </ul>
 </div>
 <div class="col">
-<p><img src="growth_multiple_equilibria.jpg" width="100%"></p>
+<p><img src="growth_multiple_equilibria.jpg" width="40%"></p>
 </div>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="convergence">Convergence</h3>
+<section id="convergence" class="slide level2">
+<h2>Convergence</h2>
 <ul>
 <li>How do we characterize behaviour around <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x)=x\)</span>?
 <ul>
@@ -490,16 +480,16 @@ Questions:
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
+<section id="section" class="slide level2">
+<h2></h2>
 <p>To get the intution about local convergence assume, you have an initial point <span class="math inline">\(x_n\)</span> close to the steady state and consider the following expresion:</p>
 <p><span class="math inline">\(x_{n+1} - x = f(x_n) - f(x) = f^{\prime}(x) (x_n-x) + o( (x_n-x) )\)</span></p>
 <p>If one sets aside the error term (which one can do with full mathematical rigour), the dynamics for very small perturbations are given by:</p>
 <p><span class="math inline">\(|x_{n+1} - x| = |f^{\prime}(x)| |x_n-x|\)</span></p>
 <p>When <span class="math inline">\(|f^{\prime}(x)|&lt;1\)</span>, the distance to the target decreases at each iteration and we have convergence. When <span class="math inline">\(|f^{\prime}(x)|&gt;1\)</span> there is local divergence.</p>
 </section>
-<section class="slide level2">
-
+<section id="section-1" class="slide level2">
+<h2></h2>
 <div class="container">
 <div class="col">
 <p>What about the case <span class="math inline">\(|f^{\prime}(x)=1|\)</span>? Many cases are possible. To distinguish between them, one needs to inspect higher order derivatives.</p>
@@ -515,9 +505,8 @@ Questions:
 </div>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="change-the-problem">Change the problem</h3>
+<section id="change-the-problem" class="slide level2">
+<h2>Change the problem</h2>
 <ul>
 <li>Sometimes, we are interested in tweaking the convergence speed:</li>
 </ul>
@@ -532,9 +521,8 @@ Questions:
 </ul>
 <p><span class="math display">\[g(x)=x-\frac{f(x)-x}{f^{\prime}(x)-1}\]</span></p>
 </section>
-<section class="slide level2">
-
-<h3 id="dynamics-around-a-stable-point">Dynamics around a stable point</h3>
+<section id="dynamics-around-a-stable-point" class="slide level2">
+<h2>Dynamics around a stable point</h2>
 <ul>
 <li>We can write successive approximation errors:</li>
 </ul>
@@ -545,39 +533,34 @@ Questions:
 <li><p><span class="math inline">\(\lambda_t \rightarrow | f^{\prime}(\overline{x}) |\)</span></p></li>
 </ul>
 </section>
-<section class="slide level2">
-
-<h3 id="dynamics-around-a-stable-point-2">Dynamics around a stable point (2)</h3>
+<section id="dynamics-around-a-stable-point-2" class="slide level2">
+<h2>Dynamics around a stable point (2)</h2>
 <p>How do we derive an error bound? Suppose that we have <span class="math inline">\(\overline{\lambda}&gt;|f^{\prime}(x_k)|\)</span> for all <span class="math inline">\(k\geq k_0\)</span>:</p>
 <p><span class="math display">\[|x_t - x| \leq |x_t - x_{t+1}| + |x_{t+1} - x_{t+2}| + |x_{t+2} - x_{t+3}| + ... \]</span></p>
 <p><span class="math display">\[|x_t - x| \leq |x_t - x_{t+1}| + |f(x_{t}) - f(x_{t+1})| + |f(x_{t+1}) - f(x_{t+2})| + ... \]</span></p>
 <p><span class="math display">\[|x_t - x| \leq |x_t - x_{t+1}| + \overline{\lambda} |x_t - x_{t+1}| + \overline{\lambda}^2 |x_t - x_{t+1}| + ... \]</span></p>
 <p><span class="math display">\[|x_t - x| \leq \frac{1} {1-\overline{\lambda}} | x_t - x_{t+1} |\]</span></p>
 </section>
-<section class="slide level2">
-
-<h3 id="how-do-we-improve-convergence">How do we improve convergence ?</h3>
+<section id="how-do-we-improve-convergence" class="slide level2">
+<h2>How do we improve convergence ?</h2>
 <p><span class="math display">\[\frac{|x_{t-1} - x_{t-2}|} {|x_t - x_{t-1}|} \sim |f^{\prime}(x_{t-1})|  \]</span></p>
 <p>corresponds to the case of <strong>linear</strong> convergence (kind of slow).</p>
 </section>
-<section class="slide level2">
-
-<h3 id="aitkens-extrapolation">Aitken’s extrapolation</h3>
+<section id="aitkens-extrapolation" class="slide level2">
+<h2>Aitken’s extrapolation</h2>
 <p>When convergence is geometric, we have: <span class="math display">\[ \lim_{x\rightarrow \infty}\frac{ x_{t+1}-x}{x_t-x} = \lambda \in \mathbb{R}^{\star}\]</span></p>
 <p>Which implies:</p>
 <p><span class="math display">\[\frac{ x_{t+1}-x}{x_t-x} \sim \frac{ x_{t}-x}{x_{t-1}-x}\]</span></p>
 </section>
-<section class="slide level2">
-
-<h3 id="aitkens-extrapolation-2">Aitken’s extrapolation (2)</h3>
+<section id="aitkens-extrapolation-2" class="slide level2">
+<h2>Aitken’s extrapolation (2)</h2>
 <p>Take <span class="math inline">\(x_{t-1}, x_t\)</span> and <span class="math inline">\(x_{t+1}\)</span> as given and solve for <span class="math inline">\(x\)</span>:</p>
 <p><span class="math display">\[x = \frac{x_{t+1}x_{t-1} - x_{t}^2}{x_{t+1}-2x_{t} + x_{t-1}}\]</span></p>
 <p>or after some reordering</p>
 <p><span class="math display">\[x = x_{t-1} - \frac{(x_t-x_{t-1})^2}{x_{t+1}-2 x_t + x_{t-1}}\]</span></p>
 </section>
-<section class="slide level2">
-
-<h3 id="steffensens-method">Steffensen’s Method:</h3>
+<section id="steffensens-method" class="slide level2">
+<h2>Steffensen’s Method:</h2>
 <ol type="1">
 <li>start with a guess <span class="math inline">\(x_0\)</span>, compute <span class="math inline">\(x_1=f(x_0)\)</span> and <span class="math inline">\(x_2=f(x_1)\)</span></li>
 <li>use Aitken’s guess for <span class="math inline">\(x^{\star}\)</span>. If required tolerance is met, stop.</li>
@@ -586,25 +569,22 @@ Questions:
 <p>It can be shown that the sequence generated from Steffensen’s method converges <strong>quadratically</strong>, that is</p>
 <p><span class="math inline">\(\lim_{t\rightarrow\infty} \frac{x_{t+1}-x_t}{(x_t-x_{t-1})^2} \leq M  \in \mathbb{R}^{\star}\)</span></p>
 </section>
-<section class="slide level2">
-
-<h3 id="convergence-speed">Convergence speed</h3>
+<section id="convergence-speed" class="slide level2">
+<h2>Convergence speed</h2>
 <p>Rate of convergence of series <span class="math inline">\(x_t\)</span> towards <span class="math inline">\(x^{\star}\)</span> is:</p>
 <ul>
-<li>linear: <span class="math display">\[{\lim}\_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|} = \mu \in R^+\]</span></li>
-<li>superlinear: <span class="math display">\[{\lim}\_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|} = 0\]</span></li>
-<li>quadratic: <span class="math display">\[{\lim}\_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|^{\color{red}2}} = \mu \in R^+\]</span></li>
+<li>linear: <span class="math display">\[{\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|} = \mu \in R^+\]</span></li>
+<li>superlinear: <span class="math display">\[{\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|} = 0\]</span></li>
+<li>quadratic: <span class="math display">\[{\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|^{\color{red}2}} = \mu \in R^+\]</span></li>
 </ul>
 </section>
-<section class="slide level2">
-
-<h3 id="convergence-speed-1">Convergence speed</h3>
+<section id="convergence-speed-1" class="slide level2">
+<h2>Convergence speed</h2>
 <p>Remark: in the case of linear convergence:</p>
-<p><span class="math display">\[{\lim}\_{t\rightarrow\infty} \frac{|x\_{t+1}-x\_t|}{|x\_{t}-x\_{t-1}|} = \mu \in R^+ \iff {\lim}\_{t\rightarrow\infty} \frac{|x\_{t+1}-x^{\star}|}{|x\_{t}-x^{\star}|}=\frac{1}{1-\mu}\]</span></p>
+<p><span class="math display">\[{\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x_t|}{|x_{t}-x_{t-1}|} = \mu \in R^+ \iff {\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|}=\frac{1}{1-\mu}\]</span></p>
 </section>
-<section class="slide level2">
-
-<h3 id="in-practice">In practice</h3>
+<section id="in-practice" class="slide level2">
+<h2>In practice</h2>
 <ul>
 <li>Problem:
 <ul>

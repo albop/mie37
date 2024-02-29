@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Pablo Winant">
 
-<title>Advanced Macro: Numerical Methods - Epidemiology Models</title>
+<title>Advanced Macro: Numerical Methods - Convergence of Sequences</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -109,7 +110,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pushups/1_epidemiology.html">Pushups</a></li><li class="breadcrumb-item"><a href="../pushups/1_epidemiology.html">Epidemiology Models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/2_solow.html">Convergence of Sequences</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -210,7 +211,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/2_solow.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/2_solow.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Convergence of Sequences</span></a>
   </div>
 </li>
@@ -227,7 +228,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pushups/1_epidemiology.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pushups/1_epidemiology.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Epidemiology Models</span></a>
   </div>
 </li>
@@ -243,24 +244,31 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#simple-sir-model" id="toc-simple-sir-model" class="nav-link active" data-scroll-target="#simple-sir-model">Simple SIR model</a></li>
-  <li><a href="#a-spatial-sir-model" id="toc-a-spatial-sir-model" class="nav-link" data-scroll-target="#a-spatial-sir-model">A Spatial SIR model</a></li>
-  <li><a href="#additional-questions" id="toc-additional-questions" class="nav-link" data-scroll-target="#additional-questions">Additional questions</a></li>
+  <li><a href="#tutorial-convergence" id="toc-tutorial-convergence" class="nav-link active" data-scroll-target="#tutorial-convergence">Tutorial: Convergence</a>
+  <ul class="collapse">
+  <li><a href="#solow-model" id="toc-solow-model" class="nav-link" data-scroll-target="#solow-model">Solow Model</a></li>
+  </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2_solow.out.ipynb" download="2_solow.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pushups/1_epidemiology.html">Pushups</a></li><li class="breadcrumb-item"><a href="../pushups/1_epidemiology.html">Epidemiology Models</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/2_solow.html">Convergence of Sequences</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Epidemiology Models</h1>
+<h1 class="title">Convergence of Sequences</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pablo Winant </p>
+          </div>
+  </div>
     
   
     
@@ -271,50 +279,30 @@ window.Quarto = {
 </header>
 
 
-<p>H.W. Heathcote: epidemiologic models are <em>deterministic models for infectious diseases which are spread by direct person-to-person contact in a population</em>.</p>
-<p>This kind of models has been used since by a few decades by economist, for matters that have nothing to do with health.</p>
-<ul>
-<li>diffusion of information, or opinions on social medias</li>
-<li>asset prices and fads</li>
-<li>expectation formation for macroeconomic outcomes (ex: <em>The Epidemiology of Macroeconomic Expectations</em> by Chris Carroll)</li>
-</ul>
-<p>Epidemiologic models have two features that depart from standard economic models:</p>
-<ul>
-<li>Agent’s behaviour does not take the full system into account, an is irrational in the sense that it isn’t forward looking. Instead, an agent is given a behavioural heuristic.</li>
-<li>The transitions of the whole system can be determined without solving for complex interactions first.</li>
-</ul>
-<p>Understanding why these two assumptions are very costly for economists will keep us busy during a big part of the course. Here we just consider two simple models as small programming exercises.</p>
-<section id="simple-sir-model" class="level3">
-<h3 class="anchored" data-anchor-id="simple-sir-model">Simple SIR model</h3>
-<p>There is a continuum of agents of mass <span class="math inline">\(1\)</span>. Each agent can be either “Susceptible” (S), “Infected” (I) or “Recovered” (R). In each period, one agent meets another agent drawn randomly. During a meeting Susceptible agents who meet an infected agent, will always catch the disease (or the fad) but are not contagious. Infected agents, have a probability <span class="math inline">\(\pi\)</span> of being recovered. Nothing happens to Recovered agents who meet other people. No distinction is made between recovering as a healthy or a dead person.</p>
-<p>We’re interested in the evolution in the number infected persons, both the speed of infection and the total amount of infected people in every period.</p>
-<p><strong>Write down the transition equations for <span class="math inline">\(n_I\)</span>, the number of infected people, for <span class="math inline">\(n_R\)</span> the number of recovered people and <span class="math inline">\(n_S\)</span> the number of susceptible people.</strong></p>
-<p><strong>Compute the transition function <code>f</code> for the vector state <span class="math inline">\(s_t\)</span> returning <span class="math inline">\(s_{t+1}\)</span>.</strong></p>
-<p><strong>Compute the transitions over <span class="math inline">\(T\)</span> periods. Plot the result using Plots.jl. (bonus: check against closed form solution)</strong></p>
-<p><strong>We now assume a Susceptible person who meets an infected one has a probability <span class="math inline">\(\mu\)</span> of catching the disease. Update the transition function. Update function <span class="math inline">\(f\)</span> and write a function of <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\pi\)</span> which returns the simulation. Compare different values of the parameters. How would you interpret “social distancing”? How would you choose parameters <span class="math inline">\(\Pi\)</span> and <span class="math inline">\(\mu\)</span></strong></p>
-</section>
-<section id="a-spatial-sir-model" class="level3">
-<h3 class="anchored" data-anchor-id="a-spatial-sir-model">A Spatial SIR model</h3>
-<p>We now consider another version of the model where agents evolve in the space <span class="math inline">\(\mathcal{S}=[0,1]\times[0,1]\)</span>. There are <span class="math inline">\(N\in\mathbb{N}\)</span> agent. At any date, each agent <span class="math inline">\(n \in [0,1]\)</span> is located at <span class="math inline">\((x_n,y_n)\in \mathcal{S}\)</span>.</p>
-<p>Each agent moves follows a random walk bounded by <span class="math inline">\(\mathcal{S}\)</span>: <span class="math display">\[x_t = \min(\max( x_{t-1} + \epsilon_t, 0), 1)\]</span> <span class="math display">\[y_t = \min(\max( y_{t-1} + \eta_t, 0), 1)\]</span> where <span class="math inline">\(\epsilon_t\)</span> and <span class="math inline">\(\eta_t\)</span> are both normally distributed with standard deviation <span class="math inline">\(\sigma\)</span>.</p>
-<p>At any date, the individual state of an agent is <span class="math inline">\(s_t=(x_t, y_t, h_t)\)</span> where <span class="math inline">\(h_t\)</span> is either “S”, “I” or “R”. <span class="math inline">\(v_t\)</span> denotes the states of all agents (for instance <span class="math inline">\(v_t=(s_{n,t})_n\)</span>. The health status of each agent is updated in the following way:</p>
-<ul>
-<li>Agents <span class="math inline">\(R\)</span> stay <span class="math inline">\(R\)</span>.</li>
-<li>Agents <span class="math inline">\(I\)</span> have probability <span class="math inline">\(\pi\)</span> to become <span class="math inline">\(R\)</span>. They stay <span class="math inline">\(I\)</span> otherwise.</li>
-<li>An agent of type <span class="math inline">\(S\)</span> in position <span class="math inline">\((x,y)\)</span> has a probability <span class="math inline">\(prob(x,y,S)\)</span> to be infected that is <span class="math inline">\(\mu\)</span> if there is another infected agent within a radius <span class="math inline">\(r&gt;0\)</span>.</li>
-</ul>
-<p><strong>Define a type <code>Agent</code>, which holds the type of an agent. The state of the whole system will be held in a <code>Vector[Agent]</code> type.</strong></p>
-<p><strong>Write a function <code>spatial_transition(S::Vector{Agent})::Vector{Agent}</code> to compute the transition of the positions. Write another function <code>random_guess(T=100)</code> which simulates for <span class="math inline">\(T\)</span> periods in order to find a good initial guess.</strong></p>
-<p><strong>Write a function <code>show_population</code> to plot all agents with different colors for different health status.</strong></p>
-<p><strong>Write a function <code>evolve(S::Vector[Agent])::Vector[Agent]</code> which takes the population in a given state and returns the same population with updated health status.</strong></p>
-<p><strong>Write a function <code>simulate(S0::Vector[Agent], k=1)</code> to simulate the economy starting from an initially random position with <code>k</code> infected individuals. The returned object should be of type <code>Vector[Vector[Agent]]</code>.</strong></p>
-<p><strong>Compute statistics along a simulated path for <span class="math inline">\(n_I\)</span>, <span class="math inline">\(n_S\)</span>, <span class="math inline">\(n_R\)</span>. Plot and compare with the basic SIR model</strong></p>
-</section>
-<section id="additional-questions" class="level3">
-<h3 class="anchored" data-anchor-id="additional-questions">Additional questions</h3>
-<p>Have fun by trying to answer one of these questions: - change probability of infection so that it depends on the number of infected people in the vincinity (with some suitable functional formulation for) - compute an animation of the transition - compute an interactive visualisation (with <code>Interact.jl</code> if available)</p>
+<section id="tutorial-convergence" class="level1">
+<h1>Tutorial: Convergence</h1>
+<section id="solow-model" class="level3">
+<h3 class="anchored" data-anchor-id="solow-model">Solow Model</h3>
+<p>A representative agent uses capital <span class="math inline">\(k_t\)</span> to produce <span class="math inline">\(y_t\)</span> using the following production function:</p>
+<p><span class="math display">\[y_t = k_t^{\alpha}\]</span></p>
+<p>He chooses to consume an amount <span class="math inline">\(c_t \in ]0, y_t]\)</span> and invests what remains:</p>
+<p><span class="math display">\[i_t = y_t - c_t\]</span></p>
+<p>He accumulates capital <span class="math inline">\(k_t\)</span> according to:</p>
+<p><span class="math display">\[k_{t+1} = \left( 1-\delta \right) k_{t} + i_{t}\]</span></p>
+<p>where <span class="math inline">\(\delta\)</span> is the depreciation rate and <span class="math inline">\(i_t\)</span> is the amount invested.</p>
+<p>The goal of the representative agent is to maximize:</p>
+<p><span class="math display">\[\sum_{t\geq 0} \beta^t U(c_t)\]</span></p>
+<p>where <span class="math inline">\(U(x)=\frac{x^{1-\gamma}}{1-\gamma}\)</span> and <span class="math inline">\(\beta&lt;1\)</span> is the discount factor.</p>
+<p>For now, we ignore the objective and assume that the saving rate <span class="math inline">\(s=\frac{c_t}{y_t}\)</span> is constant over time.</p>
+<p><strong>Create a <code>NamedTuple</code> to hold parameter values <span class="math inline">\(\beta=0.96\)</span>, <span class="math inline">\(\delta=0.1\)</span>, <span class="math inline">\(\alpha=0.3\)</span>, <span class="math inline">\(\gamma=4\)</span>.</strong></p>
+<p><strong>Write down the formula of function <span class="math inline">\(f\)</span> such that <span class="math inline">\(k_{t+1}\)</span>: <span class="math inline">\(k_{t+1} = f(k_t)\)</span>.</strong></p>
+<p><strong>Define a function <code>f(k::Float64, p::NamedTuple)::Float64</code> to represent <span class="math inline">\(f\)</span> for a given calibration</strong></p>
+<p><strong>Write a function <code>simulate(k0::Float64, T::Int, p::NamedTuple)::Vector{Float64}</code> to compute the simulation over <code>T</code> periods starting from initial capital level <code>k0</code>.</strong></p>
+<p><strong>Make a nice plot to illustrate the convergence. Do we get convergence from any initial level of capital?</strong></p>
+<p><strong>Suppose you were interested in using <code>f</code> to compute the steady-state. What would you propose to measure convergence speed? To speed-up convergence? Implement these ideas.</strong></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

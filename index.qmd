@@ -1,5 +1,58 @@
 ---
 title: "Advanced Macro: Numerical Methods"
+listing:
+  id: course-listing
+  type: table
+  sort-ui: false
+  filter-ui: false
+  contents:
+    - slides/session_*/index.qmd
+    - prep*/index.qmd
+  sort: date
+  fields: [date, title]
 ---
 
-{{< include README.md >}}
+<mark>Homework</mark>
+
+- install Julia and run [Julia Basics](tutorials/1_Julia_Basics.ipynb) tutorial
+- work on the [Epidemiology](pushups/1_epidemiology.ipynb) pushup
+
+
+## Indicative Schedule
+
+::: {#course-listing}
+
+:::
+
+## Communication
+
+- Zulip (best)
+- Email to `pwinant@escp.eu` starting with `[mie37]`
+- Github issues (PR also welcome)
+
+## Assessments
+
+- tutorials (optional) + projects (mandatory) (50%)
+- final exam (50%)
+
+
+
+
+::: {.callout-caution collapse="true" title="Last Year's Schedule"}
+
+### Indicative Schedule
+
+| Date               | Content                                                                                                             | Homework               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| 02/02              | [Intro](slides/session_1/introduction.qmd), Julia Basics (1)                                           | Epidemiology Tutorial  |
+| 09/02              | [Convergence of Sequences](http://www.mosphere.fr/mie37/slides/convergence.html), Julia Basics (2),  Solow Tutorial | Finish Solow Tutorial  |
+| 16/02              | [Perturbation](http://www.mosphere.fr/mie37/slides/perturbation.html) (1)                                                                                                    | Finish Neoclassical    |
+| 23/02              | Perturbation (2)                                                                                                    |                        |
+| 8/03               | Discrete Dynamic Programming, McCall Model       |                        |
+| 16/03              | Discrete Dynamic Programming, McCall Model                     |                        |
+| 23/03              | McCall Model (2)                                                                                                    |                        |
+| 30/03              | Discretization                                                                                         |    Coursework                    |
+| <mark>06/04</mark>              | Interpolation                                                                                      |          |
+| 13/04              | Approximate Dynamic Programming (VFI)                                                                                      |          |
+
+:::

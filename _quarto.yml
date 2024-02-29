@@ -1,8 +1,9 @@
 project:
   type: website
-  output-dir: docs
-exectute:
+execute:
   echo: true
+  keep-ipynb: true
+
 website:
   title: "Advanced Macro: Numerical Methods"
   sidebar:
@@ -11,8 +12,8 @@ website:
       contents:
         - section: "Slides"
           contents:
-            - slides/introduction.qmd
-            - slides/convergence.qmd
+            - slides/session_1/index.qmd
+            - slides/session_2/index.qmd
             - slides/perturbation.qmd
             - slides/ddp.qmd
             - slides/discretization.qmd
@@ -22,11 +23,17 @@ website:
 
         - section: "Tutorials"
           contents:
-            - notebooks/1_Julia_Basics_correction.ipynb
-            - notebooks/2_solow_correction.ipynb
-            - notebooks/3_perturbation_neoclassical_correction.ipynb
-            - notebooks/7_Optimization_correction.ipynb
-            - notebooks/8_smooth_vfi.ipynb
+            - tutorials/1_Julia_Basics.ipynb
+            - tutorials/2_solow.ipynb
+            # - notebooks/2_solow_correction.ipynb
+            # - notebooks/3_perturbation_neoclassical_correction.ipynb
+            # - notebooks/7_Optimization_correction.ipynb
+            # - notebooks/8_smooth_vfi.ipynb
+        
+        - section: "Pushups"
+          contents:
+            - pushups/1_epidemiology.ipynb
+  
 format:
   html:
     theme: flatly

@@ -14,8 +14,7 @@ listing:
 
 <mark>Homework</mark>
 
-- install Julia and run [Julia Basics](tutorials/1_Julia_Basics.ipynb) tutorial
-- work on the [Epidemiology](pushups/1_epidemiology.ipynb) pushup
+- finish the [Perturbation](pushups/3_epidemiology.ipynb) tutorial
 
 
 ## Indicative Schedule

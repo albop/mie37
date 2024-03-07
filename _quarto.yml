@@ -14,7 +14,7 @@ website:
           contents:
             - slides/session_1/index.qmd
             - slides/session_2/index.qmd
-            - slides/perturbation.qmd
+            - slides/session_3/index.qmd
             - slides/ddp.qmd
             - slides/discretization.qmd
             - slides/optimization.qmd
@@ -25,8 +25,8 @@ website:
           contents:
             - tutorials/1_Julia_Basics.ipynb
             - tutorials/2_solow.ipynb
+            - tutorials/3_perturbation_neoclassical.ipynb
             # - notebooks/2_solow_correction.ipynb
-            # - notebooks/3_perturbation_neoclassical_correction.ipynb
             # - notebooks/7_Optimization_correction.ipynb
             # - notebooks/8_smooth_vfi.ipynb
         

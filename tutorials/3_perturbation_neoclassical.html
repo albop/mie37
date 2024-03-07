@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Pablo Winant">
 
-<title>Advanced Macro: Numerical Methods</title>
+<title>Advanced Macro: Numerical Methods - Perturbation of Neoclassical Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -67,6 +102,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -80,9 +144,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Advanced Macro: Numerical Methods
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/3_perturbation_neoclassical.html">Perturbation of Neoclassical Model</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -189,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/3_perturbation_neoclassical.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/3_perturbation_neoclassical.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Perturbation of Neoclassical Model</span></a>
   </div>
 </li>
@@ -219,13 +281,63 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="3_perturbation_neoclassical.out.ipynb" download="3_perturbation_neoclassical.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/3_perturbation_neoclassical.html">Perturbation of Neoclassical Model</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Perturbation of Neoclassical Model</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pablo Winant </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Our goal here is to compute a linear approximation of solution to the neoclassical model, close ot the steady-state.</p>
+<p><strong>Warm-up: install the <code>ForwardDiff</code> library. Use it to differentiate the function below. Check the jacobian function.</strong></p>
+<p>Note: the signature of function <code>f</code> needs to be fixed first to allow for dual numbers as arguments.</p>
+<div id="cell-2" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(x<span class="op">::</span><span class="dt">Vector{Float64}</span>)<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> x[<span class="fl">1</span>]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> x[<span class="fl">2</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    x1 <span class="op">=</span> a<span class="op">+</span>b</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    x2 <span class="op">=</span> <span class="fu">a*exp</span>(b)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [x1,x2]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Create a NamedTuple to hold the model parameters.</strong></p>
+<p><strong>Define two functions:</strong> - <code>transition(z::Number, k::Number, i::Number, p)::Tuple{Number}</code> which returns productivity and capital at date <code>t+1</code> as a function of productivity, capital and investment at date <code>t</code> - <code>arbitrage(z::Number, k::Number, i::Number, Z::Number, K::Number, I::Number, p)::Number</code> which returns the residual of the euler equation (lower case variable for date t, upper case for date t+1)</p>
+<p><strong>Using multiple dispatch, define two variants of the same functions, that take vectors as input and output arguments:</strong> - <code>arbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number</code> - <code>transition(s::Vector{T}, x::Vector{T}, p) where T&lt;:Number</code></p>
+<p><strong>Write a function <code>steady_state(p)::Tuple{Vector,Vector}</code> which computes the steady-state of the model computed by hand.</strong> It returns two vectors, one for the states, one for the controls. Check that the steady-state satisfies the model equations.</p>
+<p>The first order system satisfies: <span class="math display">\[\begin{align}A s_t + B x_t + C s_{t+1} + D x_{t+1} &amp; = &amp; 0 \\\\
+s_{t+1} &amp; = &amp; E s_t + F x_t
+\end{align}\]</span></p>
+<p><strong>Define a structure <code>PerturbedModel</code> to hold matrices A,B,C,D,E,F.</strong></p>
+<p><strong>Write a function <code>first_order_model(s::Vector, x::Vector, p)::PerturbedModel</code>, which returns the first order model, given the steady-state and the calibration. Suggestion: use <code>ForwardDiff.jl</code> library.</strong></p>
+<p><strong>We look for a linear solution <span class="math inline">\(x_t = X s_t\)</span> . Write the matrix equation which <code>X</code> must satisfy. Write a function <code>residual(X::Array, M::PerturbedModel)</code> which computes the residual of this equation for a given <code>X</code>.</strong></p>
+<p><strong>Write a function <code>T(X, M::PerturbedModel)</code> which implements the time iteration step.</strong></p>
+<p><strong>Write function <code>linear_time_iteration(X_0::Matrix, m::PerturbedModel)::Matrix</code> which implements the time iteration algorithm. Apply it to <code>X0 = rand(1,2)</code> and check that the result satisfies the first order model.</strong></p>
+<p><strong>Define two linear operators <code>L_S(U::Union{Vector, Matrix}, X_0::Matrix, m::PerturbedModel)::Matrix</code> and <code>L_T(U::Matrix, X_0::Matrix, m::PerturbedModel)::Matrix</code> which implement the derivatives of the simulation and the time-iteration operator respectively.</strong></p>
+<p><strong>Implement a function <code>spectral_radius(f::Function)::Float64</code> which implements the power iteration method to compute the biggest eigenvalues of the two previously defined operators. Check that Blanchard-Kahn conditions are met.</strong></p>
+<p><strong>Write a function <code>simulate(s0::Vector, X::Matrix, p, T::Int64)::Tuple{Matrix, Matrix}</code> to simulate the model over <span class="math inline">\(T\)</span> periods (by using the formula <span class="math inline">\(\Delta s_t = (E + F X) \Delta s_{t-1}\)</span>. Return a matrix for the states (one line per date) and another matrix for the controls. Bonus: add a keyword option to compute variables levels or log-deviations. If possible, return a DataFrame object.</strong></p>
+<p><strong>Make some nice plots.</strong></p>
 
 
 

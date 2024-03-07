@@ -32,6 +32,13 @@
     "text": "H.W. Heathcote: epidemiologic models are deterministic models for infectious diseases which are spread by direct person-to-person contact in a population.\nThis kind of models has been used since by a few decades by economist, for matters that have nothing to do with health.\n\ndiffusion of information, or opinions on social medias\nasset prices and fads\nexpectation formation for macroeconomic outcomes (ex: The Epidemiology of Macroeconomic Expectations by Chris Carroll)\n\nEpidemiologic models have two features that depart from standard economic models:\n\nAgent’s behaviour does not take the full system into account, an is irrational in the sense that it isn’t forward looking. Instead, an agent is given a behavioural heuristic.\nThe transitions of the whole system can be determined without solving for complex interactions first.\n\nUnderstanding why these two assumptions are very costly for economists will keep us busy during a big part of the course. Here we just consider two simple models as small programming exercises.\n\n\nThere is a continuum of agents of mass \\(1\\). Each agent can be either “Susceptible” (S), “Infected” (I) or “Recovered” (R). In each period, one agent meets another agent drawn randomly. During a meeting Susceptible agents who meet an infected agent, will always catch the disease (or the fad) but are not contagious. Infected agents, have a probability \\(\\pi\\) of being recovered. Nothing happens to Recovered agents who meet other people. No distinction is made between recovering as a healthy or a dead person.\nWe’re interested in the evolution in the number infected persons, both the speed of infection and the total amount of infected people in every period.\nWrite down the transition equations for \\(n_I\\), the number of infected people, for \\(n_R\\) the number of recovered people and \\(n_S\\) the number of susceptible people.\nCompute the transition function f for the vector state \\(s_t\\) returning \\(s_{t+1}\\).\nCompute the transitions over \\(T\\) periods. Plot the result using Plots.jl. (bonus: check against closed form solution)\nWe now assume a Susceptible person who meets an infected one has a probability \\(\\mu\\) of catching the disease. Update the transition function. Update function \\(f\\) and write a function of \\(\\mu\\), \\(\\pi\\) which returns the simulation. Compare different values of the parameters. How would you interpret “social distancing”? How would you choose parameters \\(\\Pi\\) and \\(\\mu\\)\n\n\n\nWe now consider another version of the model where agents evolve in the space \\(\\mathcal{S}=[0,1]\\times[0,1]\\). There are \\(N\\in\\mathbb{N}\\) agent. At any date, each agent \\(n \\in [0,1]\\) is located at \\((x_n,y_n)\\in \\mathcal{S}\\).\nEach agent moves follows a random walk bounded by \\(\\mathcal{S}\\): \\[x_t = \\min(\\max( x_{t-1} + \\epsilon_t, 0), 1)\\] \\[y_t = \\min(\\max( y_{t-1} + \\eta_t, 0), 1)\\] where \\(\\epsilon_t\\) and \\(\\eta_t\\) are both normally distributed with standard deviation \\(\\sigma\\).\nAt any date, the individual state of an agent is \\(s_t=(x_t, y_t, h_t)\\) where \\(h_t\\) is either “S”, “I” or “R”. \\(v_t\\) denotes the states of all agents (for instance \\(v_t=(s_{n,t})_n\\). The health status of each agent is updated in the following way:\n\nAgents \\(R\\) stay \\(R\\).\nAgents \\(I\\) have probability \\(\\pi\\) to become \\(R\\). They stay \\(I\\) otherwise.\nAn agent of type \\(S\\) in position \\((x,y)\\) has a probability \\(prob(x,y,S)\\) to be infected that is \\(\\mu\\) if there is another infected agent within a radius \\(r&gt;0\\).\n\nDefine a type Agent, which holds the type of an agent. The state of the whole system will be held in a Vector[Agent] type.\nWrite a function spatial_transition(S::Vector{Agent})::Vector{Agent} to compute the transition of the positions. Write another function random_guess(T=100) which simulates for \\(T\\) periods in order to find a good initial guess.\nWrite a function show_population to plot all agents with different colors for different health status.\nWrite a function evolve(S::Vector[Agent])::Vector[Agent] which takes the population in a given state and returns the same population with updated health status.\nWrite a function simulate(S0::Vector[Agent], k=1) to simulate the economy starting from an initially random position with k infected individuals. The returned object should be of type Vector[Vector[Agent]].\nCompute statistics along a simulated path for \\(n_I\\), \\(n_S\\), \\(n_R\\). Plot and compare with the basic SIR model\n\n\n\nHave fun by trying to answer one of these questions: - change probability of infection so that it depends on the number of infected people in the vincinity (with some suitable functional formulation for) - compute an animation of the transition - compute an interactive visualisation (with Interact.jl if available)"
   },
   {
+    "objectID": "tutorials/2_solow_pablo.html",
+    "href": "tutorials/2_solow_pablo.html",
+    "title": "Convergence of Sequences",
+    "section": "",
+    "text": "Tutorial: Convergence\n\nSolow Model\nA representative agent uses capital \\(k_t\\) to produce \\(y_t\\) using the following production function:\n\\[y_t = k_t^{\\alpha}\\]\nHe chooses to consume an amount \\(c_t \\in ]0, y_t]\\) and invests what remains:\n\\[i_t = y_t - c_t\\]\nHe accumulates capital \\(k_t\\) according to:\n\\[k_{t+1} = \\left( 1-\\delta \\right) k_{t} + i_{t}\\]\nwhere \\(\\delta\\) is the depreciation rate and \\(i_t\\) is the amount invested.\nThe goal of the representative agent is to maximize:\n\\[\\sum_{t\\geq 0} \\beta^t U(c_t)\\]\nwhere \\(U(x)=\\frac{x^{1-\\gamma}}{1-\\gamma}\\) and \\(\\beta&lt;1\\) is the discount factor.\nFor now, we ignore the objective and assume that the saving rate \\(s=\\frac{c_t}{y_t}\\) is constant over time.\n\n# # how to represent the model?\n\n# struct Model\n#     α\n#     β\n#     γ\n#     δ\n# end\n\n# model = Model(0.3, 0.9, 4, 0.1)\n\nModel(0.3, 0.9, 4, 0.1)\n\n\n\n# model_2 = recalibrate(model; α=0.3)\n\nModel(0.3, 0.9)\n\n\nCreate a NamedTuple to hold parameter values \\(\\beta=0.96\\), \\(\\delta=0.1\\), \\(\\alpha=0.3\\), \\(\\gamma=4\\).\n\nmodel = (;α=0.3, β=0.1, γ=4.0, δ=0.1  )\n\n(α = 0.3, β = 0.1, γ = 4.0, δ = 0.1)\n\n\n\nmodel.α\n\n0.3\n\n\n\nmodel_2 = merge(model, (;α=0.4))\n\n(α = 0.4, β = 0.1, γ = 4.0, δ = 0.1)\n\n\n\n# why not a dictionary\ntypeof(model) # each named typle has its own type (based on names)\n\nNamedTuple{(:α, :β, :γ, :δ), NTuple{4, Float64}}\n\n\nWrite down the formula of function \\(f\\) such that \\(k_{t+1}\\): \\(k_{t+1} = f(k_t)\\).\nThe equation for capital transition is: \\(...\\)\nDefine a function f(k::Float64, p::NamedTuple)::Float64 to represent \\(f\\) for a given calibration\n\nfunction f(k, model; s=0.3)\n\n    # α = model.α\n    # β = model.β\n    # γ = model.γ\n    # δ = model.δ\n\n    # specialized syntax to \"unpack\" values from namedtuples\n    (;α,β,γ,δ) = model\n\n    y = k^α\n    i = s*y\n    K = (1-δ)*k + i\n\n    return K\n\nend\n\nf (generic function with 1 method)\n\n\n\nf(0.5, model; s=0.4)\n\n0.7749009585424942\n\n\nWrite a function simulate(k0::Float64, T::Int, p::NamedTuple)::Vector{Float64} to compute the simulation over T periods starting from initial capital level k0.\n\n# let' s add saving rate as named argumetn\n\nfunction simulate(k0, model; s=0.4, T=100)\n    \n    res = [k0]\n    for t=1:T\n        k = res[end]\n        K = f(k, model; s=s)\n        push!(res, K)\n    end\n\n    return res\n\nend\n\nsimulate (generic function with 2 methods)\n\n\n\nsim = simulate(0.5, model)\n\n101-element Vector{Float64}:\n 0.5\n 0.7749009585424942\n 1.0679497992469396\n 1.3691220146661789\n 1.6717439771875893\n 1.9712406953317936\n 2.2644391998184954\n 2.5491450744662236\n 2.8238676158995952\n 3.087632556067258\n ⋮\n 7.234413529429885\n 7.235209646662481\n 7.2359500610507625\n 7.236638668366576\n 7.23727909214093\n 7.237874702658239\n 7.238428634629446\n 7.238943803635337\n 7.2394229214251595\n\n\n\nsimulate(k0, model, T; s=0.4) = simulate(k0, model; s=s, T=T)\n\nsimulate (generic function with 2 methods)\n\n\n\nmethods(simulate)\n\n# 2 methods for generic function simulate from \u001b[35mMain\u001b[39m: simulate(k0, model; s, T) in Main at /home/pablo/Teaching/ensae/mie37/tutorials/2_solow_pablo.ipynb:3  simulate(k0, model, T; s) in Main at /home/pablo/Teaching/ensae/mie37/tutorials/2_solow_pablo.ipynb:1 \n\n\nMake a nice plot to illustrate the convergence. Do we get convergence from any initial level of capital?\n\n# different libraries. Main options:\n# Plots.jl -&gt; different backends, including matplotlib\n# Makie.jl -&gt; fast with easy animations\n\n\nusing Plots\n\n\nplot(sim)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsim_1 = simulate(0.5, model; s=0.3)\nsim_2 = simulate(0.5, model; s=0.4)\nsim_3 = simulate(0.5, model; s=0.5)\n\n101-element Vector{Float64}:\n 0.5\n 0.8561261981781177\n 1.2477475382753753\n 1.6573008927807404\n 2.073393171590884\n 2.4883176067712327\n 2.8967527254553693\n 3.2950061580751355\n 3.680539839343968\n 4.051654372933684\n ⋮\n 9.949900641171165\n 9.951039677408726\n 9.952099018857133\n 9.95308423905062\n 9.954000522065433\n 9.954852689688693\n 9.95564522669805\n 9.956382304382648\n 9.957067802427053\n\n\n\npl = plot(title=\"Convergence in Solow Model\")\nplot!(pl, sim_1; label=\"s=0.3\")\nplot!(pl, sim_2; label=\"s=0.4\")\nplot!(pl, sim_3; label=\"s=0.5\")\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSuppose you were interested in using f to compute the steady-state. What would you propose to measure convergence speed? To speed-up convergence? Implement these ideas."
+  },
+  {
     "objectID": "tutorials/2_solow.html",
     "href": "tutorials/2_solow.html",
     "title": "Convergence of Sequences",
@@ -54,7 +61,7 @@
     "href": "index.html#indicative-schedule",
     "title": "Advanced Macro: Numerical Methods",
     "section": "Indicative Schedule",
-    "text": "Indicative Schedule\n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nFeb 15, 2024\n\n\nIntroduction\n\n\n\n\nFeb 29, 2024\n\n\nConvergence of Sequences\n\n\n\n\n\nNo matching items"
+    "text": "Indicative Schedule\n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nFeb 15, 2024\n\n\nIntroduction\n\n\n\n\nFeb 29, 2024\n\n\nConvergence of Sequences\n\n\n\n\nMar 7, 2024\n\n\nPerturbation Analysis\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#communication",
@@ -2108,8 +2115,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#today",
-    "href": "slides/perturbation.html#today",
+    "objectID": "slides/session_3/index.html#today",
+    "href": "slides/session_3/index.html#today",
     "title": "Perturbation Analysis",
     "section": "Today",
     "text": "Today\nStudy Neoclassical Model of Growth with Deterministic Productivity Shocks\n\nDerive First Order Conditions\nComputing Derivatives Numerically\nSolution Method\n\nLinear Time Iteration\n\nImplementation",
@@ -2119,8 +2126,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#neoclassical-growth-model",
-    "href": "slides/perturbation.html#neoclassical-growth-model",
+    "objectID": "slides/session_3/index.html#neoclassical-growth-model",
+    "href": "slides/session_3/index.html#neoclassical-growth-model",
     "title": "Perturbation Analysis",
     "section": "Neoclassical Growth Model",
     "text": "Neoclassical Growth Model\n\n\n\nTransition Equation \\[\\begin{eqnarray}\nk_t & = & (1-\\delta) k_{t-1} + i_{t-1} \\\\\nz_t & = & \\rho z_{t-1}\n\\end{eqnarray}\n\\]\nDefinition: \\[c_t = \\exp(z_t) k_t^\\alpha - i_t\\]\nControl \\(i_t\\in[0, \\exp(z_t)k_t^\\alpha[\\)\n\nor equivalently \\(c_t \\in ]0, \\exp(z_t) k_t^{\\alpha}]\\)\n\nObjective: \\[\\max_{i_t} \\sum_{t\\geq0} \\beta^t U(c_t)\\]\n\n\n\nCalibration:\n\n\\(\\beta = 0.96\\)\n\\(\\delta = 0.1\\)\n\\(\\gamma = 4.0\\)\n\\(\\alpha = 0.3\\)\n\\(U(x)=\\frac{x^{1-\\gamma}}{1-\\gamma}\\)",
@@ -2130,8 +2137,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#deriving-first-order-conditions-1",
-    "href": "slides/perturbation.html#deriving-first-order-conditions-1",
+    "objectID": "slides/session_3/index.html#deriving-first-order-conditions-1",
+    "href": "slides/session_3/index.html#deriving-first-order-conditions-1",
     "title": "Perturbation Analysis",
     "section": "Deriving First Order Conditions",
     "text": "Deriving First Order Conditions\n\nTwo methods:\n\nBellman:\n\nOptimality Condition\nEnveloppe Condition\n\nLagrangian:\n\nWe will use the lagrangian version",
@@ -2141,8 +2148,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#lagrangian",
-    "href": "slides/perturbation.html#lagrangian",
+    "objectID": "slides/session_3/index.html#lagrangian",
+    "href": "slides/session_3/index.html#lagrangian",
     "title": "Perturbation Analysis",
     "section": "Lagrangian",
     "text": "Lagrangian\n\nInitial Conditions (predetermined states): \\(z_0\\), \\(k_0\\)\nProblem: \\[V(z_0, k_0) = \\max_{\\begin{matrix}i_0, i_1, i_2, \\cdots \\\\c_0, c_1, c_2 \\cdots \\\\ k_1, k_2, \\cdots\\end{matrix}} \\sum_{t \\geq 0}\\beta^t U(c_t)\\]\n\n\\[\\text{s.t.}\\forall t\\geq 0, \\; \\; \\begin{eqnarray}\n\\mu_t:\\quad &  0 & \\leq & i_t  \\\\\n\\nu_t:\\quad &  i_t & \\leq & \\exp(z_t) k_t^{\\alpha} \\\\\n\\lambda_t:\\quad &  i_t & = & \\exp(z_t) k_t^{\\alpha} - c_t\\\\\nq_t:\\quad &  k_{t+1} & = & (1-\\delta) k_{t} + i_{t}\n\\end{eqnarray}\\]\n\nLagrangian: \\[\n\\mathcal{L} (z_0, k_0) = \\sum_{t \\geq 0} \\beta^t\\left\n\\{ U(c_t) + \\mu_t \\left( i_t \\right) + \\nu_t \\left(\\exp(z_t)k_t^{\\alpha} - i_t \\right) + \\lambda_t \\left(\\exp(z_t) k_t^{\\alpha}  - i_t -c_t \\right)  + q_t \\left( (1-\\delta) k_{t} + i_{t} - k_{t+1} \\right) \\right\\}\n\\]",
@@ -2152,8 +2159,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#lagrangian-1",
-    "href": "slides/perturbation.html#lagrangian-1",
+    "objectID": "slides/session_3/index.html#lagrangian-1",
+    "href": "slides/session_3/index.html#lagrangian-1",
     "title": "Perturbation Analysis",
     "section": "Lagrangian",
     "text": "Lagrangian\n\n\n\nWe maximize the lagrangian to get:\n\n\\[\\begin{eqnarray}\n\\forall t\\geq0 & \\frac{\\partial \\mathcal{L}}{\\partial i_t} & = & 0 \\\\\n& \\frac{\\partial \\mathcal{L}}{\\partial c_t} & = & 0 \\\\\n& \\frac{\\partial \\mathcal{L}}{\\partial k_{t+1}} & = & 0\n\\end{eqnarray}\\]\n\nIt is important to note that we don’t differentiate with respect to a predetermined state\n\ncheck that you don’t differentiate w.r.t. \\(k_0\\)\n\nIt looks like the first order condition added four new variables \\(\\mu_t\\),\\(\\nu_t\\), \\(\\lambda_t\\), \\(q_t\\)\n\n\n\nLuckily these variables are associated to slackness conditions.\n\n\n\n\n\\(\\mu_t \\geq 0\\)\n\\(i_t \\geq 0\\)\n\n\n\\(\\nu_t \\geq 0\\)\n\\(\\exp(z_t) k_t^{\\alpha}-i_t \\geq 0\\)\n\n\n\\(q_t \\geq 0\\)\n\\((1-\\delta) k_{t} + i_{t} - k_{t+1} \\geq 0\\)\n\n\n\\(\\lambda_t \\geq 0\\)\n\\(\\exp(z_t) k_t^{\\alpha}  - i_t -c_t = 0\\)\n\n\n\n\nThe Karush-Kuhn-Tucker states, that for each slackness condition, at any time, either\n\nthe lagrangian is 0 and it disappears from the F.O.C.s\nor it is not 0 and the associated constraint adds another condition",
@@ -2163,8 +2170,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#eliminating-constraints",
-    "href": "slides/perturbation.html#eliminating-constraints",
+    "objectID": "slides/session_3/index.html#eliminating-constraints",
+    "href": "slides/session_3/index.html#eliminating-constraints",
     "title": "Perturbation Analysis",
     "section": "Eliminating constraints",
     "text": "Eliminating constraints\n\n\n\n\n\n\\(\\mu_t \\geq 0\\)\n\\(i_t \\geq 0\\)\n\n\n\\(\\nu_t \\geq 0\\)\n\\(\\exp(z_t) k_t^{\\alpha}-i_t \\geq 0\\)\n\n\n\\(q_t\\)\n\\((1-\\delta) k_{t} + i_{t} - k_{t+1} = 0\\)\n\n\n\\(\\lambda_t\\)\n\\(\\exp(z_t) k_t^{\\alpha}  - i_t -c_t = 0\\)\n\n\n\n\nIn general slackness conditions can be occasionally binding\nFor perturbation analysis, we need constraints to be always (or never binding)\n\n\nLet’s review them:\n\n\\(\\nu_t\\): it is equivalent to \\(c_t\\geq 0\\)\n\nwe necessarily have \\(c_t&gt;0\\) since \\(U^{\\prime}(0)=\\infty\\)\nhence \\(\\nu_t=0\\)\n\n\\(\\mu_t\\): it states \\(k_{t+1}\\geq 0\\)\n\nif \\(k_{t+1}=0\\), then \\(c_{t+1}\\). We can conclude \\(k_{t+1}&gt;0\\)\nhence \\(\\mu_t=0\\)\n\nfor multipliers associated to an equality constraint, we always keep the system\n\nmultiplier can have any sign\n\ninequality formulation is sometimes found too:\n\n\\(c_t \\leq \\exp(z_t) k_t^{\\alpha}  - i_t\\) ( you can destroy production insead of eating or investing it)\n\\(k_{t+1} \\leq (1-\\delta) k_{t} + i_{t}\\) (you can destroy capital instead of investing it)",
@@ -2174,8 +2181,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#first-order-model",
-    "href": "slides/perturbation.html#first-order-model",
+    "objectID": "slides/session_3/index.html#first-order-model",
+    "href": "slides/session_3/index.html#first-order-model",
     "title": "Perturbation Analysis",
     "section": "First order model",
     "text": "First order model\n\nOptimality Condition: \\[\\beta  \\left[ \\frac{\\left(c_{t+1}\\right)^{-\\gamma}}{\\left(c_t\\right)^{-\\gamma}} \\left( (1-\\delta + \\alpha k_t^{\\alpha -1}) \\right)\\right] = 1\\]\n\nTakes into account the fact that \\(c_t&gt;0\\).\n\nDefinition: \\[c_t = k_t^\\alpha - i_t\\]\nTransition: \\[k_t = (1-\\delta) k_{t-1} + i_{t-1}\\] \\[z_t = \\rho z_{t-1}\\]",
@@ -2185,8 +2192,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#steady-state",
-    "href": "slides/perturbation.html#steady-state",
+    "objectID": "slides/session_3/index.html#steady-state",
+    "href": "slides/session_3/index.html#steady-state",
     "title": "Perturbation Analysis",
     "section": "Steady-State",
     "text": "Steady-State\n\n\n\nSteady-State: \\(\\overline{i}, \\overline{k}, \\overline{z}\\) such that:\n\n\\(z_{t+1}=z_t=\\overline{z}\\)\n\\(k_{t+1}=k_t=\\overline{k}\\)\n\\(i_{t+1}=i_t=\\overline{i}\\)\n\\(c_{t+1}=c_t=\\overline{c}\\)\n\n…satisfy the first order conditions\n…i.e.\n\n\\[\n\\begin{eqnarray}\n1 & = & \\beta   \\left( (1-\\delta + \\alpha {\\overline{k}}^{\\alpha -1}) \\right)  \\\\\n\\overline{k} & = & (1-\\delta) \\overline{k} + \\overline{i} \\\\\n\\overline{z} & = & \\rho \\overline{z} \\\\\n\\overline{c} & = & \\overline{k}^{\\alpha} - \\overline{i}\n\\end{eqnarray}\n\\]\n\n\nSolution?\n\nclosed-form\nnumerical\n\nHere we can get a closed form:\n\n\\[\\begin{eqnarray}\n\\overline{k} & = & \\left( \\frac{\\frac{1}{\\beta}-(1-\\delta)}{\\alpha} \\right)^{\\frac{1}{\\alpha - 1}} \\\\\n\\overline{i} & = & \\delta \\overline{k} \\\\\\\n\\overline{z} & = & 0 \\\\\n\\overline{c} & = & \\overline{k}^{\\alpha} - \\overline{i}\n\\end{eqnarray}\\]",
@@ -2196,19 +2203,19 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#perturbation-analysis",
-    "href": "slides/perturbation.html#perturbation-analysis",
+    "objectID": "slides/session_3/index.html#perturbation-analysis",
+    "href": "slides/session_3/index.html#perturbation-analysis",
     "title": "Perturbation Analysis",
     "section": "Perturbation Analysis",
-    "text": "Perturbation Analysis\n\n\n\n\nWrite all variables in deviation to the steady-state: \\[z_{t}=\\overline{z} + \\Delta z_t\\] \\[k_{t}=\\overline{k} + \\Delta k_t\\] \\[i_{t}=\\overline{i} + \\Delta i_t\\] \\[c_{t}=\\overline{c} + \\Delta c_t\\]\n\nRemark: some smart economists use log-deviations (i.e. \\(x_t = \\overline{x} \\hat{x}_t\\) to make computations easier)\n\n\n\n\n\nReplace in the system \\[\\beta  \\left[ \\frac{\\left(\\overline{c}+ \\Delta c_{t+1}\\right)^{-\\gamma}}{\\left(\\overline{c} + \\Delta c_t\\right)^{-\\gamma}} \\left( (1-\\delta + \\alpha (\\overline{k} + \\Delta k_{t+1})^{\\alpha -1}) \\right)\\right] = 1\\] \\[\\overline{c} + \\Delta c_t = (\\overline{k}+ \\Delta k_t)^\\alpha - \\overline{i} - \\Delta i_t\\] \\[\\overline{k} + \\Delta k_t = (1-\\delta) (\\overline{k}+ \\Delta k_{t-1}) + \\overline{i }+ \\Delta i_{t-1}\\] \\[\\overline{z }+ \\Delta z_t = \\overline{z}+ \\Delta \\rho z_{t-1}\\]\nDifferentiate…\n(if we want to limit the number of equations, we can replace \\(c_t\\) by its value)",
+    "text": "Perturbation Analysis\n\n\n\nWrite all variables in deviation to the steady-state: \\[z_{t}=\\overline{z} + \\Delta z_t\\] \\[k_{t}=\\overline{k} + \\Delta k_t\\] \\[i_{t}=\\overline{i} + \\Delta i_t\\] \\[c_{t}=\\overline{c} + \\Delta c_t\\]\n\nRemark: some smart economists use log-deviations (i.e. \\(x_t = \\overline{x} \\hat{x}_t\\) to make computations easier)\n\n\n\n\nReplace in the system \\[\\beta  \\left[ \\frac{\\left(\\overline{c}+ \\Delta c_{t+1}\\right)^{-\\gamma}}{\\left(\\overline{c} + \\Delta c_t\\right)^{-\\gamma}} \\left( (1-\\delta + \\alpha (\\overline{k} + \\Delta k_{t+1})^{\\alpha -1}) \\right)\\right] = 1\\] \\[\\overline{c} + \\Delta c_t = (\\overline{k}+ \\Delta k_t)^\\alpha - \\overline{i} - \\Delta i_t\\] \\[\\overline{k} + \\Delta k_t = (1-\\delta) (\\overline{k}+ \\Delta k_{t-1}) + \\overline{i }+ \\Delta i_{t-1}\\] \\[\\overline{z }+ \\Delta z_t = \\overline{z}+ \\Delta \\rho z_{t-1}\\]\nDifferentiate…\n(if we want to limit the number of equations, we can replace \\(c_t\\) by its value)",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
     ]
   },
   {
-    "objectID": "slides/perturbation.html#result",
-    "href": "slides/perturbation.html#result",
+    "objectID": "slides/session_3/index.html#result",
+    "href": "slides/session_3/index.html#result",
     "title": "Perturbation Analysis",
     "section": "Result:",
     "text": "Result:\n\nOptimality conditions \\[\\begin{bmatrix} . & . & . & . \\\\ \\end{bmatrix} \\begin{bmatrix} \\Delta i_t \\\\ \\Delta c_t  \\\\ \\Delta k_t \\\\ \\Delta z_t \\end{bmatrix} = \\begin{bmatrix} . & . & . \\\\ \\end{bmatrix} \\begin{bmatrix} \\Delta i_{t+1} \\\\  \\Delta c_{t+1} \\\\ \\Delta k_{t+1} \\\\ \\Delta z_{t+1} \\end{bmatrix} \\]\nTransition \\[ \\begin{bmatrix} \\Delta k_t \\\\ \\Delta z_t \\end{bmatrix} = \\begin{bmatrix} . & .  \\\\ . & . \\end{bmatrix} \\begin{bmatrix} \\Delta k_{t-1} \\\\ \\Delta z_{t-1} \\end{bmatrix}  + \\begin{bmatrix} . \\end{bmatrix} \\begin{bmatrix}\\Delta i_{t-1}\\end{bmatrix}\\]",
@@ -2218,8 +2225,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#julia-console",
-    "href": "slides/perturbation.html#julia-console",
+    "objectID": "slides/session_3/index.html#julia-console",
+    "href": "slides/session_3/index.html#julia-console",
     "title": "Perturbation Analysis",
     "section": "Julia Console",
     "text": "Julia Console\n\nAccessible:\n\nfrom a good terminal\nfrom VSCode panel\n\nFour modes:\n\n``: REPL (read-eval-print)\n?: Help\n]: Package Management\n;: System Console",
@@ -2229,8 +2236,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#julia-package-ecosystem",
-    "href": "slides/perturbation.html#julia-package-ecosystem",
+    "objectID": "slides/session_3/index.html#julia-package-ecosystem",
+    "href": "slides/session_3/index.html#julia-package-ecosystem",
     "title": "Perturbation Analysis",
     "section": "Julia package ecosystem",
     "text": "Julia package ecosystem\n\nLarge package ecosystem\nFairly good quality native code\nWrappers to low-level / foreign language libraries\n\nC: ccall\nFortran: fcall\nPython: PyCall",
@@ -2240,8 +2247,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#how-do-you-install-pckages",
-    "href": "slides/perturbation.html#how-do-you-install-pckages",
+    "objectID": "slides/session_3/index.html#how-do-you-install-pckages",
+    "href": "slides/session_3/index.html#how-do-you-install-pckages",
     "title": "Perturbation Analysis",
     "section": "How do you install pckages?",
     "text": "How do you install pckages?\n\nShort and wrong answer: ] add PackageName\nBetter answer:\n\na project environment specifies all dependencies for a project\n\ninformations are contained in Project.toml\n\nchange directory to the right project\n\n; cd path_to_the_right_project\nyou can check where you are ; pwd (print working directory)\n\nactivate environment:\n\n] activate . (. universally means current director)\n\nadd desired package:\n\n] add PackageName\n\nwhen you restart work on a project activate, it again, to ensure you have the right dependencies",
@@ -2251,8 +2258,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#main-approaches",
-    "href": "slides/perturbation.html#main-approaches",
+    "objectID": "slides/session_3/index.html#main-approaches",
+    "href": "slides/session_3/index.html#main-approaches",
     "title": "Perturbation Analysis",
     "section": "Main approaches",
     "text": "Main approaches\n\nBack to our problem, how to we differentiate the model?\nMain approaches:\n\nManual\nFinite Differences\nSymbolic Differentiation\nAutomatic Differentiation",
@@ -2262,8 +2269,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#manual-differentiation",
-    "href": "slides/perturbation.html#manual-differentiation",
+    "objectID": "slides/session_3/index.html#manual-differentiation",
+    "href": "slides/session_3/index.html#manual-differentiation",
     "title": "Perturbation Analysis",
     "section": "Manual Differentiation",
     "text": "Manual Differentiation\n\nTrick:\n\nnever use \\(\\frac{d}{dx} \\frac{u(x)}{v(x)} = \\frac{u'(x)v(x)-u(x)v'(x)}{v(x)^2}\\)\n\ntoo error prone\n\nuse instead \\[\\frac{d}{dx} {u(x)v(x)} = {u'(x)v(x)+u(x)v'(x)}\\] and \\[\\frac{d}{dx} \\frac{1}{u(x)} = -\\frac{u^{\\prime}}{u(x)^2}\\]\n\nYou can get easier calculations (in some cases) by using log-deviation rules",
@@ -2273,19 +2280,19 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#finite-differences",
-    "href": "slides/perturbation.html#finite-differences",
+    "objectID": "slides/session_3/index.html#finite-differences",
+    "href": "slides/session_3/index.html#finite-differences",
     "title": "Perturbation Analysis",
     "section": "Finite Differences",
-    "text": "Finite Differences\n\n\n\nChoose small \\(\\epsilon&gt;0\\), typically \\(\\sqrt{ \\textit{machine eps}}\\)\n\ncheck eps()\n\nForward Difference scheme:\n\n\\(f'(x) \\approx \\frac{f(x+\\epsilon) - f(x)}{\\epsilon}\\)\nprecision: \\(o(\\epsilon)\\)\nbonus: if \\(f(x+\\epsilon)\\) can compute \\(f(x)-f(x-\\epsilon)\\) instead (Backward)\n\nCentral Difference scheme:\n\n\\(f'(x) \\approx \\frac{f(x+\\epsilon) - f(x-\\epsilon)}{2\\epsilon}\\)\naverage of forward and backward\nprecision: \\(o(\\epsilon^2)\\)\n\n\n\nTwo packages FiniteDiff and FiniteDifferences.\nExample:\nusing FiniteDiff\n\ng(x) = [x[1]^2 x[2]^3]\nFiniteDiff.finite_difference_jacobian(g, [0.1, 0.2])",
+    "text": "Finite Differences\n\n\n\n\nChoose small \\(\\epsilon&gt;0\\), typically \\(\\sqrt{ \\textit{machine eps}}\\)\n\ncheck eps()\n\nForward Difference scheme:\n\n\\(f'(x) \\approx \\frac{f(x+\\epsilon) - f(x)}{\\epsilon}\\)\nprecision: \\(o(\\epsilon)\\)\nbonus: if \\(f(x+\\epsilon)\\) can compute \\(f(x)-f(x-\\epsilon)\\) instead (Backward)\n\nCentral Difference scheme:\n\nFinite \\(f'(x) \\approx \\frac{f(x+\\epsilon) - f(x-\\epsilon)}{2\\epsilon}\\)\naverage of forward and backward\nprecision: \\(o(\\epsilon^2)\\)\n\n\n\n\nTwo packages FiniteDiff and FiniteDifferences.\nExample:\nusing FiniteDiff\n\ng(x) = [x[1]^2 x[2]^3]\nFiniteDiff.finite_difference_jacobian(g, [0.1, 0.2])",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
     ]
   },
   {
-    "objectID": "slides/perturbation.html#finite-differences-higher-order",
-    "href": "slides/perturbation.html#finite-differences-higher-order",
+    "objectID": "slides/session_3/index.html#finite-differences-higher-order",
+    "href": "slides/session_3/index.html#finite-differences-higher-order",
     "title": "Perturbation Analysis",
     "section": "Finite Differences: Higher order",
     "text": "Finite Differences: Higher order\n\nCentral formula: \\[\n\\begin{aligned}\nf''(x) & \\approx & \\frac{f'(x)-f'(x-\\epsilon)}{\\epsilon} \\approx \\frac{(f(x+\\epsilon))-f(x))-(f(x)-f(x-\\epsilon))}{\\epsilon^2} \\\\ & = & \\frac{f(x+\\epsilon)-2f(x)+f(x-\\epsilon)}{\\epsilon^2}\n\\end{aligned}\n\\]\n\nprecision: \\(o(\\epsilon)\\)\n\nGeneralizes to higher order but becomes more and more innacurate",
@@ -2295,8 +2302,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#symbolic-differentiation",
-    "href": "slides/perturbation.html#symbolic-differentiation",
+    "objectID": "slides/session_3/index.html#symbolic-differentiation",
+    "href": "slides/session_3/index.html#symbolic-differentiation",
     "title": "Perturbation Analysis",
     "section": "Symbolic Differentiation",
     "text": "Symbolic Differentiation\n\n\n\nmanipulate the tree of algebraic expressions\n\nimplements various simplification rules\n\nrequires mathematical expression\ncan produce mathematical insights\nsometimes inaccurate:\n\ncf: \\(\\left(\\frac{1+u(x)}{1+v(x)}\\right)^{100}\\)\n\n\n\nTwo main libraries:\n\nSymEngine.jl\n\nfast symbolic calculation\nmature C++ engine\n\nSymbolics.jl:\n\npure julia\nfinite difference\nsymbolic calculation\n\n\nExample using Symbolics:\nusing Symbolics\n@variables a x b y\neq = a*sin(x) + b*cos(y)\nSymbolics.derivative(eq, x)",
@@ -2306,8 +2313,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#automatic-differentiation",
-    "href": "slides/perturbation.html#automatic-differentiation",
+    "objectID": "slides/session_3/index.html#automatic-differentiation",
+    "href": "slides/session_3/index.html#automatic-differentiation",
     "title": "Perturbation Analysis",
     "section": "Automatic Differentiation",
     "text": "Automatic Differentiation\n\nAutomatic Differentiation\n\ndoes not provide mathematical insights but solves the other problems\ncan differentiate any piece of code\ntwo flavours\n\nforward accumulation\nreverse accumulation",
@@ -2317,8 +2324,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#automatic-source-code-rewrite",
-    "href": "slides/perturbation.html#automatic-source-code-rewrite",
+    "objectID": "slides/session_3/index.html#automatic-source-code-rewrite",
+    "href": "slides/session_3/index.html#automatic-source-code-rewrite",
     "title": "Perturbation Analysis",
     "section": "Automatic source code rewrite",
     "text": "Automatic source code rewrite\n\n\nConsider this simple function\nfunction f(x::Number)\n\n    a = x + 1\n    b = x^2\n    c = sin(a) \n    d = c + b\n\n    return d\n\nend\n\nWe can rewrite the code as follows:\nfunction f(x::Number)\n\n    # x is an argument\n    x_dx = 1.0\n\n    a = x + 1\n    a_dx = x_dx\n\n    b = x^2\n    b_dx = 2*x*x_dx\n\n    c = sin(a)\n    c_x = cos(a)*a_dx\n\n    d = c + b\n    d_x = c_dx + b_dx\n\n    return (d, d_x)\nend",
@@ -2328,8 +2335,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#dual-numbers-operator-overloading",
-    "href": "slides/perturbation.html#dual-numbers-operator-overloading",
+    "objectID": "slides/session_3/index.html#dual-numbers-operator-overloading",
+    "href": "slides/session_3/index.html#dual-numbers-operator-overloading",
     "title": "Perturbation Analysis",
     "section": "Dual numbers: operator overloading",
     "text": "Dual numbers: operator overloading\nInstead of rewriting source code, we can use dual numbers to perform exactly the same calculations.\nstruct DN&lt;:Number\n    x::Float64\n    dx::Float64\nend\n\n+(a::DN,b::DN) = DN(a.x+b.x, a.dx+b.dx)\n-(a::DN,b::DN) = DN(a.x-b.x, a.dx-b.dx)\n*(a::DN,b::DN) = DN(a.x*b.x, a.x*b.dx+a.dx*b.x)\n/(a::DN,b::DN) = DN(a.x/b.x, (a.dx*b.x-a.x*b.dx)/b.dx^2)\n\n...\nTry it on function f What do we miss ?",
@@ -2339,8 +2346,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#dual-numbers",
-    "href": "slides/perturbation.html#dual-numbers",
+    "objectID": "slides/session_3/index.html#dual-numbers",
+    "href": "slides/session_3/index.html#dual-numbers",
     "title": "Perturbation Analysis",
     "section": "Dual numbers",
     "text": "Dual numbers\nThis approach (and automatic differentiation in general) is compatible with control flow operations (if, while, …)\nLet’s see it with the dual numbers defined by ForwardDiff library:\nimport ForwardDiff: Dual\n\nx = Dual(1.0, 1.0)\na = 0.5*x\nb = sum([(x)^i/i*(-1)^(i+1) for i=1:5000])\n# compare with log(1+x)\n\ngeneralizes nicely to gradient computations\n\nx = Dual(1.0, 1.0, 0.0)\ny = Dual(1.0, 0.0, 1.0)\nexp(x) + log(y)",
@@ -2350,8 +2357,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#automatic-differentiation-2",
-    "href": "slides/perturbation.html#automatic-differentiation-2",
+    "objectID": "slides/session_3/index.html#automatic-differentiation-2",
+    "href": "slides/session_3/index.html#automatic-differentiation-2",
     "title": "Perturbation Analysis",
     "section": "Automatic differentiation",
     "text": "Automatic differentiation\nThere are many flavours of automatic differenation (check JuliaDiff.org)\n \n \n\n\nForward Accumulation Mode\n\nisomorphic to dual number calculation\ncompute values and derivatives at the same time\nefficient for \\(f: R^n\\rightarrow R^m\\), with \\(n&lt;&lt;m\\)\n\n(keeps lots of empty gradients when \\(n&gt;&gt;m\\))\n\n\n\nReverse Accumulation Mode\n\nReverse Accumulation / Back Propagation\n\nefficient for \\(f: R^n\\rightarrow R^m\\), with \\(n&gt;&gt;m\\)\nrequires data storage (to keep intermediate values)\ngraph / example\n\nVery good for machine learning:\n\n\\(\\nabla_{\\theta} F(x;\\theta)\\) where \\(F\\) is a scalar objective",
@@ -2361,8 +2368,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#libraries-for-autodiff",
-    "href": "slides/perturbation.html#libraries-for-autodiff",
+    "objectID": "slides/session_3/index.html#libraries-for-autodiff",
+    "href": "slides/session_3/index.html#libraries-for-autodiff",
     "title": "Perturbation Analysis",
     "section": "Libraries for AutoDiff",
     "text": "Libraries for AutoDiff\n\nSee JuliaDiff: http://www.juliadiff.org/\n\nForwardDiff.jl\nReverseDiff.jl\n\nZygote.jl\nDeep learning framework:\n\nhigher order diff w.r.t. any vector -&gt; tensor operations\nFlux.jl, MXNet.jl, Tensorflow.jl\n\n\n\n\n\n\n\n\n\nExample with ForwardDiff\n\n\nExample with ForwardDiff:\n  using ForwardDiff\nForwardDiff.jacobian(u-&gt;[u[1]^2, u[2]+u[1]], [0.1,0.2])",
@@ -2372,41 +2379,41 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#our-problem",
-    "href": "slides/perturbation.html#our-problem",
+    "objectID": "slides/session_3/index.html#our-problem",
+    "href": "slides/session_3/index.html#our-problem",
     "title": "Perturbation Analysis",
     "section": "Our problem",
-    "text": "Our problem\n\n\n\nGeneral formulation of a linearized model: \\[ \\begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0_{n_x} \\\\\ns_{t+1} & = & E s_t + F x_t \\end{eqnarray}\\] where:\n\n\\(s_t \\in \\mathbb{R}^{n_s}\\) is a vector of states\n\\(x_t \\in \\mathbb{R}^{n_x}\\) is a vector of controls\n\nRemark:\n\nfirst equation is forward looking\nsecond equation is backward looking\n\n\n\n\nIn the neoclassical model: \\[\\begin{eqnarray}\ns_t & = & (\\Delta z_t, \\Delta k_t) \\\\\nx_t & = & (\\Delta i_t, \\Delta c_t)\n\\end{eqnarray}\\]\nThe linearized system is: \\[\\begin{eqnarray}\nA & = & ...\\\\\nB & = & ...\\\\\nC & = & ...\\\\\nD & = & ...\\\\\nE & = & ...\\\\\nF & = &\n\\end{eqnarray}\\]",
+    "text": "Our problem\n\n\nGeneral formulation of a linearized model: \\[ \\begin{eqnarray} A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0_{n_x} \\\\\ns_{t+1} & = & E s_t + F x_t \\end{eqnarray}\\] where:\n\n\\(s_t \\in \\mathbb{R}^{n_s}\\) is a vector of states\n\\(x_t \\in \\mathbb{R}^{n_x}\\) is a vector of controls\n\nRemark:\n\nfirst equation is forward looking\nsecond equation is backward looking\n\n\nIn the neoclassical model: \\[\\begin{eqnarray}\ns_t & = & (\\Delta z_t, \\Delta k_t) \\\\\nx_t & = & (\\Delta i_t, \\Delta c_t)\n\\end{eqnarray}\\]\nThe linearized system is: \\[\\begin{eqnarray}\nA & = & ...\\\\\nB & = & ...\\\\\nC & = & ...\\\\\nD & = & ...\\\\\nE & = & ...\\\\\nF & = &\n\\end{eqnarray}\\]",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
     ]
   },
   {
-    "objectID": "slides/perturbation.html#solution",
-    "href": "slides/perturbation.html#solution",
+    "objectID": "slides/session_3/index.html#solution",
+    "href": "slides/session_3/index.html#solution",
     "title": "Perturbation Analysis",
     "section": "Solution",
-    "text": "Solution\n\n\n\nWhat is the solution of our problem?\nAt date \\(t\\) controls must be chosen as a function of (predetermined) states\nMathematically speaking, the solution is a function \\(\\varphi\\) such that: \\[\\forall t, x_t = \\varphi(s_t)\\]\nSince the model is linear we look for un unknown matrix \\(X \\in \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_s}\\) such that:\n\n\\[\\Delta x_t = X \\Delta s_t\\]\n\nIn the neoclassical model\n\nThe states are \\(k_t\\) and \\(z_t\\)\nThe controls \\(i_t\\) and \\(c_t\\) must be a function of the states\nthere is a decision rule \\(i()\\), \\(c()\\) such that \\[i_t = i(z_t, k_t)\\] \\[c_t = c(z_t, k_t)\\]\nIn the linearized model: \\[\\Delta i_t =i_z \\Delta z_t + i_k \\Delta k_t\\] \\[\\Delta c_t =c_z \\Delta z_t + c_k \\Delta k_t\\]",
+    "text": "Solution\n\n\nWhat is the solution of our problem?\n\n\nAt date \\(t\\) controls must be chosen as a function of (predetermined) states\nMathematically speaking, the solution is a function \\(\\varphi\\) such that: \\[\\forall t, x_t = \\varphi(s_t)\\]\nSince the model is linear we look for un unknown matrix \\(X \\in \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_s}\\) such that: \\[\\Delta x_t = X \\Delta s_t\\]\n\n\n\nIn the neoclassical model\n\n\nThe states are \\(k_t\\) and \\(z_t\\)\nThe controls \\(i_t\\) and \\(c_t\\) must be a function of the states\n\nthere is a decision rule \\(i()\\), \\(c()\\) such that \\[i_t = i(z_t, k_t)\\] \\[c_t = c(z_t, k_t)\\]\n\nIn the linearized model: \\[\\Delta i_t =i_z \\Delta z_t + i_k \\Delta k_t\\] \\[\\Delta c_t =c_z \\Delta z_t + c_k \\Delta k_t\\]",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
     ]
   },
   {
-    "objectID": "slides/perturbation.html#optimality-condition",
-    "href": "slides/perturbation.html#optimality-condition",
+    "objectID": "slides/session_3/index.html#optimality-condition",
+    "href": "slides/session_3/index.html#optimality-condition",
     "title": "Perturbation Analysis",
     "section": "Optimality condition:",
-    "text": "Optimality condition:\n\n\n\nReplacing in the system: \n\n\\[\\Delta x_t  =  X \\Delta s_t\\] \\[\\Delta s_{t+1}  =  E \\Delta s_t + F X \\Delta s_t\\] \\[\\Delta x_{t+1}  =  X \\Delta s_{t+1}\\] \\[A \\Delta s_t + B \\Delta x_t + C \\Delta s_{t+1} + D \\Delta x_{t+1}  =  0\\]\n\nIf we make the full substitution:\n\n\\[( (A + B X) + ( D X + C) ( E  + F X ) ) \\Delta s_t = 0\\]\n\n\nThis must be true for all \\(s_t\\). We get the special Ricatti equation:\n\n\\[(A + B {\\color{red}{X}} ) + ( D {\\color{red}{X}} + C) ( E  + F {\\color{red}X} ) = 0\\]\n\nthis is a quadratic, matrix ( \\(X\\) is 2 by 2 ) equation:\n\nrequires special solution method\nthere are multiple solutions: which should we choose?\ntoday: linear time iteration selects only one solution\n\nalternative: eigenvalues analysis",
+    "text": "Optimality condition:\n\n\nReplacing in the system: \n\\[\\Delta x_t  =  X \\Delta s_t\\] \\[\\Delta s_{t+1}  =  E \\Delta s_t + F X \\Delta s_t\\] \\[\\Delta x_{t+1}  =  X \\Delta s_{t+1}\\] \\[A \\Delta s_t + B \\Delta x_t + C \\Delta s_{t+1} + D \\Delta x_{t+1}  =  0\\]\nIf we make the full substitution:\n\\[( (A + B X) + ( D X + C) ( E  + F X ) ) \\Delta s_t = 0\\]\n\nThis must be true for all \\(s_t\\). We get the special Ricatti equation:\n\\[(A + B {\\color{red}{X}} ) + ( D {\\color{red}{X}} + C) ( E  + F {\\color{red}X} ) = 0\\]\nThis is a quadratic, matrix ( \\(X\\) is 2 by 2 ) equation:\n\nrequires special solution method\nthere are multiple solutions: which should we choose?\ntoday: linear time iteration selects only one solution\n\nalternative: eigenvalues analysis",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
     ]
   },
   {
-    "objectID": "slides/perturbation.html#linear-time-iteration",
-    "href": "slides/perturbation.html#linear-time-iteration",
+    "objectID": "slides/session_3/index.html#linear-time-iteration",
+    "href": "slides/session_3/index.html#linear-time-iteration",
     "title": "Perturbation Analysis",
     "section": "Linear Time Iteration",
     "text": "Linear Time Iteration\n\nLet’s be more subtle: define\n\n\\(X\\): decision rule today and\n\\(\\tilde{X}\\): is decision rule tomorrow. \\[\\begin{eqnarray}\n\\Delta x_t & =&  X \\Delta s_t \\\\\n\\Delta s_{t+1} & = & E \\Delta  s_t + F X \\Delta s_t \\\\\n\\Delta x_{t+1} & = & \\tilde{X} \\Delta s_{t+1} \\\\\nA \\Delta s_t + B \\Delta x_t + C \\Delta s_{t+1} + D \\Delta x_{t+1} & = & 0\n\\end{eqnarray}\\]\n\nWe get, \\(\\forall s_t\\): \\[(A + B X) + (C + D \\tilde{X}) ( E  + F X ) ) \\Delta s_t = 0 \\]\nAgain, this must be zero in all states \\(\\Delta s_t\\).",
@@ -2416,8 +2423,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#linear-time-iteration-2",
-    "href": "slides/perturbation.html#linear-time-iteration-2",
+    "objectID": "slides/session_3/index.html#linear-time-iteration-2",
+    "href": "slides/session_3/index.html#linear-time-iteration-2",
     "title": "Perturbation Analysis",
     "section": "Linear Time Iteration (2)",
     "text": "Linear Time Iteration (2)\n\n\n\nWe get the equation: \\[\\begin{eqnarray}\nF(X, \\tilde{X}) & = & (A + B X) + ( C+ D \\tilde{X}) ( E  + F X ) \\\\&=& 0\n\\end{eqnarray}\\]\nConsider the linear time iteration algorithm\nWhen the model is well-specified it is guaranteed to converge to the right solution.\n\ncf linear time iteration by Pontus Rendahl (link)\n\nThere are simple criteria to check that the solution is right, and that the model is well specified\n\\(T\\) is the time iteration operator… for linear models\n\nit does forward iteration (\\(X_t\\) as a function of \\(X_{t+1}\\))\n\n\n\nAlgorithm:\n\nchoose stopping criteria: \\(\\epsilon_0\\) and \\(\\eta_0\\)\nchoose random \\(X_0\\)\ngiven \\(X_n\\):\n\ncompute \\(X_{n+1}\\) such that \\(F(X_{n+1}, X_{n}) = 0\\) \\[(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0\\]\\[X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)\\]\\[X_{n+1} = T(X_n)\\]\ncompute:\n\n\\(\\eta_n = |X_{n+1} - X_n|\\)\n\\(\\epsilon_n = F(X_{n+1}, X_{n+1})\\)\n\nif \\(\\eta_n&lt;\\eta_0\\) and \\(\\epsilon_n&lt;\\epsilon_0\\)\n\nstop and return \\(X_{n+1}\\)\notherwise iterate with \\(X_{n+1}\\)",
@@ -2427,8 +2434,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#simulating-the-model",
-    "href": "slides/perturbation.html#simulating-the-model",
+    "objectID": "slides/session_3/index.html#simulating-the-model",
+    "href": "slides/session_3/index.html#simulating-the-model",
     "title": "Perturbation Analysis",
     "section": "Simulating the model",
     "text": "Simulating the model\n\nSuppose we have found the solution \\(\\Delta x_t  = X \\Delta s_t\\)\nRecall the transition equation: \\(\\Delta s_{t+1} = F \\Delta s_t + G \\Delta x_t\\)\nWe can now compute the model evolution following initial deviation in the state: \\[\\Delta s_t = \\underbrace{(F + G X)}_{P} \\Delta s_{t-1}\\]\n\n\\(P\\) is the simulation operator\nit is a backward operator (TODO: example of a reaction to a shock)\n\nThe system is stable if the biggest eigenvalue of \\(P\\) is smaller than one…\n… or if its spectral radius is smaller than 1: \\[\\rho(P)&lt;1\\]\nThis condition is called backward stability\n\nit rules out explosive solutions\nif \\(\\rho(P)&gt;1\\) one can always find \\(s_0\\) such that the model simulation diverges",
@@ -2438,8 +2445,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#spectral-radius",
-    "href": "slides/perturbation.html#spectral-radius",
+    "objectID": "slides/session_3/index.html#spectral-radius",
+    "href": "slides/session_3/index.html#spectral-radius",
     "title": "Perturbation Analysis",
     "section": "Spectral radius",
     "text": "Spectral radius\n\n\n\nHow do you compute the spectral radius of matrix P?\n\nnaive approach: compute all eigenvalues, check the value of the biggest one…\n\nusing LinearAlgebra\nM = rand(2,2)\nmaximum(abs, eigvals(M))\n\nbecomes limited when size of matrix growth\nanother approach: power iteration method\n\nPower iteration method:\n\nworks for matrices and linear operators\ntake a linear operator \\(L\\) over a Banach Space \\(\\mathcal{B}\\) (vector space with a norm)\nuse the fact that for most \\(u_0\\in \\mathcal{B}\\), \\(\\frac{|L^{n+1} u_0|}{|L^n u_0|}\\rightarrow \\rho(L)\\)\n\n\n\nAlgorithm:\n\nchoose tolerance criterium: \\(\\eta&gt;0\\)\nchoose random initial \\(x_0\\) and define \\(u_0 = \\frac{x_0}{|x_0|}\\)\n\nby construction: \\(|u_0|=1\\)\n\ngiven \\(u_n\\), compute\n\n\\(x_{n+1} = L.u_n\\)\n\\(u_{n+1} = \\frac{x_{n+1}}{|x_{n+1}|}\\)\ncompute \\(\\eta_{n+1} = |u_{n+1} - u_n|\\)\nif \\(\\eta_{n+1}&lt;\\eta\\):\n\nstop and return \\(|x_{n+1}|\\)\nelse iterate with \\(u_{n+1}\\)",
@@ -2449,19 +2456,19 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#stability-of-the-backward-operator",
-    "href": "slides/perturbation.html#stability-of-the-backward-operator",
+    "objectID": "slides/session_3/index.html#stability-of-the-backward-operator",
+    "href": "slides/session_3/index.html#stability-of-the-backward-operator",
     "title": "Perturbation Analysis",
     "section": "Stability of the backward operator",
-    "text": "Stability of the backward operator\n\nTo solve the model we use the backard operator: \\[T: \\begin{eqnarray} \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_s}  & \\rightarrow &  \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_s}  \\\\X_{t+1} & \\mapsto & X_t \\text{s.t.} F(X_t,X_{t+1})=0\\end{eqnarray}\\]\nWhat about its stability?\nRecall: fixed point \\(\\overline{z}\\) of recursive sequence \\(z_n=f(z_{n_1})\\) is stable if \\(|f^{\\prime}(\\overline{z})|&lt;1\\)\nWe need to study \\(T^{\\prime}\\) of (\\(X\\)).\n\nbut \\(T\\) maps a matrix to another matrix 🐉😓\nhow do we differentiate it?",
+    "text": "Stability of the backward operator\nTo solve the model we use the backard operator: \\[T: \\begin{eqnarray} \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_s}  & \\rightarrow &  \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_s}  \\\\X_{t+1} & \\mapsto & X_t \\text{s.t.} F(X_t,X_{t+1})=0\\end{eqnarray}\\]\n\nWhat about its stability?\nRecall: fixed point \\(\\overline{z}\\) of recursive sequence \\(z_n=f(z_{n_1})\\) is stable if \\(|f^{\\prime}(\\overline{z})|&lt;1\\)\n\n\n\n\nWe need to study \\(T^{\\prime}\\) of (\\(X\\)).\n\nbut \\(T\\) maps a matrix to another matrix 🐉😓\nhow do we differentiate it?",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
     ]
   },
   {
-    "objectID": "slides/perturbation.html#differentials",
-    "href": "slides/perturbation.html#differentials",
+    "objectID": "slides/session_3/index.html#differentials",
+    "href": "slides/session_3/index.html#differentials",
     "title": "Perturbation Analysis",
     "section": "Differentials",
     "text": "Differentials\n\nConsider a Banach Space \\(\\mathcal{B}\\).\nConsider an operator (i.e. a function): \\(\\mathcal{T}: \\mathcal{B} \\rightarrow \\mathcal{B}\\).\nConsider \\(\\overline{x} \\in \\mathcal{B}\\).\n\\(\\mathcal{T}\\) is differentiable at \\(\\overline{x}\\) if there exists a bounded linear operator \\(L \\in \\mathcal{L}(\\mathcal{B})\\) such that: \\[\\mathcal{T}(x) = \\overline{x} + L.(x-\\overline{x}) + o(|x-\\overline{x}|)\\]\n\nwhen it exists we denote this operator by \\(\\mathcal{T}^{\\prime}(\\overline{x})\\)\n\nRemarks:\n\nBounded operator means: \\(\\sup_{|x|=1} |L.x|&lt;+\\infty\\)\nThis definition of a derivative is usually referred to as Fréchet-derivative",
@@ -2471,8 +2478,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#examples-of-linear-operators",
-    "href": "slides/perturbation.html#examples-of-linear-operators",
+    "objectID": "slides/session_3/index.html#examples-of-linear-operators",
+    "href": "slides/session_3/index.html#examples-of-linear-operators",
     "title": "Perturbation Analysis",
     "section": "Examples of linear operators",
     "text": "Examples of linear operators\n\n\\(x\\) vector, A a matrix, \\(T(x) = Ax\\)\n\nthen \\(T(x+u) = Ax + A.u + 0\\)\n\\(T^{\\prime}(x) = A\\) for all x\n\n\\(A\\) a matrix, B a matrix, X a matrix: \\(T(X) = A X B\\)\n\nthen \\(T(X+u) = A X B + A u B + 0\\)\n\\(T^{\\prime}(X).u = A u B\\)\n\n\\(A\\) a matrix, X a matrix: \\(T(X) = A X B\\)\n\nthen \\(T(X+u) = A X B + A u B\\)\n\\(T^{\\prime}(X).u = A u B\\)",
@@ -2482,8 +2489,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#back-to-the-time-iteration-operator",
-    "href": "slides/perturbation.html#back-to-the-time-iteration-operator",
+    "objectID": "slides/session_3/index.html#back-to-the-time-iteration-operator",
+    "href": "slides/session_3/index.html#back-to-the-time-iteration-operator",
     "title": "Perturbation Analysis",
     "section": "Back to the time iteration operator",
     "text": "Back to the time iteration operator\n\n\\(T(X)\\) is implicitly defined by \\(F(T(X), X)=0\\)\n\\(F(X,Y) = (A + B X) + ( C+ D Y) ( E  + F X )\\)\n\nit is linear in \\(X\\) and in \\(Y\\)\n\n\\(F^{\\prime}_X (X, Y).u = (B + (C+DY)F) u\\)\n\na regular matrix multiplication\nits inverse is: \\(F^{\\prime}_X (X, Y)^{-1} = (B + (C+DY)F)^{-1}\\)\n\n\\(F^{\\prime}_Y (X, Y).u = D u (E+FX)\\)\n\na linear operation on matrices",
@@ -2493,8 +2500,8 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#the-derivative-of-the-time-iteration-operator",
-    "href": "slides/perturbation.html#the-derivative-of-the-time-iteration-operator",
+    "objectID": "slides/session_3/index.html#the-derivative-of-the-time-iteration-operator",
+    "href": "slides/session_3/index.html#the-derivative-of-the-time-iteration-operator",
     "title": "Perturbation Analysis",
     "section": "The derivative of the time-iteration operator",
     "text": "The derivative of the time-iteration operator\n\nImplicit relation can be differentiated: \\[F^{\\prime}_X (T(X), X) T^{\\prime} (X) + F_Y^{\\prime}(T(X),X) = 0\\]\n\\(F^{\\prime}_X (T(X), X)\\) being a regular matrix, it is (conceptually) easy to invert: \\[T^{\\prime}(X) = -(F^{\\prime}_X (T(X), X))^{-1}F_Y^{\\prime}(T(X),X)\\]\nFinally, we get the explicit formula for the linear operator \\(T^{\\prime}\\) computed at the steady state: \\[T^{\\prime}(\\overline{X}).u = ((B + (C+D \\overline{X})F)^{-1})D u (E+F \\overline{X})\\]\nWe can compute the spectral radius of \\(T^{\\prime}(\\overline{X})\\) using the power iteration method",
@@ -2504,11 +2511,11 @@
     ]
   },
   {
-    "objectID": "slides/perturbation.html#recap",
-    "href": "slides/perturbation.html#recap",
+    "objectID": "slides/session_3/index.html#recap",
+    "href": "slides/session_3/index.html#recap",
     "title": "Perturbation Analysis",
     "section": "Recap",
-    "text": "Recap\n\nWe compute the derivatives of the model\nTime iteration algorithm, starting from an initial guess \\(X_0\\) and we repeat until convergence: \\[X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)\\]\nWe compute the spectral radius of two operators to ensure the model is well defined and that the solution is the right one.\nbackward stability: derivative of simulation operator \\[\\boxed{\\rho(F + H \\overline{X} )}\\]\nforward stability: derivative of time iteration operator \\[\\boxed{\\rho \\left( u\\mapsto ((B + (C+D \\overline{X})F)^{-1})D u (E+F \\overline{X}) \\right)}\\]\n\nThis is equivalent to the so-called Blanchard-Kahn conditions.",
+    "text": "Recap\n\nWe compute the derivatives of the model\nTime iteration algorithm, starting from an initial guess \\(X_0\\) and we repeat until convergence: \\[X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)\\]\nWe compute the spectral radius of two operators to ensure the model is well defined and that the solution is the right one.\nbackward stability: derivative of simulation operator \\[\\boxed{\\rho(F + H \\overline{X} )}\\]\nforward stability: derivative of time iteration operator \\[\\boxed{\\rho \\left( u\\mapsto ((B + (C+D \\overline{X})F)^{-1})D u (E+F \\overline{X}) \\right)}\\]",
     "crumbs": [
       "Slides",
       "Perturbation Analysis"
@@ -2548,6 +2555,17 @@
     "title": "Julia Basics",
     "section": "",
     "text": "Taken from QuantEcon’s Julia Essentials and Vectors, Arrays, and Matrices lectures.\n\nConsider the polynomial \\[p(x) = \\sum_{i=0}^n a_0 x^0\\] Using enumerate, write a function p such that p(x, coeff) computes the value of the polynomial with coefficients coeff evaluated at x.\n\n\n\n\nppp (generic function with 1 method)\n\n\n\nWrite a function solve_discrete_lyapunov that solves the discrete Lyapunov equation \\[S = ASA' + \\Sigma \\Sigma'\\] using the iterative procedure \\[S_0 = \\Sigma \\Sigma'\\] \\[S_{t+1} = A S_t A' + \\Sigma \\Sigma'\\] taking in as arguments the \\(n \\times n\\) matrix \\(A\\), the \\(n \\times k\\) matrix \\(\\Sigma\\), and a number of iterations."
+  },
+  {
+    "objectID": "tutorials/3_perturbation_neoclassical.html",
+    "href": "tutorials/3_perturbation_neoclassical.html",
+    "title": "Perturbation of Neoclassical Model",
+    "section": "",
+    "text": "Our goal here is to compute a linear approximation of solution to the neoclassical model, close ot the steady-state.\nWarm-up: install the ForwardDiff library. Use it to differentiate the function below. Check the jacobian function.\nNote: the signature of function f needs to be fixed first to allow for dual numbers as arguments.\n\nfunction f(x::Vector{Float64})::Vector{Float64}\n    a = x[1]\n    b = x[2]\n    x1 = a+b\n    x2 = a*exp(b)\n    return [x1,x2]\nend\n\nCreate a NamedTuple to hold the model parameters.\nDefine two functions: - transition(z::Number, k::Number, i::Number, p)::Tuple{Number} which returns productivity and capital at date t+1 as a function of productivity, capital and investment at date t - arbitrage(z::Number, k::Number, i::Number, Z::Number, K::Number, I::Number, p)::Number which returns the residual of the euler equation (lower case variable for date t, upper case for date t+1)\nUsing multiple dispatch, define two variants of the same functions, that take vectors as input and output arguments: - arbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number - transition(s::Vector{T}, x::Vector{T}, p) where T&lt;:Number\nWrite a function steady_state(p)::Tuple{Vector,Vector} which computes the steady-state of the model computed by hand. It returns two vectors, one for the states, one for the controls. Check that the steady-state satisfies the model equations.\nThe first order system satisfies: \\[\\begin{align}A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0 \\\\\\\\\ns_{t+1} & = & E s_t + F x_t\n\\end{align}\\]\nDefine a structure PerturbedModel to hold matrices A,B,C,D,E,F.\nWrite a function first_order_model(s::Vector, x::Vector, p)::PerturbedModel, which returns the first order model, given the steady-state and the calibration. Suggestion: use ForwardDiff.jl library.\nWe look for a linear solution \\(x_t = X s_t\\) . Write the matrix equation which X must satisfy. Write a function residual(X::Array, M::PerturbedModel) which computes the residual of this equation for a given X.\nWrite a function T(X, M::PerturbedModel) which implements the time iteration step.\nWrite function linear_time_iteration(X_0::Matrix, m::PerturbedModel)::Matrix which implements the time iteration algorithm. Apply it to X0 = rand(1,2) and check that the result satisfies the first order model.\nDefine two linear operators L_S(U::Union{Vector, Matrix}, X_0::Matrix, m::PerturbedModel)::Matrix and L_T(U::Matrix, X_0::Matrix, m::PerturbedModel)::Matrix which implement the derivatives of the simulation and the time-iteration operator respectively.\nImplement a function spectral_radius(f::Function)::Float64 which implements the power iteration method to compute the biggest eigenvalues of the two previously defined operators. Check that Blanchard-Kahn conditions are met.\nWrite a function simulate(s0::Vector, X::Matrix, p, T::Int64)::Tuple{Matrix, Matrix} to simulate the model over \\(T\\) periods (by using the formula \\(\\Delta s_t = (E + F X) \\Delta s_{t-1}\\). Return a matrix for the states (one line per date) and another matrix for the controls. Bonus: add a keyword option to compute variables levels or log-deviations. If possible, return a DataFrame object.\nMake some nice plots.",
+    "crumbs": [
+      "Tutorials",
+      "Perturbation of Neoclassical Model"
+    ]
   },
   {
     "objectID": "tutorials/1_Julia_Basics.html",

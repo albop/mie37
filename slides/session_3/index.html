@@ -598,11 +598,11 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <section id="first-order-model" class="slide level2">
 <h2>First order model</h2>
 <ul>
-<li><p>Optimality Condition: <span class="math display">\[\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}} \left( (1-\delta + \alpha k_t^{\alpha -1}) \right)\right] = 1\]</span></p>
+<li><p>Optimality Condition: <span class="math display">\[\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}} \left( (1-\delta + \alpha exp(z_{t+1})k_{t+1}^{\alpha -1}) \right)\right] = 1\]</span></p>
 <ul>
 <li>Takes into account the fact that <span class="math inline">\(c_t&gt;0\)</span>.</li>
 </ul></li>
-<li><p>Definition: <span class="math display">\[c_t = k_t^\alpha - i_t\]</span></p></li>
+<li><p>Definition: <span class="math display">\[c_t = exp(z_t) k_t^\alpha - i_t\]</span></p></li>
 <li><p>Transition: <span class="math display">\[k_t = (1-\delta) k_{t-1} + i_{t-1}\]</span> <span class="math display">\[z_t = \rho z_{t-1}\]</span></p></li>
 </ul>
 </section>
@@ -787,14 +787,14 @@ q_t:\quad &amp;  k_{t+1} &amp; = &amp; (1-\delta) k_{t} + i_{t}
 <li>Forward Difference scheme:
 <ul>
 <li><span class="math inline">\(f'(x) \approx \frac{f(x+\epsilon) - f(x)}{\epsilon}\)</span></li>
-<li>precision: <span class="math inline">\(o(\epsilon)\)</span></li>
+<li>precision: <span class="math inline">\(O(\epsilon)\)</span></li>
 <li>bonus: if <span class="math inline">\(f(x+\epsilon)\)</span> can compute <span class="math inline">\(f(x)-f(x-\epsilon)\)</span> instead (Backward)</li>
 </ul></li>
 <li>Central Difference scheme:
 <ul>
 <li>Finite <span class="math inline">\(f'(x) \approx \frac{f(x+\epsilon) - f(x-\epsilon)}{2\epsilon}\)</span></li>
 <li>average of forward and backward</li>
-<li>precision: <span class="math inline">\(o(\epsilon^2)\)</span></li>
+<li>precision: <span class="math inline">\(O(\epsilon^2)\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -1148,7 +1148,7 @@ F(X, \tilde{X}) &amp; = &amp; (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) \\&amp;
 <li>choose random <span class="math inline">\(X_0\)</span></li>
 <li>given <span class="math inline">\(X_n\)</span>:
 <ul>
-<li>compute <span class="math inline">\(X_{n+1}\)</span> such that <span class="math inline">\(F(X_{n+1}, X_{n}) = 0\)</span> <span class="r-stack"><span class="fragment current-visible"><span class="math display">\[(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0\]</span></span><span class="fragment current-visible"><span class="math display">\[X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)\]</span></span><span class="fragment"><span class="math display">\[X_{n+1} = T(X_n)\]</span></span></span></li>
+<li>compute <span class="math inline">\(X_{n+1}\)</span> such that <span class="math inline">\(F(X_{n+1}, X_{n}) = 0\)</span> <span class="r-stack"><span class="fragment current-visible"><span class="math display">\[(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0\]</span></span><span class="fragment current-visible"><span class="math display">\[X_{n+1} = - (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)\]</span></span><span class="fragment"><span class="math display">\[X_{n+1} = T(X_n)\]</span></span></span></li>
 <li>compute:
 <ul>
 <li><span class="math inline">\(\eta_n = |X_{n+1} - X_n|\)</span></li>

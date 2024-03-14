@@ -8,7 +8,7 @@
 
 <meta name="author" content="Pablo Winant">
 
-<title>Advanced Macro: Numerical Methods - Convergence of Sequences</title>
+<title>Advanced Macro: Numerical Methods - Optimization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/2_solow.html">Convergence of Sequences</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/4_Optimization.html">Optimization</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -217,7 +217,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/2_solow.html" class="sidebar-item-text sidebar-link active">
+  <a href="../tutorials/2_solow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Convergence of Sequences</span></a>
   </div>
 </li>
@@ -229,7 +229,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/4_Optimization.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/4_Optimization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Optimization</span></a>
   </div>
 </li>
@@ -268,19 +268,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tutorial-convergence" id="toc-tutorial-convergence" class="nav-link active" data-scroll-target="#tutorial-convergence">Tutorial: Convergence</a>
-  <ul class="collapse">
-  <li><a href="#solow-model" id="toc-solow-model" class="nav-link" data-scroll-target="#solow-model">Solow Model</a></li>
-  </ul></li>
+  <li><a href="#computational-economics-mie37" id="toc-computational-economics-mie37" class="nav-link active" data-scroll-target="#computational-economics-mie37">Computational Economics (MIE37)</a></li>
+  <li><a href="#profit-optimization-by-a-monopolist" id="toc-profit-optimization-by-a-monopolist" class="nav-link" data-scroll-target="#profit-optimization-by-a-monopolist">Profit optimization by a monopolist</a></li>
+  <li><a href="#constrained-optimization" id="toc-constrained-optimization" class="nav-link" data-scroll-target="#constrained-optimization">Constrained optimization</a></li>
+  <li><a href="#consumption-optimization" id="toc-consumption-optimization" class="nav-link" data-scroll-target="#consumption-optimization">Consumption optimization</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2_solow.out.ipynb" download="2_solow.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="4_Optimization.out.ipynb" download="4_Optimization.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/2_solow.html">Convergence of Sequences</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/1_Julia_Basics.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../tutorials/4_Optimization.html">Optimization</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Convergence of Sequences</h1>
+<h1 class="title">Optimization</h1>
 </div>
 
 
@@ -303,30 +303,40 @@ window.Quarto = {
 </header>
 
 
-<section id="tutorial-convergence" class="level1">
-<h1>Tutorial: Convergence</h1>
-<section id="solow-model" class="level3">
-<h3 class="anchored" data-anchor-id="solow-model">Solow Model</h3>
-<p>A representative agent uses capital <span class="math inline">\(k_t\)</span> to produce <span class="math inline">\(y_t\)</span> using the following production function:</p>
-<p><span class="math display">\[y_t = k_t^{\alpha}\]</span></p>
-<p>He chooses to consume an amount <span class="math inline">\(c_t \in ]0, y_t]\)</span> and invests what remains:</p>
-<p><span class="math display">\[i_t = y_t - c_t\]</span></p>
-<p>He accumulates capital <span class="math inline">\(k_t\)</span> according to:</p>
-<p><span class="math display">\[k_{t+1} = \left( 1-\delta \right) k_{t} + i_{t}\]</span></p>
-<p>where <span class="math inline">\(\delta\)</span> is the depreciation rate and <span class="math inline">\(i_t\)</span> is the amount invested.</p>
-<p>The goal of the representative agent is to maximize:</p>
-<p><span class="math display">\[\sum_{t\geq 0} \beta^t U(c_t)\]</span></p>
-<p>where <span class="math inline">\(U(x)=\frac{x^{1-\gamma}}{1-\gamma}\)</span> and <span class="math inline">\(\beta&lt;1\)</span> is the discount factor.</p>
-<p>For now, we ignore the objective and assume that the saving rate <span class="math inline">\(s=\frac{c_t}{y_t}\)</span> is constant over time.</p>
-<p><strong>Create a <code>NamedTuple</code> to hold parameter values <span class="math inline">\(\beta=0.96\)</span>, <span class="math inline">\(\delta=0.1\)</span>, <span class="math inline">\(\alpha=0.3\)</span>, <span class="math inline">\(\gamma=4\)</span>.</strong></p>
-<p><strong>Write down the formula of function <span class="math inline">\(f\)</span> such that <span class="math inline">\(k_{t+1}\)</span>: <span class="math inline">\(k_{t+1} = f(k_t)\)</span>.</strong></p>
-<p><strong>Define a function <code>f(k::Float64, p::NamedTuple)::Float64</code> to represent <span class="math inline">\(f\)</span> for a given calibration</strong></p>
-<p><strong>Write a function <code>simulate(k0::Float64, T::Int, p::NamedTuple)::Vector{Float64}</code> to compute the simulation over <code>T</code> periods starting from initial capital level <code>k0</code>.</strong></p>
-<p><strong>Make a nice plot to illustrate the convergence. Do we get convergence from any initial level of capital?</strong></p>
-<p><strong>Suppose you were interested in using <code>f</code> to compute the steady-state. What would you propose to measure convergence speed? To speed-up convergence? Implement these ideas.</strong></p>
-
-
+<section id="computational-economics-mie37" class="level2">
+<h2 class="anchored" data-anchor-id="computational-economics-mie37">Computational Economics (MIE37)</h2>
+<p>In this tutorial you will learn to code and use common optimization algorithms for static models.</p>
+<hr>
 </section>
+<section id="profit-optimization-by-a-monopolist" class="level2">
+<h2 class="anchored" data-anchor-id="profit-optimization-by-a-monopolist">Profit optimization by a monopolist</h2>
+<p>A monopolist produces quantity <span class="math inline">\(q\)</span> of goods X at price <span class="math inline">\(p\)</span>. Its cost function is <span class="math inline">\(c(q) = 0.5 + q (1-qe^{-q})\)</span></p>
+<p>The consumer’s demand for price <span class="math inline">\(p\)</span> is <span class="math inline">\(x(p)=2 e^{-0.5 p}\)</span> (constant elasticity of demand to price).</p>
+<p><strong>Write down the profit function of the monopolist and find the optimal production (if any). Don’t use any library except for plotting.</strong></p>
+<hr>
+</section>
+<section id="constrained-optimization" class="level2">
+<h2 class="anchored" data-anchor-id="constrained-optimization">Constrained optimization</h2>
+<p>Consider the function <span class="math inline">\(f(x,y) = 1-(x-0.5)^2 -(y-0.3)^2\)</span>.</p>
+<p><strong>Use Optim.jl to minimize <span class="math inline">\(f\)</span> without constraint. Check you understand diagnostic information returned by the optimizer.</strong></p>
+<p><strong>Now, consider the constraint <span class="math inline">\(x&lt;0.3\)</span> and maximize <span class="math inline">\(f\)</span> under this new constraint.</strong></p>
+<p><strong>Reformulate the problem as a root finding problem with lagrangians. Write the complementarity conditions.</strong></p>
+<p><strong>Solve using NLSolve.jl</strong></p>
+<hr>
+</section>
+<section id="consumption-optimization" class="level2">
+<h2 class="anchored" data-anchor-id="consumption-optimization">Consumption optimization</h2>
+<p>A consumer has preferences <span class="math inline">\(U(c_1, c_2)\)</span> over two consumption goods <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_2\)</span>.</p>
+<p>Given a budget <span class="math inline">\(I\)</span>, consumer wants to maximize utility subject to the budget constraint <span class="math inline">\(p_1 c_1 + p_2 c_2 \leq I\)</span>.</p>
+<p>We choose a Stone-Geary specification where</p>
+<p><span class="math inline">\(U(c_1, c_2)=\beta_1 \log(c_1-\gamma_1) + \beta_2 \log(c_2-\gamma_2)\)</span></p>
+<p><strong>Write the Karush-Kuhn-Tucker necessary conditions for the problem.</strong></p>
+<p><strong>Verify the KKT conditions are sufficient for optimality.</strong></p>
+<p><strong>Derive analytically the demand functions, and the shadow price.</strong></p>
+<p><strong>Interpret this problem as a complementarity problem and solve it using NLSolve.</strong></p>
+<p><strong>Produce some nice graphs with isoutility curves, the budget constraint and the optimal choice.</strong></p>
+
+
 </section>
 
 </main> <!-- /main -->

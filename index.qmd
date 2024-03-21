@@ -14,7 +14,7 @@ listing:
 
 <mark>Homework</mark>
 
-- finish the [Perturbation](pushups/3_epidemiology.ipynb) tutorial
+- work on the [Optimization Pushups](pushups/2_Optimization_pushups.ipynb)
 
 
 ## Indicative Schedule

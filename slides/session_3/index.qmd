@@ -173,10 +173,10 @@ Let's review them:
 ## First order model
 
 - Optimality Condition:
-$$\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}} \left( (1-\delta + \alpha k_t^{\alpha -1}) \right)\right] = 1$$
+$$\beta  \left[ \frac{\left(c_{t+1}\right)^{-\gamma}}{\left(c_t\right)^{-\gamma}} \left( (1-\delta + \alpha exp(z_{t+1})k_{t+1}^{\alpha -1}) \right)\right] = 1$$
   - Takes into account the fact that $c_t>0$.
 - Definition:
-$$c_t = k_t^\alpha - i_t$$
+$$c_t = exp(z_t) k_t^\alpha - i_t$$
 
 - Transition:
 $$k_t = (1-\delta) k_{t-1} + i_{t-1}$$
@@ -348,12 +348,12 @@ $$ \begin{bmatrix} \Delta k_t \\ \Delta z_t \end{bmatrix} = \begin{bmatrix} . & 
   - check ```eps()```
 - Forward Difference scheme:
     -  $f'(x) \approx \frac{f(x+\epsilon) - f(x)}{\epsilon}$
-    - precision: $o(\epsilon)$
+    - precision: $O(\epsilon)$
     - bonus: if $f(x+\epsilon)$ can compute $f(x)-f(x-\epsilon)$ instead (Backward)
 - Central Difference scheme:
     - Finite  $f'(x) \approx \frac{f(x+\epsilon) - f(x-\epsilon)}{2\epsilon}$
     - average of forward and backward
-    - precision: $o(\epsilon^2)$
+    - precision: $O(\epsilon^2)$
 
 :::::
 
@@ -773,7 +773,7 @@ F(X, \tilde{X}) & = & (A + B X) + ( C+ D \tilde{X}) ( E  + F X ) \\&=& 0
 - choose random $X_0$
 - given $X_n$:
   - compute $X_{n+1}$ such that $F(X_{n+1}, X_{n}) = 0$
-    <span class="r-stack"><span class="fragment current-visible">$$(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0$$</span><span class="fragment current-visible">$$X_{n+1} = (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$</span><span class="fragment">$$X_{n+1} = T(X_n)$$</span></span>
+    <span class="r-stack"><span class="fragment current-visible">$$(B + (C+D X_{n})F)X_{n+1} + A  + (C+D X_n )E=0$$</span><span class="fragment current-visible">$$X_{n+1} = - (B + (C + D X_n) F)^{-1} (A + (C+DX_n)E)$$</span><span class="fragment">$$X_{n+1} = T(X_n)$$</span></span>
   - compute:
     - $\eta_n = |X_{n+1} - X_n|$
     - $\epsilon_n = F(X_{n+1}, X_{n+1})$

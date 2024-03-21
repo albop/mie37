@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Pablo Winant">
-  <meta name="dcterms.date" content="2025-02-04">
+  <meta name="dcterms.date" content="2024-03-21">
   <title>Advanced Macro: Numerical Methods - Optimization</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -338,7 +338,7 @@ Pablo Winant
 </div>
 </div>
 
-  <p class="date">2025-02-04</p>
+  <p class="date">2024-03-21</p>
 </section>
 <section>
 <section id="introduction" class="title-slide slide level1 center">
@@ -360,12 +360,8 @@ Pablo Winant
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="two-kinds-of-optimization-problem" class="title-slide slide level1 center">
-<h1>Two kinds of optimization problem:</h1>
+<section id="two-kinds-of-optimization-problem" class="slide level2">
+<h2>Two kinds of optimization problem:</h2>
 <ul>
 <li><p>root finding: <span class="math inline">\(\text{find  $x$ in $X$ such that $f(x)=0$}\)</span></p></li>
 <li><p>minimization/maximization <span class="math inline">\(\min_{x\in X} f(x)\)</span> or <span class="math inline">\(\max_{x\in X} f(x)\)</span></p></li>
@@ -384,9 +380,6 @@ Pablo Winant
 <li>constrained optimization</li>
 <li>constrained root-finding</li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="general-considerations" class="title-slide slide level1 center">
@@ -498,9 +491,6 @@ Pablo Winant
 </ul></li>
 <li>then you can just switch the various options, when you use a library…</li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="one-dimensional-root-finding" class="title-slide slide level1 center">
@@ -616,9 +606,6 @@ Proof that convergence is quadratic
 <li>set <span class="math inline">\(x_{n+1}=x_n-\Delta/2^k\)</span></li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="one-dimensional-minimization" class="title-slide slide level1 center">
@@ -653,12 +640,8 @@ Proof that convergence is quadratic
 <li>Remark that bisection is not enough</li>
 </ul>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="gradient-descent" class="title-slide slide level1 center">
-<h1>Gradient Descent</h1>
+<section id="gradient-descent" class="slide level2">
+<h2>Gradient Descent</h2>
 <ul>
 <li>Minimize <span class="math inline">\(f(x)\)</span> for <span class="math inline">\(x \in R\)</span> given initial guess <span class="math inline">\(x_0\)</span></li>
 <li>Algorithm:
@@ -669,12 +652,8 @@ Proof that convergence is quadratic
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="gradient-descent-2" class="title-slide slide level1 center">
-<h1>Gradient Descent (2)</h1>
+<section id="gradient-descent-2" class="slide level2">
+<h2>Gradient Descent (2)</h2>
 <ul>
 <li>Uses local information
 <ul>
@@ -689,12 +668,8 @@ Proof that convergence is quadratic
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="newton-raphson-method" class="title-slide slide level1 center">
-<h1>Newton-Raphson method</h1>
+<section id="newton-raphson-method" class="slide level2">
+<h2>Newton-Raphson method</h2>
 <ul>
 <li>Minimize <span class="math inline">\(f(x)\)</span> for <span class="math inline">\(x \in R\)</span> given initial guess <span class="math inline">\(x_0\)</span></li>
 <li>Build a local model of <span class="math inline">\(f\)</span> around <span class="math inline">\(x_0\)</span> <span class="math display">\[f(x) = f(x_0) + f^{\prime}(x_0)(x-x_0) + f^{\prime\prime}(x_0)\frac{(x-x_0)^2}{2} + o(x-x_0)^2\]</span></li>
@@ -713,14 +688,6 @@ Proof that convergence is quadratic
 </ul></li>
 <li>Convergence: <em>quadratic</em></li>
 </ul>
-</section>
-<section class="slide level2">
-
-<!-- ## Newton-Raphson Algorithm (3)
-
-[proof of quadratic speed ?]
-
---- -->
 </section></section>
 <section>
 <section id="unconstrained-multidimensional-optimization" class="title-slide slide level1 center">
@@ -752,9 +719,6 @@ Proof that convergence is quadratic
 <li><p><em>Hessian</em>: denoted by <span class="math inline">\(H(x)\)</span> or <span class="math inline">\(f^{\prime\prime}_{xx}(x)\)</span> when <span class="math inline">\(q=1\)</span>: <span class="math display">\[H(x)_{jk} = \frac{\partial f(x)}{\partial x_j\partial x_k}\]</span></p></li>
 <li><p>In the following explanations, <span class="math inline">\(|x|\)</span> denotes the supremum norm, but most of the following explanations also work with other norms.</p></li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="unconstrained-multidimensional-root-finding" class="title-slide slide level1 center">
@@ -789,9 +753,6 @@ Proof that convergence is quadratic
 <li><em>linesearch</em>: choose <span class="math inline">\(\lambda\in[0,1]\)</span> so that <span class="math inline">\(|f(x_n-\lambda\Delta_n)|\)</span> is minimal</li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="unconstrained-multidimensional-minimization" class="title-slide slide level1 center">
@@ -886,9 +847,6 @@ Proof that convergence is quadratic
 <li><p>equivalent to Gauss-Newton close to the solution (<span class="math inline">\(\mu\)</span> small)</p></li>
 <li><p>equivalent to Gradient far from solution (<span class="math inline">\(\mu\)</span> high)</p></li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="constrained-optimization-and-complementarity-conditions" class="title-slide slide level1 center">
@@ -1001,12 +959,8 @@ Proof that convergence is quadratic
 </ul></li>
 </ul>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="smooth-method" class="title-slide slide level1 center">
-<h1>Smooth method</h1>
+<section id="smooth-method" class="slide level2">
+<h2>Smooth method</h2>
 <ul>
 <li>Consider the <em>Fisher-Burmeister</em> function <span class="math display">\[\phi(a,b) = a+b-\sqrt{a^2+b^2}\]</span></li>
 <li>It is infinitely differentiable, except at <span class="math inline">\((0,0)\)</span></li>
@@ -1016,9 +970,6 @@ Proof that convergence is quadratic
 <li>fun fact: the formulation with a <span class="math inline">\(\min\)</span> is nonsmooth but also works quite often</li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level2">
-
 </section></section>
 <section>
 <section id="practicalities" class="title-slide slide level1 center">

@@ -9,23 +9,12 @@
   {
     "objectID": "pushups/2_Optimization_pushups.html",
     "href": "pushups/2_Optimization_pushups.html",
-    "title": "Tutorial: Basic Optimization Algorithms",
+    "title": "Advanced Macro: Numerical Methods",
     "section": "",
-    "text": "The spirit of this simple tutorial consists in learning how to write simple solution algorithms. For each algorithm, test that it works, using simple test functions whose solution is known.\nWrite a function fixed_point(f::Function, x0::Float64) which computes the fixed point of f starting from initial point x0.\nWrite a function bisection(f::Function, a::Float64, b::Float64) which computes a zero of function f within (a,b) using a bisection method.\nWrite a function golden(f::Function, a::Float64, b::Float64) which computes a zero of function f within (a,b) using a golden ratio method.\nWrite a function zero_newton(f::Function, x0::Float64) which computes the zero of function f starting from initial point x0.\nAdd an option zero_newton(f::Function, x0::Float64, backtracking=true) which computes the zero of function f starting from initial point x0 using backtracking in each iteration.\nWrite a function min_gd(f::Function, x0::Float64) which computes the minimum of function f using gradient descent. Assume f returns a scalar and a gradient.\nWrite a function min_nr(f::Function, x0::Float64) which computes the minimum of function f using Newton-Raphson method. Assume f returns a scalar, a gradient, and a hessian.\nWrite a method zero_newton(f::Function, x0::Vector{Float64}) which computes the zero of a vector valued function f starting from initial point x0.\nAdd an method zero_newton(f::Function, x0::Vector{Float64}, backtracking=true) which computes the zero of function f starting from initial point x0 using backtracking in each iteration.\nAdd a method zero_newton(f::Function, x0::Vector{Float64}, backtracking=true, lb=Vector{Float64}) which computes the zero of function f starting from initial point x0 taking complementarity constraint into account x&gt;=lb using the Fischer-Burmeister method.",
+    "text": "---\ntitle: Optimization Pushups\n---\n\nThe spirit of this simple tutorial consists in learning how to write simple solution algorithms. For each algorithm, test that it works, using simple test functions whose solution is known.\nWrite a function fixed_point(f::Function, x0::Float64) which computes the fixed point of f starting from initial point x0.\nWrite a function bisection(f::Function, a::Float64, b::Float64) which computes a zero of function f within (a,b) using a bisection method.\nWrite a function golden(f::Function, a::Float64, b::Float64) which computes a zero of function f within (a,b) using a golden ratio method.\nWrite a function zero_newton(f::Function, x0::Float64) which computes the zero of function f starting from initial point x0.\nAdd an option zero_newton(f::Function, x0::Float64, backtracking=true) which computes the zero of function f starting from initial point x0 using backtracking in each iteration.\nWrite a function min_gd(f::Function, x0::Float64) which computes the minimum of function f using gradient descent. Assume f returns a scalar and a gradient.\nWrite a function min_nr(f::Function, x0::Float64) which computes the minimum of function f using Newton-Raphson method. Assume f returns a scalar, a gradient, and a hessian.\nWrite a method zero_newton(f::Function, x0::Vector{Float64}) which computes the zero of a vector valued function f starting from initial point x0.\nAdd an method zero_newton(f::Function, x0::Vector{Float64}, backtracking=true) which computes the zero of function f starting from initial point x0 using backtracking in each iteration.\nAdd a method zero_newton(f::Function, x0::Vector{Float64}, backtracking=true, lb=Vector{Float64}) which computes the zero of function f starting from initial point x0 taking complementarity constraint into account x&gt;=lb using the Fischer-Burmeister method.",
     "crumbs": [
       "Pushups",
-      "Tutorial: Basic Optimization Algorithms"
-    ]
-  },
-  {
-    "objectID": "pushups/2_Optimization_pushups.html#computational-economics-mie37",
-    "href": "pushups/2_Optimization_pushups.html#computational-economics-mie37",
-    "title": "Tutorial: Basic Optimization Algorithms",
-    "section": "",
-    "text": "The spirit of this simple tutorial consists in learning how to write simple solution algorithms. For each algorithm, test that it works, using simple test functions whose solution is known.\nWrite a function fixed_point(f::Function, x0::Float64) which computes the fixed point of f starting from initial point x0.\nWrite a function bisection(f::Function, a::Float64, b::Float64) which computes a zero of function f within (a,b) using a bisection method.\nWrite a function golden(f::Function, a::Float64, b::Float64) which computes a zero of function f within (a,b) using a golden ratio method.\nWrite a function zero_newton(f::Function, x0::Float64) which computes the zero of function f starting from initial point x0.\nAdd an option zero_newton(f::Function, x0::Float64, backtracking=true) which computes the zero of function f starting from initial point x0 using backtracking in each iteration.\nWrite a function min_gd(f::Function, x0::Float64) which computes the minimum of function f using gradient descent. Assume f returns a scalar and a gradient.\nWrite a function min_nr(f::Function, x0::Float64) which computes the minimum of function f using Newton-Raphson method. Assume f returns a scalar, a gradient, and a hessian.\nWrite a method zero_newton(f::Function, x0::Vector{Float64}) which computes the zero of a vector valued function f starting from initial point x0.\nAdd an method zero_newton(f::Function, x0::Vector{Float64}, backtracking=true) which computes the zero of function f starting from initial point x0 using backtracking in each iteration.\nAdd a method zero_newton(f::Function, x0::Vector{Float64}, backtracking=true, lb=Vector{Float64}) which computes the zero of function f starting from initial point x0 taking complementarity constraint into account x&gt;=lb using the Fischer-Burmeister method.",
-    "crumbs": [
-      "Pushups",
-      "Tutorial: Basic Optimization Algorithms"
+      "2_Optimization_pushups.html"
     ]
   },
   {
@@ -128,7 +117,7 @@
     "href": "index.html#indicative-schedule",
     "title": "Advanced Macro: Numerical Methods",
     "section": "Indicative Schedule",
-    "text": "Indicative Schedule\n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nFeb 15, 2024\n\n\nIntroduction\n\n\n\n\nFeb 29, 2024\n\n\nConvergence of Sequences\n\n\n\n\nMar 7, 2024\n\n\nPerturbation Analysis\n\n\n\n\nFeb 4, 2025\n\n\nOptimization\n\n\n\n\n\nNo matching items"
+    "text": "Indicative Schedule\n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nFeb 15, 2024\n\n\nIntroduction\n\n\n\n\nFeb 29, 2024\n\n\nConvergence of Sequences\n\n\n\n\nMar 7, 2024\n\n\nPerturbation Analysis\n\n\n\n\nMar 21, 2024\n\n\nOptimization\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#communication",
@@ -441,6 +430,17 @@
     ]
   },
   {
+    "objectID": "slides/session_4/index.html#two-kinds-of-optimization-problem",
+    "href": "slides/session_4/index.html#two-kinds-of-optimization-problem",
+    "title": "Optimization",
+    "section": "Two kinds of optimization problem:",
+    "text": "Two kinds of optimization problem:\n\nroot finding: \\(\\text{find  $x$ in $X$ such that $f(x)=0$}\\)\nminimization/maximization \\(\\min_{x\\in X} f(x)\\) or \\(\\max_{x\\in X} f(x)\\)\noften a minimization problem can be reformulated as a root-finding problem\n\\[x_0 = {argmin}_{x\\in X} f(x) \\overbrace{\\iff}^{??} f^{\\prime} (x_0) = 0\\]",
+    "crumbs": [
+      "Slides",
+      "Optimization"
+    ]
+  },
+  {
     "objectID": "slides/session_4/index.html#plan",
     "href": "slides/session_4/index.html#plan",
     "title": "Optimization",
@@ -644,6 +644,39 @@
     "title": "Optimization",
     "section": "Golden section search (2)",
     "text": "Golden section search (2)\n\nThis is guaranteed to converge to a local minimum\nIn each step, the size of the interval is reduced by a factor \\(\\Phi\\)\nBy choosing \\(\\Phi=\\frac{\\sqrt{5}-1}{2}\\) one can save one evaluation by iteration.\n\nyou can check that either \\(c_{n+1} = d_n\\) or \\(d_{n+1} = c_n\\)\n\nRemark that bisection is not enough",
+    "crumbs": [
+      "Slides",
+      "Optimization"
+    ]
+  },
+  {
+    "objectID": "slides/session_4/index.html#gradient-descent",
+    "href": "slides/session_4/index.html#gradient-descent",
+    "title": "Optimization",
+    "section": "Gradient Descent",
+    "text": "Gradient Descent\n\nMinimize \\(f(x)\\) for \\(x \\in R\\) given initial guess \\(x_0\\)\nAlgorithm:\n\nstart with \\(x_n\\)\ncompute \\(x_{n+1} = x_n (1-\\lambda)- \\lambda f^{\\prime}(x_n)\\)\nstop if \\(|x_{n+1}-x_n|&lt;\\eta\\) or \\(|f^{\\prime}(x_n)| &lt; \\epsilon\\)",
+    "crumbs": [
+      "Slides",
+      "Optimization"
+    ]
+  },
+  {
+    "objectID": "slides/session_4/index.html#gradient-descent-2",
+    "href": "slides/session_4/index.html#gradient-descent-2",
+    "title": "Optimization",
+    "section": "Gradient Descent (2)",
+    "text": "Gradient Descent (2)\n\nUses local information\n\none needs to compute the gradient\nnote that gradient at \\(x_n\\) does not provide a better guess for the minimum than \\(x_n\\) itself\nlearning speed is crucial\n\nConvergence speed: linear\n\nrate depend on the learning speed\noptimal learning speed? the fastest for which there is convergence",
+    "crumbs": [
+      "Slides",
+      "Optimization"
+    ]
+  },
+  {
+    "objectID": "slides/session_4/index.html#newton-raphson-method",
+    "href": "slides/session_4/index.html#newton-raphson-method",
+    "title": "Optimization",
+    "section": "Newton-Raphson method",
+    "text": "Newton-Raphson method\n\nMinimize \\(f(x)\\) for \\(x \\in R\\) given initial guess \\(x_0\\)\nBuild a local model of \\(f\\) around \\(x_0\\) \\[f(x) = f(x_0) + f^{\\prime}(x_0)(x-x_0) + f^{\\prime\\prime}(x_0)\\frac{(x-x_0)^2}{2} + o(x-x_0)^2\\]\nAccording to this model, \\[ f(x{\\star}) = min_x f(x)\\iff \\frac{d}{d x} \\left[ f(x_0) + f^{\\prime}(x_0)(x-x_0) + f^{\\prime\\prime}(x_0)\\frac{(x-x_0)^2}{2} \\right] = 0\\] which yields: \\(x^{\\star} = x_0 - \\frac{f^{\\prime}(x_0)}{f^{\\prime\\prime}(x_0)}\\)\nthis is Newton applied to \\(f^{\\prime}(x)=0\\)",
     "crumbs": [
       "Slides",
       "Optimization"
@@ -864,6 +897,17 @@
     "title": "Optimization",
     "section": "Solution strategies for NCP problems",
     "text": "Solution strategies for NCP problems\n\nGeneral formulation for vector-valued functions \\[f(x)\\geq 0 \\perp g(x)\\geq 0\\] means \\[\\forall i, f_i(x)\\geq 0 \\perp g_i(x)\\geq 0\\]\n\nNCP do not necessarily arise from a single optimization problem\n\nThere are robust (commercial) solvers for NCP problems (PATH, Knitro) for that\nHow do we solve it numerically?\n\nassume constraint is binding then non-binding then check which one is good\n\nOK if not too many constraints\n\nreformulate it as a smooth problem\napproximate the system by a series of linear complementarities problems (LCP)",
+    "crumbs": [
+      "Slides",
+      "Optimization"
+    ]
+  },
+  {
+    "objectID": "slides/session_4/index.html#smooth-method",
+    "href": "slides/session_4/index.html#smooth-method",
+    "title": "Optimization",
+    "section": "Smooth method",
+    "text": "Smooth method\n\nConsider the Fisher-Burmeister function \\[\\phi(a,b) = a+b-\\sqrt{a^2+b^2}\\]\nIt is infinitely differentiable, except at \\((0,0)\\)\nShow that \\(\\phi(a,b) = 0 \\iff \\min(a,b)=0 \\iff a\\geq 0 \\perp b \\geq 0\\)\nAfter substitution in the original system one can use regular non-linear solver\n\nfun fact: the formulation with a \\(\\min\\) is nonsmooth but also works quite often",
     "crumbs": [
       "Slides",
       "Optimization"
@@ -3079,7 +3123,7 @@
     "href": "tutorials/3_perturbation_neoclassical.html",
     "title": "Perturbation of Neoclassical Model",
     "section": "",
-    "text": "Our goal here is to compute a linear approximation of solution to the neoclassical model, close ot the steady-state.\nWarm-up: install the ForwardDiff library. Use it to differentiate the function below. Check the jacobian function.\nNote: the signature of function f needs to be fixed first to allow for dual numbers as arguments.\n\nfunction f(x::Vector{Float64})::Vector{Float64}\n    a = x[1]\n    b = x[2]\n    x1 = a+b\n    x2 = a*exp(b)\n    return [x1,x2]\nend\n\nCreate a NamedTuple to hold the model parameters.\nDefine two functions: - transition(z::Number, k::Number, i::Number, p)::Tuple{Number} which returns productivity and capital at date t+1 as a function of productivity, capital and investment at date t - arbitrage(z::Number, k::Number, i::Number, Z::Number, K::Number, I::Number, p)::Number which returns the residual of the euler equation (lower case variable for date t, upper case for date t+1)\nUsing multiple dispatch, define two variants of the same functions, that take vectors as input and output arguments: - arbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number - transition(s::Vector{T}, x::Vector{T}, p) where T&lt;:Number\nWrite a function steady_state(p)::Tuple{Vector,Vector} which computes the steady-state of the model computed by hand. It returns two vectors, one for the states, one for the controls. Check that the steady-state satisfies the model equations.\nThe first order system satisfies: \\[\\begin{align}A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0 \\\\\\\\\ns_{t+1} & = & E s_t + F x_t\n\\end{align}\\]\nDefine a structure PerturbedModel to hold matrices A,B,C,D,E,F.\nWrite a function first_order_model(s::Vector, x::Vector, p)::PerturbedModel, which returns the first order model, given the steady-state and the calibration. Suggestion: use ForwardDiff.jl library.\nWe look for a linear solution \\(x_t = X s_t\\) . Write the matrix equation which X must satisfy. Write a function residual(X::Array, M::PerturbedModel) which computes the residual of this equation for a given X.\nWrite a function T(X, M::PerturbedModel) which implements the time iteration step.\nWrite function linear_time_iteration(X_0::Matrix, m::PerturbedModel)::Matrix which implements the time iteration algorithm. Apply it to X0 = rand(1,2) and check that the result satisfies the first order model.\nDefine two linear operators L_S(U::Union{Vector, Matrix}, X_0::Matrix, m::PerturbedModel)::Matrix and L_T(U::Matrix, X_0::Matrix, m::PerturbedModel)::Matrix which implement the derivatives of the simulation and the time-iteration operator respectively.\nImplement a function spectral_radius(f::Function)::Float64 which implements the power iteration method to compute the biggest eigenvalues of the two previously defined operators. Check that Blanchard-Kahn conditions are met.\nWrite a function simulate(s0::Vector, X::Matrix, p, T::Int64)::Tuple{Matrix, Matrix} to simulate the model over \\(T\\) periods (by using the formula \\(\\Delta s_t = (E + F X) \\Delta s_{t-1}\\). Return a matrix for the states (one line per date) and another matrix for the controls. Bonus: add a keyword option to compute variables levels or log-deviations. If possible, return a DataFrame object.\nMake some nice plots.",
+    "text": "Our goal here is to compute a linear approximation of solution to the neoclassical model, close ot the steady-state.\nWarm-up: install the ForwardDiff library. Use it to differentiate the function below. Check the jacobian function.\nNote: the signature of function f needs to be fixed first to allow for dual numbers as arguments.\n\n# function f(x::Vector{T}) where T &lt;: Number\nfunction f(x::Vector{&lt;:Number}) # equivalent\n    a = x[1]\n    b = x[2]\n    x1 = a+b\n    x2 = a*exp(b)\n    return [x1,x2]\nend\n\nf (generic function with 4 methods)\n\n\n\nusing ForwardDiff\n\n\nForwardDiff.jacobian(f, [0.2, 0.4])\n\n2×2 Matrix{Float64}:\n 1.0      1.0\n 1.49182  0.298365\n\n\nCreate a NamedTuple to hold the model parameters.\n\nparameters = (;\n    α=0.3,\n    β=0.96,\n    γ=4.0,\n    δ=0.1,\n    ρ=0.9\n)\n\n(α = 0.3, β = 0.96, γ = 4.0, δ = 0.1, ρ = 0.9)\n\n\nDefine two functions: - transition(z::Number, k::Number, i::Number, p)::Tuple{Number} which returns productivity and capital at date t+1 as a function of productivity, capital and investment at date t - arbitrage(z::Number, k::Number, i::Number, Z::Number, K::Number, I::Number, p)::Number which returns the residual of the euler equation (lower case variable for date t, upper case for date t+1)\n\nfunction transition(z::Number, k::Number, i::Number, p)\n\n        Z = p.ρ * z\n        K = (1-p.δ) * k + i\n\n        (;Z, K)\n\nend\n\ntransition (generic function with 1 method)\n\n\n\nfunction arbitrage(z::Number, k::Number, i::Number, Z::Number, K::Number, I::Number, p)\n\n    # positional unpacking (error-prone)\n    # α, β, γ, δ, ρ = p\n    \n    (;α, β, γ, δ, ρ) = p\n\n    # define auxiliary variables today\n    y = exp(z)k^α\n    c = y - i\n\n    # define auxiliary variables tomorrow\n    Y = exp(Z)K^α\n    C = Y - I\n\n    residual = β*(C/c)^(-γ)*( (1-δ) + α*K^(α-1)*exp(Z)) - 1\n\n    return residual\n\n\nend\n\narbitrage (generic function with 1 method)\n\n\nUsing multiple dispatch, define two variants of the same functions, that take vectors as input and output arguments: - arbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number - transition(s::Vector{T}, x::Vector{T}, p) where T&lt;:Number\n\n# this returns a number\n# arbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number = arbitrage(s[1],s[2],x[1],S[1],S[2],X[1],p)\n\narbitrage (generic function with 2 methods)\n\n\n\n[2.4]   # create a vector from  a number\n\n1-element Vector{Float64}:\n 2.4\n\n\n\narbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number = [\n    arbitrage(s[1],s[2],x[1],S[1],S[2],X[1],p)\n]\n\narbitrage (generic function with 2 methods)\n\n\n\n# this returns a tuple\n# transition(s::Vector{T}, x::Vector{T}, p) where T&lt;: Number = transition(s[1], s[2], x[1], p)\n\ntransition (generic function with 2 methods)\n\n\n\nt = (1,2,3)\n\n(1, 2, 3)\n\n\n\n# to convert into a tuple into a vector\n[t...]\n\n3-element Vector{Int64}:\n 1\n 2\n 3\n\n\n\ntransition(s::Vector{T}, x::Vector{T}, p) where T&lt;: Number = [transition(s[1], s[2], x[1], p)...]\n\ntransition (generic function with 2 methods)\n\n\nWrite a function steady_state(p)::Tuple{Vector,Vector} which computes the steady-state of the model computed by hand. It returns two vectors, one for the states, one for the controls. Check that the steady-state satisfies the model equations.\n\nfunction steady_state(p)\n    (;α, β, γ, δ, ρ) = p\n\n    # ...\n    z = 0.0\n\n    k = ((1/β - (1-δ))/α)^ (1/(α-1))\n    i = δ*k\n\n    s = [z,k] # vector of states\n    x = [i]  # vector controls\n\n    return (;\n        s,\n        x\n    )\n\n\nend\n\nsteady_state (generic function with 1 method)\n\n\n\nq = steady_state(parameters)\n\n(s = [0.0, 2.920822149964071], x = [0.29208221499640713])\n\n\n\n# check the steady-state is correct using the functions representing the model\n\n\nmethods(transition)\n\n# 2 methods for generic function transition from \u001b[35mMain\u001b[39m: transition(z::Number, k::Number, i::Number, p) in Main at /home/pablo/Teaching/ensae/mie37/tutorials/3_perturbation_neoclassical.ipynb:1  transition(s::Vector{T}, x::Vector{T}, p) where T&lt;:Number in Main at /home/pablo/Teaching/ensae/mie37/tutorials/3_perturbation_neoclassical.ipynb:1 \n\n\n\n@assert maximum(transition(q.s, q.x, parameters) - q.s) == 0.0\n\n\n@assert maximum(arbitrage(q.s, q.x, q.s, q.x, parameters)) == 0.0\n\nThe first order system satisfies: \\[\\begin{align}A s_t + B x_t + C s_{t+1} + D x_{t+1} & = & 0 \\\\\\\\\ns_{t+1} & = & E s_t + F x_t\n\\end{align}\\]\nDefine a structure PerturbedModel to hold matrices A,B,C,D,E,F.\n\nstruct PerturbedModel\n    A::Matrix\n    B::Matrix\n    C::Matrix\n    D::Matrix\n    E::Matrix\n    F::Matrix\n\nend\n\nWrite a function first_order_model(s::Vector, x::Vector, p)::PerturbedModel, which returns the first order model, given the steady-state and the calibration. Suggestion: use ForwardDiff.jl library.\n\n# we need to loosen the constraint on the arbitrage arguments:\n\n# brutal\narbitrage(s, x, S, X, p) where T&lt;:Number = [\n    arbitrage(s[1],s[2],x[1],S[1],S[2],X[1],p)\n]\n\n\n# more precise\n# arbitrage(s::Vector{&lt;:Number}, x::Vector{&lt;:Number}, S::Vector{&lt;:Number}, X::Vector{&lt;:Number}, p) = [\n#     arbitrage(s[1],s[2],x[1],S[1],S[2],X[1],p)\n# ]\n\nWARNING: method definition for arbitrage at /home/pablo/Teaching/ensae/mie37/tutorials/3_perturbation_neoclassical.ipynb:4 declares type variable T but does not use it.\n\n\narbitrage (generic function with 3 methods)\n\n\n\narbitrage(s,x,s,x,parameters)\n\n1-element Vector{Float64}:\n 0.0\n\n\n\ntransition(s, x, p) where T&lt;: Number = [transition(s[1], s[2], x[1], p)...]\n\nWARNING: method definition for transition at /home/pablo/Teaching/ensae/mie37/tutorials/3_perturbation_neoclassical.ipynb:1 declares type variable T but does not use it.\n\n\ntransition (generic function with 3 methods)\n\n\n\nfunction first_order_model(s, x, parameters)\n\n    A = ForwardDiff.jacobian(  u-&gt;arbitrage(u, x, s, x, parameters), s    )\n    B = ForwardDiff.jacobian(  u-&gt;arbitrage(s, u, s, x, parameters), x    )\n    C = ForwardDiff.jacobian(  u-&gt;arbitrage(s, x, u, x, parameters), s    )\n    D = ForwardDiff.jacobian(  u-&gt;arbitrage(s, x, s, u, parameters), x    )\n    E = ForwardDiff.jacobian(  u-&gt;transition(u, x, parameters), s    )\n    F = ForwardDiff.jacobian(  u-&gt;transition(s, u, parameters), x    )\n\n    return PerturbedModel(A,B,C,D,E,F)\n\nend\n\nfirst_order_model (generic function with 1 method)\n\n\n\n@time first_order_model(q.s, q.x, parameters)\n\n  0.000055 seconds (45 allocations: 2.922 KiB)\n\n\nPerturbedModel([5.074626865671642 0.5212190203776081], [-3.679193085018409;;], [-4.938626865671642 -0.5538125831185546], [3.679193085018409;;], [0.9 0.0; 0.0 0.9], [0.0; 1.0;;])\n\n\nWe look for a linear solution \\(x_t = X s_t\\) . Write the matrix equation which X must satisfy. Write a function residual(X::Array, M::PerturbedModel) which computes the residual of this equation for a given X.\nWrite a function T(X, M::PerturbedModel) which implements the time iteration step.\nWrite function linear_time_iteration(X_0::Matrix, m::PerturbedModel)::Matrix which implements the time iteration algorithm. Apply it to X0 = rand(1,2) and check that the result satisfies the first order model.\nDefine two linear operators L_S(U::Union{Vector, Matrix}, X_0::Matrix, m::PerturbedModel)::Matrix and L_T(U::Matrix, X_0::Matrix, m::PerturbedModel)::Matrix which implement the derivatives of the simulation and the time-iteration operator respectively.\nImplement a function spectral_radius(f::Function)::Float64 which implements the power iteration method to compute the biggest eigenvalues of the two previously defined operators. Check that Blanchard-Kahn conditions are met.\nWrite a function simulate(s0::Vector, X::Matrix, p, T::Int64)::Tuple{Matrix, Matrix} to simulate the model over \\(T\\) periods (by using the formula \\(\\Delta s_t = (E + F X) \\Delta s_{t-1}\\). Return a matrix for the states (one line per date) and another matrix for the controls. Bonus: add a keyword option to compute variables levels or log-deviations. If possible, return a DataFrame object.\nMake some nice plots.",
     "crumbs": [
       "Tutorials",
       "Perturbation of Neoclassical Model"

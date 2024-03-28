@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://albop.github.io/mie37/pushups/2_Optimization_pushups.html</loc>
-    <lastmod>2024-03-27T15:21:22.478Z</lastmod>
+    <lastmod>2024-03-27T16:15:54.442Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/students/list.html</loc>
@@ -19,6 +19,10 @@
   <url>
     <loc>https://albop.github.io/mie37/tutorials/4_Optimization.html</loc>
     <lastmod>2024-03-27T15:21:23.606Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/3_perturbation_neoclassical.html</loc>
+    <lastmod>2024-03-27T14:17:15.443Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/2_solow.html</loc>
@@ -42,7 +46,7 @@
   </url>
   <url>
     <loc>https://albop.github.io/mie37/slides/ddp.html</loc>
-    <lastmod>2024-02-15T10:50:22.718Z</lastmod>
+    <lastmod>2024-03-28T12:00:20.470Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/slides/session_2/index.html</loc>
@@ -85,8 +89,12 @@
     <lastmod>2024-02-15T10:50:22.710Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/3_perturbation_neoclassical.html</loc>
-    <lastmod>2024-03-27T14:17:15.443Z</lastmod>
+    <loc>https://albop.github.io/mie37/tutorials/6_discrete_dynamic_programming.html</loc>
+    <lastmod>2024-03-28T12:03:48.587Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/6_discrete_dynamic_programming_mccall.html</loc>
+    <lastmod>2024-03-28T12:05:19.062Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/2_solow_pablo.html</loc>

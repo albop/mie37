@@ -11,6 +11,7 @@
   <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Year 2023-2024 (MIE37)">
+  <meta name="dcterms.date" content="2024-03-28">
   <title>Advanced Macro: Numerical Methods - Discrete Dynamic Programming</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -402,6 +403,7 @@ Year 2023-2024 (MIE37)
 </div>
 </div>
 
+  <p class="date">2024-03-28</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
@@ -974,7 +976,7 @@ Year 2023-2024 (MIE37)
 <section id="successive-approximation-2" class="slide level2">
 <h2>Successive Approximation (2)</h2>
 <ul>
-<li>Taking continuation value as given we can certainly improve the value in every state <span class="math inline">\(\tilde{V}\)</span> by choosing <span class="math inline">\(\tilde{x}()\)</span> so as to maximize <span class="math display">\[\tilde{V}(s; x(), \tilde{x}()) =  r(s, \tilde{x}(s)) + \delta \sum_{s'} \pi(s'|s,\tilde{x}(s) )V(s'; x()) \]</span></li>
+<li>Taking continuation value as given we can certainly improve the value in every state <span class="math inline">\(\tilde{V}\)</span> by choosing <span class="math inline">\(\tilde{x}()\)</span> so as to maximize <span class="math display">\[\tilde{V}(s; \tilde{x}(), x()) =  r(s, \tilde{x}(s)) + \delta \sum_{s'} \pi(s'|s,\tilde{x}(s) )V(s'; x()) \]</span></li>
 <li>By construction: <span class="math inline">\(\forall s, \tilde{V}(s, \tilde{x}(), x()) &gt; {V}(s, x())\)</span>
 <ul>
 <li>it is an <strong>improvement step</strong></li>
@@ -1027,7 +1029,7 @@ Year 2023-2024 (MIE37)
 <section id="successive-approximation-1" class="slide level2">
 <h2>Successive Approximation</h2>
 <ul>
-<li><p>Using the Blackwell’s theorem, we can prove the Bellman operator is a contraction mapping (do it).</p></li>
+<li><p>Using the Blackwell’s theorem, we can prove the Bellman operator is a contraction mapping.</p></li>
 <li><p>This justifies the Value Function Iteration algorithm:</p>
 <ul>
 <li>choose an initial <span class="math inline">\(V_0\)</span></li>
@@ -1039,12 +1041,13 @@ Year 2023-2024 (MIE37)
 </section>
 <section id="successive-approximation-2-1" class="slide level2">
 <h2>Successive Approximation (2)</h2>
+<p>Assume that <span class="math inline">\(X\)</span> is finite.</p>
 <ul>
 <li>Note that convergence of <span class="math inline">\(V_n\)</span> is geometric</li>
-<li>But <span class="math inline">\(x_n\)</span> converges after a finite number of iterations (<span class="math inline">\(X\)</span> is finite)
+<li>But <span class="math inline">\(x_n\)</span> converges after a finite number of iteration.
 <ul>
 <li>surely the latest iterations are suboptimal</li>
-<li>they serve only to evaluate the value of <span class="math inline">\(x^{\star}\)</span></li>
+<li>they serve only to evaluate the value of <span class="math inline">\(x\)</span></li>
 </ul></li>
 <li>In fact:
 <ul>
@@ -1067,7 +1070,6 @@ Year 2023-2024 (MIE37)
 <li>One can show the speed of convergence (for <span class="math inline">\(V_n\)</span>) is <em>quadratic</em>
 <ul>
 <li>it corresponds the Newton-Raphson steps applied to <span class="math inline">\(V\rightarrow G(V)-V\)</span></li>
-<li>we’ll see Newton-Raphson in the next session (on optimization)</li>
 </ul></li>
 </ul>
 </section>
@@ -1075,7 +1077,7 @@ Year 2023-2024 (MIE37)
 <h2>How do we compute the value of a policy?</h2>
 <ul>
 <li><p>Given <span class="math inline">\(x_n\)</span>, goal is to find <span class="math inline">\(V_n(s)\)</span> in <span class="math display">\[\forall s,  V_n(s) = r(s, x_n(s)) + \delta \sum_{s'} \pi(s'| s, x_n(s)) V_n(s')\]</span></p></li>
-<li><p>Two(three) approaches:</p>
+<li><p>Three approaches:</p>
 <ol type="1">
 <li>simulate the policy rule and compute <span class="math inline">\(E\left[ \sum_t \delta^t r(s_t, x_t) \right]\)</span> with Monte-Carlo draws</li>
 <li>successive approximation:
@@ -1084,7 +1086,7 @@ Year 2023-2024 (MIE37)
 </ul></li>
 <li>solve a <em>linear</em> system in <span class="math inline">\(V_n\)</span></li>
 </ol></li>
-<li><p>For 2 and 3 it helps representing a linear operator <span class="math inline">\(M\)</span> such that <span class="math inline">\(V_{n+1} = R_n + \delta M_n .  V_n\)</span></p></li>
+<li><p>For 2 and 3 it is useful to constuct a linear operator <span class="math inline">\(M\)</span> such that <span class="math inline">\(V_{n+1} = R_n + \delta M_n .  V_n\)</span></p></li>
 </ul>
 <!-- Another approach consist: compute $(\sum_{t\geq 0} \delta^t M_n^t)$ -->
 </section></section>

@@ -1336,7 +1336,7 @@
     "href": "slides/ddp.html#successive-approximation-2",
     "title": "Discrete Dynamic Programming",
     "section": "Successive Approximation (2)",
-    "text": "Successive Approximation (2)\n\nTaking continuation value as given we can certainly improve the value in every state \\(\\tilde{V}\\) by choosing \\(\\tilde{x}()\\) so as to maximize \\[\\tilde{V}(s; x(), \\tilde{x}()) =  r(s, \\tilde{x}(s)) + \\delta \\sum_{s'} \\pi(s'|s,\\tilde{x}(s) )V(s'; x()) \\]\nBy construction: \\(\\forall s, \\tilde{V}(s, \\tilde{x}(), x()) &gt; {V}(s, x())\\)\n\nit is an improvement step\n\nCan \\({V}(s, \\tilde{x}())\\) be worse for some states than \\({V}(s, x())\\) ?\n\nactually no",
+    "text": "Successive Approximation (2)\n\nTaking continuation value as given we can certainly improve the value in every state \\(\\tilde{V}\\) by choosing \\(\\tilde{x}()\\) so as to maximize \\[\\tilde{V}(s; \\tilde{x}(), x()) =  r(s, \\tilde{x}(s)) + \\delta \\sum_{s'} \\pi(s'|s,\\tilde{x}(s) )V(s'; x()) \\]\nBy construction: \\(\\forall s, \\tilde{V}(s, \\tilde{x}(), x()) &gt; {V}(s, x())\\)\n\nit is an improvement step\n\nCan \\({V}(s, \\tilde{x}())\\) be worse for some states than \\({V}(s, x())\\) ?\n\nactually no",
     "crumbs": [
       "Slides",
       "Discrete Dynamic Programming"
@@ -1380,7 +1380,7 @@
     "href": "slides/ddp.html#successive-approximation-1",
     "title": "Discrete Dynamic Programming",
     "section": "Successive Approximation",
-    "text": "Successive Approximation\n\nUsing the Blackwell’s theorem, we can prove the Bellman operator is a contraction mapping (do it).\nThis justifies the Value Function Iteration algorithm:\n\nchoose an initial \\(V_0\\)\ngiven \\(V_n\\) compute \\(V_{n+1} = G(V_n)\\)\niterate until \\(|V_{n+1}- V_n|\\leq \\eta\\)\n\nPolicy rule is deduced from \\(V\\) as the maximand in the Bellman step",
+    "text": "Successive Approximation\n\nUsing the Blackwell’s theorem, we can prove the Bellman operator is a contraction mapping.\nThis justifies the Value Function Iteration algorithm:\n\nchoose an initial \\(V_0\\)\ngiven \\(V_n\\) compute \\(V_{n+1} = G(V_n)\\)\niterate until \\(|V_{n+1}- V_n|\\leq \\eta\\)\n\nPolicy rule is deduced from \\(V\\) as the maximand in the Bellman step",
     "crumbs": [
       "Slides",
       "Discrete Dynamic Programming"
@@ -1391,7 +1391,7 @@
     "href": "slides/ddp.html#successive-approximation-2-1",
     "title": "Discrete Dynamic Programming",
     "section": "Successive Approximation (2)",
-    "text": "Successive Approximation (2)\n\nNote that convergence of \\(V_n\\) is geometric\nBut \\(x_n\\) converges after a finite number of iterations (\\(X\\) is finite)\n\nsurely the latest iterations are suboptimal\nthey serve only to evaluate the value of \\(x^{\\star}\\)\n\nIn fact:\n\n\\(V_n\\) is never the value of \\(x_n()\\)\nshould we try to keep both in sync?",
+    "text": "Successive Approximation (2)\nAssume that \\(X\\) is finite.\n\nNote that convergence of \\(V_n\\) is geometric\nBut \\(x_n\\) converges after a finite number of iteration.\n\nsurely the latest iterations are suboptimal\nthey serve only to evaluate the value of \\(x\\)\n\nIn fact:\n\n\\(V_n\\) is never the value of \\(x_n()\\)\nshould we try to keep both in sync?",
     "crumbs": [
       "Slides",
       "Discrete Dynamic Programming"
@@ -1402,7 +1402,7 @@
     "href": "slides/ddp.html#policy-iteration-for-dmdp",
     "title": "Discrete Dynamic Programming",
     "section": "Policy iteration for DMDP",
-    "text": "Policy iteration for DMDP\n\nChoose initial policy \\(x_0()\\)\nGiven initial guess \\(x_n()\\)\n\ncompute the value function \\(V_n=V( ;x_n)\\) which satisfies\n\\(\\forall s,  V_n(s) = r(s, x_n(s)) + \\delta \\sum_{s'} \\pi(s'| s, x_n(s)) V_n(s')\\)\nimprove policy by maximizing in \\(x_n()\\) \\[\\max_{x_n()} r(s, x_n(s)) + \\delta \\sum_{s^{\\prime}\\in S} \\pi(s^{\\prime}| s, x_n(s)) V_{n-1}(s^{\\prime})\\]\n\nRepeat until convergence, i.e. \\(x_n=x_{n+1}\\)\nOne can show the speed of convergence (for \\(V_n\\)) is quadratic\n\nit corresponds the Newton-Raphson steps applied to \\(V\\rightarrow G(V)-V\\)\nwe’ll see Newton-Raphson in the next session (on optimization)",
+    "text": "Policy iteration for DMDP\n\nChoose initial policy \\(x_0()\\)\nGiven initial guess \\(x_n()\\)\n\ncompute the value function \\(V_n=V( ;x_n)\\) which satisfies\n\\(\\forall s,  V_n(s) = r(s, x_n(s)) + \\delta \\sum_{s'} \\pi(s'| s, x_n(s)) V_n(s')\\)\nimprove policy by maximizing in \\(x_n()\\) \\[\\max_{x_n()} r(s, x_n(s)) + \\delta \\sum_{s^{\\prime}\\in S} \\pi(s^{\\prime}| s, x_n(s)) V_{n-1}(s^{\\prime})\\]\n\nRepeat until convergence, i.e. \\(x_n=x_{n+1}\\)\nOne can show the speed of convergence (for \\(V_n\\)) is quadratic\n\nit corresponds the Newton-Raphson steps applied to \\(V\\rightarrow G(V)-V\\)",
     "crumbs": [
       "Slides",
       "Discrete Dynamic Programming"
@@ -1413,7 +1413,7 @@
     "href": "slides/ddp.html#how-do-we-compute-the-value-of-a-policy",
     "title": "Discrete Dynamic Programming",
     "section": "How do we compute the value of a policy?",
-    "text": "How do we compute the value of a policy?\n\nGiven \\(x_n\\), goal is to find \\(V_n(s)\\) in \\[\\forall s,  V_n(s) = r(s, x_n(s)) + \\delta \\sum_{s'} \\pi(s'| s, x_n(s)) V_n(s')\\]\nTwo(three) approaches:\n\nsimulate the policy rule and compute \\(E\\left[ \\sum_t \\delta^t r(s_t, x_t) \\right]\\) with Monte-Carlo draws\nsuccessive approximation:\n\nput \\(V_k\\) in the rhs and recompute the lhs \\(V_{k+1}\\), replace \\(V_k\\) by \\(V_{k+1}\\) and iterate until convergence\n\nsolve a linear system in \\(V_n\\)\n\nFor 2 and 3 it helps representing a linear operator \\(M\\) such that \\(V_{n+1} = R_n + \\delta M_n .  V_n\\)",
+    "text": "How do we compute the value of a policy?\n\nGiven \\(x_n\\), goal is to find \\(V_n(s)\\) in \\[\\forall s,  V_n(s) = r(s, x_n(s)) + \\delta \\sum_{s'} \\pi(s'| s, x_n(s)) V_n(s')\\]\nThree approaches:\n\nsimulate the policy rule and compute \\(E\\left[ \\sum_t \\delta^t r(s_t, x_t) \\right]\\) with Monte-Carlo draws\nsuccessive approximation:\n\nput \\(V_k\\) in the rhs and recompute the lhs \\(V_{k+1}\\), replace \\(V_k\\) by \\(V_{k+1}\\) and iterate until convergence\n\nsolve a linear system in \\(V_n\\)\n\nFor 2 and 3 it is useful to constuct a linear operator \\(M\\) such that \\(V_{n+1} = R_n + \\delta M_n .  V_n\\)",
     "crumbs": [
       "Slides",
       "Discrete Dynamic Programming"

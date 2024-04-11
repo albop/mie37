@@ -943,7 +943,7 @@ Year 2023-2024 (MIE37)
 <section id="infinite-horizon-dmdp-1" class="slide level2">
 <h2>Infinite horizon DMDP</h2>
 <ul>
-<li>Horizon is infinite: <span class="math display">\[V(s; x()) =  \max E_0 \sum_{t=0}^{\infty} \delta^t r(s_t, x_t) \]</span></li>
+<li>Horizon is infinite: <span class="math display">\[V(s) =  \max E_0 \sum_{t=0}^{\infty} \delta^t r(s_t, x_t) \]</span></li>
 <li>Intuition:
 <ul>
 <li>let’s consider the finite horizon version <span class="math inline">\(T&lt;\infty\)</span> and <span class="math inline">\(T &gt;&gt; 1\)</span></li>
@@ -1200,7 +1200,7 @@ Year 2023-2024 (MIE37)
 <h2>Value evaluation</h2>
 <ul>
 <li>Suppose we take a policy <span class="math inline">\(a(w)\)</span> as given. What is the value of following this policy forever?</li>
-<li>The value function <span class="math inline">\(V_a^E\)</span>, <span class="math inline">\(V_a^U\)</span> satisfies <span class="math display">\[V_a^U(w) = U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) &amp; \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  &amp; \text{if $a(w)$ is false} \end{cases}\]</span> <span class="math display">\[V_a^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] \]</span></li>
+<li>The value function <span class="math inline">\(V_a^E\)</span>, <span class="math inline">\(V_a^U\)</span> satisfies <span class="math display">\[V_a^U(w) = U(\underline{c}) + \begin{cases} \beta {V}^E_a(w) &amp; \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ {V}^U_a(w^{\prime}) \right]  &amp; \text{if $a(w)$ is false} \end{cases}\]</span> <span class="math display">\[V_a^E(w) = U(w) +  (1-\lambda) \beta {V}^E_a(w) +  \lambda \beta E_{w'}\left[{V}^U_a(w^{\prime}) \right] \]</span></li>
 <li>Note the absence of the max function: we don’t reoptimize</li>
 </ul>
 </section>

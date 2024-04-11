@@ -238,11 +238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../tutorials/6_discrete_dynamic_programming_mccall.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">McCall Model</span></a>
-  </div>
-</li>
+ <span class="menu-text">tutorials/6_discrete_dynamic_programming_mccall.ipynb</span>
+  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -493,11 +490,13 @@ Iteration 4: ϵ=6.617444900424222e-24 </code></pre>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">ncp</span>(f, x0, lb; args<span class="op">...</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the dot calls φ_FB component-wise on its vector arguments</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fun</span>(u) <span class="op">=</span> <span class="fu">φ_FB</span>.(<span class="fu">f</span>(u), u <span class="op">-</span> lb)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fun(u) = φ_FB.(f(u), u - lb)</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zero_newton</span>(fun, x0; args<span class="op">...</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    fun <span class="op">=</span> u<span class="op">-&gt;</span> <span class="fu">φ_FB</span>.(<span class="fu">f</span>(u), u <span class="op">-</span> lb)</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zero_newton</span>(fun, x0; args<span class="op">...</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>ncp (generic function with 2 methods)</code></pre>
 </div>

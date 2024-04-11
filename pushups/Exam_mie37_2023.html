@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Advanced Macro: Numerical Methods - Epidemiology Models</title>
+<title>Advanced Macro: Numerical Methods - Numerical Method: Final Exam 2023</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,25 +20,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,7 +131,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -109,9 +143,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Advanced Macro: Numerical Methods
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pushups/1_epidemiology.html">Pushups</a></li><li class="breadcrumb-item"><a href="../pushups/Exam_mie37_2023.html">Numerical Method: Final Exam 2023</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -126,7 +158,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Advanced Macro: Numerical Methods</a> 
+      <a href="../">Advanced Macro: Numerical Methods</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -147,49 +179,49 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/session_1/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/session_1/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/session_2/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/session_2/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Convergence of Sequences</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/session_3/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/session_3/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Perturbation Analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/session_4/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/session_4/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Optimization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/ddp.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/ddp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Discrete Dynamic Programming</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/discretization.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/discretization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Discretization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/interpolation.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/interpolation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interpolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slides/time_iteration.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/time_iteration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Time Iteration</span></a>
   </div>
 </li>
@@ -206,31 +238,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tutorials/1_Julia_Basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/1_Julia_Basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Julia Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tutorials/2_solow.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/2_solow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Convergence of Sequences</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tutorials/3_perturbation_neoclassical.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/3_perturbation_neoclassical.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Perturbation of Neoclassical Model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tutorials/4_Optimization.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/4_Optimization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Optimization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tutorials/6_discrete_dynamic_programming.html" class="sidebar-item-text sidebar-link">
+  <a href="../tutorials/6_discrete_dynamic_programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Discrete Dynamic Programming</span></a>
   </div>
 </li>
@@ -250,19 +282,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pushups/1_epidemiology.html" class="sidebar-item-text sidebar-link">
+  <a href="../pushups/1_epidemiology.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Epidemiology Models</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pushups/2_Optimization_pushups.html" class="sidebar-item-text sidebar-link">
+  <a href="../pushups/2_Optimization_pushups.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Optimization Pushups</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pushups/Exam_mie37_2023.html" class="sidebar-item-text sidebar-link">
+  <a href="../pushups/Exam_mie37_2023.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Numerical Method: Final Exam 2023</span></a>
   </div>
 </li>
@@ -278,18 +310,24 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#simple-sir-model" id="toc-simple-sir-model" class="nav-link active" data-scroll-target="#simple-sir-model">Simple SIR model</a></li>
-  <li><a href="#a-spatial-sir-model" id="toc-a-spatial-sir-model" class="nav-link" data-scroll-target="#a-spatial-sir-model">A Spatial SIR model</a></li>
-  <li><a href="#additional-questions" id="toc-additional-questions" class="nav-link" data-scroll-target="#additional-questions">Additional questions</a></li>
+  <li><a href="#numerical-method-final-exam-2023" id="toc-numerical-method-final-exam-2023" class="nav-link active" data-scroll-target="#numerical-method-final-exam-2023">Numerical Method: Final Exam 2023</a>
+  <ul class="collapse">
+  <li><a href="#power-iteration-method" id="toc-power-iteration-method" class="nav-link" data-scroll-target="#power-iteration-method">Power iteration method</a></li>
+  <li><a href="#doubling-algorithm" id="toc-doubling-algorithm" class="nav-link" data-scroll-target="#doubling-algorithm">Doubling algorithm</a></li>
+  <li><a href="#reduced-form-new-keyesian-model" id="toc-reduced-form-new-keyesian-model" class="nav-link" data-scroll-target="#reduced-form-new-keyesian-model">Reduced-form New Keyesian model</a>
+  <ul class="collapse">
+  <li><a href="#model-solution" id="toc-model-solution" class="nav-link" data-scroll-target="#model-solution">Model Solution</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="1_epidemiology.out.ipynb" download="1_epidemiology.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pushups/1_epidemiology.html">Pushups</a></li><li class="breadcrumb-item"><a href="../pushups/Exam_mie37_2023.html">Numerical Method: Final Exam 2023</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Epidemiology Models</h1>
+<h1 class="title">Numerical Method: Final Exam 2023</h1>
 </div>
 
 
@@ -306,50 +344,68 @@ window.Quarto = {
 </header>
 
 
-<p>H.W. Heathcote: epidemiologic models are <em>deterministic models for infectious diseases which are spread by direct person-to-person contact in a population</em>.</p>
-<p>This kind of models has been used since by a few decades by economist, for matters that have nothing to do with health.</p>
-<ul>
-<li>diffusion of information, or opinions on social medias</li>
-<li>asset prices and fads</li>
-<li>expectation formation for macroeconomic outcomes (ex: <em>The Epidemiology of Macroeconomic Expectations</em> by Chris Carroll)</li>
-</ul>
-<p>Epidemiologic models have two features that depart from standard economic models:</p>
-<ul>
-<li>Agent’s behaviour does not take the full system into account, an is irrational in the sense that it isn’t forward looking. Instead, an agent is given a behavioural heuristic.</li>
-<li>The transitions of the whole system can be determined without solving for complex interactions first.</li>
-</ul>
-<p>Understanding why these two assumptions are very costly for economists will keep us busy during a big part of the course. Here we just consider two simple models as small programming exercises.</p>
-<section id="simple-sir-model" class="level3">
-<h3 class="anchored" data-anchor-id="simple-sir-model">Simple SIR model</h3>
-<p>There is a continuum of agents of mass <span class="math inline">\(1\)</span>. Each agent can be either “Susceptible” (S), “Infected” (I) or “Recovered” (R). In each period, one agent meets another agent drawn randomly. During a meeting Susceptible agents who meet an infected agent, will always catch the disease (or the fad) but are not contagious. Infected agents, have a probability <span class="math inline">\(\pi\)</span> of being recovered. Nothing happens to Recovered agents who meet other people. No distinction is made between recovering as a healthy or a dead person.</p>
-<p>We’re interested in the evolution in the number infected persons, both the speed of infection and the total amount of infected people in every period.</p>
-<p><strong>Write down the transition equations for <span class="math inline">\(n_I\)</span>, the number of infected people, for <span class="math inline">\(n_R\)</span> the number of recovered people and <span class="math inline">\(n_S\)</span> the number of susceptible people.</strong></p>
-<p><strong>Compute the transition function <code>f</code> for the vector state <span class="math inline">\(s_t\)</span> returning <span class="math inline">\(s_{t+1}\)</span>.</strong></p>
-<p><strong>Compute the transitions over <span class="math inline">\(T\)</span> periods. Plot the result using Plots.jl. (bonus: check against closed form solution)</strong></p>
-<p><strong>We now assume a Susceptible person who meets an infected one has a probability <span class="math inline">\(\mu\)</span> of catching the disease. Update the transition function. Update function <span class="math inline">\(f\)</span> and write a function of <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\pi\)</span> which returns the simulation. Compare different values of the parameters. How would you interpret “social distancing”? How would you choose parameters <span class="math inline">\(\Pi\)</span> and <span class="math inline">\(\mu\)</span></strong></p>
+<section id="numerical-method-final-exam-2023" class="level1">
+<h1>Numerical Method: Final Exam 2023</h1>
+<p><strong>Name</strong>:</p>
+<p><strong>Surname</strong>:</p>
+<p>After completing the following questions, send the edited notebook to <code>pwinant@escp.eu</code>. You are allowed to use any available resource (but not copy/paste any code). Also, don’t forget to comment your code and take any initiative, you find relevant.</p>
+<section id="power-iteration-method" class="level2">
+<h2 class="anchored" data-anchor-id="power-iteration-method">Power iteration method</h2>
+<p>In this exercise, we implement a power iteration method <code>power_iteration(M::Matrix)</code> to compute the biggest eigenvalue of a given matrix <code>M</code>.</p>
+<p><strong>Define a <em>random</em> 3 times 3 matrix <code>M</code>. Compute its biggest eigenvalue using <code>LinearAlgebra: eigvals</code>.</strong></p>
+<p><strong>Define a <code>norm2</code> function, which computes the euclidean norm of any vector. Test it on some simple cases.</strong></p>
+<div id="7ec59362-6560-456d-8a28-8510b77bd0e2" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Write a function <code>iteration_step(M::Matrix, u::Vector)::Tuple{Float64, Vector}</code> which takes a random vector <span class="math inline">\(u\)</span> with norm 1 and returns <span class="math inline">\(M u\)</span> and <span class="math inline">\(\frac{M u}{|M u|}\)</span>.</strong></p>
+<p><strong>Write a function <code>power_iteration(M::Matrix)::Float64</code>, which computes the spectral radius of <code>M</code> using the power iteration method (spectral radius: absolute value of biggest eigenvalue)</strong></p>
+<p><strong>Check the result is correct on matrix <span class="math inline">\(M\)</span>.</strong></p>
 </section>
-<section id="a-spatial-sir-model" class="level3">
-<h3 class="anchored" data-anchor-id="a-spatial-sir-model">A Spatial SIR model</h3>
-<p>We now consider another version of the model where agents evolve in the space <span class="math inline">\(\mathcal{S}=[0,1]\times[0,1]\)</span>. There are <span class="math inline">\(N\in\mathbb{N}\)</span> agent. At any date, each agent <span class="math inline">\(n \in [0,1]\)</span> is located at <span class="math inline">\((x_n,y_n)\in \mathcal{S}\)</span>.</p>
-<p>Each agent moves follows a random walk bounded by <span class="math inline">\(\mathcal{S}\)</span>: <span class="math display">\[x_t = \min(\max( x_{t-1} + \epsilon_t, 0), 1)\]</span> <span class="math display">\[y_t = \min(\max( y_{t-1} + \eta_t, 0), 1)\]</span> where <span class="math inline">\(\epsilon_t\)</span> and <span class="math inline">\(\eta_t\)</span> are both normally distributed with standard deviation <span class="math inline">\(\sigma\)</span>.</p>
-<p>At any date, the individual state of an agent is <span class="math inline">\(s_t=(x_t, y_t, h_t)\)</span> where <span class="math inline">\(h_t\)</span> is either “S”, “I” or “R”. <span class="math inline">\(v_t\)</span> denotes the states of all agents (for instance <span class="math inline">\(v_t=(s_{n,t})_n\)</span>. The health status of each agent is updated in the following way:</p>
-<ul>
-<li>Agents <span class="math inline">\(R\)</span> stay <span class="math inline">\(R\)</span>.</li>
-<li>Agents <span class="math inline">\(I\)</span> have probability <span class="math inline">\(\pi\)</span> to become <span class="math inline">\(R\)</span>. They stay <span class="math inline">\(I\)</span> otherwise.</li>
-<li>An agent of type <span class="math inline">\(S\)</span> in position <span class="math inline">\((x,y)\)</span> has a probability <span class="math inline">\(prob(x,y,S)\)</span> to be infected that is <span class="math inline">\(\mu\)</span> if there is another infected agent within a radius <span class="math inline">\(r&gt;0\)</span>.</li>
-</ul>
-<p><strong>Define a type <code>Agent</code>, which holds the type of an agent. The state of the whole system will be held in a <code>Vector[Agent]</code> type.</strong></p>
-<p><strong>Write a function <code>spatial_transition(S::Vector{Agent})::Vector{Agent}</code> to compute the transition of the positions. Write another function <code>random_guess(T=100)</code> which simulates for <span class="math inline">\(T\)</span> periods in order to find a good initial guess.</strong></p>
-<p><strong>Write a function <code>show_population</code> to plot all agents with different colors for different health status.</strong></p>
-<p><strong>Write a function <code>evolve(S::Vector[Agent])::Vector[Agent]</code> which takes the population in a given state and returns the same population with updated health status.</strong></p>
-<p><strong>Write a function <code>simulate(S0::Vector[Agent], k=1)</code> to simulate the economy starting from an initially random position with <code>k</code> infected individuals. The returned object should be of type <code>Vector[Vector[Agent]]</code>.</strong></p>
-<p><strong>Compute statistics along a simulated path for <span class="math inline">\(n_I\)</span>, <span class="math inline">\(n_S\)</span>, <span class="math inline">\(n_R\)</span>. Plot and compare with the basic SIR model</strong></p>
+<section id="doubling-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="doubling-algorithm">Doubling algorithm</h2>
+<p>Let <span class="math inline">\(M\)</span> be a square matrix with spectral radius smaller than 1. Our goal here to approximate the infinite sum <span class="math inline">\(\sum_{t\geq 0} M^t\)</span> (whose result is a matrix).</p>
+<p><strong>Define a (non-trivial) 3x3 matrix M with spectral radius smaller than 1.</strong></p>
+<p><strong>Propose an algorithm and a function <code>infinite_sum(M::Matrix)</code> to approximate this sum by computing the limit of <span class="math inline">\(S_T = \sum_{t=0}^{T} M^t\)</span> when <span class="math inline">\(T\)</span> goes to <span class="math inline">\(\infty\)</span>.</strong></p>
+<p><strong>We now consider the doubling algorithm. Consider the sum <span class="math inline">\(D_N = \sum_{t\geq 0}^{2^N} M^t\)</span>. Find a recursive relation between <span class="math inline">\(D_N\)</span> and <span class="math inline">\(D_{N+1}\)</span>. Why is <span class="math inline">\(D_N\)</span> less expensive to compute than <span class="math inline">\(S^{2 N}\)</span> ?</strong></p>
+<p><strong>Implement a function <code>infinite_sum_doubling(M::Matrix)</code> which computes the infinite sum using the doubling algorithm. Check the result and time it against the other implementation.</strong></p>
 </section>
-<section id="additional-questions" class="level3">
-<h3 class="anchored" data-anchor-id="additional-questions">Additional questions</h3>
-<p>Have fun by trying to answer one of these questions: - change probability of infection so that it depends on the number of infected people in the vincinity (with some suitable functional formulation for) - compute an animation of the transition - compute an interactive visualisation (with <code>Interact.jl</code> if available)</p>
+<section id="reduced-form-new-keyesian-model" class="level2">
+<h2 class="anchored" data-anchor-id="reduced-form-new-keyesian-model">Reduced-form New Keyesian model</h2>
+<p>We consider the reduced-form New Keynesian Model</p>
+<p><span class="math display">\[\pi_t = \alpha E_t \pi_{t+1} + y_t\]</span></p>
+<p><span class="math display">\[y_t = \beta E_t y_{t+1} + \gamma (i_t-\pi_t) + \delta z_t\]</span></p>
+<p><span class="math display">\[i_t = \alpha_{y} y_t + \alpha_{\pi} \pi_t\]</span></p>
+<p>where <span class="math inline">\(\pi_t\)</span> is inflation, <span class="math inline">\(y_t\)</span> the output gap (i.e, the gap to full employment), and <span class="math inline">\(z_t\)</span> an AR1 process given by:</p>
+<p><span class="math display">\[z_t = \rho z_{t-1} + \epsilon_t\]</span></p>
+<p>wher <span class="math inline">\(\epsilon_t\)</span> is a random gaussian process with standard deviation <span class="math inline">\(\sigma_{\epsilon}\)</span>.</p>
+<p>We’ll take <span class="math inline">\(\alpha=0.9\)</span>, <span class="math inline">\(\beta=0.9\)</span>, <span class="math inline">\(\gamma=0.1\)</span>, <span class="math inline">\(\alpha_{\pi}=0.5\)</span>, <span class="math inline">\(\alpha_y=0.5\)</span>, <span class="math inline">\(\rho=0.9\)</span> and <span class="math inline">\(\sigma=0.01\)</span>.</p>
+<section id="model-solution" class="level3">
+<h3 class="anchored" data-anchor-id="model-solution">Model Solution</h3>
+<p><strong>Define a specialized structure to hold all model parameters.</strong></p>
+<p><strong>Define matrices <span class="math inline">\(A\)</span> (2x2) and <span class="math inline">\(B\)</span> (2x1) such that:</strong></p>
+<p><span class="math display">\[\begin{bmatrix}\pi_t\\y_t\end{bmatrix} = A E_t \begin{bmatrix}\pi_{t+1}\\y_{t+1}\end{bmatrix} + B z_t\]</span></p>
+<div id="d4fdbe1b-b967-4a22-bca2-962a2a082245" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># text</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="04f6c0d1-aea3-4c41-92a0-37655a3d8b01" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># code</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">create_matrices</span>(parameters)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     A = ...</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     B = ...</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, B</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Assume the sequence <span class="math inline">\(z_0, z_1, ...\)</span> is known, show that we can write <span class="math inline">\(\begin{bmatrix}\pi_t\\y_t\end{bmatrix}=\sum_{s\geq0} \rho^s A^s B z_s\)</span>. At which condition on <span class="math inline">\(A\)</span> is this sum absolutely converging?</strong></p>
+<p><strong>Check that this condition is met for the baseline calibration.</strong></p>
+<p><strong>Bonus: find conditions on <span class="math inline">\(\alpha_y\)</span> and <span class="math inline">\(\alpha_{\pi}\)</span> for the sum to be convergent. When it is, in this context, we say that inflation is <em>anchored</em>.</strong></p>
+<p><strong>Compute the solution to the system, that is find two sacalars <span class="math inline">\(x_y\)</span> and <span class="math inline">\(x_{\pi}\)</span> such that <span class="math inline">\(y_t(z) = x_{y} z_t\)</span> and <span class="math inline">\(\pi_t(z)= x_{\pi} z_t\)</span> solve the system.</strong></p>
+<p><strong>Compute matrices <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> such that <span class="math inline">\(\begin{bmatrix}\pi_t\\y_t\\z_t\end{bmatrix} =  P \begin{bmatrix}\pi_{t-1}\\y_{t-1}\\z_{t-1}\end{bmatrix} + Q \epsilon_t\)</span>.</strong></p>
+<p><strong>Simulate variables <span class="math inline">\(\pi_t, y_t, z_t\)</span> when <span class="math inline">\(\pi_0 =  y_0 = 0, z_0=0.1\)</span> and <span class="math inline">\(\forall t, \epsilon_t = 0\)</span>.</strong></p>
+<p><strong>Make <span class="math inline">\(N=1000\)</span> stochastic simulations for <span class="math inline">\(T=200\)</span> periods. Find a way to compute the standard deviation of the ergodic distribution.</strong></p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

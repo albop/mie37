@@ -1373,11 +1373,127 @@
     ]
   },
   {
+    "objectID": "homework/2024/Coursework_mie37_2024.html",
+    "href": "homework/2024/Coursework_mie37_2024.html",
+    "title": "Homework 2024",
+    "section": "",
+    "text": "Name:\nSurname:\nAfter completing the following questions, send the edited notebook to pablo.winant@ensae.fr. You can work in (small) teams but are not allowed to copy/paste andy code. Don’t forget to comment your code and take any initiative, you find relevant.",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#general-problem",
+    "href": "homework/2024/Coursework_mie37_2024.html#general-problem",
+    "title": "Homework 2024",
+    "section": "General Problem",
+    "text": "General Problem\nWe seek to solve numerically the following consumption-saving problem using the time-iteration algorithm.\nIncome is an iid process \\(\\epsilon_t\\) with \\(\\epsilon_t \\sim \\mathcal{N}(\\sigma)\\) (\\(\\sigma\\) is standard deviation). Interest rate is \\(r\\in [1,\\frac{1}{\\beta}[\\) where \\(\\beta\\in]0,1[\\) is the discount factor.\nAvailable income is \\(w_t\\) and follows the law of motion:\n\\[w_{t+1} = e^ {\\epsilon_{t+1}} +  (w_{t} - c_{t}) r\\]\nwhere \\(c_t \\in ]0,w_t]\\) is consumption chosen at date \\(t\\), with an implicit no borrowing constraint.",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#calibration",
+    "href": "homework/2024/Coursework_mie37_2024.html#calibration",
+    "title": "Homework 2024",
+    "section": "Calibration",
+    "text": "Calibration\nWe will use the following calibration:\n\\(\\sigma = 0.01\\)\n\\(\\beta = 0.96\\)\n\\(r = 1.03\\)\nChoose a structure model to represent the model parameters.\n\n\n# model = ...",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#representing-the-decision-function",
+    "href": "homework/2024/Coursework_mie37_2024.html#representing-the-decision-function",
+    "title": "Homework 2024",
+    "section": "Representing the decision function",
+    "text": "Representing the decision function\nThe solution of the model is a decision rule \\(c(w)\\).\nIn what follows, we will approximate it by a function defined over \\([0,w_{max}[\\) by the values it takes on \\(N\\) linearly spaced grid points.\nIn our solutions algorithm, we will use the initial guess \\(\\varphi_0(w) = min(w, p_0+p_1(w-p_0))\\).\nCreate a structure approx to represent the approximation space. This structure should contain the parameters, as well as a points::Vector{Float64} array with the list of grid points.\nTo start with you can take \\(w_{max}=5\\), \\(N=20\\), \\(p_0=0.95, p_1=0.03\\) but don’t hesitate to change these values later if needed.\n\n# approx = ...\n\nDefine a method φ_0(w::Float64)::Float64 for the initial guess. Plot it against \\(w\\) in the approximation space.\nCompute the values c_0::{Float64}of φ_0() on the grid points\nUse the Interpolations.jl library to define a function φ(w::Float64) defined for any w using piecewise linear interpolation in such a way that it takes values c_0 on the grid points.\nCreate a single plot with:\n\nthe function φ_0()\nthe interpolated function \\(φ\\)\nits values c_0 on the grid points\n\nBonus: add the the graph the function obtained using cubic spline interpolation. What could be the problem?",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#discretizing-epsilon_t1",
+    "href": "homework/2024/Coursework_mie37_2024.html#discretizing-epsilon_t1",
+    "title": "Homework 2024",
+    "section": "Discretizing \\(\\epsilon_{t+1}\\)",
+    "text": "Discretizing \\(\\epsilon_{t+1}\\)\nRepresent the shock \\(\\epsilon\\) by two vectors \\((e_1, ... e_q)\\) and \\((l_1, ..., l_q)\\) with \\(q=10\\) such that for a suitable function \\(g\\) we can approximate \\(E_{\\epsilon} (g(\\epsilon))\\) by \\(\\sum_{i=1}^q l_i e_i\\) .\n(choose the method you want)\n\n# e = ...\n# w = ...\n\nTest that it works by computing \\(E_{\\epsilon} \\left[ \\epsilon^2 \\right]\\).\nRedefine approx so as to include the discretized shock",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#euler-equation",
+    "href": "homework/2024/Coursework_mie37_2024.html#euler-equation",
+    "title": "Homework 2024",
+    "section": "Euler equation",
+    "text": "Euler equation\nWrite down the Euler equation, paying attention to the slackness condition.\nIt should be of the form \\[0 \\leq \\underbrace{E_t \\left[ f(w_t, c_t, w_{t+1}, c_{t+1}, \\epsilon_{t+1}) \\right]}_{\\Phi_t} \\perp c_t \\leq w_t\\]\nwhere \\(f\\) is a function to be explicited.\nDefine the function Phi(w::Float64,c::Float64,φ::Fun, model, approx) which approximates the residuals of the euler equation given the available income today, the consumption choice today, the consumption function tomorrow and the model/approx structures.\nOverload Phi function with another method Phi(w::Float64,c::Float64,φ::Fun, model, approx, slackness=true) which uses the Fisher-Burmeister transform to incorporate the credit constraint.\nPlot the optization residuals (i.e. values of \\(\\Phi_t\\)) corresponding to the initial guess function with and without the complementarity constraints.",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#time-iteration",
+    "href": "homework/2024/Coursework_mie37_2024.html#time-iteration",
+    "title": "Homework 2024",
+    "section": "Time Iteration",
+    "text": "Time Iteration\n(prep): Assuming the initial guess \\(φ_0()\\) is the decision rule followed tomorrow, determine, for a given value w in the state-space, the optimal consumption choice made today. This can be achieved by feeding the appropriate function into the right nonlinear root-finder.\n(prep): Find the vector of all the optimal consumption choices on the grid today, given the decision rule tomorrow.\nPlot the optimization residuals (i.e. values of \\(\\Phi_t\\)) for the initial guess function\nWrite down the time-iteration algorithm.\nYou can use the course as reference and/or repeat the recurrence steps below:\n\ngiven an initial guess for the consumption vector c0\ncreate a function defined φ on [0,wmax] which interpolates c0 on the grid\nfor each grid point w in the grid, solve the system u-&gt;Phi(w,u,φ, model, approx, slackness=true)\n\nstore the result as a vector c1\n\ncheck whether c1 is close to c0\n\nyes: check the system is indeed solved and return\nno: start again with c1 as c0\n\n\n\n# here is a placeholder implementation to help you structure your program.\n#  feel free to modify or discard\n\n\n\"\"\"\nφ: Float64-&gt;Float64 Initial guess for the consumption function\nmodel: parameters representing the model\napprox: parameters defining the approximation and solution method\nK: max number of iterations\n... other parameters for you to choose\n\"\"\"\nfunction time_iteration(φ0, model, approx; K=200, ... )\n\n    # ...\n\n    # convert initial function φ0 into a consumption vector by evaluating φ on the grid\n    # c0 = ... :: Vector{Float64}\n\n    for k=1:K\n\n        # convert consumption vector c0 into a function φ\n        # φ = ...\n\n        # solve for the optimal consumption for all grid points\n        # ...\n        # c1  :: Vector{Float64}\n\n        # check distance between c0 and c1\n\n        # η = ...\n\n        # if distance is small return function `varphi`\n\n    end\n\n\n\n\nend\n\nCheck that the value returned by time_iteration is actually a solution to the system. How fast is the convergence? Graphical representation.",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
+    "objectID": "homework/2024/Coursework_mie37_2024.html#bonuses",
+    "href": "homework/2024/Coursework_mie37_2024.html#bonuses",
+    "title": "Homework 2024",
+    "section": "Bonuses",
+    "text": "Bonuses\n(easy): perform some sensitivity analysis on the model to explain the effect of the main parameters\n(medium): Give the solution to the above problem, simulate the law of motion for the available income. Find a way to plot the distriution of that income over a long period of time.\n(hard): Propose and implement some ideas to speed up the solution process.\nOne promising avenue consists in solving for all consumption values at all grid points as one single system of equation after recognizing that the jacobian of this particular system has a specific structure.",
+    "crumbs": [
+      "Graded",
+      "Homework 2024"
+    ]
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "exam/2024/Exam_mie37_2023.html",
+    "href": "exam/2024/Exam_mie37_2023.html",
+    "title": "Final Exam 2023",
+    "section": "",
+    "text": "Name:\nSurname:\nAfter completing the following questions, send the edited notebook to pwinant@ensae.fr. You are allowed to use any available resource (but not copy/paste any code). Also, don’t forget to comment your code and take any initiative, you find relevant."
+  },
+  {
+    "objectID": "exam/2024/Exam_mie37_2023.html#power-iteration-method",
+    "href": "exam/2024/Exam_mie37_2023.html#power-iteration-method",
+    "title": "Final Exam 2023",
+    "section": "Power iteration method",
+    "text": "Power iteration method\nIn this exercise, we implement a power iteration method power_iteration(M::Matrix) to compute the biggest eigenvalue of a given matrix M.\nDefine a random 3 times 3 matrix M. Compute its biggest eigenvalue using LinearAlgebra: eigvals.\nDefine a norm2 function, which computes the euclidean norm of any vector. Test it on some simple cases.\n\n\n\nWrite a function iteration_step(M::Matrix, u::Vector)::Tuple{Float64, Vector} which takes a random vector \\(u\\) with norm 1 and returns \\(M u\\) and \\(\\frac{M u}{|M u|}\\).\nWrite a function power_iteration(M::Matrix)::Float64, which computes the spectral radius of M using the power iteration method (spectral radius: absolute value of biggest eigenvalue)\nCheck the result is correct on matrix \\(M\\)."
+  },
+  {
+    "objectID": "exam/2024/Exam_mie37_2023.html#doubling-algorithm",
+    "href": "exam/2024/Exam_mie37_2023.html#doubling-algorithm",
+    "title": "Final Exam 2023",
+    "section": "Doubling algorithm",
+    "text": "Doubling algorithm\nLet \\(M\\) be a square matrix with spectral radius smaller than 1. Our goal here to approximate the infinite sum \\(\\sum_{t\\geq 0} M^t\\) (whose result is a matrix).\nDefine a (non-trivial) 3x3 matrix M with spectral radius smaller than 1.\nPropose an algorithm and a function infinite_sum(M::Matrix) to approximate this sum by computing the limit of \\(S_T = \\sum_{t=0}^{T} M^t\\) when \\(T\\) goes to \\(\\infty\\).\nWe now consider the doubling algorithm. Consider the sum \\(D_N = \\sum_{t\\geq 0}^{2^N} M^t\\). Find a recursive relation between \\(D_N\\) and \\(D_{N+1}\\). Why is \\(D_N\\) less expensive to compute than \\(S^{2 N}\\) ?\nImplement a function infinite_sum_doubling(M::Matrix) which computes the infinite sum using the doubling algorithm. Check the result and time it against the other implementation."
+  },
+  {
+    "objectID": "exam/2024/Exam_mie37_2023.html#reduced-form-new-keyesian-model",
+    "href": "exam/2024/Exam_mie37_2023.html#reduced-form-new-keyesian-model",
+    "title": "Final Exam 2023",
+    "section": "Reduced-form New Keyesian model",
+    "text": "Reduced-form New Keyesian model\nWe consider the reduced-form New Keynesian Model\n\\[\\pi_t = \\alpha E_t \\pi_{t+1} + y_t\\]\n\\[y_t = \\beta E_t y_{t+1} + \\gamma (i_t-\\pi_t) + \\delta z_t\\]\n\\[i_t = \\alpha_{y} y_t + \\alpha_{\\pi} \\pi_t\\]\nwhere \\(\\pi_t\\) is inflation, \\(y_t\\) the output gap (i.e, the gap to full employment), and \\(z_t\\) an AR1 process given by:\n\\[z_t = \\rho z_{t-1} + \\epsilon_t\\]\nwher \\(\\epsilon_t\\) is a random gaussian process with standard deviation \\(\\sigma_{\\epsilon}\\).\nWe’ll take \\(\\alpha=0.9\\), \\(\\beta=0.9\\), \\(\\gamma=0.1\\), \\(\\alpha_{\\pi}=0.5\\), \\(\\alpha_y=0.5\\), \\(\\rho=0.9\\) and \\(\\sigma=0.01\\).\n\nModel Solution\nDefine a specialized structure to hold all model parameters.\nDefine matrices \\(A\\) (2x2) and \\(B\\) (2x1) such that:\n\\[\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix} = A E_t \\begin{bmatrix}\\pi_{t+1}\\\\y_{t+1}\\end{bmatrix} + B z_t\\]\n\n# text\n\n\n# code\nfunction create_matrices(parameters)\n#     A = ...\n#     B = ...\n    return A, B\nend\n\nAssume the sequence \\(z_0, z_1, ...\\) is known, show that we can write \\(\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix}=\\sum_{s\\geq0} \\rho^s A^s B z_s\\). At which condition on \\(A\\) is this sum absolutely converging?\nCheck that this condition is met for the baseline calibration.\nBonus: find conditions on \\(\\alpha_y\\) and \\(\\alpha_{\\pi}\\) for the sum to be convergent. When it is, in this context, we say that inflation is anchored.\nCompute the solution to the system, that is find two sacalars \\(x_y\\) and \\(x_{\\pi}\\) such that \\(y_t(z) = x_{y} z_t\\) and \\(\\pi_t(z)= x_{\\pi} z_t\\) solve the system.\nCompute matrices \\(P\\) and \\(Q\\) such that \\(\\begin{bmatrix}\\pi_t\\\\y_t\\\\z_t\\end{bmatrix} =  P \\begin{bmatrix}\\pi_{t-1}\\\\y_{t-1}\\\\z_{t-1}\\end{bmatrix} + Q \\epsilon_t\\).\nSimulate variables \\(\\pi_t, y_t, z_t\\) when \\(\\pi_0 =  y_0 = 0, z_0=0.1\\) and \\(\\forall t, \\epsilon_t = 0\\).\nMake \\(N=1000\\) stochastic simulations for \\(T=200\\) periods. Find a way to compute the standard deviation of the ergodic distribution."
   },
   {
     "objectID": "1_epidemiology.html",
@@ -3051,45 +3167,45 @@
   {
     "objectID": "pushups/Exam_mie37_2023.html",
     "href": "pushups/Exam_mie37_2023.html",
-    "title": "Numerical Method: Final Exam 2023",
+    "title": "Final Exam 2023",
     "section": "",
-    "text": "Name:\nSurname:\nAfter completing the following questions, send the edited notebook to pwinant@escp.eu. You are allowed to use any available resource (but not copy/paste any code). Also, don’t forget to comment your code and take any initiative, you find relevant.\n\n\nIn this exercise, we implement a power iteration method power_iteration(M::Matrix) to compute the biggest eigenvalue of a given matrix M.\nDefine a random 3 times 3 matrix M. Compute its biggest eigenvalue using LinearAlgebra: eigvals.\nDefine a norm2 function, which computes the euclidean norm of any vector. Test it on some simple cases.\n\n\n\nWrite a function iteration_step(M::Matrix, u::Vector)::Tuple{Float64, Vector} which takes a random vector \\(u\\) with norm 1 and returns \\(M u\\) and \\(\\frac{M u}{|M u|}\\).\nWrite a function power_iteration(M::Matrix)::Float64, which computes the spectral radius of M using the power iteration method (spectral radius: absolute value of biggest eigenvalue)\nCheck the result is correct on matrix \\(M\\).\n\n\n\nLet \\(M\\) be a square matrix with spectral radius smaller than 1. Our goal here to approximate the infinite sum \\(\\sum_{t\\geq 0} M^t\\) (whose result is a matrix).\nDefine a (non-trivial) 3x3 matrix M with spectral radius smaller than 1.\nPropose an algorithm and a function infinite_sum(M::Matrix) to approximate this sum by computing the limit of \\(S_T = \\sum_{t=0}^{T} M^t\\) when \\(T\\) goes to \\(\\infty\\).\nWe now consider the doubling algorithm. Consider the sum \\(D_N = \\sum_{t\\geq 0}^{2^N} M^t\\). Find a recursive relation between \\(D_N\\) and \\(D_{N+1}\\). Why is \\(D_N\\) less expensive to compute than \\(S^{2 N}\\) ?\nImplement a function infinite_sum_doubling(M::Matrix) which computes the infinite sum using the doubling algorithm. Check the result and time it against the other implementation.\n\n\n\nWe consider the reduced-form New Keynesian Model\n\\[\\pi_t = \\alpha E_t \\pi_{t+1} + y_t\\]\n\\[y_t = \\beta E_t y_{t+1} + \\gamma (i_t-\\pi_t) + \\delta z_t\\]\n\\[i_t = \\alpha_{y} y_t + \\alpha_{\\pi} \\pi_t\\]\nwhere \\(\\pi_t\\) is inflation, \\(y_t\\) the output gap (i.e, the gap to full employment), and \\(z_t\\) an AR1 process given by:\n\\[z_t = \\rho z_{t-1} + \\epsilon_t\\]\nwher \\(\\epsilon_t\\) is a random gaussian process with standard deviation \\(\\sigma_{\\epsilon}\\).\nWe’ll take \\(\\alpha=0.9\\), \\(\\beta=0.9\\), \\(\\gamma=0.1\\), \\(\\alpha_{\\pi}=0.5\\), \\(\\alpha_y=0.5\\), \\(\\rho=0.9\\) and \\(\\sigma=0.01\\).\n\n\nDefine a specialized structure to hold all model parameters.\nDefine matrices \\(A\\) (2x2) and \\(B\\) (2x1) such that:\n\\[\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix} = A E_t \\begin{bmatrix}\\pi_{t+1}\\\\y_{t+1}\\end{bmatrix} + B z_t\\]\n\n# text\n\n\n# code\nfunction create_matrices(parameters)\n#     A = ...\n#     B = ...\n    return A, B\nend\n\nAssume the sequence \\(z_0, z_1, ...\\) is known, show that we can write \\(\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix}=\\sum_{s\\geq0} \\rho^s A^s B z_s\\). At which condition on \\(A\\) is this sum absolutely converging?\nCheck that this condition is met for the baseline calibration.\nBonus: find conditions on \\(\\alpha_y\\) and \\(\\alpha_{\\pi}\\) for the sum to be convergent. When it is, in this context, we say that inflation is anchored.\nCompute the solution to the system, that is find two sacalars \\(x_y\\) and \\(x_{\\pi}\\) such that \\(y_t(z) = x_{y} z_t\\) and \\(\\pi_t(z)= x_{\\pi} z_t\\) solve the system.\nCompute matrices \\(P\\) and \\(Q\\) such that \\(\\begin{bmatrix}\\pi_t\\\\y_t\\\\z_t\\end{bmatrix} =  P \\begin{bmatrix}\\pi_{t-1}\\\\y_{t-1}\\\\z_{t-1}\\end{bmatrix} + Q \\epsilon_t\\).\nSimulate variables \\(\\pi_t, y_t, z_t\\) when \\(\\pi_0 =  y_0 = 0, z_0=0.1\\) and \\(\\forall t, \\epsilon_t = 0\\).\nMake \\(N=1000\\) stochastic simulations for \\(T=200\\) periods. Find a way to compute the standard deviation of the ergodic distribution.",
+    "text": "Name:\nSurname:\nAfter completing the following questions, send the edited notebook to pwinant@escp.eu. You are allowed to use any available resource (but not copy/paste any code). Also, don’t forget to comment your code and take any initiative, you find relevant.",
     "crumbs": [
       "Pushups",
-      "Numerical Method: Final Exam 2023"
+      "Final Exam 2023"
     ]
   },
   {
     "objectID": "pushups/Exam_mie37_2023.html#power-iteration-method",
     "href": "pushups/Exam_mie37_2023.html#power-iteration-method",
-    "title": "Numerical Method: Final Exam 2023",
-    "section": "",
-    "text": "In this exercise, we implement a power iteration method power_iteration(M::Matrix) to compute the biggest eigenvalue of a given matrix M.\nDefine a random 3 times 3 matrix M. Compute its biggest eigenvalue using LinearAlgebra: eigvals.\nDefine a norm2 function, which computes the euclidean norm of any vector. Test it on some simple cases.\n\n\n\nWrite a function iteration_step(M::Matrix, u::Vector)::Tuple{Float64, Vector} which takes a random vector \\(u\\) with norm 1 and returns \\(M u\\) and \\(\\frac{M u}{|M u|}\\).\nWrite a function power_iteration(M::Matrix)::Float64, which computes the spectral radius of M using the power iteration method (spectral radius: absolute value of biggest eigenvalue)\nCheck the result is correct on matrix \\(M\\).",
+    "title": "Final Exam 2023",
+    "section": "Power iteration method",
+    "text": "Power iteration method\nIn this exercise, we implement a power iteration method power_iteration(M::Matrix) to compute the biggest eigenvalue of a given matrix M.\nDefine a random 3 times 3 matrix M. Compute its biggest eigenvalue using LinearAlgebra: eigvals.\nDefine a norm2 function, which computes the euclidean norm of any vector. Test it on some simple cases.\n\n\n\nWrite a function iteration_step(M::Matrix, u::Vector)::Tuple{Float64, Vector} which takes a random vector \\(u\\) with norm 1 and returns \\(M u\\) and \\(\\frac{M u}{|M u|}\\).\nWrite a function power_iteration(M::Matrix)::Float64, which computes the spectral radius of M using the power iteration method (spectral radius: absolute value of biggest eigenvalue)\nCheck the result is correct on matrix \\(M\\).",
     "crumbs": [
       "Pushups",
-      "Numerical Method: Final Exam 2023"
+      "Final Exam 2023"
     ]
   },
   {
     "objectID": "pushups/Exam_mie37_2023.html#doubling-algorithm",
     "href": "pushups/Exam_mie37_2023.html#doubling-algorithm",
-    "title": "Numerical Method: Final Exam 2023",
-    "section": "",
-    "text": "Let \\(M\\) be a square matrix with spectral radius smaller than 1. Our goal here to approximate the infinite sum \\(\\sum_{t\\geq 0} M^t\\) (whose result is a matrix).\nDefine a (non-trivial) 3x3 matrix M with spectral radius smaller than 1.\nPropose an algorithm and a function infinite_sum(M::Matrix) to approximate this sum by computing the limit of \\(S_T = \\sum_{t=0}^{T} M^t\\) when \\(T\\) goes to \\(\\infty\\).\nWe now consider the doubling algorithm. Consider the sum \\(D_N = \\sum_{t\\geq 0}^{2^N} M^t\\). Find a recursive relation between \\(D_N\\) and \\(D_{N+1}\\). Why is \\(D_N\\) less expensive to compute than \\(S^{2 N}\\) ?\nImplement a function infinite_sum_doubling(M::Matrix) which computes the infinite sum using the doubling algorithm. Check the result and time it against the other implementation.",
+    "title": "Final Exam 2023",
+    "section": "Doubling algorithm",
+    "text": "Doubling algorithm\nLet \\(M\\) be a square matrix with spectral radius smaller than 1. Our goal here to approximate the infinite sum \\(\\sum_{t\\geq 0} M^t\\) (whose result is a matrix).\nDefine a (non-trivial) 3x3 matrix M with spectral radius smaller than 1.\nPropose an algorithm and a function infinite_sum(M::Matrix) to approximate this sum by computing the limit of \\(S_T = \\sum_{t=0}^{T} M^t\\) when \\(T\\) goes to \\(\\infty\\).\nWe now consider the doubling algorithm. Consider the sum \\(D_N = \\sum_{t\\geq 0}^{2^N} M^t\\). Find a recursive relation between \\(D_N\\) and \\(D_{N+1}\\). Why is \\(D_N\\) less expensive to compute than \\(S^{2 N}\\) ?\nImplement a function infinite_sum_doubling(M::Matrix) which computes the infinite sum using the doubling algorithm. Check the result and time it against the other implementation.",
     "crumbs": [
       "Pushups",
-      "Numerical Method: Final Exam 2023"
+      "Final Exam 2023"
     ]
   },
   {
     "objectID": "pushups/Exam_mie37_2023.html#reduced-form-new-keyesian-model",
     "href": "pushups/Exam_mie37_2023.html#reduced-form-new-keyesian-model",
-    "title": "Numerical Method: Final Exam 2023",
-    "section": "",
-    "text": "We consider the reduced-form New Keynesian Model\n\\[\\pi_t = \\alpha E_t \\pi_{t+1} + y_t\\]\n\\[y_t = \\beta E_t y_{t+1} + \\gamma (i_t-\\pi_t) + \\delta z_t\\]\n\\[i_t = \\alpha_{y} y_t + \\alpha_{\\pi} \\pi_t\\]\nwhere \\(\\pi_t\\) is inflation, \\(y_t\\) the output gap (i.e, the gap to full employment), and \\(z_t\\) an AR1 process given by:\n\\[z_t = \\rho z_{t-1} + \\epsilon_t\\]\nwher \\(\\epsilon_t\\) is a random gaussian process with standard deviation \\(\\sigma_{\\epsilon}\\).\nWe’ll take \\(\\alpha=0.9\\), \\(\\beta=0.9\\), \\(\\gamma=0.1\\), \\(\\alpha_{\\pi}=0.5\\), \\(\\alpha_y=0.5\\), \\(\\rho=0.9\\) and \\(\\sigma=0.01\\).\n\n\nDefine a specialized structure to hold all model parameters.\nDefine matrices \\(A\\) (2x2) and \\(B\\) (2x1) such that:\n\\[\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix} = A E_t \\begin{bmatrix}\\pi_{t+1}\\\\y_{t+1}\\end{bmatrix} + B z_t\\]\n\n# text\n\n\n# code\nfunction create_matrices(parameters)\n#     A = ...\n#     B = ...\n    return A, B\nend\n\nAssume the sequence \\(z_0, z_1, ...\\) is known, show that we can write \\(\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix}=\\sum_{s\\geq0} \\rho^s A^s B z_s\\). At which condition on \\(A\\) is this sum absolutely converging?\nCheck that this condition is met for the baseline calibration.\nBonus: find conditions on \\(\\alpha_y\\) and \\(\\alpha_{\\pi}\\) for the sum to be convergent. When it is, in this context, we say that inflation is anchored.\nCompute the solution to the system, that is find two sacalars \\(x_y\\) and \\(x_{\\pi}\\) such that \\(y_t(z) = x_{y} z_t\\) and \\(\\pi_t(z)= x_{\\pi} z_t\\) solve the system.\nCompute matrices \\(P\\) and \\(Q\\) such that \\(\\begin{bmatrix}\\pi_t\\\\y_t\\\\z_t\\end{bmatrix} =  P \\begin{bmatrix}\\pi_{t-1}\\\\y_{t-1}\\\\z_{t-1}\\end{bmatrix} + Q \\epsilon_t\\).\nSimulate variables \\(\\pi_t, y_t, z_t\\) when \\(\\pi_0 =  y_0 = 0, z_0=0.1\\) and \\(\\forall t, \\epsilon_t = 0\\).\nMake \\(N=1000\\) stochastic simulations for \\(T=200\\) periods. Find a way to compute the standard deviation of the ergodic distribution.",
+    "title": "Final Exam 2023",
+    "section": "Reduced-form New Keyesian model",
+    "text": "Reduced-form New Keyesian model\nWe consider the reduced-form New Keynesian Model\n\\[\\pi_t = \\alpha E_t \\pi_{t+1} + y_t\\]\n\\[y_t = \\beta E_t y_{t+1} + \\gamma (i_t-\\pi_t) + \\delta z_t\\]\n\\[i_t = \\alpha_{y} y_t + \\alpha_{\\pi} \\pi_t\\]\nwhere \\(\\pi_t\\) is inflation, \\(y_t\\) the output gap (i.e, the gap to full employment), and \\(z_t\\) an AR1 process given by:\n\\[z_t = \\rho z_{t-1} + \\epsilon_t\\]\nwher \\(\\epsilon_t\\) is a random gaussian process with standard deviation \\(\\sigma_{\\epsilon}\\).\nWe’ll take \\(\\alpha=0.9\\), \\(\\beta=0.9\\), \\(\\gamma=0.1\\), \\(\\alpha_{\\pi}=0.5\\), \\(\\alpha_y=0.5\\), \\(\\rho=0.9\\) and \\(\\sigma=0.01\\).\n\nModel Solution\nDefine a specialized structure to hold all model parameters.\nDefine matrices \\(A\\) (2x2) and \\(B\\) (2x1) such that:\n\\[\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix} = A E_t \\begin{bmatrix}\\pi_{t+1}\\\\y_{t+1}\\end{bmatrix} + B z_t\\]\n\n# text\n\n\n# code\nfunction create_matrices(parameters)\n#     A = ...\n#     B = ...\n    return A, B\nend\n\nAssume the sequence \\(z_0, z_1, ...\\) is known, show that we can write \\(\\begin{bmatrix}\\pi_t\\\\y_t\\end{bmatrix}=\\sum_{s\\geq0} \\rho^s A^s B z_s\\). At which condition on \\(A\\) is this sum absolutely converging?\nCheck that this condition is met for the baseline calibration.\nBonus: find conditions on \\(\\alpha_y\\) and \\(\\alpha_{\\pi}\\) for the sum to be convergent. When it is, in this context, we say that inflation is anchored.\nCompute the solution to the system, that is find two sacalars \\(x_y\\) and \\(x_{\\pi}\\) such that \\(y_t(z) = x_{y} z_t\\) and \\(\\pi_t(z)= x_{\\pi} z_t\\) solve the system.\nCompute matrices \\(P\\) and \\(Q\\) such that \\(\\begin{bmatrix}\\pi_t\\\\y_t\\\\z_t\\end{bmatrix} =  P \\begin{bmatrix}\\pi_{t-1}\\\\y_{t-1}\\\\z_{t-1}\\end{bmatrix} + Q \\epsilon_t\\).\nSimulate variables \\(\\pi_t, y_t, z_t\\) when \\(\\pi_0 =  y_0 = 0, z_0=0.1\\) and \\(\\forall t, \\epsilon_t = 0\\).\nMake \\(N=1000\\) stochastic simulations for \\(T=200\\) periods. Find a way to compute the standard deviation of the ergodic distribution.",
     "crumbs": [
       "Pushups",
-      "Numerical Method: Final Exam 2023"
+      "Final Exam 2023"
     ]
   }
 ]

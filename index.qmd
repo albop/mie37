@@ -8,6 +8,11 @@ listing:
   contents:
     - slides/session_*/index.qmd
     - prep*/index.qmd
+    - slides/ddp.qmd
+    - slides/discretization.qmd
+    - slides/interpolation.qmd
+    - slides/time_iteration.qmd
+
   sort: date
   fields: [date, title]
 ---

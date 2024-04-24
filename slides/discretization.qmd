@@ -1,7 +1,8 @@
 ---
 title: Discretization
 subtitle:  "Advanced Macro: Numerical Methods"
-author: Year 2022-2023 (MIE37)
+date: 2024/04/11
+author: Year 2023-2024 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax
@@ -11,8 +12,6 @@ format:
 ---
 
 # Introduction
-
-----
 
 ## Several kinds of Discretization
 
@@ -27,11 +26,8 @@ format:
 - discretize continous process by a discrete one:
   - continuous markov chain to discrete markov Chain
 
----
 
 # Discretizing an AR1
-
-----
 
 ## Discretizing an AR1
 
@@ -43,8 +39,6 @@ format:
     - two systematic methods (available in *QuantEcon.jl*)
         - Tauchen
         - Rouwenhorst
-
-----
 
 ## AR1: Tauchen
 
@@ -60,8 +54,6 @@ $$\begin{eqnarray}
          & = & prob \left( |y_{t+1}-x_j| = \inf_k |y_{t+1}-x_k| \left| y_t=y_i \right. \right)
 \end{eqnarray}$$
 
-
-----
 
 ## AR1: Tauchen (2)
 
@@ -79,7 +71,6 @@ $$\begin{eqnarray}
 
         $$\pi_{j} = 1- F(\frac{y_k - \delta/2-\rho y_j}{\sigma_{\epsilon}}) $$
 
-----
 
 ## How to assess the quality of approximation ?
 
@@ -90,7 +81,6 @@ $$\begin{eqnarray}
 
 - not very precise when then process is very persistent $\rho\approx 1$
 
-----
 
 ## Rouvenhorst method (1)
 
@@ -104,7 +94,6 @@ p & 1-p\\\\
   - choose $p$, $q$ and $\psi$ to match some moments: $E()$, $Var()$, $ACor()$
     - they can be computed analytically for AR1 and for discretized version.
 
-----
 
 ## Rouvenhorst method (2)
 
@@ -129,7 +118,6 @@ q \begin{bmatrix}
 $$
 - Normalize all lines
 
-----
 
 ## Rouvenhorst method (3)
 
@@ -144,11 +132,8 @@ $$
 - Rouwenhorst method performs better for highly correlated processes
 
 
----
-
 # Discretizing an iid law
 
-----
 
 ## Common problem:
 
@@ -164,7 +149,6 @@ $(w_i, \epsilon_i)_{i=1:N}$ and compute:
 
 $$\frac{1}{N} \sum_n w_n f(\epsilon_n)$$ 
 
-----
 
 ## What's wrong with Monte-Carlo Simulations?
 
@@ -175,7 +159,6 @@ $$\frac{1}{N} \sum_n w_n f(\epsilon_n)$$
 
 - Discuss value of $\gamma$: is it crazy? (risk return)
 
-----
 
 
 ## What's wrong with Monte-Carlo Simulations?
@@ -210,7 +193,6 @@ julia> vals = [E_ϵ(C; N=i) for i=NVec
 ``` 
 <!-- .element class="fragment" -->
 
-----
 
 ## What's wrong with Monte-Carlo Simulations?
 
@@ -233,7 +215,7 @@ julia> @time sdvals = [stdev(C; N=n, K=10000) for n=NVec]
  0.009383218078206898 
 ```
 
-----
+
 
 ## Quick theory (1)
 
@@ -244,7 +226,6 @@ $$E(T_N^2) = \frac{1}{N^2} \sum_{n=1}^N E\left[ \epsilon_n^2 \right]$$
 $$s_N = \sigma(T_N^2) = \frac{1}{\sqrt{\color{red} N}} \sigma_{\epsilon}$$
 - Conclusion: the precision of (basic) Monte-Carlo decreases only as a square root of the number of experiments.
 
-----
 
 ## Quick theory (2)
 
@@ -257,7 +238,6 @@ $$E(T_N^{MC}) \propto \frac{1}{\sqrt{N}}$$
     - slow
     - on the plus side: rate independent of the dimension of $\epsilon$
 
-----
 
 ## Quantization using quantiles
 
@@ -297,8 +277,6 @@ Idea:
 
 --- -->
 
-----
-
 ## Gauss-Hermite
 
 - $f\in \mathcal{F}$ a Banach space (or $\mathbb{R}^n$), $\epsilon$ a gaussian variable
@@ -309,7 +287,6 @@ Idea:
 - Gauss quadrature magic
   - a way to choose $\\epsilon_i$ __and__ $w_i$ such that $$\left(f\rightarrow\sum\_{n=1}^N w_n f(\epsilon_i) \right)= \left.I\right|\_{\mathcal{F}_{2N}}$$
 
-----
 
 ## Gauss-Hermite
 
@@ -319,7 +296,6 @@ Idea:
     - points $\epsilon_n$ can be very far from the origin (TODO: graph)
   - not super easy to commute weights and nodes (but there are good libraries)
 
-----
 
 ## Gauss-*
 
@@ -336,7 +312,6 @@ Idea:
   - $w(x)=\sqrt{1-x^2}$,  $[a,b] = [-1, 1]$
   - for periodic functions
 
-----
 
 ## In practice
 

@@ -1,7 +1,8 @@
 ---
 title: Interpolation
 subtitle:  "Numerical Methods"
-author: Year 2022-2023 (MIE37)
+date: 2024/04/11
+author: Year 2023-2024 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax
@@ -87,9 +88,6 @@ Conclusion: interpolate only if $f$ is known precisely on $X$
 - Join the dots: define a piecewise linear function as
 $$\forall x \in [x_i, x_{i+1}], \tilde{f}(x) = y_i + \underbrace{\frac{x-x_i}{x_{i+1}-x_i}}_{\text{barycentric coordinate}} (y_{i+1} - y_i)$$
 
-[TODO: graph]
-
-----
 
 ## Linear
 
@@ -97,9 +95,6 @@ $$\forall x \in [x_i, x_{i+1}], \tilde{f}(x) = y_i + \underbrace{\frac{x-x_i}{x_
 $$\tilde{f}(x) = \sum_{i=1}^N y_i B^i_1(x)$$
 where $b_1^i(x)=\frac{x-x_{i-1}}{x_i-x_{i-1}}.1_{x\in[x_{i-1},x_i]} + (1-\frac{x-x_{i}}{x_{i+1}-x_{i}}).1_{x\in [x_i, x_{i+1}]}$
 - $(B^i)$ is an interpolation basis
-
-
-----
 
 ## Splines
 
@@ -112,7 +107,6 @@ where $b_1^i(x)=\frac{x-x_{i-1}}{x_i-x_{i-1}}.1_{x\in[x_{i-1},x_i]} + (1-\frac{x
     - Already two constraints. Condition $p_{i+1}(x_{i+1})=\tilde{f}(x_{i+1})$ supplies another one.
     - Do it for every patch. Note that it requires to set $f^{\prime}(a)$ beforehand.
 
-----
 
 ## Basis Splines (much better)
 
@@ -124,13 +118,11 @@ $$B_{i,k+1}(x) = \frac{x-x_i}{x_{i+k}-x_i}B_{i,k}(x) +
 - All basis splines have compact support.
 - If grid is regularly spaced there is $B_k$ such that $B_{i,k}(x) = B_k(x-x_i)$
 
-----
 
 ## Basis splines
 
 ![Basis Splines](basis_splines.png)
 
-----
 
 ## Basis splines are not interpolating
 
@@ -145,7 +137,6 @@ $$B_{i,k+1}(x) = \frac{x-x_i}{x_{i+k}-x_i}B_{i,k}(x) +
      - f''=0: natural spline
    - going from $y_n$ to $c_n$ is called *prefiltering*
 
-----
 
 ## In practice: Interpolations
 
@@ -163,7 +154,6 @@ interp_cubic = CubicSplineInterpolation(xs, A)
 interp_cubic(1.3) # interpolate
 ```
 
-----
 
 ## In practice: Interpolations (2)
 
@@ -223,7 +213,6 @@ M =
 $$
 - Vandermonde matrix is ill-conditioned if points are too close or if $K$ is high.
 
-----
 
 ## Orthogonal polynomials
 

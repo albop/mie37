@@ -1,7 +1,9 @@
 ---
 title: Optimization
 subtitle:  "Macroeconomics: Numerical Methods"
-author: Year 2022-2023 (MIE37)
+date: 2024/04/04
+
+author: Year 2023-2024 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax

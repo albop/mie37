@@ -1,7 +1,8 @@
 ---
 title: Time Iteration
 subtitle:  "Advanced Macro: Numerical Methods"
-author: Year 2022-2023 (MIE37)
+date: 2024/04/11
+author: Year 2023-2024 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax

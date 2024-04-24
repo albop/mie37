@@ -1,7 +1,8 @@
 ---
 title: Discrete Dynamic Programming
+date: 2024/03/28
 subtitle:  "Advanced Macro: Numerical Methods"
-author: Year 2022-2023 (MIE37)
+author: Year 2023-2024 (MIE37)
 format:
   revealjs:
     width: 1920
@@ -187,7 +188,7 @@ $$gcd( {k\geq 1 | (P^k)_{i,i}>0} )$$
 
 - Theorem:
     1. if P is irreducible the fixed point $\mu^{\star}$ is unique
-    2. if P is irreducible and aperiodic $|\mu_0' P^k - \mu^{\star}| \underset{k\to+\infty}{\longrightarrow} 0$ for any initial distribution $\mu_0$
+    2. if P is irreducible and aperiodic $|\mu_0' P^k - \mu^{\star}| \underset{k\to+\infty}{\longrightarrow}0$ for any initial distribution $\mu_0$
 
 - We then say the Markov chain is __ergodic__
 - $\mu^{\star}$ is the __ergodic distribution__
@@ -434,7 +435,7 @@ $$V_{k-1}(s_{k-1}) = \max_{x_{k-1}(s_{k-1})\in X(s_{k-1})}r(s_{k-1},x_{k-1}) + \
 ## Infinite horizon DMDP
 
 - Horizon is infinite:
-$$V(s; x()) =  \max E_0 \sum_{t=0}^{\infty} \delta^t r(s_t, x_t) $$
+$$V(s) =  \max E_0 \sum_{t=0}^{\infty} \delta^t r(s_t, x_t) $$
 - Intuition:
     - let's consider the finite horizon version $T<\infty$ and $T >> 1$
     - compute the solution, increase $T$ until the solution doesn't change
@@ -459,10 +460,10 @@ $$V(s; x()) =  r(s, x(s)) + \delta \sum_{s'} p(s'|s,x(s)) V(s'; x()) $$
 ## Successive Approximation (2)
 
 - Taking continuation value as given we can certainly improve the value in every state $\tilde{V}$ by choosing $\tilde{x}()$ so as to maximize
-$$\tilde{V}(s; x(), \tilde{x}()) =  r(s, \tilde{x}(s)) + \delta \sum_{s'} \pi(s'|s,\tilde{x}(s) )V(s'; x()) $$
+$$\tilde{V}(s; \tilde{x}(), x()) =  r(s, \tilde{x}(s)) + \delta \sum_{s'} \pi(s'|s,\tilde{x}(s) )V(s'; x()) $$
 - By construction: $\forall s, \tilde{V}(s, \tilde{x}(), x()) > {V}(s, x())$
     - it is an __improvement step__
-- Can ${V}(s, \tilde{x}())$ be worse for some states than ${V}(s, \tilde{x}())$ ?
+- Can ${V}(s, \tilde{x}())$ be worse for some states than ${V}(s, x())$ ?
     - actually no
 
 ## Bellman equation
@@ -497,7 +498,7 @@ $B.(f+a)(x)\leq (B.f)(x) + \delta a, \forall f \in \mathcal{C}(X), a\geq 0, x\in
 
 ## Successive Approximation
 
-- Using the Blackwell's theorem, we can prove the Bellman operator is a contraction mapping (do it).
+- Using the Blackwell's theorem, we can prove the Bellman operator is a contraction mapping.
 
 - This justifies the Value Function Iteration algorithm:
     - choose an initial $V_0$
@@ -507,10 +508,12 @@ $B.(f+a)(x)\leq (B.f)(x) + \delta a, \forall f \in \mathcal{C}(X), a\geq 0, x\in
 
 ## Successive Approximation (2)
 
+Assume that $X$ is finite.
+
 - Note that convergence of $V_n$ is geometric
-- But $x_n$ converges after a finite number of iterations ($X$ is finite)
+- But $x_n$ converges after a finite number of iteration.
     - surely the latest iterations are suboptimal
-    - they serve only to evaluate the value of $x^{\star}$
+    - they serve only to evaluate the value of $x$
 - In fact:
     - $V_n$ is never the value of $x_n()$
     - should we try to keep both in sync?
@@ -526,19 +529,18 @@ $$\max_{x_n()} r(s, x_n(s)) + \delta \sum_{s^{\prime}\in S} \pi(s^{\prime}| s, x
 - Repeat until convergence, i.e. $x_n=x_{n+1}$
 - One can show the speed of convergence (for $V_n$) is *quadratic*
     - it corresponds the Newton-Raphson steps applied to $V\rightarrow G(V)-V$
-    - we'll see Newton-Raphson in the next session (on optimization)
 
 ## How do we compute the value of a policy?
 
 - Given $x_n$, goal is to find $V_n(s)$ in $$\forall s,  V_n(s) = r(s, x_n(s)) + \delta \sum_{s'} \pi(s'| s, x_n(s)) V_n(s')$$
 
-- Two(three) approaches:
+- Three approaches:
     1. simulate the policy rule and compute $E\left[ \sum_t \delta^t r(s_t, x_t) \right]$ with Monte-Carlo draws
     2. successive approximation:
         - put $V_k$ in the rhs and recompute the lhs $V_{k+1}$, replace $V_k$ by $V_{k+1}$ and iterate until convergence
     3. solve a *linear* system in $V_n$
 
-- For 2 and 3 it helps representing a linear operator $M$ such that $V_{n+1} = R_n + \delta M_n .  V_n$
+- For 2 and 3 it is useful to constuct a linear operator $M$ such that $V_{n+1} = R_n + \delta M_n .  V_n$
 
 <!-- Another approach consist: compute $(\sum_{t\geq 0} \delta^t M_n^t)$ -->
 
@@ -618,8 +620,8 @@ $$V^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E(w) +  \lambda \beta E_{w'}\left
 
 - Suppose we take a policy $a(w)$ as given. What is the value of following this policy forever?
 - The value function $V_a^E$, $V_a^U$ satisfies
-$$V_a^U(w) = U(\underline{c}) + \begin{cases} \beta \tilde{V}^E_a(w) & \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ \tilde{V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
-$$V_a^E(w) = U(w) +  (1-\lambda) \beta \tilde{V}^E_a(w) +  \lambda \beta E_{w'}\left[\tilde{V}^U_a(w^{\prime}) \right] $$
+$$V_a^U(w) = U(\underline{c}) + \begin{cases} \beta {V}^E_a(w) & \text{if $a(w)$ is true} \\ \beta  E_{w'}\left[ {V}^U_a(w^{\prime}) \right]  & \text{if $a(w)$ is false} \end{cases}$$
+$$V_a^E(w) = U(w) +  (1-\lambda) \beta {V}^E_a(w) +  \lambda \beta E_{w'}\left[{V}^U_a(w^{\prime}) \right] $$
 - Note the absence of the max function: we don't reoptimize
 
 ## Value evaluation (2)

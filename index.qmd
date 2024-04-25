@@ -17,9 +17,11 @@ listing:
   fields: [date, title]
 ---
 
-<mark>Homework</mark>
+<mark>TODO</mark>
 
-- work on the [Optimization Pushups](pushups/2_Optimization_pushups.ipynb)
+
+- prepare the exam
+- work on the [Coursework](homework/2024/Coursework_mie37_2024.ipynb)
 
 
 ## Indicative Schedule

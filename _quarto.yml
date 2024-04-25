@@ -28,7 +28,7 @@ website:
             - tutorials/3_perturbation_neoclassical.ipynb
             - tutorials/4_Optimization.ipynb
             - tutorials/6_discrete_dynamic_programming.ipynb
-            - tutorials/6_discrete_dynamic_programming_mccall.ipynb
+            - tutorials/6_discrete_dynamic_programming_mccall_correction.ipynb
         
         - section: "Pushups"
           contents:
@@ -38,7 +38,7 @@ website:
 
         - section: "Graded"
           contents:
-            - homework/2024/Coursework_mie37_2024.ipynb0
+            - homework/2024/Coursework_mie37_2024.ipynb
   
 format:
   html:

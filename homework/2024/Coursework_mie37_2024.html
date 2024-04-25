@@ -364,14 +364,14 @@ window.Quarto = {
 
 <p><strong>Name</strong>:</p>
 <p><strong>Surname</strong>:</p>
-<p>After completing the following questions, send the edited notebook to <code>pablo.winant@ensae.fr</code>. You can work in (small) teams but are not allowed to copy/paste andy code. Don’t forget to comment your code and take any initiative, you find relevant.</p>
+<p>After completing the following questions, send the edited notebook to <code>pablo.winant@ensae.fr</code>. You can work in (small) teams but are not allowed to copy/paste any code. Don’t forget to comment your code and take any initiative you find relevant.</p>
 <section id="general-problem" class="level2">
 <h2 class="anchored" data-anchor-id="general-problem">General Problem</h2>
 <p>We seek to solve numerically the following consumption-saving problem using the time-iteration algorithm.</p>
-<p>Income is an iid process <span class="math inline">\(\epsilon_t\)</span> with <span class="math inline">\(\epsilon_t \sim \mathcal{N}(\sigma)\)</span> (<span class="math inline">\(\sigma\)</span> is standard deviation). Interest rate is <span class="math inline">\(r\in [1,\frac{1}{\beta}[\)</span> where <span class="math inline">\(\beta\in]0,1[\)</span> is the discount factor.</p>
+<p>Income is an iid normally distributed process with standard deviation <span class="math inline">\(\sigma\)</span>. Interest rate is <span class="math inline">\(r\in [1,\frac{1}{\beta}[\)</span> where <span class="math inline">\(\beta\in]0,1[\)</span> is the discount factor.</p>
 <p>Available income is <span class="math inline">\(w_t\)</span> and follows the law of motion:</p>
 <p><span class="math display">\[w_{t+1} = e^ {\epsilon_{t+1}} +  (w_{t} - c_{t}) r\]</span></p>
-<p>where <span class="math inline">\(c_t \in ]0,w_t]\)</span> is consumption chosen at date <span class="math inline">\(t\)</span>, with an implicit no borrowing constraint.</p>
+<p>where <span class="math inline">\(c_t \in ]0,w_t]\)</span> is consumption chosen at date <span class="math inline">\(t\)</span> (which includes an implicit no borrowing constraint).</p>
 </section>
 <section id="calibration" class="level2">
 <h2 class="anchored" data-anchor-id="calibration">Calibration</h2>
@@ -388,9 +388,9 @@ window.Quarto = {
 <section id="representing-the-decision-function" class="level2">
 <h2 class="anchored" data-anchor-id="representing-the-decision-function">Representing the decision function</h2>
 <p>The solution of the model is a decision rule <span class="math inline">\(c(w)\)</span>.</p>
-<p>In what follows, we will approximate it by a function defined over <span class="math inline">\([0,w_{max}[\)</span> by the values it takes on <span class="math inline">\(N\)</span> linearly spaced grid points.</p>
+<p>In what follows, we will approximate it by a function defined over <span class="math inline">\([0,w_{max}[\)</span>, pinned down by the values it takes on <span class="math inline">\(N\)</span> linearly spaced grid points.</p>
 <p>In our solutions algorithm, we will use the initial guess <span class="math inline">\(\varphi_0(w) = min(w, p_0+p_1(w-p_0))\)</span>.</p>
-<p><strong>Create a structure <code>approx</code> to represent the approximation space. This structure should contain the parameters, as well as a <code>points::Vector{Float64}</code> array with the list of grid points.</strong></p>
+<p><strong>Create a structure <code>approx</code> to represent the approximation space. This structure should contain the parameters, as well as a <code>points::Vector{Float64}</code> array coontaining the (regularly spaced) list of grid points.</strong></p>
 <p>To start with you can take <span class="math inline">\(w_{max}=5\)</span>, <span class="math inline">\(N=20\)</span>, <span class="math inline">\(p_0=0.95, p_1=0.03\)</span> but don’t hesitate to change these values later if needed.</p>
 <div id="9f968914" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># approx = ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -404,7 +404,7 @@ window.Quarto = {
 <li>the interpolated function <span class="math inline">\(φ\)</span></li>
 <li>its values <code>c_0</code> on the grid points</li>
 </ul>
-<p><strong>Bonus: add the the graph the function obtained using cubic spline interpolation. What <em>could</em> be the problem?</strong></p>
+<p><strong>Bonus: add to the graph the function obtained using cubic spline interpolation. What <em>could</em> be the problem?</strong></p>
 </section>
 <section id="discretizing-epsilon_t1" class="level2">
 <h2 class="anchored" data-anchor-id="discretizing-epsilon_t1">Discretizing <span class="math inline">\(\epsilon_{t+1}\)</span></h2>
@@ -425,8 +425,6 @@ window.Quarto = {
 <p><strong>Define the function <code>Phi(w::Float64,c::Float64,φ::Fun, model, approx)</code> which approximates the residuals of the euler equation given the available income today, the consumption choice today, the consumption <em>function</em> tomorrow and the model/approx structures.</strong></p>
 <p><strong>Overload <code>Phi</code> function with another method <code>Phi(w::Float64,c::Float64,φ::Fun, model, approx, slackness=true)</code> which uses the Fisher-Burmeister transform to incorporate the credit constraint.</strong></p>
 <p><strong>Plot the optization residuals (i.e.&nbsp;values of <span class="math inline">\(\Phi_t\)</span>) corresponding to the initial guess function with and without the complementarity constraints.</strong></p>
-<p><br>
-</p>
 </section>
 <section id="time-iteration" class="level2">
 <h2 class="anchored" data-anchor-id="time-iteration">Time Iteration</h2>

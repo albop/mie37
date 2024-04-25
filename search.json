@@ -1381,7 +1381,7 @@
     "href": "homework/2024/Coursework_mie37_2024.html",
     "title": "Homework 2024",
     "section": "",
-    "text": "Name:\nSurname:\nAfter completing the following questions, send the edited notebook to pablo.winant@ensae.fr. You can work in (small) teams but are not allowed to copy/paste andy code. Don’t forget to comment your code and take any initiative, you find relevant.",
+    "text": "Name:\nSurname:\nAfter completing the following questions, send the edited notebook to pablo.winant@ensae.fr. You can work in (small) teams but are not allowed to copy/paste any code. Don’t forget to comment your code and take any initiative you find relevant.",
     "crumbs": [
       "Graded",
       "Homework 2024"
@@ -1392,7 +1392,7 @@
     "href": "homework/2024/Coursework_mie37_2024.html#general-problem",
     "title": "Homework 2024",
     "section": "General Problem",
-    "text": "General Problem\nWe seek to solve numerically the following consumption-saving problem using the time-iteration algorithm.\nIncome is an iid process \\(\\epsilon_t\\) with \\(\\epsilon_t \\sim \\mathcal{N}(\\sigma)\\) (\\(\\sigma\\) is standard deviation). Interest rate is \\(r\\in [1,\\frac{1}{\\beta}[\\) where \\(\\beta\\in]0,1[\\) is the discount factor.\nAvailable income is \\(w_t\\) and follows the law of motion:\n\\[w_{t+1} = e^ {\\epsilon_{t+1}} +  (w_{t} - c_{t}) r\\]\nwhere \\(c_t \\in ]0,w_t]\\) is consumption chosen at date \\(t\\), with an implicit no borrowing constraint.",
+    "text": "General Problem\nWe seek to solve numerically the following consumption-saving problem using the time-iteration algorithm.\nIncome is an iid normally distributed process with standard deviation \\(\\sigma\\). Interest rate is \\(r\\in [1,\\frac{1}{\\beta}[\\) where \\(\\beta\\in]0,1[\\) is the discount factor.\nAvailable income is \\(w_t\\) and follows the law of motion:\n\\[w_{t+1} = e^ {\\epsilon_{t+1}} +  (w_{t} - c_{t}) r\\]\nwhere \\(c_t \\in ]0,w_t]\\) is consumption chosen at date \\(t\\) (which includes an implicit no borrowing constraint).",
     "crumbs": [
       "Graded",
       "Homework 2024"
@@ -1414,7 +1414,7 @@
     "href": "homework/2024/Coursework_mie37_2024.html#representing-the-decision-function",
     "title": "Homework 2024",
     "section": "Representing the decision function",
-    "text": "Representing the decision function\nThe solution of the model is a decision rule \\(c(w)\\).\nIn what follows, we will approximate it by a function defined over \\([0,w_{max}[\\) by the values it takes on \\(N\\) linearly spaced grid points.\nIn our solutions algorithm, we will use the initial guess \\(\\varphi_0(w) = min(w, p_0+p_1(w-p_0))\\).\nCreate a structure approx to represent the approximation space. This structure should contain the parameters, as well as a points::Vector{Float64} array with the list of grid points.\nTo start with you can take \\(w_{max}=5\\), \\(N=20\\), \\(p_0=0.95, p_1=0.03\\) but don’t hesitate to change these values later if needed.\n\n# approx = ...\n\nDefine a method φ_0(w::Float64)::Float64 for the initial guess. Plot it against \\(w\\) in the approximation space.\nCompute the values c_0::{Float64}of φ_0() on the grid points\nUse the Interpolations.jl library to define a function φ(w::Float64) defined for any w using piecewise linear interpolation in such a way that it takes values c_0 on the grid points.\nCreate a single plot with:\n\nthe function φ_0()\nthe interpolated function \\(φ\\)\nits values c_0 on the grid points\n\nBonus: add the the graph the function obtained using cubic spline interpolation. What could be the problem?",
+    "text": "Representing the decision function\nThe solution of the model is a decision rule \\(c(w)\\).\nIn what follows, we will approximate it by a function defined over \\([0,w_{max}[\\), pinned down by the values it takes on \\(N\\) linearly spaced grid points.\nIn our solutions algorithm, we will use the initial guess \\(\\varphi_0(w) = min(w, p_0+p_1(w-p_0))\\).\nCreate a structure approx to represent the approximation space. This structure should contain the parameters, as well as a points::Vector{Float64} array coontaining the (regularly spaced) list of grid points.\nTo start with you can take \\(w_{max}=5\\), \\(N=20\\), \\(p_0=0.95, p_1=0.03\\) but don’t hesitate to change these values later if needed.\n\n# approx = ...\n\nDefine a method φ_0(w::Float64)::Float64 for the initial guess. Plot it against \\(w\\) in the approximation space.\nCompute the values c_0::{Float64}of φ_0() on the grid points\nUse the Interpolations.jl library to define a function φ(w::Float64) defined for any w using piecewise linear interpolation in such a way that it takes values c_0 on the grid points.\nCreate a single plot with:\n\nthe function φ_0()\nthe interpolated function \\(φ\\)\nits values c_0 on the grid points\n\nBonus: add to the graph the function obtained using cubic spline interpolation. What could be the problem?",
     "crumbs": [
       "Graded",
       "Homework 2024"

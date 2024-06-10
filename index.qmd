@@ -17,11 +17,18 @@ listing:
   fields: [date, title]
 ---
 
+<mark>EXAM</mark>
+
+- checkout the exam [Notebook](exam/2024/Exam_mie37_2024.ipynb)
+  - use the download link on the right part of the page ("Other Format / Jupyter")
+- complete the notebook
+- send by email by 11:30
+- have fun!
+
 <mark>TODO</mark>
 
-
-- prepare the exam
 - work on the [Coursework](homework/2024/Coursework_mie37_2024.ipynb)
+  - due for May 24th
 
 
 ## Indicative Schedule

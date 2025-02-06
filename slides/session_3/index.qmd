@@ -1,5 +1,5 @@
 ---
-date: 2024/03/07
+date: 2025/03/06
 title: "Perturbation Analysis"
 subtitle: "Advanced Macro: Numerical Methods (MIE37)"
 author: Pablo Winant

@@ -24,6 +24,7 @@ website:
         - section: "Tutorials"
           contents:
             - tutorials/1_Julia_Basics.ipynb
+            - tutorials/1_epidemiology.ipynb
             - tutorials/2_solow.ipynb
             - tutorials/3_perturbation_neoclassical.ipynb
             - tutorials/4_Optimization.ipynb
@@ -32,7 +33,6 @@ website:
         
         - section: "Pushups"
           contents:
-            - pushups/1_epidemiology.ipynb
             - pushups/2_Optimization_pushups.ipynb
             - pushups/Exam_mie37_2023.ipynb
 

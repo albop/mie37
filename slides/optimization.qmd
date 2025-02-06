@@ -1,7 +1,7 @@
 ---
 title: Optimization
 subtitle:  "Macroeconomics: Numerical Methods"
-date: 2024/04/04
+date: 2025/04/04
 
 author: Year 2023-2024 (MIE37)
 format:

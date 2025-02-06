@@ -1,6 +1,6 @@
 ---
 title: Introduction
-date: 2024/02/15
+date: 2025/02/6
 subtitle: "Advanced Macro: Numerical Methods (MIE37)"
 author: Pablo Winant
 format:
@@ -195,9 +195,9 @@ format:
 
 ### Setup
 
-- Plan A: use the mybinder links from the courses repository.
-- Plan B: use your own laptop. You will need:
-  - Julia 1.10.x (install using [JuliaUp](https://github.com/JuliaLang/juliaup))
+- Plan A: use your own laptop. You will need:
+  - Julia 1.11.x (install using [JuliaUp](https://github.com/JuliaLang/juliaup))
   - visual studio code
   - julia extension to VSCode
   - git
+- Plan B: use the mybinder links from the courses repository.

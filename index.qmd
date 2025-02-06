@@ -7,7 +7,7 @@ listing:
   filter-ui: false
   contents:
     - slides/session_*/index.qmd
-    - prep*/index.qmd
+    #- prep*/index.qmd
     - slides/ddp.qmd
     - slides/discretization.qmd
     - slides/interpolation.qmd
@@ -16,7 +16,7 @@ listing:
   sort: date
   fields: [date, title]
 ---
-
+<!-- 
 <mark>EXAM</mark>
 
 - checkout the exam [Notebook](exam/2024/Exam_mie37_2024.ipynb)
@@ -28,7 +28,7 @@ listing:
 <mark>TODO</mark>
 
 - work on the [Coursework](homework/2024/Coursework_mie37_2024.ipynb)
-  - due for May 24th
+  - due for May 24th -->
 
 
 ## Indicative Schedule
@@ -51,7 +51,7 @@ listing:
 
 
 
-::: {.callout-caution collapse="true" title="Last Year's Schedule"}
+<!-- ::: {.callout-caution collapse="true" title="Last Year's Schedule"}
 
 ### Indicative Schedule
 
@@ -68,4 +68,4 @@ listing:
 | <mark>06/04</mark>              | Interpolation                                                                                      |          |
 | 13/04              | Approximate Dynamic Programming (VFI)                                                                                      |          |
 
-:::
+::: -->

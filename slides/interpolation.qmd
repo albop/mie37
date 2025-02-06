@@ -1,7 +1,7 @@
 ---
 title: Interpolation
 subtitle:  "Numerical Methods"
-date: 2024/04/11
+date: 2025/04/11
 author: Year 2023-2024 (MIE37)
 format:
   revealjs:

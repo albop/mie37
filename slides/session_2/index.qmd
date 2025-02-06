@@ -1,5 +1,5 @@
 ---
-date: 2024/02/29
+date: 2025/02/20
 title: "Convergence of Sequences"
 subtitle: "Advanced Macro: Numerical Methods (MIE37)"
 author: Pablo Winant

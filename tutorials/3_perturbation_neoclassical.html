@@ -204,7 +204,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../slides/ddp.html" class="sidebar-item-text sidebar-link">
+  <a href="../slides/session_ddp/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Discrete Dynamic Programming</span></a>
   </div>
 </li>
@@ -271,12 +271,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../tutorials/6_discrete_dynamic_programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Discrete Dynamic Programming</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../tutorials/6_discrete_dynamic_programming_mccall_correction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">McCall Model</span></a>
   </div>
 </li>
       </ul>
@@ -362,9 +356,9 @@ window.Quarto = {
 </div>
 <p><strong>Warm-up: install the <code>ForwardDiff</code> library. Use it to differentiate the function below. Check the jacobian function.</strong></p>
 <p>Note: the signature of function <code>f</code> needs to be fixed first to allow for dual numbers as arguments.</p>
-<div id="cell-3" class="cell" data-execution_count="16">
+<div id="cell-3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function f(x::Vector{T}) where T &lt;: Number</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(x<span class="op">::</span><span class="dt">Vector{&lt;:Number}</span>) <span class="co"># equivalent</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(x)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> x[<span class="fl">1</span>]</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> x[<span class="fl">2</span>]</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    x1 <span class="op">=</span> a<span class="op">+</span>b</span>
@@ -372,28 +366,355 @@ window.Quarto = {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [x1,x2]</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>f (generic function with 4 methods)</code></pre>
+<pre><code>f (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ForwardDiff</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> [<span class="fl">0.21</span>, <span class="fl">1</span><span class="op">//</span><span class="fl">2</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x0)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ForwardDiff.<span class="fu">jacobian</span>(f,x0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×2 Matrix{Float64}:
+ 1.0      1.0
+ 1.64872  0.346231</code></pre>
 </div>
 </div>
 <p><strong>Create a NamedTuple to hold the model parameters.</strong></p>
-<div id="cell-6" class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> (α <span class="op">=</span> <span class="fl">0.3</span>, β <span class="op">=</span> <span class="fl">0.96</span>,  ρ <span class="op">=</span> <span class="fl">0.9</span>, γ <span class="op">=</span> <span class="fl">4.0</span>, δ <span class="op">=</span> <span class="fl">0.1</span>,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>(α = 0.3, β = 0.96, γ = 4.0, δ = 0.1, ρ = 0.9)</code></pre>
+<pre><code>(α = 0.3, β = 0.96, ρ = 0.9, γ = 4.0, δ = 0.1)</code></pre>
+</div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>@NamedTuple{α::Float64, β::Float64, γ::Float64, δ::Float64, ρ::Float64}</code></pre>
 </div>
 </div>
 <p><strong>Define two functions:</strong> - <code>transition(z::Number, k::Number, i::Number, p)::Tuple{Number}</code> which returns productivity and capital at date <code>t+1</code> as a function of productivity, capital and investment at date <code>t</code> - <code>arbitrage(z::Number, k::Number, i::Number, Z::Number, K::Number, I::Number, p)::Number</code> which returns the residual of the euler equation (lower case variable for date t, upper case for date t+1)</p>
+<div id="cell-9" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">transition</span>(z, k, i, model)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    (;α, β, γ, δ, ρ) <span class="op">=</span> model</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    z_new <span class="op">=</span> ρ<span class="op">*</span>z</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    k_new <span class="op">=</span> (<span class="fl">1</span><span class="op">-</span>δ)<span class="op">*</span>k <span class="op">+</span> i</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (z_new, k_new)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>transition (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-10" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">arbitrage</span>(z, k, i, Z, K, I, model)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    (;α, β, γ, δ, ρ) <span class="op">=</span> model</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fu">exp</span>(z)<span class="op">*</span>k<span class="op">^</span>α</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> y <span class="op">-</span> i</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> <span class="fu">exp</span>(Z)<span class="op">*</span>K<span class="op">^</span>α</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> Y <span class="op">-</span> I</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="fu">β*</span>(C<span class="op">/</span>c)<span class="op">^</span>(<span class="op">-</span>γ)<span class="fu">*</span>( (<span class="fl">1</span><span class="op">-</span>δ) <span class="op">+</span> <span class="fu">α*exp</span>(Z)<span class="op">*</span>K<span class="op">^</span>(α<span class="op">-</span><span class="fl">1</span>) ) <span class="op">-</span> <span class="fl">1</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>arbitrage (generic function with 2 methods)</code></pre>
+</div>
+</div>
 <p><strong>Using multiple dispatch, define two variants of the same functions, that take vectors as input and output arguments:</strong> - <code>arbitrage(s::Vector{T}, x::Vector{T}, S::Vector{T}, X::Vector{T}, p) where T&lt;:Number</code> - <code>transition(s::Vector{T}, x::Vector{T}, p) where T&lt;:Number</code></p>
+<div id="cell-12" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">transition</span>(s<span class="op">::</span><span class="dt">Vector{T}</span>,x<span class="op">::</span><span class="dt">Vector{U}</span>,model) <span class="kw">where</span> T<span class="op">&lt;:</span><span class="dt">Number </span><span class="kw">where</span> U<span class="op">&lt;:</span><span class="dt">Number</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="fu">transition</span>(s[<span class="fl">1</span>],s[<span class="fl">2</span>],x[<span class="fl">1</span>],model)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return [r[1], r[2]]</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [r<span class="op">...</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>transition (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transition</span>(m.s,m.x, model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2-element Vector{Float64}:
+ 0.0
+ 2.920822149964071</code></pre>
+</div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">arbitrage</span>(s,x,S,X,model)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="fu">arbitrage</span>(s[<span class="fl">1</span>],s[<span class="fl">2</span>],x[<span class="fl">1</span>],S[<span class="fl">1</span>],S[<span class="fl">2</span>],X[<span class="fl">1</span>],model)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [r]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>arbitrage (generic function with 3 methods)</code></pre>
+</div>
+</div>
 <p><strong>Write a function <code>steady_state(p)::Tuple{Vector,Vector}</code> which computes the steady-state of the model computed by hand.</strong> It returns two vectors, one for the states, one for the controls. Check that the steady-state satisfies the model equations.</p>
+<div id="cell-16" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">steady_state</span>(model)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    (;α, β, γ, δ, ρ) <span class="op">=</span> model</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> (( <span class="fl">1</span><span class="op">/</span>β <span class="op">-</span> (<span class="fl">1</span><span class="op">-</span>δ)) <span class="op">/</span> α )<span class="op">^</span> (<span class="fl">1</span><span class="op">/</span>(α<span class="op">-</span><span class="fl">1</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> δ<span class="op">*</span>k</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (;</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> [z,k],</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> [i],</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>steady_state (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">steady_state</span>(model)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> <span class="fu">arbitrage</span>(m.s, m.x, m.s, m.x, model)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> <span class="fu">transition</span>(m.s, m.x, model) <span class="op">-</span> m.s</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>[r1,r2]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@assert</span> <span class="fu">maximum</span>(abs, [r1; r2]) <span class="op">&lt;</span> <span class="fl">1e-12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The first order system satisfies: <span class="math display">\[\begin{align}A s_t + B x_t + C s_{t+1} + D x_{t+1} &amp; = &amp; 0 \\\\
 s_{t+1} &amp; = &amp; E s_t + F x_t
 \end{align}\]</span></p>
 <p><strong>Define a structure <code>PerturbedModel</code> to hold matrices A,B,C,D,E,F.</strong></p>
+<div id="cell-19" class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">ForwardDiff</span>: jacobian</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(u, m.x, m.s, m.x, model), m.s)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(m.s, u, m.s, m.x, model), m.x)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(m.s, m.x, u, m.x, model), m.s)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(m.s, m.x, m.s, u, model), m.x)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;transition</span>(u, m.x, model), m.s)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;transition</span>(m.s, u, model), m.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2×1 Matrix{Float64}:
+ 0.0
+ 1.0</code></pre>
+</div>
+</div>
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(A = [5.074626865671642 0.5212190203776081], B = [-3.679193085018409;;], C = [-4.938626865671642 -0.5538125831185546], D = [3.679193085018409;;], E = [0.9 0.0; 0.0 0.9], F = [0.0; 1.0;;])</code></pre>
+</div>
+</div>
 <p><strong>Write a function <code>first_order_model(s::Vector, x::Vector, p)::PerturbedModel</code>, which returns the first order model, given the steady-state and the calibration. Suggestion: use <code>ForwardDiff.jl</code> library.</strong></p>
+<div id="cell-23" class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">first_order_model</span>(model)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> <span class="fu">steady_state</span>(model)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(u, m.x, m.s, m.x, model), m.s)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(m.s, u, m.s, m.x, model), m.x)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(m.s, m.x, u, m.x, model), m.s)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;arbitrage</span>(m.s, m.x, m.s, u, model), m.x)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    E <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;transition</span>(u, m.x, model), m.s)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> <span class="fu">jacobian</span>(<span class="fu">u-&gt;transition</span>(m.s, u, model), m.x)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    pm <span class="op">=</span> (;A, B, C, D, E, F)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    pm</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>first_order_model (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first_order_model</span>(<span class="fu">merge</span>(model, (;α<span class="op">=</span><span class="fl">0.2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(A = [4.6575342465753415 0.6053173918792945], B = [-4.272828648559724;;], C = [-4.521534246575342 -0.6760184632507961], D = [4.272828648559724;;], E = [0.9 0.0; 0.0 0.9], F = [0.0; 1.0;;])</code></pre>
+</div>
+</div>
 <p><strong>We look for a linear solution <span class="math inline">\(x_t = X s_t\)</span> . Write the matrix equation which <code>X</code> must satisfy. Write a function <code>residual(X::Array, M::PerturbedModel)</code> which computes the residual of this equation for a given <code>X</code>.</strong></p>
+<div id="cell-26" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residual</span>(X<span class="op">::</span><span class="dt">Array</span>, M)  <span class="op">=</span> M.A <span class="op">+</span> M.B<span class="op">*</span>X <span class="op">+</span> (M.C<span class="op">+</span>M.D<span class="op">*</span>X)<span class="fu">*</span>(M.E<span class="op">+</span>M.F<span class="op">*</span>X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>residual (generic function with 1 method)</code></pre>
+</div>
+</div>
 <p><strong>Write a function <code>T(X, M::PerturbedModel)</code> which implements the time iteration step.</strong></p>
+<div id="cell-28" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">T</span>(X, M) <span class="op">=</span> <span class="op">-</span> (<span class="fu">B+</span>(C<span class="op">+</span>D<span class="op">*</span>X)<span class="op">*</span>F) <span class="op">\</span> (<span class="fu">A+</span>(C<span class="op">+</span>D<span class="op">*</span>X)<span class="op">*</span>E)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>T (generic function with 1 method)</code></pre>
+</div>
+</div>
 <p><strong>Write function <code>linear_time_iteration(X_0::Matrix, m::PerturbedModel)::Matrix</code> which implements the time iteration algorithm. Apply it to <code>X0 = rand(1,2)</code> and check that the result satisfies the first order model.</strong></p>
+<div id="cell-30" class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">linear_time_iteration</span>(M; TT<span class="op">=</span><span class="fl">200</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    nx, ns <span class="op">=</span> <span class="fu">size</span>(M.A)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    X0 <span class="op">=</span> <span class="fu">rand</span>(nx, ns)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t<span class="op">=</span><span class="fl">1</span><span class="op">:</span>TT</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> <span class="fu">T</span>(X0, M)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> <span class="fu">residual</span>(X,M)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        ϵ<span class="op">=</span> <span class="fu">maximum</span>(abs,r)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(t, ϵ)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ϵ<span class="op">&lt;</span><span class="fl">1e-10</span> </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> X</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>        X0 <span class="op">=</span> X</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">error</span>(<span class="st">"No convergence"</span>)</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>linear_time_iteration (generic function with 1 method)</code></pre>
+</div>
+</div>
 <p><strong>Check blanchard Kahn Conditions</strong></p>
+<div id="cell-32" class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="fu">first_order_model</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(A = [5.074626865671642 0.5212190203776081], B = [-3.679193085018409;;], C = [-4.938626865671642 -0.5538125831185546], D = [3.679193085018409;;], E = [0.9 0.0; 0.0 0.9], F = [0.0; 1.0;;])</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="94">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">linear_time_iteration</span>(M)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>132.50570793314876
+210.455512505432662
+31.9466036686389936
+40.9287841848793645
+50.5970565928183014
+60.4386101972004859
+70.34512711663380324
+80.28217302112220377
+90.23593757247082392
+100.1999610141445829
+110.1708632158035548
+120.14671240459370383
+130.12631996092750652
+140.10890566120863943
+150.09392679583513797
+160.08098577929560458
+170.06977783639770285
+180.060060235812492646
+190.051633602213620566
+200.04433022883245341
+210.038006555509233486
+220.03253817699504857
+230.02781641354569553
+240.023745859597579688
+250.02024255316404
+260.0172325456218263
+270.014650735639557322
+280.012439883089379045
+290.010549751162809429
+300.008936344979571409
+310.007561227293772177
+320.006390899327732402
+330.005396239121463253
+340.0045519922426331405
+350.003836311007448856
+360.00323033899607017
+370.0027178379089787263
+380.002284853889691796
+390.0019194204454136
+400.001611295093300047
+410.001351726877772741
+420.0011332519568290067
+430.0009495145444757824
+440.000795110618227568
+450.0006654519482678367
+460.0005566481706718029
+470.0004654048037391334
+480.0003889352874364427
+490.0003248853059747425
+500.00027126782837472163
+510.00022640746855007166
+520.00018889292281487613
+530.00015753638752835641
+540.00013133899222594891
+550.00010946140386947079
+569.119886607455996e-5
+577.596003383314454e-5
+586.324905002186298e-5
+595.2650385693464585e-5
+604.381603262348932e-5
+613.645469470381357e-5
+623.0322675377281172e-5
+632.521620221651588e-5
+642.096496770853662e-5
+651.742669806636954e-5
+661.4482590021458464e-5
+671.2033479718898121e-5
+689.996628493436077e-6
+698.303027978939781e-6
+706.895142039997637e-6
+715.725015829405322e-6
+724.752693176346412e-6
+733.944892712937076e-6
+743.2739010031868077e-6
+752.7166475389250877e-6
+762.253932073426057e-6
+771.8697794725852646e-6
+781.550901268299043e-6
+791.2862464315865907e-6
+801.0666267296066678e-6
+818.844043821731873e-7
+827.332317570885039e-7
+836.078344969573379e-7
+845.038308832361338e-7
+854.1758143876080567e-7
+863.4606372745216163e-7
+872.867681665463806e-7
+882.3761134482214175e-7
+891.9686392294104849e-7
+901.6309067474296057e-7
+911.3510063912036685e-7
+921.1190568782737387e-7
+939.268608858192806e-8
+947.6761896394828e-8
+956.356918635930242e-8
+965.2640311665186346e-8
+974.35875118220963e-8
+983.6089302657416056e-8
+992.9879175134084335e-8
+1002.4736217962839646e-8
+1012.047733405063923e-8
+1021.6950784331726254e-8
+1031.4030824946331677e-8
+1041.1613267236754155e-8
+1059.611787366026192e-9
+1067.954870984150375e-9
+1076.583275702354285e-9
+1085.447930107038701e-9
+1094.508190265539724e-9
+1103.730394215750721e-9
+1113.086666477969402e-9
+1122.553921962800132e-9
+1132.1130466265617542e-9
+1141.7482140179936323e-9
+1151.4463208408699302e-9
+1161.1965197721508503e-9
+1179.898299957455947e-10
+1188.188179023704834e-10
+1196.773301919338337e-10
+1205.602740493770852e-10
+1214.634341799203412e-10
+1223.833213746418096e-10
+1233.1704905367746505e-10
+1242.6222757298910437e-10
+1252.1687940332526523e-10
+1261.793694082152797e-10
+1271.4834311556910507e-10
+1281.2268097648870935e-10
+1291.014557327039256e-10
+1308.390088623855263e-11</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>1×2 Matrix{Float64}:
+ 0.768674  0.0278097</code></pre>
+</div>
+</div>
 <p><strong>Define two linear operators <code>L_S(U::Union{Vector, Matrix}, X_0::Matrix, m::PerturbedModel)::Matrix</code> and <code>L_T(U::Matrix, X_0::Matrix, m::PerturbedModel)::Matrix</code> which implement the derivatives of the simulation and the time-iteration operator respectively.</strong></p>
 <p><strong>Implement a function <code>spectral_radius(f::Function)::Float64</code> which implements the power iteration method to compute the biggest eigenvalues of the two previously defined operators. Check that Blanchard-Kahn conditions are met.</strong></p>
 <p><strong>Write a function <code>simulate(s0::Vector, X::Matrix, p, T::Int64)::Tuple{Matrix, Matrix}</code> to simulate the model over <span class="math inline">\(T\)</span> periods (by using the formula <span class="math inline">\(\Delta s_t = (E + F X) \Delta s_{t-1}\)</span>. Return a matrix for the states (one line per date) and another matrix for the controls. Bonus: add a keyword option to compute variables levels or log-deviations. If possible, return a DataFrame object.</strong></p>

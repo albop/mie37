@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://albop.github.io/mie37/pushups/2_Optimization_pushups.html</loc>
-    <lastmod>2024-12-06T00:26:09.882Z</lastmod>
+    <lastmod>2025-03-20T08:44:49.235Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/students/list.html</loc>
@@ -26,11 +26,11 @@
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/3_perturbation_neoclassical.html</loc>
-    <lastmod>2025-03-06T12:03:57.071Z</lastmod>
+    <lastmod>2025-03-20T08:42:56.794Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/6_discrete_dynamic_programming.html</loc>
-    <lastmod>2024-12-06T00:26:09.991Z</lastmod>
+    <lastmod>2025-04-03T10:54:47.047Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics_correction.html</loc>
@@ -49,23 +49,23 @@
     <lastmod>2025-02-06T11:55:52.390Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/slides/optimization.html</loc>
-    <lastmod>2025-02-06T11:53:15.549Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/session_4/index.html</loc>
+    <lastmod>2025-03-27T09:07:49.040Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/slides/interpolation.html</loc>
-    <lastmod>2025-02-06T11:53:05.954Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/ddp.html</loc>
+    <lastmod>2025-04-03T10:38:41.041Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/slides/discretization.html</loc>
-    <lastmod>2025-02-06T11:52:55.790Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/session_2/index.html</loc>
+    <lastmod>2025-03-20T09:08:46.371Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/homework/2024/Coursework_mie37_2024.html</loc>
-    <lastmod>2024-12-06T00:26:09.881Z</lastmod>
+    <loc>https://albop.github.io/mie37/1_epidemiology.html</loc>
+    <lastmod>2024-12-06T00:26:09.879Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/exam/2023/Exam_mie37_2023.html</loc>
+    <loc>https://albop.github.io/mie37/exam/2024/Exam_mie37_2024.html</loc>
     <lastmod>2024-12-06T00:26:09.881Z</lastmod>
   </url>
   <url>
@@ -73,24 +73,28 @@
     <lastmod>2024-12-06T00:26:09.880Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/exam/2024/Exam_mie37_2024.html</loc>
+    <loc>https://albop.github.io/mie37/exam/2023/Exam_mie37_2023.html</loc>
     <lastmod>2024-12-06T00:26:09.881Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/1_epidemiology.html</loc>
-    <lastmod>2024-12-06T00:26:09.879Z</lastmod>
+    <loc>https://albop.github.io/mie37/homework/2024/Coursework_mie37_2024.html</loc>
+    <lastmod>2024-12-06T00:26:09.881Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/slides/session_2/index.html</loc>
-    <lastmod>2025-02-20T11:37:58.463Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/discretization.html</loc>
+    <lastmod>2025-02-06T11:52:55.790Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/slides/ddp.html</loc>
-    <lastmod>2025-02-06T11:52:41.661Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/interpolation.html</loc>
+    <lastmod>2025-02-06T11:53:05.954Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/slides/session_4/index.html</loc>
-    <lastmod>2025-02-06T11:52:23.402Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/optimization.html</loc>
+    <lastmod>2025-02-06T11:53:15.549Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/slides/session_ddp/index.html</loc>
+    <lastmod>2025-04-03T11:36:37.565Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/slides/optimization copy.html</loc>
@@ -114,7 +118,7 @@
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/4_Optimization.html</loc>
-    <lastmod>2024-12-06T00:26:09.990Z</lastmod>
+    <lastmod>2025-03-27T14:04:53.584Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/tutorials/6_discrete_dynamic_programming_mccall_correction.html</loc>

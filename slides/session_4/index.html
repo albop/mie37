@@ -626,7 +626,7 @@ Proof that convergence is quadratic
 <section id="gauss-newton-minimization" class="slide level2">
 <h2>Gauss-Newton Minimization</h2>
 <ul>
-<li>Restrict to least-square minimization: $min_x _i f(x)_i^2 R $</li>
+<li>Restrict to least-square minimization: <span class="math inline">\(min_x \sum_i f(x)_i^2 \in R\)</span></li>
 <li>Then up to first order, <span class="math inline">\(H(x_n)\approx J(x_n)^{\prime}J(x_n)\)</span></li>
 <li>Use the step: <span class="math inline">\(({J(x_n)^{\prime}J(x_n)})^{-1}\color{\green}{ J(x_n)}\)</span></li>
 <li>Convergence:
@@ -639,7 +639,7 @@ Proof that convergence is quadratic
 <section id="levenberg-marquardt" class="slide level2">
 <h2>Levenberg-Marquardt</h2>
 <ul>
-<li><p>Least-square minimization: $min_x _i f(x)_i^2 R $</p></li>
+<li><p>Least-square minimization: <span class="math inline">\(min_x \sum_i f(x)_i^2 \in R\)</span></p></li>
 <li><p>replace <span class="math inline">\({J(x_n)^{\prime}J(x_n)}^{-1}\)</span> by <span class="math inline">\({J(x_n)^{\prime}J(x_n)}^{-1} +\mu I\)</span></p>
 <ul>
 <li>adjust <span class="math inline">\(\lambda\)</span> depending on progress</li>

@@ -1,8 +1,8 @@
 ---
 title: Discretization
 subtitle:  "Advanced Macro: Numerical Methods"
-date: 2025/04/11
-author: Year 2023-2024 (MIE37)
+date: 2025/04/17
+author: Year 2024-2025 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax

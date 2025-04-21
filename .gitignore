@@ -7,3 +7,4 @@ slides/*_files/*
 *.tex
 /.quarto/
 _site/*
+.aider*

@@ -2,7 +2,6 @@ project:
   type: website
 execute:
   echo: true
-  keep-ipynb: true
 
 website:
   title: "Advanced Macro: Numerical Methods"
@@ -16,7 +15,7 @@ website:
             - slides/session_2/index.qmd
             - slides/session_3/index.qmd
             - slides/session_4/index.qmd
-            - slides/ddp.qmd
+            - slides/session_ddp/index.qmd
             - slides/discretization.qmd
             - slides/interpolation.qmd
             - slides/time_iteration.qmd
@@ -29,16 +28,22 @@ website:
             - tutorials/3_perturbation_neoclassical.ipynb
             - tutorials/4_Optimization.ipynb
             - tutorials/6_discrete_dynamic_programming.ipynb
-            - tutorials/6_discrete_dynamic_programming_mccall_correction.ipynb
+            - tutorials/mccall.ipynb
+            # - tutorials/6_discrete_dynamic_programming_mccall_correction.ipynb
         
         - section: "Pushups"
           contents:
             - pushups/2_Optimization_pushups.ipynb
-            - pushups/Exam_mie37_2023.ipynb
-
-        - section: "Graded"
+        
+        - section: Exams
           contents:
-            - homework/2024/Coursework_mie37_2024.ipynb
+            - exam/2023/Exam_mie37_2023.ipynb
+            - exam/2024/Exam_mie37_2024.ipynb
+
+        - section: "Coursework"
+          contents:
+            - homework/2025/coursework_1.ipynb
+            - homework/2025/coursework_2.ipynb
   
 format:
   html:

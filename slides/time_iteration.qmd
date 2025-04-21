@@ -1,8 +1,8 @@
 ---
 title: Time Iteration
 subtitle:  "Advanced Macro: Numerical Methods"
-date: 2025/04/11
-author: Year 2023-2024 (MIE37)
+date: 2025/04/17
+author: Year 2024-202 (MIE37)
 format:
   revealjs:
     html-math-method: mathjax
@@ -10,6 +10,23 @@ format:
     width: 1920
     height: 1080
 ---
+
+# Approximate Dynamic Programming
+
+
+## What's new today?
+
+- The nature of the problem:
+  - Last time we did *discrete dynamic programming*: $S$ and $X$ finite
+  - Today both are continuous: *approximate dynamic programming*
+    - today, we have continuous decision rules
+    - we will need to __discretize__ and __interpolate__
+- The representation of the model
+  - We used the Bellman representation
+  - Today we use first order representation (Euler and co.)
+- The solution metod:
+  - We will see the main *time-iteration* algorithms
+
 
 # First order representation of a model
 
@@ -308,15 +325,21 @@ $$F(u) \perp \mathbf{a} \leq u \leq \mathbf{b}$$
 
 ## Time iteration variants
 
-- You can check out:
-  - endogenous grid points:
-    - mathematically equivalent to TI, 
-    - much faster for models that have a particular structure (consumption saving models)
-    - no need for a nonlinear solver
-  - improved time iterations:
-    - same as policy iterations for value function iterations
-    - convergence is equivalent to that of TI
-    - much faster but requires correct initial guess
-  - parameterized expectations
-    - requires that all controls are determined as a function of expectations
+You can check out:
+
+- endogenous grid points:
+  - mathematically equivalent to TI, 
+  - much faster for models that have a particular structure (consumption saving models)
+  - no need for a nonlinear solver
+- improved time iterations:
+  - same as policy iterations for value function iterations
+  - convergence is equivalent to that of TI
+  - much faster but requires correct initial guess
+- parameterized expectations
+  - requires that all controls are determined as a function of expectations
   
+And [Dolo.jl](https://github.com/EconForge/Dolo.jl) for a library that implements some of these algorithms.
+
+
+# Towards Ayiagari
+

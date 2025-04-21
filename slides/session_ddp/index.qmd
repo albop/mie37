@@ -1,15 +1,18 @@
 ---
 title: Discrete Dynamic Programming
-date: 2025/03/28
-subtitle:  "Advanced Macro: Numerical Methods"
-author: Year 2023-2024 (MIE37)
+date: 2025/04/03
+subtitle: "Advanced Macro: Numerical Methods (MIE37)"
+author: Pablo Winant
 format:
   revealjs:
+    mermaid-format: png
     width: 1920
     height: 1080
     toc: true
     toc-depth: 1
 logo: logo.png
+execute:
+  echo: false
 ---
 
 ## Introduction
@@ -68,6 +71,7 @@ I spent the Fall quarter (of 1950) at RAND. My first task was to find a name for
 
 ## Example
 
+
 $$\underbrace{
 \begin{pmatrix}
 ? & ? & ?
@@ -82,9 +86,23 @@ $$\underbrace{
 0 & 0 & 1.0
 \end{pmatrix}$$
 
-## Representation as a graph
+. . .
 
-![](attack_plan.svg)
+Graphical Representation:
+
+```{mermaid}
+%%| fig-width: 10
+%%| fig-height: 5
+flowchart LR
+
+  A --> |0.4| A
+  A --> |0.6| B
+  B --> |0.2| A
+  B --> |0.5| B
+  B --> |0.3| C
+  C --> |1.0| C
+
+```
 
 ## Probabilistic interpretation
 
@@ -117,7 +135,7 @@ $(P^k)_ {i,j}>0$ and $(P^l)_ {j,i}>0$
 - A stochastic matrix $P$ is irreducible if all states communicate
     - there is a unique communication class
 
-## Connectivity and irreducibility (example from QE)
+## Connectivity and irreducibility
 
 ::: columns
 
@@ -125,9 +143,18 @@ $(P^k)_ {i,j}>0$ and $(P^l)_ {j,i}>0$
 
 ##### Irreducible
 
-![](mc_irreducibility1.png)
+```{mermaid}
+%%| fig-width: 10
+%%| fig-height: 5
+flowchart LR
+  A(Poor) --> |0.1| B(Middle Class)
+  B --> |0.2| C(Rich)
+  B --> |0.4| A
+  C --> |0.1| B
+  C --> |0.1| A
+```
 
-- All states can be reached with positive probably from any other initial state.
+__Irreducible__: all states can be reached with positive probability from any initial state.
 
 ::::
 :::: column
@@ -136,9 +163,19 @@ $(P^k)_ {i,j}>0$ and $(P^l)_ {j,i}>0$
 ##### Not irreducible
 
 
-![](mc_irreducibility2.png)
 
-- There is a subset of states (poor), which absorbs all the mass coming in.
+```{mermaid}
+%%| fig-width: 10
+%%| fig-height: 5
+flowchart LR
+  %% A(Poor) --> |0| B(Middle Class)
+  B(Middle Class) --> |0.11| A(Poor)
+  B --> |0.2| C(Rich)
+  C --> |0.1| B
+  C --> |0.1| A
+```
+
+- Here there is a subset of states (poor), which absorbs all the mass coming in.
 
 ::::
 :::
@@ -153,7 +190,7 @@ $$gcd( {k\geq 1 | (P^k)_{i,i}>0} )$$
 - If a state has a period d>1  the chain returns to the state only at dates multiple of d.
 
 
-## Aperiodicity (example from QE)
+## Aperiodicity
 
 
 ::: columns
@@ -162,7 +199,14 @@ $$gcd( {k\geq 1 | (P^k)_{i,i}>0} )$$
 
 ##### Periodic
 
-![](mc_aperiodicity1.png)
+```{mermaid}
+%%| fig-width: 10
+
+flowchart LR
+  A --> |1| B
+  B --> |1| C
+  C --> |1| A
+```
 
 - If you start from some states, you return to it, but not before two periods.
 
@@ -171,7 +215,20 @@ $$gcd( {k\geq 1 | (P^k)_{i,i}>0} )$$
 
 ##### Aperiodic
 
-![](mc_aperiodicity2.png)
+
+```{mermaid}
+%%| fig-width: 10
+
+flowchart LR
+
+  A --> |1.0| B
+  B --> |0.5| A
+  B --> |0.5| C
+  C --> |0.5| B
+  C --> |0.5| D
+  D --> |1.0| C
+
+```
 
 - If some mass leaves a state, some of it returns to the state in the next period.
 
@@ -270,11 +327,56 @@ R[end] = 1
 - Basic algorithms are easy to implement by hand
 - QuantEcon toolbox has very good methods to study markov chains
 
----
 
 # Dynamic Programing: notations
 
-----
+
+
+##
+
+
+\ \ 
+
+Consider the following problems:
+
+\ \ \
+
+
+::: columns
+:::: {.column width=25%}
+
+Monopoly pricing:
+
+$$\max_{q} \pi(q) - c(q)$$
+
+::::
+:::: {.column width=25%}
+
+Shopping problem
+
+$$\max_{\substack{c_1, c_2 \\ p_1 c_1 + p_2 c_2 \leq B}} U(c_1,c_2)$$
+
+::::
+:::: {.column width=50%}
+
+Consumption Savings
+
+$$\max_{\substack{c() \\ w_{t+1}=(w_t-c(w_t))(1+r)) + y_{t+1}}} E_0 \sum_t \beta^t U(c(w_t))$$
+
+::::
+:::
+
+\ \ \
+
+. . .
+
+
+|   Problem           | objective        | action                         | state            | transition          | type                 |
+| ------------------- | ---------------- | ------------------------------ | ---------------- | ------------------- | -------------------- |
+| monopoly pricing    | profit           | choose quantity to produce     |                  |                     | optimization         |
+| shopping problem    | utility          | choose consumption composition | budget $B$       |                     | comparative statics  |
+| consumption/savings | expected welfare | save or consume                | available income | evolution of wealth | dynamic optimization |
+
 
 ## General Formulation
 

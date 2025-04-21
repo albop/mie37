@@ -29,16 +29,31 @@ format:
 
 ## Recursive sequence
 
-Consider a function $f: R\rightarrow R$ and a recursive sequence $(x_n)$ defined by $x_0$ and $x_n = f(x_{n-1})$.
+Consider a function $f: R^n\rightarrow R^n$ and a recursive sequence $(x_n)$ defined by $x_0\in R^n$ and $x_n = f(x_{n-1})$.
 
 We want to compute a fixed point of $f$ and study its properties.
+
+\ \ 
+
+. . .
+
+__Today__: Some methods for the case $n=1$.
+
+\ \ 
+
+. . .
+
+__Another day__: 
+
+- the matrix case: $x_n = A^n x_0$ whre $A\in R^n \times R^n$
+- the finite nonlinear case: $x_n = f(x_{n-1})$
 
 
 ## Example: growth model
 
 ::: columns
 
-:::: {.column width=60%}
+:::: {.column width=30%}
 
 - Solow growth model:
   - capital accumulation:
@@ -49,6 +64,16 @@ We want to compute a fixed point of $f$ and study its properties.
       $$c_t = (1-{\color{red}s})y_t$$
       $$i_t = s y_t$$
 
+
+::::
+
+:::: {.column width=30%}
+
+<img class="fragment" src="solow.png" width=100% data-fragment-index=2>
+
+::::
+
+:::: {.column width=30%}
 
 <div class="r-stack">
 
@@ -76,11 +101,6 @@ Questions:
 
 ::::
 
-:::: {.column width=40%}
-
-<img class="fragment" src="solow.png" width=100% data-fragment-index=2>
-
-::::
 :::
 
 
@@ -126,41 +146,40 @@ Questions:
 :::
 
 
-## Recursive series (2)
+## Recursive sequence (2)
+
+::: {.incremental}
 
 - Wait: does a fixed point exist?
     - we're not very concerned by the existence problem here
     - we'll be happy with local conditions (existence, uniqueness) around a solution
 
-- We can assume there is an interval such that $f([a,b])\subset[a,b]$. Then we know there exists $x$ in $[a,b]$ such that $f(x)=x$. But there can be many such points.
+- In theoretical work, there are many fixed-point theorems to choose from.
 
+- For instance, we can assume there is an interval such that $f([a,b])\subset[a,b]$. Then we know there exists $x$ in $[a,b]$ such that $f(x)=x$. But there can be many such points.
+
+:::
 
 ## Example: growth model with multiple fixed points
 
 
-<div class= "container">
+![Multiple equilibria in the growth model](growth_multiple_equilibria.jpg){width=40%}
 
-<div class="col">
-
-- In the growth model, if we change the production function: $y=k^{\alpha}$
+In the growth model, if we change the production function: $y=k^{\alpha}$
 for a nonconvex/nonmonotonic one, we can get multiple fixed points.
-
-
-</div>
-
-<div class="col">
-
-<img src=growth_multiple_equilibria.jpg width=40%>
-
-</div>
-
-</div>
 
 
 ## Convergence
 
+- Given $f: R \rightarrow R$
+
 - How do we characterize behaviour around $x$ such that $f(x)=x$?
-    - if $|f^{\prime}(x)|>1$: series is unstable and will not converge to $x$ except by chance
+
+. . . 
+
+- Stability criterium:
+
+    - if $|f^{\prime}(x)|>1$: sequence is unstable and will not converge to $x$ except by chance
     - if $|f^{\prime}(x)|<1$: $x$ is a stable fixed point
     - if $|f^{\prime}(x)|=1$: ??? (look at higher order terms, details  ↓)
 
@@ -179,8 +198,10 @@ When $|f^{\prime}(x)|<1$, the distance to the target decreases at each iteration
 
 ##
 
-<div class="container">
-<div class="col">
+<!-- ::: columns
+
+:::: column -->
+
 What about the case  $|f^{\prime}(x)=1|$?  Many cases are possible. To distinguish between them, one needs to inspect higher order derivatives.
 
 - when $|f^{\prime}(x)=1|$, $|f^{\prime\prime}(x)|\neq 0$ the series will convergence, only if $(x_0-x)f^{\prime\prime}(x)<0$, i.e. starting from one side of the fixed point. The steady-state is not stable.
@@ -189,47 +210,50 @@ What about the case  $|f^{\prime}(x)=1|$?  Many cases are possible. To distingui
 In general, there is stability only if the function $f$ is crossing the 45 degrees line (when $f^ {\prime}(x)=1)$, or the -45 degrees line (when $f^ {\prime}(x)=1$)
 
 Mathematically, this involves, that:
+
 - the first non-zero coefficient $f^{k}(x)$ with $k>1$ has odd order ($k$ odd)
 - it has the right sign
 
-</div>
-<div class="col">
-[TODO: add graph]
-</div>
-</div>
+<!-- ::::
+:::: column -->
 
----
+<!-- [TODO: add graph] -->
+
+<!-- :::: -->
+<!-- ::: -->
+<!--  -->
 
 ## Change the problem
 
-- Sometimes, we are interested in tweaking the convergence speed:
+- Sometimes, we are interested in tweaking the convergence speed: $$x_{n+1} = (1-\lambda) x_n + \lambda f(x_n)$$
 
-$$x_{n+1} = (1-\lambda) x_n + \lambda f(x_n)$$
+  - $\lambda$ is the learning rate:
+      - $\lambda>1$: acceleration
+      - $\lambda<1$: dampening
 
-- $\lambda$ is the learning rate:
-    - $\lambda>1$: acceleration
-    - $\lambda<1$: dampening
+. . .
 
-- We can also replace the function by another one $g$ such that $g(x)=x\iff f(x)=x$, for instance:
+::: {.incremental}
+- We can also replace the function by another one $g$ such that $g(x)=x\iff f(x)=x$, for instance: $$g(x)=x-\frac{f(x)-x}{f^{\prime}(x)-1}$$
+  - this is the Newton iteration
+:::
 
-$$g(x)=x-\frac{f(x)-x}{f^{\prime}(x)-1}$$
-
----
 
 ## Dynamics around a stable point
 
+
+::: {.incremental}
+
 - We can write successive approximation errors:
-
 $$|x_t - x_{t-1}| =  | f(x_{t-1}) - f(x_{t-2})| $$
-
 $$|x_t - x_{t-1}| \sim |f^{\prime}(x_{t-1})| |x_{t-1} - x_{t-2}| $$
-
 - Ratio of successive approximation errors
 $$\lambda_t =  \frac{ |x_{t} - x_{t-1}| } { |x_{t-1} - x_{t-2}|}$$
+- When the sequence converges:
+$$\lambda_t \rightarrow | f^{\prime}(\overline{x}) |$$
 
-- $\lambda_t \rightarrow | f^{\prime}(\overline{x}) |$
+:::
 
----
 
 ## Dynamics around a stable point (2)
 
@@ -246,7 +270,6 @@ $$|x_t - x| \leq |x_t - x_{t+1}| + \overline{\lambda} |x_t - x_{t+1}| + \overlin
 
 $$|x_t - x| \leq \frac{1} {1-\overline{\lambda}} | x_t - x_{t+1} |$$
 
----
 
 ##  How do we improve convergence ?
 
@@ -254,7 +277,6 @@ $$\frac{|x_{t-1} - x_{t-2}|} {|x_t - x_{t-1}|} \sim |f^{\prime}(x_{t-1})|  $$
 
 corresponds to the case of __linear__ convergence (kind of slow).
 
----
 
 ## Aitken's extrapolation
 
@@ -265,7 +287,6 @@ Which implies:
 
 $$\frac{ x_{t+1}-x}{x_t-x} \sim \frac{ x_{t}-x}{x_{t-1}-x}$$
 
----
 
 ## Aitken's extrapolation (2)
 
@@ -278,7 +299,6 @@ or after some reordering
 
 $$x = x_{t-1} - \frac{(x_t-x_{t-1})^2}{x_{t+1}-2 x_t + x_{t-1}}$$
 
----
 
 ## Steffensen's Method:
 
@@ -291,7 +311,6 @@ It can be shown that the sequence generated from Steffensen's method converges _
 
 $\lim_{t\rightarrow\infty} \frac{x_{t+1}-x_t}{(x_t-x_{t-1})^2} \leq M  \in \mathbb{R}^{\star}$
 
----
 
 ## Convergence speed
 
@@ -304,7 +323,6 @@ $${\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|} = 0$
 - quadratic:
 $${\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|^{\color{red}2}} = \mu \in R^+$$
 
----
 
 ## Convergence speed
 
@@ -312,12 +330,11 @@ Remark: in the case of linear convergence:
 
 $${\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x_t|}{|x_{t}-x_{t-1}|} = \mu \in R^+ \iff {\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x^{\star}|}{|x_{t}-x^{\star}|}=\frac{1}{1-\mu}$$
 
----
-
 ## In practice
 
-- Problem:
-  - Suppose one is trying to find $x$ solving the model $G(x)=0$
+::: {.incremental}
+
+- Problem: Suppose one is trying to find $x$ solving the model $G(x)=0$
   - An iterative algorithm provides a function $f$ defining a recursive series $x_{t+1}$.
 - The best practice consists in monitoring at the same time:
   - the success criterion: $$\epsilon_n = |G(x_n)|$$
@@ -328,3 +345,5 @@ $${\lim}_{t\rightarrow\infty} \frac{|x_{t+1}-x_t|}{|x_{t}-x_{t-1}|} = \mu \in R^
   - the ratio of successive approximation errors
     $$\lambda_n = \frac{\eta_n}{\eta_{n-1}}$$
     - <!-- .element: class="fragment" --> what kind of convergence? (if $|\lambda_n|<1$: OK, otherwise: ❓)
+
+:::

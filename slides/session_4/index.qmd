@@ -391,7 +391,7 @@ $$x_{n+1} = (1-\lambda) x_n - \lambda \nabla f(x_n)$$
 
 ## Gauss-Newton Minimization
 
-- Restrict to least-square minimization: $min_x \sum_i f(x)_i^2 \in R $
+- Restrict to least-square minimization: $min_x \sum_i f(x)_i^2 \in R$
 - Then up to first order, $H(x_n)\approx J(x_n)^{\prime}J(x_n)$
 - Use the step: $({J(x_n)^{\prime}J(x_n)})^{-1}\color{\green}{ J(x_n)}$
 - Convergence:
@@ -401,7 +401,7 @@ $$x_{n+1} = (1-\lambda) x_n - \lambda \nabla f(x_n)$$
 
 ## Levenberg-Marquardt
 
-- Least-square minimization: $min_x \sum_i f(x)_i^2 \in R $
+- Least-square minimization: $min_x \sum_i f(x)_i^2 \in R$
 
 - replace ${J(x_n)^{\prime}J(x_n)}^{-1}$ by ${J(x_n)^{\prime}J(x_n)}^{-1} +\mu I$
   - adjust $\lambda$ depending on progress

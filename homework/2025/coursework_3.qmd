@@ -1,0 +1,95 @@
+---
+title: Coursework 2025 - Consumption Saving
+format:
+    html: default
+    ipynb: default
+---
+
+## 
+
+
+
+In this exercise, we try to solve the Ayiagari model.
+
+It features a continuum of households indexed by $i$, who take wage rate $\color{red} w$ and interest rate $\color{red} r$ as given.
+
+Each households $i$ is hit by a random productivity shock ($\color{green}e^i_t$), normally distributed, with variance $\sigma$ and mean $1$ so that, at the aggregate, the average productivity is $1$.
+
+Each household supplies $\color{green}e^i_t$ units of work, and can decide to consume or save her available income $a^i_{t}$. 
+
+Available income $a_t$ thus follows the law of motion:
+
+$$a^i_{t+1} = {\color{red}w } {\color{green}e^i_{t+1}} +  (a^i_{t} - c_{t}) {\color{red}r}$$
+
+There is no borrowing so that $0<c_t\leq a^i_{t}$. The household choooses consumption optimally so as to maximize:
+
+$$\sum_t \beta^t U(c_t)$$
+
+with $U(x)=\frac{x^{1-\gamma}}{1-\gamma}$ and $\beta=0.96$, $\gamma=4.0$.
+
+Aggregate savings are turned into productive capital:
+
+$$K = \int_i a^i_t $$
+
+Note that in equilibrium the distribution of savings is invariant, hence the absence of a time-subscript for aggregate cpaital.
+
+Capital is rented by competitive firms to produce that all produce with the same Cobb-Douglas technology. Total production is:
+
+$$Y = K^{\alpha} L^{1-\alpha}$$
+
+with $L=\overline{L}=1$ and $\alpha=0.3$.
+
+Wage rate and interest rate are then determined by marginal conditions:
+
+$${\color{red}r}=\alpha \frac{Y}{K}$$
+$${\color{red}w}=(1-\alpha) \frac{Y}{L}$$
+
+From the structure, it is clear that capital $\overline{K}$ determines the whole equilibrium.
+
+::: {.callout-note}
+
+Because there is no depreciation, the rental rate determined by the marginal conditions, equals the returns on savings when they are turned into productive capital.
+
+:::
+
+## Aggregate production
+
+@. Create a namedtuple (or a structure) `m` to hold all the model informations.
+
+@. Create a function `rates(K,m)::Tuple{Float64,Float64}` that takes aggregate capital and return the rental rate of capital and the wage rate.
+
+@. Choose an initial level of capital $K_0$ and corresponding rates $r_0,w_0$ so that $\beta < \beta r_0 < 1$
+
+::: {.callout-note}
+
+The second part of this inequality ensures that wealth distribution is well defined -- agents don't want to accumulate assets until they have unbounded wealth.
+
+:::
+
+## Consumption-Savings problem
+
+Given the formulation of the household problem, we can look for a decision rule for consumption $c(a)$ with $c(a)\in]0,a]$.
+In principle, the state-space is thus $]0,\infty]$, in practice we approximate the system on $]0,\overline{A}$
+
+::: {.callout-note}
+If $\color{green}e^i_t$ has a compact support, theoretical considerations show that one can choose such an $\overline{A}$.
+:::
+
+
+@. Write the Bellman equation
+
+```markdown
+your text there
+```
+
+### Approximate space
+
+The unknown is a function but we need to approximate it with a finite number of parameters. 
+
+@. A
+
+
+
+
+
+

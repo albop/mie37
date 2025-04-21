@@ -318,14 +318,6 @@ Pablo Winant
 <div class="fragment">
 <p>Graphical Representation:</p>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a></a>flowchart LR</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a>  A --&gt; |0.4| A</span>
-<span id="cb1-4"><a></a>  A --&gt; |0.6| B</span>
-<span id="cb1-5"><a></a>  B --&gt; |0.2| A</span>
-<span id="cb1-6"><a></a>  B --&gt; |0.5| B</span>
-<span id="cb1-7"><a></a>  B --&gt; |0.3| C</span>
-<span id="cb1-8"><a></a>  C --&gt; |1.0| C</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -381,12 +373,6 @@ Pablo Winant
 <div class="column">
 <h5 id="irreducible">Irreducible</h5>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a></a>flowchart LR</span>
-<span id="cb2-2"><a></a>  A(Poor) --&gt; |0.1| B(Middle Class)</span>
-<span id="cb2-3"><a></a>  B --&gt; |0.2| C(Rich)</span>
-<span id="cb2-4"><a></a>  B --&gt; |0.4| A</span>
-<span id="cb2-5"><a></a>  C --&gt; |0.1| B</span>
-<span id="cb2-6"><a></a>  C --&gt; |0.1| A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -401,12 +387,6 @@ Pablo Winant
 </div><div class="column">
 <h5 id="not-irreducible">Not irreducible</h5>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>flowchart LR</span>
-<span id="cb3-2"><a></a>  %% A(Poor) --&gt; |0| B(Middle Class)</span>
-<span id="cb3-3"><a></a>  B(Middle Class) --&gt; |0.11| A(Poor)</span>
-<span id="cb3-4"><a></a>  B --&gt; |0.2| C(Rich)</span>
-<span id="cb3-5"><a></a>  C --&gt; |0.1| B</span>
-<span id="cb3-6"><a></a>  C --&gt; |0.1| A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -436,10 +416,6 @@ Pablo Winant
 <div class="column">
 <h5 id="periodic">Periodic</h5>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a></a>flowchart LR</span>
-<span id="cb4-2"><a></a>  A --&gt; |1| B</span>
-<span id="cb4-3"><a></a>  B --&gt; |1| C</span>
-<span id="cb4-4"><a></a>  C --&gt; |1| A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -456,14 +432,6 @@ Pablo Winant
 </div><div class="column">
 <h5 id="aperiodic">Aperiodic</h5>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>flowchart LR</span>
-<span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a>  A --&gt; |1.0| B</span>
-<span id="cb5-4"><a></a>  B --&gt; |0.5| A</span>
-<span id="cb5-5"><a></a>  B --&gt; |0.5| C</span>
-<span id="cb5-6"><a></a>  C --&gt; |0.5| B</span>
-<span id="cb5-7"><a></a>  C --&gt; |0.5| D</span>
-<span id="cb5-8"><a></a>  D --&gt; |1.0| C</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -567,23 +535,23 @@ Pablo Winant
 </section>
 <section id="code-example" class="slide level2">
 <h2>Code example</h2>
-<div class="sourceCode" id="cb6" data-code-line-numbers="[1-2|3-6|7-9|10-12|13-14|15-17]"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a></a><span class="co"># we use the identity matrix and the \ operator</span></span>
-<span id="cb6-2"><a></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>: I, \</span>
-<span id="cb6-3"><a></a><span class="co"># define a stochastic matrix (lines sum to 1)</span></span>
-<span id="cb6-4"><a></a>P <span class="op">=</span> [  <span class="fl">0.9</span>  <span class="fl">0.1</span> <span class="fl">0.0</span>  ;</span>
-<span id="cb6-5"><a></a>       <span class="fl">0.05</span> <span class="fl">0.9</span> <span class="fl">0.05</span> ;</span>
-<span id="cb6-6"><a></a>       <span class="fl">0.0</span>  <span class="fl">0.9</span> <span class="fl">0.1</span>  ]</span>
-<span id="cb6-7"><a></a><span class="co"># define an auxiliary matrix</span></span>
-<span id="cb6-8"><a></a>M <span class="op">=</span> P<span class="op">'</span> <span class="op">-</span> I</span>
-<span id="cb6-9"><a></a>M[<span class="kw">end</span>,<span class="op">:</span>] <span class="op">.=</span> <span class="fl">1.0</span></span>
-<span id="cb6-10"><a></a><span class="co"># define rhs</span></span>
-<span id="cb6-11"><a></a>R <span class="op">=</span> <span class="fu">zeros</span>(<span class="fl">3</span>)</span>
-<span id="cb6-12"><a></a>R[<span class="kw">end</span>] <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb6-13"><a></a><span class="co"># solve the system</span></span>
-<span id="cb6-14"><a></a>μ <span class="op">=</span> M<span class="op">\</span>R</span>
-<span id="cb6-15"><a></a><span class="co"># check that you have a solution:</span></span>
-<span id="cb6-16"><a></a><span class="pp">@assert</span> <span class="fu">sum</span>(μ) <span class="op">==</span> <span class="fl">1</span></span>
-<span id="cb6-17"><a></a><span class="pp">@assert</span> <span class="fu">all</span>(<span class="fu">abs</span>.(μ<span class="ch">'P - μ'</span>)<span class="op">.&lt;</span><span class="fl">1e-10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-code-line-numbers="[1-2|3-6|7-9|10-12|13-14|15-17]"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a></a><span class="co"># we use the identity matrix and the \ operator</span></span>
+<span id="cb1-2"><a></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>: I, \</span>
+<span id="cb1-3"><a></a><span class="co"># define a stochastic matrix (lines sum to 1)</span></span>
+<span id="cb1-4"><a></a>P <span class="op">=</span> [  <span class="fl">0.9</span>  <span class="fl">0.1</span> <span class="fl">0.0</span>  ;</span>
+<span id="cb1-5"><a></a>       <span class="fl">0.05</span> <span class="fl">0.9</span> <span class="fl">0.05</span> ;</span>
+<span id="cb1-6"><a></a>       <span class="fl">0.0</span>  <span class="fl">0.9</span> <span class="fl">0.1</span>  ]</span>
+<span id="cb1-7"><a></a><span class="co"># define an auxiliary matrix</span></span>
+<span id="cb1-8"><a></a>M <span class="op">=</span> P<span class="op">'</span> <span class="op">-</span> I</span>
+<span id="cb1-9"><a></a>M[<span class="kw">end</span>,<span class="op">:</span>] <span class="op">.=</span> <span class="fl">1.0</span></span>
+<span id="cb1-10"><a></a><span class="co"># define rhs</span></span>
+<span id="cb1-11"><a></a>R <span class="op">=</span> <span class="fu">zeros</span>(<span class="fl">3</span>)</span>
+<span id="cb1-12"><a></a>R[<span class="kw">end</span>] <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb1-13"><a></a><span class="co"># solve the system</span></span>
+<span id="cb1-14"><a></a>μ <span class="op">=</span> M<span class="op">\</span>R</span>
+<span id="cb1-15"><a></a><span class="co"># check that you have a solution:</span></span>
+<span id="cb1-16"><a></a><span class="pp">@assert</span> <span class="fu">sum</span>(μ) <span class="op">==</span> <span class="fl">1</span></span>
+<span id="cb1-17"><a></a><span class="pp">@assert</span> <span class="fu">all</span>(<span class="fu">abs</span>.(μ<span class="ch">'P - μ'</span>)<span class="op">.&lt;</span><span class="fl">1e-10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="further-comments" class="slide level2">
 <h2>Further comments</h2>

@@ -9,8 +9,8 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <meta name="author" content="Year 2023-2024 (MIE37)">
-  <meta name="dcterms.date" content="2025-04-11">
+  <meta name="author" content="Year 2024-202 (MIE37)">
+  <meta name="dcterms.date" content="2025-04-17">
   <title>Advanced Macro: Numerical Methods – Time Iteration</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -134,19 +134,47 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Year 2023-2024 (MIE37) 
+Year 2024-202 (MIE37) 
 </div>
 </div>
 </div>
 
-  <p class="date">2025-04-11</p>
+  <p class="date">2025-04-17</p>
 </section>
+<section>
+<section id="approximate-dynamic-programming" class="title-slide slide level1 center">
+<h1>Approximate Dynamic Programming</h1>
+
+</section>
+<section id="whats-new-today" class="slide level2">
+<h2>What’s new today?</h2>
+<ul>
+<li>The nature of the problem:
+<ul>
+<li>Last time we did <em>discrete dynamic programming</em>: <span class="math inline">\(S\)</span> and <span class="math inline">\(X\)</span> finite</li>
+<li>Today both are continuous: <em>approximate dynamic programming</em>
+<ul>
+<li>today, we have continuous decision rules</li>
+<li>we will need to <strong>discretize</strong> and <strong>interpolate</strong></li>
+</ul></li>
+</ul></li>
+<li>The representation of the model
+<ul>
+<li>We used the Bellman representation</li>
+<li>Today we use first order representation (Euler and co.)</li>
+</ul></li>
+<li>The solution metod:
+<ul>
+<li>We will see the main <em>time-iteration</em> algorithms</li>
+</ul></li>
+</ul>
+</section></section>
 <section>
 <section id="first-order-representation-of-a-model" class="title-slide slide level1 center">
 <h1>First order representation of a model</h1>
 
 </section>
-<section id="whats-new-today" class="slide level2">
+<section id="whats-new-today-1" class="slide level2">
 <h2>What’s new today?</h2>
 <ul>
 <li>A few weeks ago, we did discrete dynamic programming
@@ -423,8 +451,7 @@ where <span class="math display">\[s_{t+1} = g(s_t, x_t, \epsilon_{t+1})\]</span
 </section>
 <section id="time-iteration-variants" class="slide level2">
 <h2>Time iteration variants</h2>
-<ul>
-<li>You can check out:
+<p>You can check out:</p>
 <ul>
 <li>endogenous grid points:
 <ul>
@@ -442,11 +469,14 @@ where <span class="math display">\[s_{t+1} = g(s_t, x_t, \epsilon_{t+1})\]</span
 <ul>
 <li>requires that all controls are determined as a function of expectations</li>
 </ul></li>
-</ul></li>
 </ul>
-
-
+<p>And <a href="https://github.com/EconForge/Dolo.jl">Dolo.jl</a> for a library that implements some of these algorithms.</p>
 </section></section>
+<section id="towards-ayiagari" class="title-slide slide level1 center">
+<h1>Towards Ayiagari</h1>
+
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

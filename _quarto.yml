@@ -44,6 +44,7 @@ website:
           contents:
             - homework/2025/coursework_1.ipynb
             - homework/2025/coursework_2.ipynb
+            - homework/2025/coursework_3.ipynb
   
 format:
   html:

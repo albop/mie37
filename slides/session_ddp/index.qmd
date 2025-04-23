@@ -660,19 +660,19 @@ $$\max_{x_n()} r(s, x_n(s)) + \delta \sum_{s^{\prime}\in S} \pi(s^{\prime}| s, x
 ## Formalization
 
 - When <mark>unemployed</mark> in date, a job-seeker
-  - consumes unemployment benefit $c_t = \underline{c}$
-  - receives in every date $t$ a job offer $w_t$
-    - $w_t$ is i.i.d., 
+  - consumes unemployment benefit $c = \underline{c}$
+  - receives in every date $t$ a job offer $w$
+    - $w$ is i.i.d., 
     - takes values $w_1, w_2, w_3$ with probabilities $p_1, p_2, p_3$
-  - if job-seeker accepts, becomes employed at rate $w_t$ in the next period
+  - if job-seeker accepts, becomes employed at rate $w$ in the next period
   - else he stays unemployed
   
 - When <mark>employed</mark> at rate $w$
-  - worker consumes salary $c_t = w$
+  - worker consumes salary $c = w$
   - with small probability $\lambda>0$ looses his job:
     - starts next period unemployed
   - otherwise stays employed at same rate
-- Objective: $\max E_0 \left\{ \sum \beta^t \log(w_t) \right\}$
+- Objective: $\max E_0 \left\{ \sum \beta^t \log(c^t) \right\}$
 
 ## States / reward
 

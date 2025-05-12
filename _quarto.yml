@@ -39,12 +39,13 @@ website:
           contents:
             - exam/2023/Exam_mie37_2023.ipynb
             - exam/2024/Exam_mie37_2024.ipynb
+            # - exam/2025/Exam_mie37_2025.qmd
 
         - section: "Coursework"
           contents:
             - homework/2025/coursework_1.ipynb
             - homework/2025/coursework_2.ipynb
-            - homework/2025/coursework_3.ipynb
+            - homework/2025/coursework_3.qmd
   
 format:
   html:

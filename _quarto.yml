@@ -39,7 +39,7 @@ website:
           contents:
             - exam/2023/Exam_mie37_2023.ipynb
             - exam/2024/Exam_mie37_2024.ipynb
-            # - exam/2025/Exam_mie37_2025.qmd
+            - exam/2025/Exam_mie37_2025.qmd
 
         - section: "Coursework"
           contents:

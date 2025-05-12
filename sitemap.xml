@@ -2,162 +2,154 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://albop.github.io/mie37/notes.html</loc>
-    <lastmod>2024-12-06T00:26:09.881Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/experiments/test.html</loc>
-    <lastmod>2024-12-06T00:26:09.881Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/pushups/Exam_mie37_2023.html</loc>
-    <lastmod>2024-12-06T00:26:09.882Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/students/pablo/1_epidemiology.html</loc>
-    <lastmod>2024-12-06T00:26:09.986Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/tutorials/3_perturbation_neoclassical_correction.html</loc>
-    <lastmod>2025-03-06T11:59:23.628Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/tutorials/2_solow_pablo.html</loc>
-    <lastmod>2024-12-06T00:26:09.990Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/tutorials/3_perturbation_neoclassical.html</loc>
-    <lastmod>2025-03-20T08:42:56.794Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/tutorials/6_discrete_dynamic_programming.html</loc>
-    <lastmod>2025-04-03T13:07:16.806Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/tutorials/mccall.html</loc>
-    <lastmod>2025-04-17T14:25:52.951Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/index.html</loc>
-    <lastmod>2025-02-06T11:54:32.030Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/time_iteration.html</loc>
-    <lastmod>2025-04-17T07:54:45.875Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/zero_to_ayiagari.html</loc>
-    <lastmod>2025-04-17T07:12:45.916Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/session_3/index.html</loc>
-    <lastmod>2025-02-06T11:55:52.390Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/session_4/index.html</loc>
-    <lastmod>2025-03-27T09:07:49.040Z</lastmod>
+    <lastmod>2023-12-15T09:59:29.116Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/slides/interpolation.html</loc>
-    <lastmod>2025-04-17T10:56:21.583Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/discretization.html</loc>
-    <lastmod>2025-04-17T10:57:14.549Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/homework/2025/coursework_2.html</loc>
-    <lastmod>2025-04-17T10:49:09.671Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/homework/2025/coursework_1.html</loc>
-    <lastmod>2025-04-17T10:58:41.414Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/exam/2025/exam_mie37_2025.html</loc>
-    <lastmod>2025-04-22T08:48:07.729Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/exam/2023/Exam_mie37_2023.html</loc>
-    <lastmod>2025-04-17T06:50:11.261Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/about.html</loc>
-    <lastmod>2024-12-06T00:26:09.880Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/exam/2024/Exam_mie37_2024.html</loc>
-    <lastmod>2025-04-17T06:50:17.251Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/homework/2024/Coursework_mie37_2024.html</loc>
-    <lastmod>2025-04-17T06:50:22.387Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/homework/2025/coursework_3.html</loc>
-    <lastmod>2025-04-23T08:03:04.929Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/1_epidemiology.html</loc>
-    <lastmod>2024-12-06T00:26:09.879Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/session_2/index.html</loc>
-    <lastmod>2025-03-20T09:08:46.371Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/optimization.html</loc>
-    <lastmod>2025-02-06T11:53:15.549Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/session_ddp/index.html</loc>
-    <lastmod>2025-04-23T07:58:26.917Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/optimization copy.html</loc>
-    <lastmod>2024-12-06T00:26:09.884Z</lastmod>
-  </url>
-  <url>
-    <loc>https://albop.github.io/mie37/slides/rbc.html</loc>
-    <lastmod>2024-02-15T10:50:22.726Z</lastmod>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/slides/session_1/index.html</loc>
-    <lastmod>2025-02-06T11:57:42.439Z</lastmod>
+    <lastmod>2025-04-16T11:39:23.560Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics_correction.html</loc>
-    <lastmod>2024-12-06T00:26:09.988Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/optimization.html</loc>
+    <lastmod>2025-04-16T11:39:23.544Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/2_solow.html</loc>
-    <lastmod>2025-02-20T14:08:30.077Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/rbc.html</loc>
+    <lastmod>2023-12-15T09:59:29.128Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/1_epidemiology.html</loc>
-    <lastmod>2024-12-06T00:26:09.882Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/session_3/index.html</loc>
+    <lastmod>2025-04-16T11:39:23.582Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/4_Optimization.html</loc>
-    <lastmod>2025-03-27T14:04:53.584Z</lastmod>
+    <loc>https://albop.github.io/mie37/slides/session_4/index.html</loc>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics.html</loc>
-    <lastmod>2025-02-06T12:42:57.510Z</lastmod>
+    <loc>https://albop.github.io/mie37/pushups/Exam_mie37_2023.html</loc>
+    <lastmod>2025-04-16T11:39:23.544Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics_pablo.html</loc>
-    <lastmod>2025-02-07T14:42:12.849Z</lastmod>
+    <loc>https://albop.github.io/mie37/1_epidemiology.html</loc>
+    <lastmod>2025-04-16T11:39:23.543Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/students/list.html</loc>
-    <lastmod>2024-12-06T00:26:09.986Z</lastmod>
+    <lastmod>2023-12-15T09:59:29.140Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/exam/2025/exam_mie37_2025.html</loc>
+    <lastmod>2025-05-12T02:12:11.026Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/exam/2024/Exam_mie37_2024.html</loc>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/homework/2025/coursework_1.html</loc>
+    <lastmod>2025-04-21T17:16:35.054Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/homework/2025/coursework_3.html</loc>
+    <lastmod>2025-05-12T02:12:12.573Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics_correction.html</loc>
+    <lastmod>2025-04-16T11:39:23.588Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics_pablo.html</loc>
+    <lastmod>2025-04-21T16:58:16.728Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/2_solow.html</loc>
+    <lastmod>2025-04-21T16:58:16.729Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/1_epidemiology.html</loc>
+    <lastmod>2025-04-21T16:58:16.728Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/6_discrete_dynamic_programming.html</loc>
+    <lastmod>2025-04-21T16:58:16.731Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/mccall.html</loc>
+    <lastmod>2025-04-21T16:58:16.731Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/1_Julia_Basics.html</loc>
+    <lastmod>2025-04-21T16:58:16.728Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/2_solow_pablo.html</loc>
+    <lastmod>2025-04-16T11:39:23.589Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/4_Optimization.html</loc>
+    <lastmod>2025-04-21T16:58:16.731Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/tutorials/3_perturbation_neoclassical.html</loc>
+    <lastmod>2025-04-21T16:58:16.729Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/homework/2024/Coursework_mie37_2024.html</loc>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/homework/2025/coursework_2.html</loc>
+    <lastmod>2025-04-21T17:16:35.055Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/experiments/test.html</loc>
+    <lastmod>2023-12-15T09:59:29.116Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/exam/2025/Exam_mie37_2025.html</loc>
+    <lastmod>2025-05-12T02:10:07.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/exam/2023/Exam_mie37_2023.html</loc>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/students/pablo/1_epidemiology.html</loc>
+    <lastmod>2023-12-15T09:59:29.140Z</lastmod>
   </url>
   <url>
     <loc>https://albop.github.io/mie37/pushups/2_Optimization_pushups.html</loc>
-    <lastmod>2025-03-20T08:44:49.235Z</lastmod>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
   </url>
   <url>
-    <loc>https://albop.github.io/mie37/6_automatic_differentiation.html</loc>
-    <lastmod>2025-04-17T10:55:38.762Z</lastmod>
+    <loc>https://albop.github.io/mie37/about.html</loc>
+    <lastmod>2023-12-15T09:59:29.060Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/slides/optimization copy.html</loc>
+    <lastmod>2023-12-15T09:59:29.128Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/slides/time_iteration.html</loc>
+    <lastmod>2025-04-21T16:58:16.728Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/slides/discretization.html</loc>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/slides/session_2/index.html</loc>
+    <lastmod>2025-04-21T16:58:16.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/slides/session_ddp/index.html</loc>
+    <lastmod>2025-05-12T02:12:12.573Z</lastmod>
+  </url>
+  <url>
+    <loc>https://albop.github.io/mie37/index.html</loc>
+    <lastmod>2025-04-16T11:39:23.544Z</lastmod>
   </url>
 </urlset>
